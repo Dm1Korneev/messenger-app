@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./MessageInput.css";
 import TextField from "@material-ui/core/TextField";
 
 class MessageInput extends Component {

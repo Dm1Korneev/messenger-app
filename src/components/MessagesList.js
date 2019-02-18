@@ -1,5 +1,4 @@
 import React from "react";
-import "./MessagesList.css";
 import Message from "./Message";
 import List from "@material-ui/core/List";
 
