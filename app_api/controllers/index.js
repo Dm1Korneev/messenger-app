@@ -1,4 +1,3 @@
-const messagesExample = require("../messages");
 var mongoose = require("mongoose");
 var MessageModel = mongoose.model("Message");
 

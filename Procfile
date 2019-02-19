@@ -1,2 +1,1 @@
-web: npm build
-web: npm run start-express
+web: npm run build-and-start-express

@@ -1,9 +1,7 @@
 var mongoose = require("mongoose");
 
-var dbURI = "mongodb://localhost/messenger-app";
-if (process.env.NODE_ENV === "production") {
-  dbURI = process.env.MONGODB_URI;
-}
+dbURI = process.env.MONGODB_URI;
+console.log(dbURI);
 mongoose.connect(dbURI, { useNewUrlParser: true });
 
 mongoose.connection.on("connected", function() {
