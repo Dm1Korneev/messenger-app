@@ -1,61 +1,28 @@
-const MESSAGES_API_URL = "http://localhost:3000/messages.json";
+const MESSAGES_API_URL = "/api";
 
 export function getMessages(callback) {
-  if (localStorageAvailable()) {
-    var messages = getMessagesFromLocalStorage();
-    if (messages && messages.length) {
-      callback(messages);
-      return;
-    }
-  }
-
-  var url = new URL(MESSAGES_API_URL);
-
-  fetch(url)
+  fetch(MESSAGES_API_URL)
     .then(res => res.json())
     .then(result => {
-      if (localStorageAvailable()) {
-        saveMessagesInLocalStorage(result.messages);
-      }
       callback(result.messages);
     });
 }
 
 export function sendMessage(messageText) {
-  if (localStorageAvailable()) {
-    var messages = getMessagesFromLocalStorage();
-    saveMessagesInLocalStorage([
-      ...messages,
-      constructMessage(messageText, messages.length)
-    ]);
-  }
+  fetch(MESSAGES_API_URL, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: constructMessage(messageText)
+    })
+  });
 }
 
 function constructMessage(messageText, _id) {
   return {
-    text: messageText,
-    author: "John Smith",
-    avatar: "/static/images/avatars/1.jpg",
-    _id: _id
+    text: messageText
   };
-}
-
-function saveMessagesInLocalStorage(messages) {
-  window.localStorage.setItem("messages", JSON.stringify(messages));
-}
-
-function getMessagesFromLocalStorage() {
-  return JSON.parse(localStorage.getItem("messages"));
-}
-
-function localStorageAvailable() {
-  try {
-    var storage = window.localStorage,
-      x = "__storage_test__";
-    storage.setItem(x, x);
-    storage.removeItem(x);
-    return true;
-  } catch (e) {
-    return false;
-  }
 }

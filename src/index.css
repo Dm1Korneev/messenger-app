@@ -4,3 +4,7 @@ html {
   -webkit-text-size-adjust: 100%;
   background: #fafafa;
 }
+
+body {
+  margin: 0;
+}
