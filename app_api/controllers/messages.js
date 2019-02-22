@@ -1,10 +1,6 @@
 var mongoose = require("mongoose");
 var MessageModel = mongoose.model("Message");
-
-function sendJsResponse(res, status, content) {
-  res.status(status);
-  res.json(content);
-}
+var { sendJsResponse } = require("./common");
 
 module.exports.getMessages = function(req, res, next) {
   MessageModel.find().exec(function(err, messages) {

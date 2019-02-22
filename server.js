@@ -4,9 +4,10 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var passport = require("passport");
 
 require("./app_api/models/db");
-//require("./app_api/models/config/passport");
+require("./app_api/models/config/passport");
 
 var routesApi = require("./app_api/routes");
 
@@ -18,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "build")));
 
-//app.use(passport.initialize());
+app.use(passport.initialize());
 app.use("/api", routesApi);
 app.use(function(req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));

@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-dbURI = process.env.MONGODB_URI;
+const dbURI = process.env.MONGODB_URI;
 console.log(dbURI);
 mongoose.connect(dbURI, { useNewUrlParser: true });
 
@@ -40,4 +40,4 @@ process.on("SIGTERM", function() {
 });
 
 require("./messages");
-//require("./users");
+require("./users");
