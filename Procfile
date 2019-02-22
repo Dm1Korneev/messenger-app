@@ -1,1 +1,1 @@
-web: npm run build-and-start-express
+web: node ./bin/www
