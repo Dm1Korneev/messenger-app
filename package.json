@@ -23,17 +23,15 @@
     "passport-local": "^1.0.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
+    "react-material-ui-form-validator": "^2.0.6",
     "react-scripts": "2.1.5"
   },
   "scripts": {
-    "start-server": "node ./bin/www",
-    "start-mongo": "mongod",
-    "start-client": "react-scripts start",
     "start": "start mongod && start nodemon ./bin/www && start react-scripts start",
+    "react-start": "start react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build-and-start-express": "node ./bin/www",
     "heroku-postbuild": "npm run build"
   },
   "proxy": "http://localhost:8080",
