@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 class MessageInput extends Component {
   constructor(props) {
@@ -12,34 +13,46 @@ class MessageInput extends Component {
   };
 
   handleKeyPress = event => {
-    if (event.key === "Enter" && this.state.messageText) {
+    if (event.key === "Enter") {
       event.preventDefault();
-      this.props.onSendMessage(this.state.messageText);
-      this.setState({ messageText: "" });
+      if (this.state.messageText.trim()) {
+        this.props.onSendMessage(this.state.messageText);
+        this.setState({ messageText: "" });
+      }
     }
   };
 
   render() {
     const { messageText } = this.state;
+    const { classes } = this.props;
 
     return (
-      <div className="MessageInput">
-        <TextField
-          value={messageText}
-          onChange={this.handleChange}
-          onKeyPress={this.handleKeyPress}
-          color="primary"
-          multiline
-          rows="2"
-          rowsMax="5"
-          fullWidth
-          margin="normal"
-          label="Write a message..."
-          variant="outlined"
-        />
-      </div>
+      <TextField
+        InputLabelProps={{
+          classes: { root: classes.InputLabel }
+        }}
+        InputProps={{
+          classes: { input: classes.Input }
+        }}
+        value={messageText}
+        onChange={this.handleChange}
+        onKeyPress={this.handleKeyPress}
+        color="primary"
+        multiline
+        rows="2"
+        rowsMax="5"
+        fullWidth
+        margin="normal"
+        label="Write a message..."
+        variant="outlined"
+      />
     );
   }
 }
 
-export default MessageInput;
+const styles = theme => ({
+  InputLabel: { fontSize: theme.typography.pxToRem(13) },
+  Input: { fontSize: theme.typography.pxToRem(13), padding: 0 }
+});
+
+export default withStyles(styles)(MessageInput);
