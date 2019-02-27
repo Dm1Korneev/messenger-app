@@ -129,7 +129,7 @@ const styles = theme => ({
   },
   ListItem: {
     alignItems: "start",
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit,
     paddingBottom: 0
   },
   ListItem_sameAuthor: {

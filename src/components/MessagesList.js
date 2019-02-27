@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import Message from "./Message";
 import List from "@material-ui/core/List";
 import withStyles from "@material-ui/core/styles/withStyles";
-
-const styles = theme => ({
-  list: {
-    overflow: "auto",
-    padding: 0
-  }
-});
+import Divider from "@material-ui/core/Divider";
 
 class MessagesList extends Component {
   messagesEnd = React.createRef();
@@ -37,12 +31,16 @@ class MessagesList extends Component {
             index > 0 && array[index - 1].authorId === authorId;
 
           return (
-            <Message
-              key={_id}
-              message={{ author, avatar, dateTime, text }}
-              isCurrentUserMessage={isCurrentUserMessage}
-              sameAuthor={sameAuthor}
-            />
+            <React.Fragment key={_id}>
+              {!sameAuthor && index > 0 && (
+                <Divider variant="middle" className={classes.Divider} />
+              )}
+              <Message
+                message={{ author, avatar, dateTime, text }}
+                isCurrentUserMessage={isCurrentUserMessage}
+                sameAuthor={sameAuthor}
+              />
+            </React.Fragment>
           );
         })}
         <div ref={this.messagesEnd} />
@@ -50,5 +48,15 @@ class MessagesList extends Component {
     );
   }
 }
+
+const styles = theme => ({
+  list: {
+    overflow: "auto",
+    padding: 0
+  },
+  Divider: {
+    marginTop: theme.spacing.unit
+  }
+});
 
 export default withStyles(styles)(MessagesList);
