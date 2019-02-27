@@ -88,7 +88,8 @@ export function currentUser(token) {
 
     return {
       name: payload.name,
-      email: payload.email
+      email: payload.email,
+      _id: payload._id
     };
   }
 }
