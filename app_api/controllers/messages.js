@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
 var MessageModel = mongoose.model("Message");
-var UserModel = mongoose.model("User");
 var { sendJsResponse, parseToken } = require("./common");
 
 module.exports.getMessages = function(req, res, next) {
