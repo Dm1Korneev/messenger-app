@@ -10,6 +10,12 @@
       "request": "launch",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceRoot}/src"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch node",
+      "program": "${workspaceFolder}/bin/www"
     }
   ]
 }
