@@ -36,8 +36,7 @@ class App extends Component {
 
     this.state = {
       messages: [],
-      token: getToken(),
-      currentUser: currentUser()
+      token: getToken()
     };
 
     this.theme = createMuiTheme({
@@ -135,7 +134,7 @@ class App extends Component {
           </AppBar>
           <Grid item xs={12} sm={11} md={9} lg={7} className={classes.grid}>
             <Paper className={classes.content}>
-              <MessagesList messages={messages} />
+              <MessagesList messages={messages} user={user} />
               <MessageInput onSendMessage={this.onSendMessage} />
             </Paper>
           </Grid>
