@@ -2,11 +2,8 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import PersonAddIcon from "@material-ui/icons/PersonAddOutlined";
 import Paper from "@material-ui/core/Paper";
@@ -15,6 +12,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 const styles = theme => ({
   main: {
@@ -123,45 +121,55 @@ class SignIn extends React.Component {
               {variant === SIGN_IN && "Sign in"}
               {variant === REGISTER && "Register"}
             </Typography>
-            <form className={classes.form} onSubmit={this.handleSubmit}>
+            <ValidatorForm
+              className={classes.form}
+              onSubmit={this.handleSubmit}
+            >
               {variant === REGISTER && (
-                <FormControl margin="normal" required fullWidth>
-                  <InputLabel htmlFor="name">Name</InputLabel>
-                  <Input
-                    id="name"
-                    name="name"
-                    autoComplete="name"
-                    autoFocus
-                    color="primary"
-                    value={name}
-                    onChange={this.handleInputChange}
-                  />
-                </FormControl>
+                <TextValidator
+                  margin="normal"
+                  label="Name *"
+                  fullWidth
+                  onChange={this.handleInputChange}
+                  name="name"
+                  id="name"
+                  autoComplete="name"
+                  color="primary"
+                  value={name}
+                  validators={["required"]}
+                  errorMessages={["this field is required"]}
+                />
               )}
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="email">Email Address</InputLabel>
-                <Input
-                  id="email"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  color="primary"
-                  value={email}
-                  onChange={this.handleInputChange}
-                />
-              </FormControl>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <Input
-                  name="password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  color="primary"
-                  value={password}
-                  onChange={this.handleInputChange}
-                />
-              </FormControl>
+              <TextValidator
+                margin="normal"
+                label="Email Address *"
+                fullWidth
+                onChange={this.handleInputChange}
+                name="email"
+                id="email"
+                autoComplete="email"
+                color="primary"
+                value={email}
+                validators={["required", "isEmail"]}
+                errorMessages={["this field is required", "email is not valid"]}
+              />
+              <TextValidator
+                margin="normal"
+                label="Password *"
+                fullWidth
+                onChange={this.handleInputChange}
+                name="password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                color="primary"
+                value={password}
+                validators={["required", "minStringLength:6"]}
+                errorMessages={[
+                  "this field is required",
+                  "minimum length 6 symbols"
+                ]}
+              />
               <FormControlLabel
                 control={
                   <Checkbox
@@ -184,7 +192,7 @@ class SignIn extends React.Component {
                 {variant === SIGN_IN && "Sign in"}
                 {variant === REGISTER && "Register"}
               </Button>
-            </form>
+            </ValidatorForm>
           </div>
         </Paper>
       </main>
