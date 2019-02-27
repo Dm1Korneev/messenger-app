@@ -5,7 +5,7 @@ var jwt = require("jsonwebtoken");
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true },
   name: { type: String, required: true },
-  avatar: { type: String },
+  avatar: { type: String, default: "static/images/avatars/1.jpg" },
   hash: String,
   salt: String
 });
@@ -29,7 +29,6 @@ userSchema.methods.generateJwt = function() {
   var expiry = new Date();
   expiry.setDate(expiry.getDate() + 7);
 
-  console.log("expiry", expiry);
   return jwt.sign(
     {
       _id: this._id,
