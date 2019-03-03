@@ -25,7 +25,8 @@ class MessagesList extends Component {
     return (
       <List className={classes.list}>
         {messages.map((value, index, array) => {
-          const { author, text, dateTime, _id } = value;
+          const { author, text, _id } = value;
+          let { dateTime } = value;
           const messageAuthor = users[author];
 
           let name, avatar;
@@ -37,6 +38,17 @@ class MessagesList extends Component {
           }
           const isCurrentUserMessage = user._id === author;
           const sameAuthor = index > 0 && array[index - 1].author === author;
+
+          dateTime = new Date(dateTime);
+          if (
+            sameAuthor &&
+            new Date(array[index - 1].dateTime) - new Date(dateTime) <
+              1000 * 60 &&
+            dateTime.getMinutes() ===
+              new Date(array[index - 1].dateTime).getMinutes()
+          ) {
+            dateTime = "";
+          }
 
           return (
             <React.Fragment key={_id}>
