@@ -39,5 +39,6 @@ process.on("SIGTERM", function() {
   });
 });
 
-require("./messages");
+require("./chats");
 require("./users");
+require("./messages");
