@@ -7,7 +7,7 @@ module.exports.getChats = function(req, res, next) {
 
   ChatModel.find(
     { users: userInfo._id },
-    { _id: 1, title: 1, users: 1 },
+    { _id: 1, title: 1, users: 1, admin: 1 },
     function(err, chats) {
       if (err) {
         sendJsResponse(res, 400, err);
@@ -28,7 +28,7 @@ module.exports.getChatByID = function(req, res, next) {
 
   ChatModel.findOne(
     { _id: req.params.chatId, users: userInfo._id },
-    { _id: 1, title: 1, users: 1 },
+    { _id: 1, title: 1, users: 1, admin: 1 },
     function(err, chat) {
       if (err) {
         sendJsResponse(res, 400, err);
@@ -51,15 +51,16 @@ module.exports.postChat = function(req, res, next) {
 
   const { title } = req.body;
   let { users } = req.body;
-  const userInfo = parseToken(req.headers.authorization);
-  users = [...users, userInfo._id].filter(
+  const admin = parseToken(req.headers.authorization)._id;
+  users = [...users, admin].filter(
     (value, index, array) => array.indexOf(value) === index
   );
 
   ChatModel.create(
     {
       title,
-      users
+      users,
+      admin
     },
     function(err, chat) {
       if (err) {
