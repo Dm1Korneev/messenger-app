@@ -42,7 +42,7 @@ function TopBar(props) {
       <Divider />
       <List>
         <ListItem button key={"add_chat"} onClick={() => openAddChatDialog()}>
-          <AddBoxIcon style={{ fontSize: 45 }} />
+          <AddBoxIcon color="primary" className={classes.addChatIcon} />
           <ListItemText primary={"add chat"} />
         </ListItem>
 
@@ -89,6 +89,10 @@ const styles = theme => ({
     justifyContent: "flex-end",
     padding: "0 8px",
     ...theme.mixins.toolbar
+  },
+  addChatIcon: {
+    fontSize: theme.spacing.unit * 7,
+    marginLeft: -theme.spacing.unit
   }
 });
 
