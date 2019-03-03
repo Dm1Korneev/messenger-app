@@ -9,21 +9,49 @@ module.exports.register = function(req, res) {
     return;
   }
 
-  user = new UserModel();
+  const { name, email, password } = req.body;
 
-  user.name = req.body.name;
-  user.email = req.body.email;
+  Promise.all([isUserNameIsAvailable(name), isEmailNameIsAvailable(email)])
+    .then(([userNameIsFound, emailNameIsFound]) => {
+      let errorMessage = "";
+      if (userNameIsFound) {
+        errorMessage += "Username is already use";
+      }
+      if (emailNameIsFound) {
+        errorMessage += "\nEmail is already use";
+      }
+      if (errorMessage) {
+        sendJsResponse(res, 400, { message: errorMessage });
+        return Promise.reject(undefined);
+      }
 
-  user.setPassword(req.body.password);
-  user.save(function(err) {
-    if (err) {
-      sendJsResponse(res, 404, err);
-    } else {
+      user = new UserModel();
+
+      user.name = name;
+      user.email = email;
+
+      user.setPassword(password);
+      return user.save();
+    })
+    .then(user => {
       token = user.generateJwt();
       sendJsResponse(res, 200, { token: token });
-    }
-  });
+    })
+    .catch(err => {
+      if (!err) {
+        return;
+      }
+      sendJsResponse(res, 404, err);
+    });
 };
+
+function isUserNameIsAvailable(name) {
+  return UserModel.findOne({ name }).exec();
+}
+
+function isEmailNameIsAvailable(email) {
+  return UserModel.findOne({ email }).exec();
+}
 
 module.exports.login = function(req, res) {
   if (!req.body.email || !req.body.password) {

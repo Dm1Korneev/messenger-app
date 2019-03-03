@@ -12,7 +12,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+
+import { login, register } from "../common/authentication";
 
 const styles = theme => ({
   main: {
@@ -63,20 +66,51 @@ class SignIn extends React.Component {
       password: "",
       name: "",
       remember: false,
+      errorMessage: undefined,
       variant: SIGN_IN
     };
   }
 
   handleSubmit = event => {
-    const { onSignIn, onRegister } = this.props;
     const { variant } = this.state;
 
     event.preventDefault();
+
     if (variant === SIGN_IN) {
-      onSignIn(this.state);
+      this.handlerSignIn();
     } else if (variant === REGISTER) {
-      onRegister(this.state);
+      this.handlerRegister();
     }
+  };
+
+  handlerSignIn = () => {
+    const { onSignIn } = this.props;
+    const { email, password, remember } = this.state;
+
+    login(email, password, result => {
+      if (result.message) {
+        this.setState({
+          errorMessage: result.message
+        });
+        return;
+      }
+      onSignIn(result.token, remember);
+    });
+  };
+
+  handlerRegister = () => {
+    const { onSignIn } = this.props;
+    const { email, password, name, remember } = this.state;
+
+    register(email, password, name, result => {
+      if (result.message) {
+        this.setState({
+          errorMessage: result.message
+        });
+        return;
+      }
+      onSignIn(result.token, remember);
+    });
   };
 
   handleInputChange = event => {
@@ -95,7 +129,14 @@ class SignIn extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { email, password, name, remember, variant } = this.state;
+    const {
+      email,
+      password,
+      name,
+      remember,
+      variant,
+      errorMessage
+    } = this.state;
 
     return (
       <main className={classes.main}>
@@ -125,6 +166,9 @@ class SignIn extends React.Component {
               className={classes.form}
               onSubmit={this.handleSubmit}
             >
+              {errorMessage && (
+                <FormHelperText error>{errorMessage}</FormHelperText>
+              )}
               {variant === REGISTER && (
                 <TextValidator
                   margin="normal"

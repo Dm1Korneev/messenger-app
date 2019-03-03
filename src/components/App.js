@@ -26,8 +26,6 @@ import {
   isLoggedIn,
   getToken,
   currentUser,
-  login,
-  register,
   saveToken,
   logout
 } from "../common/authentication";
@@ -173,35 +171,18 @@ class App extends Component {
     });
   };
 
-  onSignIn = ({ email, password, remember }) => {
-    login(email, password, result => {
-      const { token } = result;
-      const user = currentUser(token);
+  onSignIn = (token, remember) => {
+    const user = currentUser(token);
 
-      if (remember) {
-        saveToken(token);
-      }
-      this.setState({
-        token: token,
-        users: { [user._id]: user },
-        usersList: [user]
-      });
-      this.loadChats();
+    if (remember) {
+      saveToken(token);
+    }
+    this.setState({
+      token: token,
+      users: { [user._id]: user },
+      usersList: [user]
     });
-  };
-
-  onRegister = ({ email, password, name, remember }) => {
-    register(email, password, name, result => {
-      const { token } = result;
-
-      if (remember) {
-        saveToken(token);
-      }
-      this.setState({
-        token: token
-      });
-      this.loadMessages();
-    });
+    this.loadChats();
   };
 
   render() {
@@ -220,7 +201,7 @@ class App extends Component {
 
     let result;
     if (!isLoggedIn(token)) {
-      result = <SignIn onSignIn={this.onSignIn} onRegister={this.onRegister} />;
+      result = <SignIn onSignIn={this.onSignIn} />;
     } else {
       result = (
         <>
