@@ -11,31 +11,32 @@ function Message(props) {
   const { text } = props.message;
   let { author, avatar, dateTime } = props.message;
 
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
-  dateTime = new Date(dateTime);
-  if (
-    now.valueOf() ===
-    new Date(
-      dateTime.getFullYear(),
-      dateTime.getMonth(),
-      dateTime.getDate()
-    ).valueOf()
-  ) {
-    dateTime = dateTime.toLocaleString(undefined, {
-      hour: "numeric",
-      minute: "numeric"
-    });
-  } else {
-    dateTime = dateTime.toLocaleString(undefined, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      weekday: "long",
-      timezone: "UTC",
-      hour: "numeric",
-      minute: "numeric"
-    });
+  if (dateTime) {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    if (
+      now.valueOf() ===
+      new Date(
+        dateTime.getFullYear(),
+        dateTime.getMonth(),
+        dateTime.getDate()
+      ).valueOf()
+    ) {
+      dateTime = dateTime.toLocaleString(undefined, {
+        hour: "numeric",
+        minute: "numeric"
+      });
+    } else {
+      dateTime = dateTime.toLocaleString(undefined, {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long",
+        timezone: "UTC",
+        hour: "numeric",
+        minute: "numeric"
+      });
+    }
   }
 
   if (sameAuthor) {
