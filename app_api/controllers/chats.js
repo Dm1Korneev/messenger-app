@@ -7,15 +7,11 @@ module.exports.getChats = function(req, res, next) {
 
   ChatModel.find(
     { users: userInfo._id },
-    { _id: 1, title: 1, users: 1, admin: 1 },
-    function(err, chats) {
-      if (err) {
-        sendJsResponse(res, 400, err);
-        return;
-      }
-      sendJsResponse(res, 200, chats);
-    }
-  );
+    { _id: 1, title: 1, users: 1, admin: 1 }
+  )
+    .exec()
+    .then(chats => sendJsResponse(res, 200, chats))
+    .catch(err => sendJsResponse(res, 400, err));
 };
 
 module.exports.getChatByID = function(req, res, next) {
@@ -28,19 +24,17 @@ module.exports.getChatByID = function(req, res, next) {
 
   ChatModel.findOne(
     { _id: req.params.chatId, users: userInfo._id },
-    { _id: 1, title: 1, users: 1, admin: 1 },
-    function(err, chat) {
-      if (err) {
-        sendJsResponse(res, 400, err);
-        return;
-      }
+    { _id: 1, title: 1, users: 1, admin: 1 }
+  )
+    .exec()
+    .then(chat => {
       if (!chat) {
         sendJsResponse(res, 404, { message: "'chatId' not found" });
         return;
       }
       sendJsResponse(res, 200, chat);
-    }
-  );
+    })
+    .catch(err => sendJsResponse(res, 400, err));
 };
 
 module.exports.postChat = function(req, res, next) {
@@ -56,18 +50,12 @@ module.exports.postChat = function(req, res, next) {
     (value, index, array) => array.indexOf(value) === index
   );
 
-  ChatModel.create(
-    {
-      title,
-      users,
-      admin
-    },
-    function(err, chat) {
-      if (err) {
-        sendJsResponse(res, 400, err);
-      } else {
-        sendJsResponse(res, 201, chat);
-      }
-    }
-  );
+  new ChatModel({
+    title,
+    users,
+    admin
+  })
+    .save()
+    .then(chat => sendJsResponse(res, 201, chat))
+    .catch(err => sendJsResponse(res, 400, err));
 };
