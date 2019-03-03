@@ -4,7 +4,7 @@ var jwt = require("jsonwebtoken");
 
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true },
-  name: { type: String, required: true },
+  name: { type: String, unique: true, required: true },
   avatar: { type: String, default: "static/images/avatars/1.jpg" },
   hash: String,
   salt: String
@@ -34,6 +34,7 @@ userSchema.methods.generateJwt = function() {
       _id: this._id,
       email: this.email,
       name: this.name,
+      avatar: this.avatar,
       exp: parseInt(expiry.getTime() / 1000)
     },
     process.env.JWT_SECRET
