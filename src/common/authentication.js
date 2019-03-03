@@ -9,15 +9,8 @@ export function register(email, password, name, callback) {
     },
     body: JSON.stringify({ email, password, name })
   })
-    .then(response => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then(result => {
-      callback(result);
-    })
+    .then(response => response.json())
+    .then(result => callback(result))
     .catch(function(error) {
       console.log(error);
     });
@@ -32,15 +25,8 @@ export function login(email, password, callback) {
     },
     body: JSON.stringify({ email, password })
   })
-    .then(response => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then(result => {
-      callback(result);
-    })
+    .then(response => response.json())
+    .then(result => callback(result))
     .catch(function(error) {
       console.log(error);
     });
