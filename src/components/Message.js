@@ -1,10 +1,10 @@
 import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
+import classNames from "classnames";
+import UsersAvatar from "./UsersAvatar";
 
 function Message(props) {
   const { isCurrentUserMessage, sameAuthor, classes } = props;
@@ -47,23 +47,15 @@ function Message(props) {
     ? classes.ListItemText_reverse
     : classes.ListItemText;
 
-  let ListItemClass = classes.ListItem;
-  if (isCurrentUserMessage) {
-    ListItemClass += " " + classes.ListItem_reverse;
-  }
-  if (sameAuthor) {
-    ListItemClass += " " + classes.ListItem_sameAuthor;
-  }
+  let ListItemClass = classNames(
+    classes.ListItem,
+    isCurrentUserMessage && classes.ListItem_reverse,
+    sameAuthor && classes.ListItem_sameAuthor
+  );
 
   return (
     <ListItem className={ListItemClass}>
-      <ListItemAvatar className={classes.ListItemAvatar}>
-        <Avatar
-          alt={author}
-          src={avatar}
-          className={sameAuthor ? classes.avatarHidden : ""}
-        />
-      </ListItemAvatar>
+      <UsersAvatar author={author} avatar={avatar} avatarHidden={sameAuthor} />
       <div className={classes.textContent}>
         <ListItemText
           className={ListItemTextClass}
@@ -121,9 +113,6 @@ const styles = theme => ({
       paddingRight: theme.spacing.unit * 2
     }
   },
-  ListItemAvatar: {
-    borderRadius: theme.spacing.unit / 2
-  },
   ListItem_reverse: {
     flexDirection: "row-reverse"
   },
@@ -134,9 +123,6 @@ const styles = theme => ({
   },
   ListItem_sameAuthor: {
     paddingTop: theme.spacing.unit / 2
-  },
-  avatarHidden: {
-    visibility: "hidden"
   },
   authorTextHidden: {
     visibility: "hidden"

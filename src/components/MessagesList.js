@@ -21,14 +21,22 @@ class MessagesList extends Component {
   }
 
   render() {
-    const { messages, classes, user } = this.props;
+    const { messages, classes, user, users } = this.props;
     return (
       <List className={classes.list}>
         {messages.map((value, index, array) => {
-          const { authorId, text, author, avatar, dateTime, _id } = value;
-          const isCurrentUserMessage = user._id === authorId;
-          const sameAuthor =
-            index > 0 && array[index - 1].authorId === authorId;
+          const { author, text, dateTime, _id } = value;
+          const messageAuthor = users[author];
+
+          let name, avatar;
+          if (messageAuthor) {
+            name = messageAuthor.name;
+            avatar = messageAuthor.avatar;
+          } else {
+            name = author;
+          }
+          const isCurrentUserMessage = user._id === author;
+          const sameAuthor = index > 0 && array[index - 1].author === author;
 
           return (
             <React.Fragment key={_id}>
@@ -36,7 +44,7 @@ class MessagesList extends Component {
                 <Divider variant="middle" className={classes.Divider} />
               )}
               <Message
-                message={{ author, avatar, dateTime, text }}
+                message={{ author: name, avatar, dateTime, text }}
                 isCurrentUserMessage={isCurrentUserMessage}
                 sameAuthor={sameAuthor}
               />
@@ -52,6 +60,7 @@ class MessagesList extends Component {
 const styles = theme => ({
   list: {
     overflow: "auto",
+    flexGrow: 1,
     padding: 0
   },
   Divider: {

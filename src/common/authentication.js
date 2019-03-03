@@ -89,7 +89,8 @@ export function currentUser(token) {
     return {
       name: payload.name,
       email: payload.email,
-      _id: payload._id
+      _id: payload._id,
+      avatar: payload.avatar
     };
   }
 }
