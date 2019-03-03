@@ -1,9 +1,10 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var messageSchema = new mongoose.Schema({
+const messageSchema = new mongoose.Schema({
+  chat: { type: mongoose.Schema.Types.ObjectId, ref: "Chat", required: true },
   text: { type: String },
   author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  dateTime: { type: Date, default: Date.now }
+  dateTime: { type: Date, default: Date.now, required: true }
 });
 
 mongoose.model("Message", messageSchema);
