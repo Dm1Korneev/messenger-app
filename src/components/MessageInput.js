@@ -34,6 +34,7 @@ class MessageInput extends Component {
         InputProps={{
           classes: { input: classes.Input }
         }}
+        className={classes.textField}
         value={messageText}
         onChange={this.handleChange}
         onKeyPress={this.handleKeyPress}
@@ -52,7 +53,8 @@ class MessageInput extends Component {
 
 const styles = theme => ({
   InputLabel: { fontSize: theme.typography.pxToRem(13) },
-  Input: { fontSize: theme.typography.pxToRem(13), padding: 0 }
+  Input: { fontSize: theme.typography.pxToRem(13), padding: 0 },
+  textField: { flexShrink: 0 }
 });
 
 export default withStyles(styles)(MessageInput);
