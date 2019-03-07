@@ -12,9 +12,9 @@ import Divider from "@material-ui/core/Divider";
 import { DRAWER_WIDTH } from "../common/constants";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 
-function TopBar(props) {
+function SideBar(props) {
   const {
-    drawerOpen,
+    drawerIsOpen,
     chats,
     activeChat,
     onDrawerClose,
@@ -29,10 +29,10 @@ function TopBar(props) {
       classes={{
         paper: classNames(
           classes.drawerPaper,
-          !drawerOpen && classes.drawerPaperClose
+          !drawerIsOpen && classes.drawerPaperClose
         )
       }}
-      open={drawerOpen}
+      open={drawerIsOpen}
     >
       <div className={classes.toolbarIcon}>
         <IconButton onClick={() => onDrawerClose()}>
@@ -43,20 +43,23 @@ function TopBar(props) {
       <List>
         <ListItem button key={"add_chat"} onClick={() => openAddChatDialog()}>
           <AddBoxIcon color="primary" className={classes.addChatIcon} />
-          <ListItemText primary={"add chat"} />
+          <ListItemText primary={"Add chat"} />
         </ListItem>
 
-        {chats.map((value, index) => (
-          <ListItem
-            button
-            key={value._id}
-            selected={value._id === activeChat}
-            onClick={() => changeActiveChat(value._id)}
-          >
-            <UsersAvatar author={value.title} />
-            <ListItemText primary={value.title} />
-          </ListItem>
-        ))}
+        {chats.allIds.map(value => {
+          const { _id, title } = chats.byId[value];
+          return (
+            <ListItem
+              button
+              key={_id}
+              selected={_id === activeChat}
+              onClick={() => changeActiveChat(_id)}
+            >
+              <UsersAvatar author={title} />
+              <ListItemText primary={title} />
+            </ListItem>
+          );
+        })}
       </List>
     </Drawer>
   );
@@ -96,4 +99,4 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(TopBar);
+export default withStyles(styles)(SideBar);

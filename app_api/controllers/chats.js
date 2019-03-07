@@ -56,6 +56,13 @@ module.exports.postChat = function(req, res, next) {
     admin
   })
     .save()
-    .then(chat => sendJsResponse(res, 201, chat))
+    .then(chat =>
+      sendJsResponse(res, 201, {
+        _id: chat._id,
+        users: chat.users,
+        title: chat.title,
+        admin: chat.admin
+      })
+    )
     .catch(err => sendJsResponse(res, 400, err));
 };

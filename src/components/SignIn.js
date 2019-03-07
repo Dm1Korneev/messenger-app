@@ -15,46 +15,6 @@ import Tab from "@material-ui/core/Tab";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
-import { login, register } from "../common/authentication";
-
-const styles = theme => ({
-  main: {
-    width: "auto",
-    display: "block", // Fix IE 11 issue.
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
-      marginLeft: "auto",
-      marginRight: "auto"
-    }
-  },
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 8
-  },
-  avatar: {
-    margin: theme.spacing.unit,
-    backgroundColor: theme.palette.primary.main
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing.unit
-  },
-  submit: {
-    marginTop: theme.spacing.unit * 3
-  },
-  tabsIndicator: {
-    backgroundColor: "#fff"
-  }
-});
-
 const SIGN_IN = "SIGN_IN";
 const REGISTER = "REGISTER";
 
@@ -74,8 +34,6 @@ class SignIn extends React.Component {
   handleSubmit = event => {
     const { variant } = this.state;
 
-    event.preventDefault();
-
     if (variant === SIGN_IN) {
       this.handlerSignIn();
     } else if (variant === REGISTER) {
@@ -86,31 +44,13 @@ class SignIn extends React.Component {
   handlerSignIn = () => {
     const { onSignIn } = this.props;
     const { email, password, remember } = this.state;
-
-    login(email, password, result => {
-      if (result.message) {
-        this.setState({
-          errorMessage: result.message
-        });
-        return;
-      }
-      onSignIn(result.token, remember);
-    });
+    onSignIn(email, password, remember);
   };
 
   handlerRegister = () => {
-    const { onSignIn } = this.props;
+    const { onRegister } = this.props;
     const { email, password, name, remember } = this.state;
-
-    register(email, password, name, result => {
-      if (result.message) {
-        this.setState({
-          errorMessage: result.message
-        });
-        return;
-      }
-      onSignIn(result.token, remember);
-    });
+    onRegister(email, password, name, remember);
   };
 
   handleInputChange = event => {
@@ -243,5 +183,43 @@ class SignIn extends React.Component {
     );
   }
 }
+
+const styles = theme => ({
+  main: {
+    width: "auto",
+    display: "block", // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+  },
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
+      .spacing.unit * 3}px`
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.primary.main
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing.unit
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3
+  },
+  tabsIndicator: {
+    backgroundColor: "#fff"
+  }
+});
 
 export default withStyles(styles)(SignIn);

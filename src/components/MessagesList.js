@@ -8,16 +8,16 @@ class MessagesList extends Component {
   messagesEnd = React.createRef();
 
   scrollToBottom = () => {
-    this.messagesEnd.current.scrollIntoView({
-      blok: "end",
-      behavior: "smooth"
-    });
+    if (this.messagesEnd.current) {
+      this.messagesEnd.current.scrollIntoView({
+        blok: "end",
+        behavior: "smooth"
+      });
+    }
   };
 
   componentDidUpdate() {
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, 300);
+    this.scrollToBottom();
   }
 
   render() {
@@ -33,8 +33,6 @@ class MessagesList extends Component {
           if (messageAuthor) {
             name = messageAuthor.name;
             avatar = messageAuthor.avatar;
-          } else {
-            name = author;
           }
           const isCurrentUserMessage = user._id === author;
           const sameAuthor = index > 0 && array[index - 1].author === author;
