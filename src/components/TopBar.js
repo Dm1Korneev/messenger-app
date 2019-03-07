@@ -10,21 +10,25 @@ import classNames from "classnames";
 import { DRAWER_WIDTH } from "../common/constants";
 
 function TopBar(props) {
-  const { drawerOpen, userName, classes, onLogout, onDriwerOpen } = props;
+  const { drawerIsOpen, user, onLogout, onDriwerOpen, classes } = props;
+  let userName = user && user.name;
 
   return (
     <AppBar
       position="absolute"
-      className={classNames(classes.appBar, drawerOpen && classes.appBarShift)}
+      className={classNames(
+        classes.appBar,
+        drawerIsOpen && classes.appBarShift
+      )}
     >
-      <Toolbar disableGutters={!drawerOpen} className={classes.toolbar}>
+      <Toolbar disableGutters={!drawerIsOpen} className={classes.toolbar}>
         <IconButton
           color="inherit"
           aria-label="Open drawer"
           onClick={() => onDriwerOpen()}
           className={classNames(
             classes.menuButton,
-            drawerOpen && classes.menuButtonHidden
+            drawerIsOpen && classes.menuButtonHidden
           )}
         >
           <MenuIcon />

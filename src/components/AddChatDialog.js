@@ -11,41 +11,22 @@ import List from "@material-ui/core/List";
 import UsersAvatar from "./UsersAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 
-// common
-import { getUsers } from "../common/messengerAPI";
-
-import { currentUser } from "../common/authentication";
-
 class AddChatDialog extends React.Component {
   constructor(props) {
     super(props);
 
-    const token = props.token;
-    const user = currentUser(token);
-    const allUsers = props.usersList.filter(
-      element => element._id !== user._id
-    );
-
     this.state = {
       open: false,
-      user: user,
       title: "",
       searchText: "",
       searchResult: [],
-      allUsers,
       selectedUserIds: []
     };
   }
 
   componentDidMount() {
-    const { token } = this.props;
-    const { user } = this.state;
-
-    getUsers(token, users => {
-      this.setState({
-        allUsers: users.filter(element => element._id !== user._id)
-      });
-    });
+    const { loadAllUsers } = this.props;
+    loadAllUsers();
   }
 
   handleInputChange = event => {
@@ -59,7 +40,7 @@ class AddChatDialog extends React.Component {
   };
 
   handleSearchTextChange = event => {
-    const { allUsers } = this.state;
+    const { users } = this.props;
     const searchText = event.target.value;
 
     if (!searchText) {
@@ -69,7 +50,7 @@ class AddChatDialog extends React.Component {
       });
       return;
     } else {
-      const searchResult = allUsers.filter(
+      const searchResult = users.filter(
         value =>
           value.name.toUpperCase().includes(searchText.toUpperCase()) ||
           value.email.toUpperCase().includes(searchText.toUpperCase())
@@ -82,20 +63,23 @@ class AddChatDialog extends React.Component {
   };
 
   handleSubmit = event => {
-    const { onAddChat } = this.props;
+    const { onAddChat, closeAddChatDialog } = this.props;
     const { title, selectedUserIds } = this.state;
 
-    event.preventDefault();
     onAddChat(title, selectedUserIds);
+    closeAddChatDialog();
   };
 
   userSelect = userId => {
-    let { selectedUserIds } = this.state;
+    const selectedUserIdsFromState = this.state.selectedUserIds;
 
-    if (selectedUserIds.includes(userId)) {
-      selectedUserIds = selectedUserIds.filter(element => element !== userId);
+    let selectedUserIds;
+    if (selectedUserIdsFromState.includes(userId)) {
+      selectedUserIds = selectedUserIdsFromState.filter(
+        element => element !== userId
+      );
     } else {
-      selectedUserIds = [...selectedUserIds, userId];
+      selectedUserIds = [...selectedUserIdsFromState, userId];
     }
 
     this.setState({
@@ -104,24 +88,13 @@ class AddChatDialog extends React.Component {
   };
 
   render() {
-    const { closeAddChatDialog } = this.props;
-    const {
-      title,
-      selectedUserIds,
-      searchText,
-      allUsers,
-      searchResult
-    } = this.state;
-
-    const users = !searchText ? allUsers : searchResult;
+    const { closeAddChatDialog, users } = this.props;
+    const { title, selectedUserIds, searchText, searchResult } = this.state;
+    const usersList = !searchText ? users : searchResult;
 
     return (
-      <Dialog
-        open
-        onClose={this.handleClose}
-        aria-labelledby="max-width-dialog-title"
-      >
-        <DialogTitle id="max-width-dialog-title">Add chat</DialogTitle>
+      <Dialog open onClose={() => closeAddChatDialog()}>
+        <DialogTitle>Add chat</DialogTitle>
         <DialogContent>
           <ValidatorForm id="validatorForm" onSubmit={this.handleSubmit}>
             <TextValidator
@@ -148,7 +121,7 @@ class AddChatDialog extends React.Component {
             />
 
             <List>
-              {users.map(value => (
+              {usersList.map(value => (
                 <ListItem
                   button
                   key={value._id}

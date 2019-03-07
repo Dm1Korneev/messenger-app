@@ -32,13 +32,13 @@ export function login(email, password, callback) {
     });
 }
 
-export function saveToken(token) {
+export function saveTokenToStorage(token) {
   if (localStorageAvailable()) {
     window.localStorage[TOKEN_FIELD] = token;
   }
 }
 
-export function getToken() {
+export function getTokenFromStorage() {
   if (localStorageAvailable()) {
     return window.localStorage[TOKEN_FIELD];
   } else {
@@ -46,7 +46,7 @@ export function getToken() {
   }
 }
 
-export function logout() {
+export function removeTokenFromStorage() {
   if (localStorageAvailable()) {
     return window.localStorage.removeItem(TOKEN_FIELD);
   } else {
@@ -57,7 +57,7 @@ export function logout() {
 export function isLoggedIn(token) {
   if (token) {
     if (typeof token !== "string" || token.split(".").length < 2) {
-      saveToken(undefined);
+      saveTokenToStorage(undefined);
       return false;
     }
     var payload = JSON.parse(window.atob(token.split(".")[1]));
@@ -68,7 +68,7 @@ export function isLoggedIn(token) {
   }
 }
 
-export function currentUser(token) {
+export function getUserInfo(token) {
   if (isLoggedIn(token)) {
     var payload = JSON.parse(window.atob(token.split(".")[1]));
 

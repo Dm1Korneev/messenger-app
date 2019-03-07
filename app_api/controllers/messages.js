@@ -22,7 +22,8 @@ module.exports.getMessages = function(req, res, next) {
         _id: 1,
         dateTime: 1,
         text: 1,
-        author: 1
+        author: 1,
+        chat: 1
       }
     },
     { $sort: { dateTime: 1 } }
@@ -87,7 +88,13 @@ module.exports.postMessage = function(req, res, next) {
       }).save();
     })
     .then(message => {
-      sendJsResponse(res, 200, message);
+      sendJsResponse(res, 200, {
+        _id: message._id,
+        text: message.text,
+        author: message.author,
+        dateTime: message.dateTime,
+        chat: message.chat
+      });
     })
     .catch(err => {
       sendJsResponse(res, 400, err);
