@@ -19,8 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   closeAddChatDialog: () => dispatch(setAddChatDialogIsOpen(false)),
-  onAddChat: (title, selectedUserIds) =>
-    dispatch(createChat(title, selectedUserIds)),
+  onAddChat: (...args) => dispatch(createChat(...args)),
   loadAllUsers: () => dispatch(loadAllUsers())
 });
 

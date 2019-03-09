@@ -10,6 +10,10 @@ module.exports.register = function(req, res) {
   }
 
   const { name, email, password } = req.body;
+  let avatar = "";
+  if (req.files.length) {
+    avatar = req.files[0].filename;
+  }
 
   Promise.all([isUserNameIsAvailable(name), isEmailNameIsAvailable(email)])
     .then(([userNameIsFound, emailNameIsFound]) => {
@@ -29,6 +33,7 @@ module.exports.register = function(req, res) {
 
       user.name = name;
       user.email = email;
+      user.avatar = avatar;
 
       user.setPassword(password);
       return user.save();

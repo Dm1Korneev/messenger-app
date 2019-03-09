@@ -5,10 +5,8 @@ import SignIn from "../components/SignIn";
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-  onSignIn: (email, password, remember) =>
-    dispatch(signIn(email, password, remember)),
-  onRegister: (email, password, name, remember) =>
-    dispatch(register(email, password, name, remember))
+  onSignIn: (...args) => dispatch(signIn(...args)),
+  onRegister: (...args) => dispatch(register(...args))
 });
 
 export default connect(

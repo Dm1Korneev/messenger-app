@@ -4,10 +4,12 @@ import Avatar from "@material-ui/core/Avatar";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 function UsersAvatar(props) {
-  const { avatar, author, avatarHidden, classes } = props;
+  const { avatar, author, avatarHidden, classes, size } = props;
+
+  const style = size && { width: size, height: size };
 
   return (
-    <ListItemAvatar className={classes.ListItemAvatar}>
+    <ListItemAvatar className={classes.ListItemAvatar} style={style}>
       <Avatar
         alt={author}
         src={avatar}

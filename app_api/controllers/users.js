@@ -1,9 +1,19 @@
 var mongoose = require("mongoose");
 var UserModel = mongoose.model("User");
 var { sendJsResponse } = require("./common");
+const { AVATARS_DIR } = require("../common/constants");
 
 module.exports.getUsers = function(req, res, next) {
-  UserModel.find({}, { _id: 1, name: 1, email: 1, avatar: 1 })
+  UserModel.aggregate([
+    {
+      $project: {
+        _id: 1,
+        name: 1,
+        email: 1,
+        avatar: { $concat: [AVATARS_DIR, "$avatar"] }
+      }
+    }
+  ])
     .exec()
     .then(users => sendJsResponse(res, 200, users))
     .catch(err => sendJsResponse(res, 400, err));
@@ -15,10 +25,22 @@ module.exports.getUserByID = function(req, res, next) {
     return;
   }
 
-  UserModel.findOne(
-    { _id: req.params.userId },
-    { _id: 1, name: 1, email: 1, avatar: 1 }
-  )
+  const { userId } = req.params;
+  UserModel.aggregate([
+    {
+      $match: {
+        _id: userId
+      }
+    },
+    {
+      $project: {
+        _id: 1,
+        name: 1,
+        email: 1,
+        avatar: { $concat: [AVATARS_DIR, "$avatar"] }
+      }
+    }
+  ])
     .exec()
     .then(user => {
       if (!user) {

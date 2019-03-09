@@ -10,6 +10,7 @@ import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import UsersAvatar from "./UsersAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
+import AvatarSelector from "./AvatarSelector";
 
 class AddChatDialog extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class AddChatDialog extends React.Component {
       searchResult: [],
       selectedUserIds: []
     };
+    this.avatarFileInput = React.createRef();
   }
 
   componentDidMount() {
@@ -65,8 +67,9 @@ class AddChatDialog extends React.Component {
   handleSubmit = event => {
     const { onAddChat, closeAddChatDialog } = this.props;
     const { title, selectedUserIds } = this.state;
+    const avatar = this.avatarFileInput.current.files[0];
 
-    onAddChat(title, selectedUserIds);
+    onAddChat(title, avatar, selectedUserIds);
     closeAddChatDialog();
   };
 
@@ -97,6 +100,7 @@ class AddChatDialog extends React.Component {
         <DialogTitle>Add chat</DialogTitle>
         <DialogContent>
           <ValidatorForm id="validatorForm" onSubmit={this.handleSubmit}>
+            <AvatarSelector avatarFileInput={this.avatarFileInput} />
             <TextValidator
               margin="normal"
               label="Title *"

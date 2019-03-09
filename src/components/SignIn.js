@@ -14,6 +14,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import AvatarSelector from "./AvatarSelector";
 
 const SIGN_IN = "SIGN_IN";
 const REGISTER = "REGISTER";
@@ -27,8 +28,10 @@ class SignIn extends React.Component {
       name: "",
       remember: false,
       errorMessage: undefined,
+      avatar: undefined,
       variant: SIGN_IN
     };
+    this.avatarFileInput = React.createRef();
   }
 
   handleSubmit = event => {
@@ -48,9 +51,11 @@ class SignIn extends React.Component {
   };
 
   handlerRegister = () => {
+    const avatar = this.avatarFileInput.current.files[0];
+
     const { onRegister } = this.props;
     const { email, password, name, remember } = this.state;
-    onRegister(email, password, name, remember);
+    onRegister(email, password, name, avatar, remember);
   };
 
   handleInputChange = event => {
@@ -94,7 +99,7 @@ class SignIn extends React.Component {
             </Tabs>
           </AppBar>
           <div className={classes.container}>
-            <Avatar className={classes.avatar}>
+            <Avatar className={classes.icon}>
               {variant === SIGN_IN && <LockOutlinedIcon />}
               {variant === REGISTER && <PersonAddIcon />}
             </Avatar>
@@ -110,19 +115,22 @@ class SignIn extends React.Component {
                 <FormHelperText error>{errorMessage}</FormHelperText>
               )}
               {variant === REGISTER && (
-                <TextValidator
-                  margin="normal"
-                  label="Name *"
-                  fullWidth
-                  onChange={this.handleInputChange}
-                  name="name"
-                  id="name"
-                  autoComplete="name"
-                  color="primary"
-                  value={name}
-                  validators={["required"]}
-                  errorMessages={["this field is required"]}
-                />
+                <>
+                  <AvatarSelector avatarFileInput={this.avatarFileInput} />
+                  <TextValidator
+                    margin="normal"
+                    label="Name *"
+                    fullWidth
+                    onChange={this.handleInputChange}
+                    name="name"
+                    id="name"
+                    autoComplete="name"
+                    color="primary"
+                    value={name}
+                    validators={["required"]}
+                    errorMessages={["this field is required"]}
+                  />
+                </>
               )}
               <TextValidator
                 margin="normal"
@@ -190,8 +198,8 @@ const styles = theme => ({
     display: "block", // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
+    [theme.breakpoints.up(500 + theme.spacing.unit * 3 * 2)]: {
+      width: 500,
       marginLeft: "auto",
       marginRight: "auto"
     }
@@ -206,7 +214,7 @@ const styles = theme => ({
   paper: {
     marginTop: theme.spacing.unit * 8
   },
-  avatar: {
+  icon: {
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.primary.main
   },

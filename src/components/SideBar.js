@@ -47,7 +47,7 @@ function SideBar(props) {
         </ListItem>
 
         {chats.allIds.map(value => {
-          const { _id, title } = chats.byId[value];
+          const { _id, title, avatar } = chats.byId[value];
           return (
             <ListItem
               button
@@ -55,7 +55,7 @@ function SideBar(props) {
               selected={_id === activeChat}
               onClick={() => changeActiveChat(_id)}
             >
-              <UsersAvatar author={title} />
+              <UsersAvatar author={title} avatar={avatar} />
               <ListItemText primary={title} />
             </ListItem>
           );

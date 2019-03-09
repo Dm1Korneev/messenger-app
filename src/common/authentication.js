@@ -1,13 +1,18 @@
 import { TOKEN_FIELD, MESSAGES_API_URL } from "./constants";
 
-export function register(email, password, name, callback) {
+export function register(email, password, name, avatar, callback) {
+  const formData = new FormData();
+  formData.append("email", email);
+  formData.append("password", password);
+  formData.append("name", name);
+  formData.append("avatar", avatar);
+
   return fetch(MESSAGES_API_URL + "/register", {
     method: "POST",
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
+      Accept: "application/json"
     },
-    body: JSON.stringify({ email, password, name })
+    body: formData
   })
     .then(response => response.json())
     .then(result => callback(result))

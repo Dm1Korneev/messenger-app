@@ -68,18 +68,19 @@ export function sendMessage(token, chatId, messageText, callback) {
     });
 }
 
-export function createChat(token, title, users, callback) {
+export function createChat(token, title, avatar, users, callback) {
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("avatar", avatar);
+  users.forEach(value => formData.append("users[]", value));
+
   fetch(MESSAGES_API_URL + "/chats", {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
       Authorization: "Bearer " + token
     },
-    body: JSON.stringify({
-      title,
-      users
-    })
+    body: formData
   })
     .then(response => {
       if (!response.ok) {

@@ -58,10 +58,10 @@ export const sendMessage = messageText => {
   };
 };
 
-export const createChat = (title, selectedUserIds) => {
+export const createChat = (title, avatar, selectedUserIds) => {
   return (dispatch, getState) => {
     const token = getState().session.token;
-    createChat_API(token, title, selectedUserIds, chat => {
+    createChat_API(token, title, avatar, selectedUserIds, chat => {
       dispatch(addChats(chat));
       dispatch(reloadChatsList(chat._id));
     });
@@ -80,7 +80,9 @@ const initChatsList = (chats, activeChat = undefined) => {
       activeChat = chats[0]._id;
     }
     dispatch(addChats(chats));
-    dispatch(initActiveChat(activeChat));
+    if (activeChat) {
+      dispatch(initActiveChat(activeChat));
+    }
   };
 };
 
@@ -154,9 +156,9 @@ export const signIn = (email, password, remember = false) => {
   };
 };
 
-export const register = (email, password, name, remember = false) => {
+export const register = (email, password, name, avatar, remember = false) => {
   return dispatch => {
-    registerAPI(email, password, name, result => {
+    registerAPI(email, password, name, avatar, result => {
       if (result.message) {
         this.setState({
           errorMessage: result.message
