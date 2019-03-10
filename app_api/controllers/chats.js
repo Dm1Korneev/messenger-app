@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var ChatModel = mongoose.model("Chat");
 var { sendJsResponse, parseToken } = require("./common");
-const { AVATARS_DIR } = require("../common/constants");
+const fileLoaderToAWS = require("../common/fileLoaderToAWS");
 
 module.exports.getChats = function(req, res, next) {
   const userInfo = parseToken(req.headers.authorization);
@@ -19,7 +19,7 @@ module.exports.getChats = function(req, res, next) {
         title: 1,
         users: 1,
         admin: 1,
-        avatar: { $concat: [AVATARS_DIR, "$avatar"] }
+        avatar: 1
       }
     }
   ])
@@ -49,7 +49,7 @@ module.exports.getChatByID = function(req, res, next) {
         title: 1,
         users: 1,
         admin: 1,
-        avatar: { $concat: [AVATARS_DIR, "$avatar"] }
+        avatar: 1
       }
     }
   ])
@@ -64,15 +64,15 @@ module.exports.getChatByID = function(req, res, next) {
     .catch(err => sendJsResponse(res, 400, err));
 };
 
-module.exports.postChat = function(req, res, next) {
+module.exports.postChat = async function(req, res, next) {
   if (!req.body || !req.body.title) {
     sendJsResponse(res, 400, { message: "No 'title' in request" });
     return;
   }
 
   let avatar = "";
-  if (req.files && req.files.length) {
-    avatar = req.files[0].filename;
+  if (req.file) {
+    avatar = await fileLoaderToAWS(req.file);
   }
   const { title } = req.body;
   let users = [];
@@ -97,7 +97,7 @@ module.exports.postChat = function(req, res, next) {
         users: chat.users,
         title: chat.title,
         admin: chat.admin,
-        avatar: AVATARS_DIR + chat.avatar
+        avatar: chat.avatar
       })
     )
     .catch(err => sendJsResponse(res, 400, err));

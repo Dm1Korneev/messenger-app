@@ -6,7 +6,7 @@ var {
   isUserNameIsAvailable,
   isEmailIsAvailable
 } = require("./common");
-const { AVATARS_DIR } = require("../common/constants");
+const fileLoaderToAWS = require("../common/fileLoaderToAWS");
 
 module.exports.getUsers = function(req, res, next) {
   UserModel.aggregate([
@@ -57,7 +57,7 @@ module.exports.getUserByID = function(req, res, next) {
     .catch(err => sendJsResponse(res, 400, err));
 };
 
-module.exports.updateUserByID = function(req, res, next) {
+module.exports.updateUserByID = async function(req, res, next) {
   if (!req.params || !req.params.userId) {
     sendJsResponse(res, 400, { message: "No 'userId' in request" });
     return;
@@ -66,8 +66,8 @@ module.exports.updateUserByID = function(req, res, next) {
   const { name, email, password, avatar } = req.body;
   let newAvatar = undefined;
   let avatarIsCange = false;
-  if (req.files && req.files.length) {
-    newAvatar = AVATARS_DIR + req.files[0].filename;
+  if (req.file) {
+    newAvatar = await fileLoaderToAWS(req.file);
     avatarIsCange = true;
   } else if (avatar === "undefined") {
     newAvatar = "";
@@ -126,7 +126,7 @@ module.exports.updateUserByID = function(req, res, next) {
     });
 };
 
-module.exports.register = function(req, res) {
+module.exports.register = async function(req, res) {
   if (!req.body.name || !req.body.email || !req.body.password) {
     sendJsResponse(res, 400, { message: "all fields required" });
     return;
@@ -134,8 +134,8 @@ module.exports.register = function(req, res) {
 
   const { name, email, password } = req.body;
   let avatar = "";
-  if (req.files && req.files.length) {
-    avatar = AVATARS_DIR + req.files[0].filename;
+  if (req.file) {
+    avatar = await fileLoaderToAWS(req.file);
   }
 
   Promise.all([isUserNameIsAvailable(name), isEmailIsAvailable(email)])
