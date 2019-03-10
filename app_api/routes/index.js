@@ -23,6 +23,7 @@ router.post("/chats/:chatId/messages", auth, ctrlMessages.postMessage);
 // users
 router.get("/users/:userId", auth, ctrlUsers.getUserByID);
 router.get("/users", auth, ctrlUsers.getUsers);
+router.put("/users/:userId", auth, ctrlUsers.updateUserByID);
 
 // auth
 router.post("/register", ctrlAuth.register);

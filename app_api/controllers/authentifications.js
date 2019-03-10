@@ -1,7 +1,11 @@
 var mongoose = require("mongoose");
 var UserModel = mongoose.model("User");
 var passport = require("passport");
-var { sendJsResponse } = require("./common");
+var {
+  sendJsResponse,
+  isUserNameIsAvailable,
+  isEmailIsAvailable
+} = require("./common");
 
 module.exports.register = function(req, res) {
   if (!req.body.name || !req.body.email || !req.body.password) {
@@ -11,11 +15,11 @@ module.exports.register = function(req, res) {
 
   const { name, email, password } = req.body;
   let avatar = "";
-  if (req.files.length) {
+  if (req.files && req.files.length) {
     avatar = req.files[0].filename;
   }
 
-  Promise.all([isUserNameIsAvailable(name), isEmailNameIsAvailable(email)])
+  Promise.all([isUserNameIsAvailable(name), isEmailIsAvailable(email)])
     .then(([userNameIsFound, emailNameIsFound]) => {
       let errorMessage = "";
       if (userNameIsFound) {
@@ -49,14 +53,6 @@ module.exports.register = function(req, res) {
       sendJsResponse(res, 404, err);
     });
 };
-
-function isUserNameIsAvailable(name) {
-  return UserModel.findOne({ name }).exec();
-}
-
-function isEmailNameIsAvailable(email) {
-  return UserModel.findOne({ email }).exec();
-}
 
 module.exports.login = function(req, res) {
   if (!req.body.email || !req.body.password) {

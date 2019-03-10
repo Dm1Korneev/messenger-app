@@ -71,7 +71,7 @@ module.exports.postChat = function(req, res, next) {
   }
 
   let avatar = "";
-  if (req.files.length) {
+  if (req.files && req.files.length) {
     avatar = req.files[0].filename;
   }
   const { title } = req.body;
