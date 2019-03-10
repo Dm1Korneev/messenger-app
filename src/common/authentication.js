@@ -37,6 +37,36 @@ export function login(email, password, callback) {
     });
 }
 
+export function modifyUser(token, userId, options, callback) {
+  const formData = new FormData();
+  if (options.hasOwnProperty("email")) {
+    formData.append("email", options.email);
+  }
+  if (options.hasOwnProperty("password")) {
+    formData.append("password", options.password);
+  }
+  if (options.hasOwnProperty("name")) {
+    formData.append("name", options.name);
+  }
+  if (options.hasOwnProperty("avatar")) {
+    formData.append("avatar", options.avatar);
+  }
+
+  return fetch(MESSAGES_API_URL + "/users/" + userId, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + token
+    },
+    body: formData
+  })
+    .then(response => response.json())
+    .then(result => callback(result))
+    .catch(function(error) {
+      console.log(error);
+    });
+}
+
 export function saveTokenToStorage(token) {
   if (localStorageAvailable()) {
     window.localStorage[TOKEN_FIELD] = token;

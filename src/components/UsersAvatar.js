@@ -1,6 +1,7 @@
 import React from "react";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
+import AccountIcon from "@material-ui/icons/AccountCircleOutlined";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 function UsersAvatar(props) {
@@ -14,7 +15,9 @@ function UsersAvatar(props) {
         alt={author}
         src={avatar}
         className={avatarHidden ? classes.avatarHidden : ""}
-      />
+      >
+        {!avatar && <AccountIcon style={{ fontSize: 40 }} />}
+      </Avatar>
     </ListItemAvatar>
   );
 }

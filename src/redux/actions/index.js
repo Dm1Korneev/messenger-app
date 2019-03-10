@@ -6,7 +6,8 @@ import {
   removeTokenFromStorage,
   saveTokenToStorage,
   login as loginAPI,
-  register as registerAPI
+  register as registerAPI,
+  modifyUser as modifyUserAPI
 } from "../../common/authentication";
 import {
   getChats as getChats_API,
@@ -23,6 +24,10 @@ export const setDrawerIsOpen = createAction("DRAWER_IS_OPEN_SET");
 
 export const setAddChatDialogIsOpen = createAction(
   "ADD_CHAT_DIALOG_IS_OPEN_SET"
+);
+
+export const setUserModifyDialogIsOpen = createAction(
+  "USER_MODIFY_DIALOG_IS_OPEN_SET"
 );
 
 const setSessionInfo = createAction("SESSION_INFO_SET");
@@ -169,6 +174,26 @@ export const register = (email, password, name, avatar, remember = false) => {
       if (remember) {
         saveTokenToStorage(result.token);
       }
+    });
+  };
+};
+
+export const modifyUser = (userId, options) => {
+  return (dispatch, getState) => {
+    const token = getState().session.token;
+    modifyUserAPI(token, userId, options, result => {
+      if (result.message) {
+        this.setState({
+          errorMessage: result.message
+        });
+        return;
+      }
+      const { token } = result;
+      const user = getUserInfo(token);
+      const userModifyDialogIsOpen = false;
+      dispatch(setSessionInfo({ token, user, userModifyDialogIsOpen }));
+      dispatch(addUsers(user));
+      saveTokenToStorage(token);
     });
   };
 };

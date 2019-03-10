@@ -1,6 +1,7 @@
 var jwt = require("jsonwebtoken");
 var mongoose = require("mongoose");
 var UserModel = mongoose.model("User");
+const { AVATARS_DIR } = require("../common/constants");
 
 module.exports.sendJsResponse = function(res, status, content) {
   res.status(status);

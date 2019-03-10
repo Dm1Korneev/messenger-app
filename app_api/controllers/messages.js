@@ -2,7 +2,6 @@ var mongoose = require("mongoose");
 var MessageModel = mongoose.model("Message");
 var ChatModel = mongoose.model("Chat");
 var { sendJsResponse, parseToken } = require("./common");
-const { AVATARS_DIR } = require("../common/constants");
 
 module.exports.getMessages = function(req, res, next) {
   if (!req.params || !req.params.chatId) {
@@ -49,7 +48,7 @@ module.exports.getMessages = function(req, res, next) {
       $group: {
         _id: "$authors._id",
         name: { $max: "$authors.name" },
-        avatar: { $max: { $concat: [AVATARS_DIR, "$authors.avatar"] } }
+        avatar: { $max: "$authors.avatar" }
       }
     }
   ]).exec();

@@ -35,13 +35,13 @@ function SideBar(props) {
       open={drawerIsOpen}
     >
       <div className={classes.toolbarIcon}>
-        <IconButton onClick={() => onDrawerClose()}>
+        <IconButton onClick={onDrawerClose}>
           <ChevronLeftIcon />
         </IconButton>
       </div>
       <Divider />
       <List>
-        <ListItem button key={"add_chat"} onClick={() => openAddChatDialog()}>
+        <ListItem button key={"add_chat"} onClick={openAddChatDialog}>
           <AddBoxIcon color="primary" className={classes.addChatIcon} />
           <ListItemText primary={"Add chat"} />
         </ListItem>

@@ -1,5 +1,9 @@
 import { connect } from "react-redux";
-import { setDrawerIsOpen, logOut } from "../redux/actions";
+import {
+  setDrawerIsOpen,
+  logOut,
+  setUserModifyDialogIsOpen
+} from "../redux/actions";
 import TopBar from "../components/TopBar";
 
 const mapStateToProps = state => ({
@@ -9,7 +13,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onDriwerOpen: () => dispatch(setDrawerIsOpen(true)),
-  onLogout: () => dispatch(logOut())
+  onLogout: () => dispatch(logOut()),
+  openUserModifyDialog: () => dispatch(setUserModifyDialogIsOpen(true))
 });
 
 export default connect(

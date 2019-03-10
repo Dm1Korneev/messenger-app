@@ -5,6 +5,7 @@ import SignIn from "../containers/SignIn";
 import TopBar from "../containers/TopBar";
 import SideBar from "../containers/SideBar";
 import AddChatDialog from "../containers/AddChatDialog";
+import UserModifyDialog from "../containers/UserModifyDialog";
 import MainContent from "./MainContent";
 
 // @material-ui
@@ -122,7 +123,12 @@ class App extends Component {
   };
 
   render() {
-    const { classes, addChatDialogIsOpen, isLoggedIn } = this.props;
+    const {
+      classes,
+      addChatDialogIsOpen,
+      userModifyDialogIsOpen,
+      isLoggedIn
+    } = this.props;
 
     let result;
     if (!isLoggedIn) {
@@ -135,6 +141,7 @@ class App extends Component {
           <SideBar />
           <MainContent />
           {addChatDialogIsOpen && <AddChatDialog />}
+          {userModifyDialogIsOpen && <UserModifyDialog />}
         </>
       );
     }

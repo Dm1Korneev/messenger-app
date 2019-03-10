@@ -96,7 +96,7 @@ class AddChatDialog extends React.Component {
     const usersList = !searchText ? users : searchResult;
 
     return (
-      <Dialog open onClose={() => closeAddChatDialog()}>
+      <Dialog open onClose={closeAddChatDialog}>
         <DialogTitle>Add chat</DialogTitle>
         <DialogContent>
           <ValidatorForm id="validatorForm" onSubmit={this.handleSubmit}>
@@ -143,7 +143,7 @@ class AddChatDialog extends React.Component {
           <Button type="submit" color="primary" form="validatorForm">
             Add
           </Button>
-          <Button onClick={() => closeAddChatDialog()} color="primary">
+          <Button onClick={closeAddChatDialog} color="primary">
             Close
           </Button>
         </DialogActions>

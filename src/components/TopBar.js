@@ -5,12 +5,20 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import CreateIcon from "@material-ui/icons/Create";
 import Button from "@material-ui/core/Button";
 import classNames from "classnames";
 import { DRAWER_WIDTH } from "../common/constants";
 
 function TopBar(props) {
-  const { drawerIsOpen, user, onLogout, onDriwerOpen, classes } = props;
+  const {
+    drawerIsOpen,
+    user,
+    onLogout,
+    onDriwerOpen,
+    openUserModifyDialog,
+    classes
+  } = props;
   let userName = user && user.name;
 
   return (
@@ -25,7 +33,7 @@ function TopBar(props) {
         <IconButton
           color="inherit"
           aria-label="Open drawer"
-          onClick={() => onDriwerOpen()}
+          onClick={onDriwerOpen}
           className={classNames(
             classes.menuButton,
             drawerIsOpen && classes.menuButtonHidden
@@ -41,8 +49,11 @@ function TopBar(props) {
           className={classes.title}
         >
           {userName}
+          <IconButton color="inherit" onClick={openUserModifyDialog}>
+            <CreateIcon />
+          </IconButton>
         </Typography>
-        <Button color="inherit" onClick={() => onLogout()}>
+        <Button color="inherit" onClick={onLogout}>
           logout
         </Button>
       </Toolbar>
