@@ -1,14 +1,14 @@
 const aws = require("aws-sdk");
 const S3_BUCKET = process.env.S3_BUCKET;
-const fs = require("fs");
+const uuidv4 = require("uuid/v4");
 
 module.exports = function loadToAWS(file) {
   return new Promise((resolve, reject) => {
     const s3 = new aws.S3();
     var params = {
       Bucket: S3_BUCKET,
-      Key: file.filename,
-      Body: fs.createReadStream(file.path),
+      Key: uuidv4(),
+      Body: file.buffer,
       ACL: "public-read"
     };
 
@@ -18,11 +18,6 @@ module.exports = function loadToAWS(file) {
         return;
       }
       resolve(data.Location);
-      fs.unlink(file.path, error => {
-        if (error) {
-          console.log(error);
-        }
-      });
     });
   });
 };
