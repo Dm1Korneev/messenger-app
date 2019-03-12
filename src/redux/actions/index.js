@@ -13,6 +13,7 @@ import {
   getChats as getChats_API,
   getMessages as getMessages_API,
   createChat as createChat_API,
+  modifyChat as modifyChatAPI,
   sendMessage as sendMessage_API,
   getUsers as getUsers_API
 } from "../../common/messengerAPI";
@@ -24,6 +25,10 @@ export const setDrawerIsOpen = createAction("DRAWER_IS_OPEN_SET");
 
 export const setAddChatDialogIsOpen = createAction(
   "ADD_CHAT_DIALOG_IS_OPEN_SET"
+);
+
+export const setModifyChatDialogIsOpen = createAction(
+  "MODIFY_CHAT_DIALOG_IS_OPEN_SET"
 );
 
 export const setUserModifyDialogIsOpen = createAction(
@@ -69,6 +74,16 @@ export const createChat = (title, avatar, selectedUserIds) => {
     createChat_API(token, title, avatar, selectedUserIds, chat => {
       dispatch(addChats(chat));
       dispatch(reloadChatsList(chat._id));
+    });
+  };
+};
+
+export const modifyChat = (chatId, options) => {
+  return (dispatch, getState) => {
+    const token = getState().session.token;
+    modifyChatAPI(token, chatId, options, chat => {
+      dispatch(addChats(chat));
+      dispatch(reloadChatsList(chatId));
     });
   };
 };
@@ -195,5 +210,27 @@ export const modifyUser = (userId, options) => {
       dispatch(addUsers(user));
       saveTokenToStorage(token);
     });
+  };
+};
+
+export const openModifyChatDialog = modifiableChat => {
+  return dispatch => {
+    const modifyChatDialogIsOpen = true;
+    dispatch(setSessionInfo({ modifyChatDialogIsOpen, modifiableChat }));
+  };
+};
+
+export const closeChatDialog = () => {
+  return dispatch => {
+    const modifyChatDialogIsOpen = false;
+    const addChatDialogIsOpen = false;
+    const modifiableChat = undefined;
+    dispatch(
+      setSessionInfo({
+        addChatDialogIsOpen,
+        modifyChatDialogIsOpen,
+        modifiableChat
+      })
+    );
   };
 };

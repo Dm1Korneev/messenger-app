@@ -96,6 +96,33 @@ export function createChat(token, title, avatar, users, callback) {
     });
 }
 
+export function modifyChat(token, chatId, options, callback) {
+  const formData = new FormData();
+  if (options.hasOwnProperty("title")) {
+    formData.append("title", options.title);
+  }
+  if (options.hasOwnProperty("avatar")) {
+    formData.append("avatar", options.avatar);
+  }
+  if (options.hasOwnProperty("users")) {
+    options.users.forEach(value => formData.append("users[]", value));
+  }
+
+  fetch(MESSAGES_API_URL + "/chats/" + chatId, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + token
+    },
+    body: formData
+  })
+    .then(response => response.json())
+    .then(result => callback(result))
+    .catch(function(error) {
+      console.log(error);
+    });
+}
+
 export function getUsers(token, callback) {
   fetch(MESSAGES_API_URL + "/users", {
     method: "GET",

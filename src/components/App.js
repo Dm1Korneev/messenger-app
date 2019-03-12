@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import SignIn from "../containers/SignIn";
 import TopBar from "../containers/TopBar";
 import SideBar from "../containers/SideBar";
-import AddChatDialog from "../containers/AddChatDialog";
+import ChatDialog from "../containers/ChatDialog";
 import UserModifyDialog from "../containers/UserModifyDialog";
 import MainContent from "./MainContent";
 
@@ -125,7 +125,7 @@ class App extends Component {
   render() {
     const {
       classes,
-      addChatDialogIsOpen,
+      chatDialogIsOpen,
       userModifyDialogIsOpen,
       isLoggedIn
     } = this.props;
@@ -140,7 +140,7 @@ class App extends Component {
           <TopBar />
           <SideBar />
           <MainContent />
-          {addChatDialogIsOpen && <AddChatDialog />}
+          {chatDialogIsOpen && <ChatDialog />}
           {userModifyDialogIsOpen && <UserModifyDialog />}
         </>
       );

@@ -2,7 +2,6 @@ import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import IconButton from "@material-ui/core/IconButton";
 import classNames from "classnames";
-import UsersAvatar from "./UsersAvatar";
 import Drawer from "@material-ui/core/Drawer";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
@@ -11,6 +10,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
 import { DRAWER_WIDTH } from "../common/constants";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import Chat from "./Chat";
 
 function SideBar(props) {
   const {
@@ -20,7 +20,8 @@ function SideBar(props) {
     onDrawerClose,
     classes,
     changeActiveChat,
-    openAddChatDialog
+    openAddChatDialog,
+    openModifyChatDialog
   } = props;
 
   return (
@@ -47,17 +48,16 @@ function SideBar(props) {
         </ListItem>
 
         {chats.allIds.map(value => {
-          const { _id, title, avatar } = chats.byId[value];
+          const chat = chats.byId[value];
+          const { _id } = chat;
           return (
-            <ListItem
-              button
+            <Chat
+              chat={chat}
               key={_id}
               selected={_id === activeChat}
-              onClick={() => changeActiveChat(_id)}
-            >
-              <UsersAvatar author={title} avatar={avatar} />
-              <ListItemText primary={title} />
-            </ListItem>
+              chatOnClick={changeActiveChat}
+              chatModifyOnClick={openModifyChatDialog}
+            />
           );
         })}
       </List>

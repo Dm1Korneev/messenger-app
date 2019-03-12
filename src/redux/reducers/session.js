@@ -6,6 +6,8 @@ const defaultStore = {
   isLoggedIn: false,
   drawerIsOpen: true,
   addChatDialogIsOpen: false,
+  modifyChatDialogIsOpen: false,
+  modifiableChat: undefined,
   userModifyDialogIsOpen: false,
   user: undefined
 };
@@ -24,6 +26,10 @@ export default handleActions(
     ADD_CHAT_DIALOG_IS_OPEN_SET: (state, action) => ({
       ...state,
       addChatDialogIsOpen: action.payload
+    }),
+    MODIFY_CHAT_DIALOG_IS_OPEN_SET: (state, action) => ({
+      ...state,
+      modifyChatDialogIsOpen: action.payload
     }),
     USER_MODIFY_DIALOG_IS_OPEN_SET: (state, action) => ({
       ...state,

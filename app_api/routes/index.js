@@ -15,6 +15,12 @@ const auth = jwt({
 router.get("/chats", auth, ctrlChats.getChats);
 router.get("/chats/:chatId", auth, ctrlChats.getChatByID);
 router.post("/chats", auth, fileLoader.single("avatar"), ctrlChats.postChat);
+router.put(
+  "/chats/:chatId",
+  auth,
+  fileLoader.single("avatar"),
+  ctrlChats.updateChatByID
+);
 
 // messages
 router.get("/chats/:chatId/messages", auth, ctrlMessages.getMessages);

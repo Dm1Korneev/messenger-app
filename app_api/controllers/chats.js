@@ -102,3 +102,64 @@ module.exports.postChat = async function(req, res, next) {
     )
     .catch(err => sendJsResponse(res, 400, err));
 };
+
+module.exports.updateChatByID = async function(req, res, next) {
+  if (!req.params || !req.params.chatId) {
+    sendJsResponse(res, 400, { message: "No 'chatId' in request" });
+    return;
+  }
+  const chatId = mongoose.Types.ObjectId(req.params.chatId);
+  const { title, avatar } = req.body;
+  let { users } = req.body;
+
+  let newAvatar = undefined;
+  let avatarIsCange = false;
+  if (req.file) {
+    newAvatar = await fileLoaderToAWS(req.file);
+    avatarIsCange = true;
+  } else if (avatar === "undefined") {
+    newAvatar = "";
+    avatarIsCange = true;
+  }
+  if (users) {
+    const admin = parseToken(req.headers.authorization)._id;
+    users = [...users, admin].filter(
+      (value, index, array) => array.indexOf(value) === index
+    );
+  }
+
+  ChatModel.findById(chatId)
+    .then(chat => {
+      if (!chat) {
+        sendJsResponse(res, 404, { message: "'chatId' not found" });
+        return;
+      }
+      if (title) {
+        chat.title = title;
+      }
+      if (users) {
+        chat.users = users;
+      }
+      if (avatarIsCange) {
+        chat.avatar = newAvatar;
+      }
+
+      return chat.save();
+    })
+    .then(chat => {
+      sendJsResponse(res, 200, {
+        _id: chat._id,
+        users: chat.users,
+        title: chat.title,
+        admin: chat.admin,
+        avatar: chat.avatar
+      });
+    })
+    .catch(err => {
+      if (!err) {
+        return;
+      }
+
+      sendJsResponse(res, 404, err);
+    });
+};

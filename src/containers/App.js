@@ -3,7 +3,8 @@ import App from "../components/App";
 import { loginFromStore } from "../redux/actions";
 
 const mapStateToProps = state => ({
-  addChatDialogIsOpen: state.session.addChatDialogIsOpen,
+  chatDialogIsOpen:
+    state.session.addChatDialogIsOpen || state.session.modifyChatDialogIsOpen,
   userModifyDialogIsOpen: state.session.userModifyDialogIsOpen,
   isLoggedIn: state.session.isLoggedIn
 });

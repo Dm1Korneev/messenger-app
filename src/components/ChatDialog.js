@@ -12,17 +12,27 @@ import UsersAvatar from "./UsersAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import AvatarSelector from "./AvatarSelector";
 
-class AddChatDialog extends React.Component {
+class ChatDialog extends React.Component {
   constructor(props) {
     super(props);
+    const { isModify } = props;
 
-    this.state = {
-      open: false,
+    const state = {
       title: "",
       searchText: "",
       searchResult: [],
-      selectedUserIds: []
+      selectedUserIds: [],
+      titleIsModified: false,
+      avatarIsModified: false,
+      selectedUserIdsIsModified: false
     };
+
+    if (isModify) {
+      const { title, users } = props.chat;
+      state.title = title;
+      state.selectedUserIds = users;
+    }
+    this.state = state;
     this.avatarFileInput = React.createRef();
   }
 
@@ -37,7 +47,8 @@ class AddChatDialog extends React.Component {
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
+      [name + "IsModified"]: true
     });
   };
 
@@ -64,13 +75,49 @@ class AddChatDialog extends React.Component {
     }
   };
 
+  avatarOnChange = () => {
+    this.setState({
+      avatarIsModified: true
+    });
+  };
+
   handleSubmit = event => {
-    const { onAddChat, closeAddChatDialog } = this.props;
-    const { title, selectedUserIds } = this.state;
+    const {
+      onAddChat,
+      onSaveChat,
+      closeChatDialog,
+      isModify,
+      chat
+    } = this.props;
+    const {
+      title,
+      selectedUserIds,
+      titleIsModified,
+      avatarIsModified,
+      selectedUserIdsIsModified
+    } = this.state;
     const avatar = this.avatarFileInput.current.files[0];
 
-    onAddChat(title, avatar, selectedUserIds);
-    closeAddChatDialog();
+    if (isModify) {
+      let options = {};
+      if (titleIsModified) {
+        options = { ...options, title };
+      }
+      if (selectedUserIdsIsModified) {
+        options = { ...options, users: selectedUserIds };
+      }
+      if (avatarIsModified) {
+        options = {
+          ...options,
+          avatar: this.avatarFileInput.current.files[0]
+        };
+      }
+
+      onSaveChat(chat._id, options);
+    } else {
+      onAddChat(title, avatar, selectedUserIds);
+    }
+    closeChatDialog();
   };
 
   userSelect = userId => {
@@ -86,21 +133,31 @@ class AddChatDialog extends React.Component {
     }
 
     this.setState({
-      selectedUserIds
+      selectedUserIds,
+      selectedUserIdsIsModified: true
     });
   };
 
   render() {
-    const { closeAddChatDialog, users } = this.props;
+    const { closeChatDialog, users, isModify, chat } = this.props;
     const { title, selectedUserIds, searchText, searchResult } = this.state;
     const usersList = !searchText ? users : searchResult;
 
+    let avatar;
+    if (isModify) {
+      avatar = chat.avatar;
+    }
+
     return (
-      <Dialog open onClose={closeAddChatDialog}>
-        <DialogTitle>Add chat</DialogTitle>
+      <Dialog open onClose={closeChatDialog}>
+        <DialogTitle>{isModify ? "Modify chat" : "Add chat"}</DialogTitle>
         <DialogContent>
           <ValidatorForm id="validatorForm" onSubmit={this.handleSubmit}>
-            <AvatarSelector avatarFileInput={this.avatarFileInput} />
+            <AvatarSelector
+              onChange={this.avatarOnChange}
+              avatar={avatar}
+              avatarFileInput={this.avatarFileInput}
+            />
             <TextValidator
               margin="normal"
               label="Title *"
@@ -141,9 +198,9 @@ class AddChatDialog extends React.Component {
         </DialogContent>
         <DialogActions>
           <Button type="submit" color="primary" form="validatorForm">
-            Add
+            {isModify ? "Save" : "Add"}
           </Button>
-          <Button onClick={closeAddChatDialog} color="primary">
+          <Button onClick={closeChatDialog} color="primary">
             Close
           </Button>
         </DialogActions>
@@ -154,4 +211,4 @@ class AddChatDialog extends React.Component {
 
 const styles = theme => ({});
 
-export default withStyles(styles)(AddChatDialog);
+export default withStyles(styles)(ChatDialog);
