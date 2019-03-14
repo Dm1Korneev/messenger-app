@@ -1,12 +1,19 @@
 import React from "react";
+
+// material-ui
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+
+import { ValidatorForm } from "react-material-ui-form-validator";
+
 import AvatarSelector from "./AvatarSelector";
+import UserPasswordField from "./UserPasswordField";
+import UserNameField from "./UserNameField";
+import UserEmailField from "./UserEmailField";
 
 class UserModifyDialog extends React.Component {
   constructor(props) {
@@ -88,48 +95,11 @@ class UserModifyDialog extends React.Component {
               avatar={avatar}
               avatarFileInput={this.avatarFileInput}
             />
-            <TextValidator
-              margin="normal"
-              label="Name *"
-              fullWidth
-              onChange={this.handleInputChange}
-              name="name"
-              id="name"
-              autoComplete="name"
-              color="primary"
-              value={name}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-            <TextValidator
-              margin="normal"
-              label="Email Address *"
-              fullWidth
-              onChange={this.handleInputChange}
-              name="email"
-              id="email"
-              autoComplete="email"
-              color="primary"
-              value={email}
-              validators={["required", "isEmail"]}
-              errorMessages={["this field is required", "email is not valid"]}
-            />
-            <TextValidator
-              margin="normal"
-              label="Password *"
-              fullWidth
-              onChange={this.handleInputChange}
-              name="password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              color="primary"
+            <UserNameField value={name} onChange={this.handleInputChange} />
+            <UserEmailField value={email} onChange={this.handleInputChange} />
+            <UserPasswordField
               value={password}
-              validators={["required", "minStringLength:6"]}
-              errorMessages={[
-                "this field is required",
-                "minimum length 6 symbols"
-              ]}
+              onChange={this.handleInputChange}
             />
           </ValidatorForm>
         </DialogContent>

@@ -1,20 +1,28 @@
 import React from "react";
+import { ValidatorForm } from "react-material-ui-form-validator";
+
+// material-ui
+import { withStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import PersonAddIcon from "@material-ui/icons/PersonAddOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import withStyles from "@material-ui/core/styles/withStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+
+// icons
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import PersonAddIcon from "@material-ui/icons/PersonAddOutlined";
+
 import AvatarSelector from "./AvatarSelector";
+import UserPasswordField from "./UserPasswordField";
+import UserNameField from "./UserNameField";
+import UserEmailField from "./UserEmailField";
 
 const SIGN_IN = "SIGN_IN";
 const REGISTER = "REGISTER";
@@ -34,23 +42,23 @@ class SignIn extends React.Component {
     this.avatarFileInput = React.createRef();
   }
 
-  handleSubmit = event => {
+  handleSubmit = () => {
     const { variant } = this.state;
 
     if (variant === SIGN_IN) {
-      this.handlerSignIn();
+      this.signIn();
     } else if (variant === REGISTER) {
-      this.handlerRegister();
+      this.register();
     }
   };
 
-  handlerSignIn = () => {
+  signIn = () => {
     const { onSignIn } = this.props;
     const { email, password, remember } = this.state;
     onSignIn(email, password, remember);
   };
 
-  handlerRegister = () => {
+  register = () => {
     const avatar = this.avatarFileInput.current.files[0];
 
     const { onRegister } = this.props;
@@ -117,50 +125,16 @@ class SignIn extends React.Component {
               {variant === REGISTER && (
                 <>
                   <AvatarSelector avatarFileInput={this.avatarFileInput} />
-                  <TextValidator
-                    margin="normal"
-                    label="Name *"
-                    fullWidth
-                    onChange={this.handleInputChange}
-                    name="name"
-                    id="name"
-                    autoComplete="name"
-                    color="primary"
+                  <UserNameField
                     value={name}
-                    validators={["required"]}
-                    errorMessages={["this field is required"]}
+                    onChange={this.handleInputChange}
                   />
                 </>
               )}
-              <TextValidator
-                margin="normal"
-                label="Email Address *"
-                fullWidth
-                onChange={this.handleInputChange}
-                name="email"
-                id="email"
-                autoComplete="email"
-                color="primary"
-                value={email}
-                validators={["required", "isEmail"]}
-                errorMessages={["this field is required", "email is not valid"]}
-              />
-              <TextValidator
-                margin="normal"
-                label="Password *"
-                fullWidth
-                onChange={this.handleInputChange}
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                color="primary"
+              <UserEmailField value={email} onChange={this.handleInputChange} />
+              <UserPasswordField
                 value={password}
-                validators={["required", "minStringLength:6"]}
-                errorMessages={[
-                  "this field is required",
-                  "minimum length 6 symbols"
-                ]}
+                onChange={this.handleInputChange}
               />
               <FormControlLabel
                 control={
