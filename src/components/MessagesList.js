@@ -26,10 +26,14 @@ class MessagesList extends Component {
   };
 
   componentDidUpdate() {
-    this.scrollToBottom();
+    const { bottomPosition } = this.props;
+    if (bottomPosition) {
+      this.scrollToBottom();
+    }
   }
 
   componentDidMount() {
+    this.scrollToBottom();
     this.interval = setInterval(this.loadMessages, RELOAD_PERIOD);
   }
 
@@ -39,10 +43,18 @@ class MessagesList extends Component {
     }
   }
 
+  hendlerOnScroll = event => {
+    const { setBottomPosition } = this.props;
+    setBottomPosition(
+      event.target.scrollHeight - event.target.offsetHeight ===
+        event.target.scrollTop
+    );
+  };
+
   render() {
     const { messages, classes, user, users } = this.props;
     return (
-      <List className={classes.list}>
+      <List className={classes.list} onScroll={this.hendlerOnScroll}>
         {messages.map((value, index, array) => {
           const { author, text, _id } = value;
           let { dateTime } = value;

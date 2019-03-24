@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { loadMessages } from "../redux/actions";
+import { loadMessages, setBottomPosition } from "../redux/actions";
 import MessagesList from "../components/MessagesList";
 
 const mapStateToProps = state => {
@@ -16,6 +16,7 @@ const mapStateToProps = state => {
   }
 
   return {
+    bottomPosition: state.session.bottomPosition,
     messages,
     users: state.users.byId,
     user: state.session.user
@@ -23,7 +24,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  loadMessages: () => dispatch(loadMessages())
+  loadMessages: () => dispatch(loadMessages()),
+  setBottomPosition: value => dispatch(setBottomPosition(value))
 });
 
 export default connect(

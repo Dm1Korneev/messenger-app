@@ -35,6 +35,8 @@ export const setUserModifyDialogIsOpen = createAction(
   "USER_MODIFY_DIALOG_IS_OPEN_SET"
 );
 
+export const setBottomPosition = createAction("BOTTOM_POSITION_SET");
+
 const setSessionInfo = createAction("SESSION_INFO_SET");
 
 // chats

@@ -9,7 +9,8 @@ const defaultStore = {
   modifyChatDialogIsOpen: false,
   modifiableChat: undefined,
   userModifyDialogIsOpen: false,
-  user: undefined
+  user: undefined,
+  bottomPosition: true
 };
 
 export default handleActions(
@@ -38,6 +39,10 @@ export default handleActions(
     IS_LOGGED_IN_SET: (state, action) => ({
       ...state,
       isLoggedIn: action.payload
+    }),
+    BOTTOM_POSITION_SET: (state, action) => ({
+      ...state,
+      bottomPosition: action.payload
     }),
     SESSION_INFO_SET: (state, action) => ({
       ...state,
