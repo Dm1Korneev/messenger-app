@@ -4,7 +4,16 @@ import List from "@material-ui/core/List";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Divider from "@material-ui/core/Divider";
 
+import { RELOAD_PERIOD } from "../common/constants";
+
 class MessagesList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.loadMessages = props.loadMessages;
+    this.interval = undefined;
+  }
+
   messagesEnd = React.createRef();
 
   scrollToBottom = () => {
@@ -18,6 +27,16 @@ class MessagesList extends Component {
 
   componentDidUpdate() {
     this.scrollToBottom();
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.loadMessages, RELOAD_PERIOD);
+  }
+
+  componentWillUnmount() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   }
 
   render() {

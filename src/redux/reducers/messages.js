@@ -10,6 +10,9 @@ export default handleActions(
       const payload = Array.isArray(action.payload)
         ? action.payload
         : [action.payload];
+
+      const newStore = objectsAdd(state, payload);
+
       const messagesByChats = {};
       payload.forEach(value => {
         messagesByChats[value.chat] = messagesByChats[value.chat]
@@ -23,9 +26,13 @@ export default handleActions(
           ? [...byChats[chatId], ...messagesByChats[chatId]]
           : messagesByChats[chatId]
         ).filter(distinct);
+        byChats[chatId] = byChats[chatId].sort(
+          (a, b) =>
+            new Date(newStore.byId[a].dateTime) -
+            new Date(newStore.byId[b].dateTime)
+        );
       });
 
-      const newStore = objectsAdd(state, payload);
       return { ...newStore, byChats };
     },
     STORE_CLEAR: () => defaultStore

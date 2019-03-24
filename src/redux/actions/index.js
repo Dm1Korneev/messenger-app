@@ -107,6 +107,7 @@ export const createChat = (title, avatar, selectedUserIds) => {
         dispatch(getSuccessAction(fetchActionName));
         dispatch(addChats(chat));
         dispatch(reloadChatsList(chat._id));
+        dispatch(loadMessages());
       })
       .catch(error => {
         dispatch(getFailureAction(fetchActionName, error));
@@ -157,9 +158,12 @@ const initActiveChat = activeChat => {
   };
 };
 
-const loadMessages = () => {
+export const loadMessages = () => {
   return (dispatch, getState) => {
     const { token, activeChat } = getState().session;
+    if (!activeChat) {
+      return;
+    }
 
     const fetchActionName = "GET_MESSAGES";
     dispatch(getRequestAction(fetchActionName));
@@ -183,14 +187,13 @@ export const reloadChatsList = (_activeChat = undefined) => {
   return (dispatch, getState) => {
     const { session } = getState();
     const { token } = session;
-    const activeChat = _activeChat ? _activeChat : session.activeChat;
 
     const fetchActionName = "GET_CHATS";
     dispatch(getRequestAction(fetchActionName));
     getChats_API(token)
       .then(chats => {
         dispatch(getSuccessAction(fetchActionName));
-        dispatch(initChatsList(chats, activeChat));
+        dispatch(addChats(chats));
       })
       .catch(error => {
         dispatch(getFailureAction(fetchActionName, error));

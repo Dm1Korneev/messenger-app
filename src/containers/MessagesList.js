@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { loadMessages } from "../redux/actions";
 import MessagesList from "../components/MessagesList";
 
 const mapStateToProps = state => {
@@ -21,7 +22,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  loadMessages: () => dispatch(loadMessages())
+});
 
 export default connect(
   mapStateToProps,

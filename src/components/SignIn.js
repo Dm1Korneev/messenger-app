@@ -82,14 +82,7 @@ class SignIn extends React.Component {
 
   render() {
     const { loginError, registerError, classes } = this.props;
-    const {
-      email,
-      password,
-      name,
-      remember,
-      variant,
-      errorMessage
-    } = this.state;
+    const { email, password, name, remember, variant } = this.state;
 
     return (
       <main className={classes.main}>

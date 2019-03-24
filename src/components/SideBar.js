@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import IconButton from "@material-ui/core/IconButton";
 import classNames from "classnames";
@@ -12,57 +12,78 @@ import { DRAWER_WIDTH } from "../common/constants";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import Chat from "./Chat";
 
-function SideBar(props) {
-  const {
-    drawerIsOpen,
-    chats,
-    activeChat,
-    onDrawerClose,
-    classes,
-    changeActiveChat,
-    openAddChatDialog,
-    openModifyChatDialog
-  } = props;
+import { RELOAD_PERIOD } from "../common/constants";
 
-  return (
-    <Drawer
-      variant="permanent"
-      classes={{
-        paper: classNames(
-          classes.drawerPaper,
-          !drawerIsOpen && classes.drawerPaperClose
-        )
-      }}
-      open={drawerIsOpen}
-    >
-      <div className={classes.toolbarIcon}>
-        <IconButton onClick={onDrawerClose}>
-          <ChevronLeftIcon />
-        </IconButton>
-      </div>
-      <Divider />
-      <List>
-        <ListItem button key={"add_chat"} onClick={openAddChatDialog}>
-          <AddBoxIcon color="primary" className={classes.addChatIcon} />
-          <ListItemText primary={"Add chat"} />
-        </ListItem>
+class SideBar extends Component {
+  constructor(props) {
+    super(props);
 
-        {chats.allIds.map(value => {
-          const chat = chats.byId[value];
-          const { _id } = chat;
-          return (
-            <Chat
-              chat={chat}
-              key={_id}
-              selected={_id === activeChat}
-              chatOnClick={changeActiveChat}
-              chatModifyOnClick={openModifyChatDialog}
-            />
-          );
-        })}
-      </List>
-    </Drawer>
-  );
+    this.reloadChatsList = props.reloadChatsList;
+    this.interval = undefined;
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.reloadChatsList, RELOAD_PERIOD);
+  }
+
+  componentWillUnmount() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
+
+  render() {
+    const {
+      drawerIsOpen,
+      chats,
+      activeChat,
+      onDrawerClose,
+      classes,
+      changeActiveChat,
+      openAddChatDialog,
+      openModifyChatDialog
+    } = this.props;
+
+    return (
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: classNames(
+            classes.drawerPaper,
+            !drawerIsOpen && classes.drawerPaperClose
+          )
+        }}
+        open={drawerIsOpen}
+      >
+        <div className={classes.toolbarIcon}>
+          <IconButton onClick={onDrawerClose}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          <ListItem button key={"add_chat"} onClick={openAddChatDialog}>
+            <AddBoxIcon color="primary" className={classes.addChatIcon} />
+            <ListItemText primary={"Add chat"} />
+          </ListItem>
+
+          {chats.allIds.map(value => {
+            const chat = chats.byId[value];
+            const { _id } = chat;
+            return (
+              <Chat
+                chat={chat}
+                key={_id}
+                selected={_id === activeChat}
+                chatOnClick={changeActiveChat}
+                chatModifyOnClick={openModifyChatDialog}
+              />
+            );
+          })}
+        </List>
+      </Drawer>
+    );
+  }
 }
 
 const styles = theme => ({
