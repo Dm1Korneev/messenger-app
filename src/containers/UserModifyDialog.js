@@ -3,7 +3,8 @@ import { setUserModifyDialogIsOpen, modifyUser } from "../redux/actions";
 import UserModifyDialog from "../components/UserModifyDialog";
 
 const mapStateToProps = state => ({
-  user: state.session.user
+  user: state.session.user,
+  error: state.errors.MODIFY_USER
 });
 
 const mapDispatchToProps = dispatch => ({

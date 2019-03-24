@@ -7,6 +7,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 import { ValidatorForm } from "react-material-ui-form-validator";
 
@@ -81,7 +82,7 @@ class UserModifyDialog extends React.Component {
   };
 
   render() {
-    const { closeUserModifyDialog, user } = this.props;
+    const { closeUserModifyDialog, user, error } = this.props;
     const { name, email, password } = this.state;
     const { avatar } = user;
 
@@ -90,6 +91,7 @@ class UserModifyDialog extends React.Component {
         <DialogTitle>Modify user</DialogTitle>
         <DialogContent>
           <ValidatorForm id="validatorForm" onSubmit={this.onSubmit}>
+            {error && <FormHelperText error>{error}</FormHelperText>}
             <AvatarSelector
               onChange={this.avatarOnChange}
               avatar={avatar}

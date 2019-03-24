@@ -4,18 +4,18 @@ import {
   getUserInfo,
   getTokenFromStorage,
   removeTokenFromStorage,
-  saveTokenToStorage,
-  login as loginAPI,
-  register as registerAPI,
-  modifyUser as modifyUserAPI
+  saveTokenToStorage
 } from "../../common/authentication";
 import {
+  login as login_API,
+  register as register_API,
   getChats as getChats_API,
   getMessages as getMessages_API,
   createChat as createChat_API,
-  modifyChat as modifyChatAPI,
+  modifyChat as modifyChat_API,
   sendMessage as sendMessage_API,
-  getUsers as getUsers_API
+  getUsers as getUsers_API,
+  modifyUser as modifyUser_API
 } from "../../common/messengerAPI";
 
 // session
@@ -49,42 +49,86 @@ const addUsers = createAction("USERS_ADD");
 // others
 const clearStore = createAction("STORE_CLEAR");
 
+const getRequestAction = name => {
+  return createAction(name + "_REQUEST")();
+};
+
+const getSuccessAction = name => {
+  return createAction(name + "_SUCCESS")();
+};
+
+const getFailureAction = (name, error) => {
+  return createAction(name + "_FAILURE")(error);
+};
+
 export const loadAllUsers = () => {
   return (dispatch, getState) => {
     const { token } = getState().session;
-    getUsers_API(token, users => {
-      dispatch(addUsers(users));
-    });
+
+    const fetchActionName = "GET_USERS";
+    dispatch(getRequestAction(fetchActionName));
+    getUsers_API(token)
+      .then(users => {
+        dispatch(getSuccessAction(fetchActionName));
+        dispatch(addUsers(users));
+      })
+      .catch(error => {
+        dispatch(getFailureAction(fetchActionName, error));
+      });
   };
 };
 
 export const sendMessage = messageText => {
   return (dispatch, getState) => {
     const { token, activeChat } = getState().session;
-    sendMessage_API(token, activeChat, messageText, message => {
-      dispatch(addMessages(message));
-      dispatch(loadMessages());
-    });
+
+    const fetchActionName = "SEND_MESSAGE";
+    dispatch(getRequestAction(fetchActionName));
+    sendMessage_API(token, activeChat, messageText)
+      .then(message => {
+        dispatch(getSuccessAction(fetchActionName));
+        dispatch(addMessages(message));
+        dispatch(loadMessages());
+      })
+      .catch(error => {
+        dispatch(getFailureAction(fetchActionName, error));
+      });
   };
 };
 
 export const createChat = (title, avatar, selectedUserIds) => {
   return (dispatch, getState) => {
     const token = getState().session.token;
-    createChat_API(token, title, avatar, selectedUserIds, chat => {
-      dispatch(addChats(chat));
-      dispatch(reloadChatsList(chat._id));
-    });
+
+    const fetchActionName = "CREATE_CHAT";
+    dispatch(getRequestAction(fetchActionName));
+    createChat_API(token, title, avatar, selectedUserIds)
+      .then(chat => {
+        dispatch(getSuccessAction(fetchActionName));
+        dispatch(addChats(chat));
+        dispatch(reloadChatsList(chat._id));
+      })
+      .catch(error => {
+        dispatch(getFailureAction(fetchActionName, error));
+      });
   };
 };
 
 export const modifyChat = (chatId, options) => {
   return (dispatch, getState) => {
     const token = getState().session.token;
-    modifyChatAPI(token, chatId, options, chat => {
-      dispatch(addChats(chat));
-      dispatch(reloadChatsList(chatId));
-    });
+
+    const fetchActionName = "MODIFY_CHAT";
+    dispatch(getRequestAction(fetchActionName));
+    modifyChat_API(token, chatId, options)
+      .then(chat => {
+        dispatch(getSuccessAction(fetchActionName));
+        dispatch(addChats(chat));
+        dispatch(reloadChatsList(chatId));
+      })
+      .catch(error => {
+        dispatch(getFailureAction(fetchActionName, error));
+      });
   };
 };
 
@@ -116,10 +160,18 @@ const initActiveChat = activeChat => {
 const loadMessages = () => {
   return (dispatch, getState) => {
     const { token, activeChat } = getState().session;
-    getMessages_API(token, activeChat, ({ messages, users }) => {
-      dispatch(addUsers(users));
-      dispatch(addMessages(messages));
-    });
+
+    const fetchActionName = "GET_MESSAGES";
+    dispatch(getRequestAction(fetchActionName));
+    getMessages_API(token, activeChat)
+      .then(({ messages, users }) => {
+        dispatch(getSuccessAction(fetchActionName));
+        dispatch(addUsers(users));
+        dispatch(addMessages(messages));
+      })
+      .catch(error => {
+        dispatch(getFailureAction(fetchActionName, error));
+      });
   };
 };
 
@@ -132,9 +184,17 @@ export const reloadChatsList = (_activeChat = undefined) => {
     const { session } = getState();
     const { token } = session;
     const activeChat = _activeChat ? _activeChat : session.activeChat;
-    getChats_API(token, chats => {
-      dispatch(initChatsList(chats, activeChat));
-    });
+
+    const fetchActionName = "GET_CHATS";
+    dispatch(getRequestAction(fetchActionName));
+    getChats_API(token)
+      .then(chats => {
+        dispatch(getSuccessAction(fetchActionName));
+        dispatch(initChatsList(chats, activeChat));
+      })
+      .catch(error => {
+        dispatch(getFailureAction(fetchActionName, error));
+      });
   };
 };
 
@@ -145,9 +205,16 @@ export const initAfterLogin = token => {
       const user = getUserInfo(token);
       dispatch(setSessionInfo({ token, isLoggedIn, user }));
 
-      getChats_API(token, chats => {
-        dispatch(initChatsList(chats));
-      });
+      const fetchActionName = "GET_CHATS";
+      dispatch(getRequestAction(fetchActionName));
+      getChats_API(token)
+        .then(chats => {
+          dispatch(getSuccessAction(fetchActionName));
+          dispatch(initChatsList(chats));
+        })
+        .catch(error => {
+          dispatch(getFailureAction(fetchActionName, error));
+        });
     }
   };
 };
@@ -161,55 +228,58 @@ export const logOut = () => {
 
 export const signIn = (email, password, remember = false) => {
   return dispatch => {
-    loginAPI(email, password, result => {
-      if (result.message) {
-        this.setState({
-          errorMessage: result.message
-        });
-        return;
-      }
-      dispatch(initAfterLogin(result.token));
-      if (remember) {
-        saveTokenToStorage(result.token);
-      }
-    });
+    const fetchActionName = "LOGIN";
+    dispatch(getRequestAction(fetchActionName));
+    login_API(email, password)
+      .then(result => {
+        dispatch(getSuccessAction(fetchActionName));
+        dispatch(initAfterLogin(result.token));
+        if (remember) {
+          saveTokenToStorage(result.token);
+        }
+      })
+      .catch(error => {
+        dispatch(getFailureAction(fetchActionName, error));
+      });
   };
 };
 
 export const register = (email, password, name, avatar, remember = false) => {
   return dispatch => {
-    registerAPI(email, password, name, avatar, result => {
-      if (result.message) {
-        this.setState({
-          errorMessage: result.message
-        });
-        return;
-      }
-      dispatch(initAfterLogin(result.token));
-      if (remember) {
-        saveTokenToStorage(result.token);
-      }
-    });
+    const fetchActionName = "REGISTER";
+    dispatch(getRequestAction(fetchActionName));
+    register_API(email, password, name, avatar)
+      .then(result => {
+        dispatch(getSuccessAction(fetchActionName));
+        dispatch(initAfterLogin(result.token));
+        if (remember) {
+          saveTokenToStorage(result.token);
+        }
+      })
+      .catch(error => {
+        dispatch(getFailureAction(fetchActionName, error));
+      });
   };
 };
 
 export const modifyUser = (userId, options) => {
   return (dispatch, getState) => {
     const token = getState().session.token;
-    modifyUserAPI(token, userId, options, result => {
-      if (result.message) {
-        this.setState({
-          errorMessage: result.message
-        });
-        return;
-      }
-      const { token } = result;
-      const user = getUserInfo(token);
-      const userModifyDialogIsOpen = false;
-      dispatch(setSessionInfo({ token, user, userModifyDialogIsOpen }));
-      dispatch(addUsers(user));
-      saveTokenToStorage(token);
-    });
+    const fetchActionName = "MODIFY_USER";
+    dispatch(getRequestAction(fetchActionName));
+    modifyUser_API(token, userId, options)
+      .then(result => {
+        dispatch(getSuccessAction(fetchActionName));
+        const { token } = result;
+        const user = getUserInfo(token);
+        const userModifyDialogIsOpen = false;
+        dispatch(setSessionInfo({ token, user, userModifyDialogIsOpen }));
+        dispatch(addUsers(user));
+        saveTokenToStorage(token);
+      })
+      .catch(error => {
+        dispatch(getFailureAction(fetchActionName, error));
+      });
   };
 };
 

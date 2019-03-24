@@ -1,81 +1,14 @@
-import { TOKEN_FIELD, MESSAGES_API_URL } from "./constants";
-
-export function register(email, password, name, avatar, callback) {
-  const formData = new FormData();
-  formData.append("email", email);
-  formData.append("password", password);
-  formData.append("name", name);
-  formData.append("avatar", avatar);
-
-  return fetch(MESSAGES_API_URL + "/register", {
-    method: "POST",
-    headers: {
-      Accept: "application/json"
-    },
-    body: formData
-  })
-    .then(response => response.json())
-    .then(result => callback(result))
-    .catch(function(error) {
-      console.log(error);
-    });
-}
-
-export function login(email, password, callback) {
-  return fetch(MESSAGES_API_URL + "/login", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email, password })
-  })
-    .then(response => response.json())
-    .then(result => callback(result))
-    .catch(function(error) {
-      console.log(error);
-    });
-}
-
-export function modifyUser(token, userId, options, callback) {
-  const formData = new FormData();
-  if (options.hasOwnProperty("email")) {
-    formData.append("email", options.email);
-  }
-  if (options.hasOwnProperty("password")) {
-    formData.append("password", options.password);
-  }
-  if (options.hasOwnProperty("name")) {
-    formData.append("name", options.name);
-  }
-  if (options.hasOwnProperty("avatar")) {
-    formData.append("avatar", options.avatar);
-  }
-
-  return fetch(MESSAGES_API_URL + "/users/" + userId, {
-    method: "PUT",
-    headers: {
-      Accept: "application/json",
-      Authorization: "Bearer " + token
-    },
-    body: formData
-  })
-    .then(response => response.json())
-    .then(result => callback(result))
-    .catch(function(error) {
-      console.log(error);
-    });
-}
+import { TOKEN_FIELD } from "./constants";
 
 export function saveTokenToStorage(token) {
   if (localStorageAvailable()) {
-    window.localStorage[TOKEN_FIELD] = token;
+    sessionStorage[TOKEN_FIELD] = token;
   }
 }
 
 export function getTokenFromStorage() {
   if (localStorageAvailable()) {
-    return window.localStorage[TOKEN_FIELD];
+    return sessionStorage[TOKEN_FIELD];
   } else {
     return undefined;
   }
@@ -83,7 +16,7 @@ export function getTokenFromStorage() {
 
 export function removeTokenFromStorage() {
   if (localStorageAvailable()) {
-    return window.localStorage.removeItem(TOKEN_FIELD);
+    return sessionStorage.removeItem(TOKEN_FIELD);
   } else {
     return undefined;
   }
@@ -118,7 +51,7 @@ export function getUserInfo(token) {
 
 function localStorageAvailable() {
   try {
-    var storage = window.localStorage,
+    var storage = sessionStorage,
       x = "__storage_test__";
     storage.setItem(x, x);
     storage.removeItem(x);

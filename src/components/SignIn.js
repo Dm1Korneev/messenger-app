@@ -81,7 +81,7 @@ class SignIn extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { loginError, registerError, classes } = this.props;
     const {
       email,
       password,
@@ -119,8 +119,11 @@ class SignIn extends React.Component {
               className={classes.form}
               onSubmit={this.handleSubmit}
             >
-              {errorMessage && (
-                <FormHelperText error>{errorMessage}</FormHelperText>
+              {loginError && variant === SIGN_IN && (
+                <FormHelperText error>{loginError}</FormHelperText>
+              )}
+              {registerError && variant === REGISTER && (
+                <FormHelperText error>{registerError}</FormHelperText>
               )}
               {variant === REGISTER && (
                 <>

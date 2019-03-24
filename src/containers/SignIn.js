@@ -2,7 +2,10 @@ import { connect } from "react-redux";
 import { signIn, register } from "../redux/actions";
 import SignIn from "../components/SignIn";
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  loginError: state.errors.LOGIN,
+  registerError: state.errors.REGISTER
+});
 
 const mapDispatchToProps = dispatch => ({
   onSignIn: (...args) => dispatch(signIn(...args)),

@@ -1,145 +1,179 @@
 import { MESSAGES_API_URL } from "./constants";
 
-export function getChats(token, callback) {
-  fetch(MESSAGES_API_URL + "/chats", {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + token
-    }
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then(result => {
-      if (result) callback(result);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+function parseJSON(response) {
+  return new Promise(resolve =>
+    response.json().then(result =>
+      resolve({
+        status: response.status,
+        ok: response.ok,
+        result
+      })
+    )
+  );
 }
 
-export function getMessages(token, chatId, callback) {
-  fetch(MESSAGES_API_URL + "/chats/" + chatId + "/messages", {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + token
-    }
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then(result => {
-      if (result) callback(result);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+function apiCall(URI, options) {
+  options.headers = {
+    ...options.headers,
+    Accept: "application/json"
+  };
+
+  return new Promise((resolve, reject) => {
+    fetch(URI, options)
+      .then(parseJSON)
+      .then(response => {
+        if (response.ok) {
+          return resolve(response.result);
+        }
+        return reject(response.result);
+      });
+  });
 }
 
-export function sendMessage(token, chatId, messageText, callback) {
-  fetch(MESSAGES_API_URL + "/chats/" + chatId + "/messages", {
+function addJsonBodyToRequest(options, bodyObject) {
+  return {
+    ...options,
+    headers: {
+      ...options.headers,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(bodyObject)
+  };
+}
+
+export function login(email, password) {
+  const uri = MESSAGES_API_URL + "/login";
+  const options = addJsonBodyToRequest(
+    {
+      method: "POST"
+    },
+    { email, password }
+  );
+
+  return apiCall(uri, options);
+}
+
+export function register(email, password, name, avatar) {
+  const formData = new FormData();
+  formData.append("email", email);
+  formData.append("password", password);
+  formData.append("name", name);
+  formData.append("avatar", avatar);
+
+  const uri = MESSAGES_API_URL + "/register";
+  const options = {
     method: "POST",
+    body: formData
+  };
+
+  return apiCall(uri, options);
+}
+
+export function modifyUser(token, userId, modifyData) {
+  const formData = new FormData();
+  Object.keys(modifyData).forEach(key => formData.append(key, modifyData[key]));
+
+  const uri = MESSAGES_API_URL + "/users/" + userId;
+  const options = {
+    method: "PUT",
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
       Authorization: "Bearer " + token
     },
-    body: JSON.stringify({
-      text: messageText
-    })
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then(result => {
-      if (result) callback(result);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+    body: formData
+  };
+
+  return apiCall(uri, options);
 }
 
-export function createChat(token, title, avatar, users, callback) {
+export function getChats(token) {
+  const uri = MESSAGES_API_URL + "/chats";
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token
+    }
+  };
+
+  return apiCall(uri, options);
+}
+
+export function getMessages(token, chatId) {
+  const uri = MESSAGES_API_URL + "/chats/" + chatId + "/messages";
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token
+    }
+  };
+
+  return apiCall(uri, options);
+}
+
+export function sendMessage(token, chatId, text) {
+  const uri = MESSAGES_API_URL + "/chats/" + chatId + "/messages";
+  const options = addJsonBodyToRequest(
+    {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    },
+    {
+      text
+    }
+  );
+
+  return apiCall(uri, options);
+}
+
+export function createChat(token, title, avatar, users) {
   const formData = new FormData();
   formData.append("title", title);
   formData.append("avatar", avatar);
   users.forEach(value => formData.append("users[]", value));
 
-  fetch(MESSAGES_API_URL + "/chats", {
+  const uri = MESSAGES_API_URL + "/chats";
+  const options = {
     method: "POST",
     headers: {
-      Accept: "application/json",
       Authorization: "Bearer " + token
     },
     body: formData
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw Error(response);
-      }
-      return response.json();
-    })
-    .then(result => {
-      if (result) callback(result);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+  };
+
+  return apiCall(uri, options);
 }
 
-export function modifyChat(token, chatId, options, callback) {
+export function modifyChat(token, chatId, modifyData) {
   const formData = new FormData();
-  if (options.hasOwnProperty("title")) {
-    formData.append("title", options.title);
-  }
-  if (options.hasOwnProperty("avatar")) {
-    formData.append("avatar", options.avatar);
-  }
-  if (options.hasOwnProperty("users")) {
-    options.users.forEach(value => formData.append("users[]", value));
-  }
+  Object.keys(modifyData).forEach(key => {
+    if (key === "users") {
+      formData.append("users[]", modifyData[key]);
+    } else {
+      formData.append(key, modifyData[key]);
+    }
+  });
 
-  fetch(MESSAGES_API_URL + "/chats/" + chatId, {
+  const uri = MESSAGES_API_URL + "/chats/" + chatId;
+  const options = {
     method: "PUT",
     headers: {
-      Accept: "application/json",
       Authorization: "Bearer " + token
     },
     body: formData
-  })
-    .then(response => response.json())
-    .then(result => callback(result))
-    .catch(function(error) {
-      console.log(error);
-    });
+  };
+
+  return apiCall(uri, options);
 }
 
-export function getUsers(token, callback) {
-  fetch(MESSAGES_API_URL + "/users", {
+export function getUsers(token) {
+  const uri = MESSAGES_API_URL + "/users";
+  const options = {
     method: "GET",
     headers: {
       Authorization: "Bearer " + token
     }
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then(result => {
-      if (result) callback(result);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+  };
+
+  return apiCall(uri, options);
 }
