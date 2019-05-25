@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import Message from "./Message";
+import MessageUser from "./MessageUser";
+import MessageDateTime from "./MessageDateTime";
+import MessageText from "./MessageText";
 import List from "@material-ui/core/List";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Divider from "@material-ui/core/Divider";
@@ -52,12 +54,37 @@ class MessagesList extends Component {
   };
 
   render() {
-    const { messages, classes, user, users } = this.props;
+    const { messagesTree, classes, user, users } = this.props;
+
     return (
       <List className={classes.list} onScroll={this.hendlerOnScroll}>
-        {messages.map((value, index, array) => {
-          const { author, text, _id } = value;
-          let { dateTime } = value;
+        {messagesTree.map((value, index) => {
+          const { author, childrens } = value;
+
+          const isCurrentUserMessage = user._id === author;
+
+          const childrenComponents = childrens.map((value, index) => {
+            const { dateTime, childrens } = value;
+
+            const childrenComponents = childrens.map(value => (
+              <MessageText
+                key={value._id}
+                text={value.text}
+                isCurrentUserMessage={isCurrentUserMessage}
+              />
+            ));
+
+            return (
+              <MessageDateTime
+                key={index}
+                dateTime={dateTime}
+                isCurrentUserMessage={isCurrentUserMessage}
+              >
+                <List disablePadding>{childrenComponents}</List>
+              </MessageDateTime>
+            );
+          });
+
           const messageAuthor = users[author];
 
           let name, avatar;
@@ -65,30 +92,19 @@ class MessagesList extends Component {
             name = messageAuthor.name;
             avatar = messageAuthor.avatar;
           }
-          const isCurrentUserMessage = user._id === author;
-          const sameAuthor = index > 0 && array[index - 1].author === author;
-
-          dateTime = new Date(dateTime);
-          if (
-            sameAuthor &&
-            new Date(array[index - 1].dateTime) - new Date(dateTime) <
-              1000 * 60 &&
-            dateTime.getMinutes() ===
-              new Date(array[index - 1].dateTime).getMinutes()
-          ) {
-            dateTime = "";
-          }
 
           return (
-            <React.Fragment key={_id}>
-              {!sameAuthor && index > 0 && (
+            <React.Fragment key={index}>
+              {index > 0 && (
                 <Divider variant="middle" className={classes.Divider} />
               )}
-              <Message
-                message={{ author: name, avatar, dateTime, text }}
+              <MessageUser
+                author={name}
+                avatar={avatar}
                 isCurrentUserMessage={isCurrentUserMessage}
-                sameAuthor={sameAuthor}
-              />
+              >
+                <List disablePadding>{childrenComponents}</List>
+              </MessageUser>
             </React.Fragment>
           );
         })}

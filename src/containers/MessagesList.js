@@ -15,9 +15,36 @@ const mapStateToProps = state => {
     messages = [];
   }
 
+  const messagesTree = [];
+  let authorNode, dateTimeNode, dateTime;
+  messages.forEach((element, index) => {
+    dateTime = new Date(element.dateTime);
+    dateTime.setSeconds(0);
+    dateTime.setMilliseconds(0);
+    if (index === 0 || authorNode.author !== element.author) {
+      messagesTree.push({ author: element.author, childrens: [] });
+      authorNode = messagesTree[messagesTree.length - 1];
+      authorNode.childrens.push({
+        dateTime: dateTime,
+        childrens: []
+      });
+      dateTimeNode = authorNode.childrens[authorNode.childrens.length - 1];
+      dateTimeNode.childrens.push(element);
+    } else if (dateTime > dateTimeNode.dateTime) {
+      authorNode.childrens.push({
+        dateTime: dateTime,
+        childrens: []
+      });
+      dateTimeNode = authorNode.childrens[authorNode.childrens.length - 1];
+      dateTimeNode.childrens.push(element);
+    } else {
+      dateTimeNode.childrens.push(element);
+    }
+  });
+
   return {
     bottomPosition: state.session.bottomPosition,
-    messages,
+    messagesTree,
     users: state.users.byId,
     user: state.session.user
   };
