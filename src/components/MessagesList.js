@@ -14,6 +14,7 @@ class MessagesList extends Component {
 
     this.loadMessages = props.loadMessages;
     this.interval = undefined;
+    this.state = { bottomPosition: true };
   }
 
   messagesEnd = React.createRef();
@@ -28,7 +29,7 @@ class MessagesList extends Component {
   };
 
   componentDidUpdate() {
-    const { bottomPosition } = this.props;
+    const { bottomPosition } = this.state;
     if (bottomPosition) {
       this.scrollToBottom();
     }
@@ -45,19 +46,21 @@ class MessagesList extends Component {
     }
   }
 
-  hendlerOnScroll = event => {
-    const { setBottomPosition } = this.props;
-    setBottomPosition(
+  handlerOnScroll = event => {
+    const { bottomPosition } = this.state;
+    const newBottomPosition =
       event.target.scrollHeight - event.target.offsetHeight ===
-        event.target.scrollTop
-    );
+      event.target.scrollTop;
+    if (bottomPosition !== newBottomPosition) {
+      this.setState({ bottomPosition: newBottomPosition });
+    }
   };
 
   render() {
     const { messagesTree, classes, user, users } = this.props;
 
     return (
-      <List className={classes.list} onScroll={this.hendlerOnScroll}>
+      <List className={classes.list} onScroll={this.handlerOnScroll}>
         {messagesTree.map((value, index) => {
           const { author, childrens } = value;
 

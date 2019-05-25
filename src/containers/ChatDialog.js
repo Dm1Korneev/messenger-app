@@ -3,7 +3,7 @@ import {
   closeChatDialog,
   createChat,
   modifyChat,
-  loadAllUsers
+  getUsers
 } from "../redux/actions";
 import ChatDialog from "../components/ChatDialog";
 
@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
   closeChatDialog: () => dispatch(closeChatDialog()),
   onAddChat: (...args) => dispatch(createChat(...args)),
   onSaveChat: (...args) => dispatch(modifyChat(...args)),
-  loadAllUsers: () => dispatch(loadAllUsers())
+  getUsers: () => dispatch(getUsers())
 });
 
 export default connect(

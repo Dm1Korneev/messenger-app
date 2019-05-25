@@ -1,12 +1,13 @@
 import { handleActions } from "redux-actions";
 import { objectsAdd } from "./operations";
 import { distinct } from "../../common/utils";
+import * as actionNames from "../actionNames";
 
 const defaultStore = { byId: {}, allIds: [], byChats: {} };
 
 export default handleActions(
   {
-    MESSAGES_ADD: (state, action) => {
+    [actionNames.MESSAGES_ADD]: (state, action) => {
       const payload = Array.isArray(action.payload)
         ? action.payload
         : [action.payload];
@@ -35,7 +36,7 @@ export default handleActions(
 
       return { ...newStore, byChats };
     },
-    STORE_CLEAR: () => defaultStore
+    [actionNames.STORE_CLEAR]: () => defaultStore
   },
   defaultStore
 );

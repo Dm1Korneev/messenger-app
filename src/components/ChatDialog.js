@@ -37,8 +37,8 @@ class ChatDialog extends React.Component {
   }
 
   componentDidMount() {
-    const { loadAllUsers } = this.props;
-    loadAllUsers();
+    const { getUsers } = this.props;
+    getUsers();
   }
 
   handleInputChange = event => {

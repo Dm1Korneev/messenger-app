@@ -18,12 +18,12 @@ class SideBar extends Component {
   constructor(props) {
     super(props);
 
-    this.reloadChatsList = props.reloadChatsList;
+    this.getChats = props.getChats;
     this.interval = undefined;
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.reloadChatsList, RELOAD_PERIOD);
+    this.interval = setInterval(this.getChats, RELOAD_PERIOD);
   }
 
   componentWillUnmount() {

@@ -4,7 +4,7 @@ import {
   changeActiveChat,
   setAddChatDialogIsOpen,
   openModifyChatDialog,
-  reloadChatsList
+  getChats
 } from "../redux/actions";
 import SideBar from "../components/SideBar";
 
@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
   changeActiveChat: activeChat => dispatch(changeActiveChat(activeChat)),
   openAddChatDialog: () => dispatch(setAddChatDialogIsOpen(true)),
   openModifyChatDialog: chat => dispatch(openModifyChatDialog(chat)),
-  reloadChatsList: () => dispatch(reloadChatsList())
+  getChats: () => dispatch(getChats())
 });
 
 export default connect(

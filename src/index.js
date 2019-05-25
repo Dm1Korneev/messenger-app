@@ -6,10 +6,8 @@ import "./index.css";
 import { Provider } from "react-redux";
 import storeFactory from "./redux/store";
 
-const store = storeFactory();
-
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={storeFactory()}>
     <App />
   </Provider>,
   document.getElementById("root")
