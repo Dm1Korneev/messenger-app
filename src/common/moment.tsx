@@ -1,7 +1,7 @@
-import moment from "moment";
-import "moment/locale/ru";
+import moment from 'moment';
+import 'moment/locale/ru';
 
-function getLang() {
+function getLang(): string {
   if (navigator.languages) return navigator.languages[0];
   else return navigator.language;
 }
