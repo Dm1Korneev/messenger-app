@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import moment from "../common/moment";
 
 // @material-ui
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -8,28 +9,13 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 
-function getDateTimeText(value) {
-  if (value) {
-    const now = new Date();
-    now.setHours(0, 0, 0, 0);
-    if (
-      now.valueOf() ===
-      new Date(value.getFullYear(), value.getMonth(), value.getDate()).valueOf()
-    ) {
-      return value.toLocaleString(undefined, {
-        hour: "numeric",
-        minute: "numeric"
-      });
+function getDateTimeText(_value) {
+  if (_value) {
+    const value = moment(_value);
+    if (value.isAfter(moment().startOf("day"))) {
+      return value.format("LT");
     } else {
-      return value.toLocaleString(undefined, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        weekday: "long",
-        timezone: "UTC",
-        hour: "numeric",
-        minute: "numeric"
-      });
+      return value.format("LLLL");
     }
   }
 }
