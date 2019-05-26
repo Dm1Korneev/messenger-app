@@ -1,4 +1,8 @@
 import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+
+// material-ui
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
@@ -7,7 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import CreateIcon from "@material-ui/icons/Create";
 import Button from "@material-ui/core/Button";
-import classNames from "classnames";
+
 import { DRAWER_WIDTH } from "../common/constants";
 
 function TopBar(props) {
@@ -60,6 +64,17 @@ function TopBar(props) {
     </AppBar>
   );
 }
+
+TopBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+  drawerIsOpen: PropTypes.bool.isRequired,
+  onLogout: PropTypes.func.isRequired,
+  onDriwerOpen: PropTypes.func.isRequired,
+  openUserModifyDialog: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string
+  })
+};
 
 const styles = theme => ({
   appBar: {

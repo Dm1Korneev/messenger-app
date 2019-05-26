@@ -1,6 +1,9 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 import { TextValidator } from "react-material-ui-form-validator";
+import PropTypes from "prop-types";
+
+// material-ui
+import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -63,6 +66,11 @@ class UserPasswordField extends React.Component {
     );
   }
 }
+
+UserPasswordField.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired
+};
 
 const styles = theme => ({});
 

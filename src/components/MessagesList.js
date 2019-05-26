@@ -1,14 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+
+// components
 import MessageUser from "./MessageUser";
 import MessageDateTime from "./MessageDateTime";
 import MessageText from "./MessageText";
-import List from "@material-ui/core/List";
+
+// @material-ui
 import withStyles from "@material-ui/core/styles/withStyles";
+import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 
 import { RELOAD_PERIOD } from "../common/constants";
 
-class MessagesList extends Component {
+class MessagesList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -116,6 +121,16 @@ class MessagesList extends Component {
     );
   }
 }
+
+MessagesList.propTypes = {
+  classes: PropTypes.object.isRequired,
+  loadMessages: PropTypes.func.isRequired,
+  messagesTree: PropTypes.arrayOf(PropTypes.object),
+  user: PropTypes.shape({
+    _id: PropTypes.string.isRequired
+  }),
+  users: PropTypes.object
+};
 
 const styles = theme => ({
   list: {

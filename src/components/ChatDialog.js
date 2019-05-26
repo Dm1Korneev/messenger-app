@@ -1,16 +1,21 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import PropTypes from "prop-types";
+
+// components
+import UsersAvatar from "./UsersAvatar";
+import AvatarSelector from "./AvatarSelector";
+
+// @material-ui
+import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
-import UsersAvatar from "./UsersAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
-import AvatarSelector from "./AvatarSelector";
 
 class ChatDialog extends React.Component {
   constructor(props) {
@@ -208,6 +213,23 @@ class ChatDialog extends React.Component {
     );
   }
 }
+
+ChatDialog.propTypes = {
+  classes: PropTypes.object.isRequired,
+  closeChatDialog: PropTypes.func.isRequired,
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      avatar: PropTypes.string.isRequired,
+      email: PropTypes.string
+    })
+  ),
+  isModify: PropTypes.bool.isRequired,
+  chat: PropTypes.shape({
+    avatar: PropTypes.string
+  })
+};
 
 const styles = theme => ({});
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 // components
 import SignIn from "../containers/SignIn";
@@ -13,9 +14,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 import CssBaseline from "@material-ui/core/CssBaseline";
-
-// common
-import { getMessages, sendMessage, createChat } from "../common/messengerAPI";
 
 class App extends Component {
   constructor(props) {
@@ -60,68 +58,6 @@ class App extends Component {
     loginFromStore();
   }
 
-  openAddChatDialog = () => {
-    this.setState({ addChatDialogOpen: true });
-  };
-
-  closeAddChatDialog = () => {
-    this.setState({ addChatDialogOpen: false });
-  };
-
-  onAddChat = (title, users) => {
-    const { token } = this.state;
-    createChat(token, title, users, chat => {
-      this.setState({ addChatDialogOpen: false });
-      this.loadChats();
-    });
-  };
-
-  onDrawerOpen = () => {
-    this.setState({ drawerOpen: true });
-  };
-
-  onDrawerClose = () => {
-    this.setState({ drawerOpen: false });
-  };
-
-  changeActiveChat = chatId => {
-    this.setState({ activeChat: chatId, messages: [] });
-    this.loadMessages(chatId);
-  };
-
-  loadMessages = chatId => {
-    if (!chatId) {
-      return;
-    }
-
-    const { token } = this.state;
-
-    getMessages(token, chatId, ({ messages, users }) => {
-      let newUsers = this.state.users;
-      users.forEach(element => {
-        newUsers[element._id] = element;
-      });
-
-      this.setState({
-        messages,
-        usersList: Object.values(newUsers),
-        users: newUsers
-      });
-    });
-  };
-
-  onSendMessage = messageText => {
-    const { token, activeChat } = this.state;
-
-    sendMessage(token, activeChat, messageText, message => {
-      const { messages } = this.state;
-      this.setState({
-        messages: [...messages, message]
-      });
-    });
-    this.loadMessages(activeChat);
-  };
-
   render() {
     const {
       classes,
@@ -153,6 +89,14 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+  loginFromStore: PropTypes.func.isRequired,
+  chatDialogIsOpen: PropTypes.bool.isRequired,
+  userModifyDialogIsOpen: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
+};
 
 const styles = theme => ({
   root: {

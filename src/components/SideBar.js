@@ -1,20 +1,25 @@
-import React, { Component } from "react";
+import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+
+// components
+import Chat from "./Chat";
+
+// @material-ui
 import withStyles from "@material-ui/core/styles/withStyles";
 import IconButton from "@material-ui/core/IconButton";
-import classNames from "classnames";
 import Drawer from "@material-ui/core/Drawer";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import ListItemText from "@material-ui/core/ListItemText";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
-import { DRAWER_WIDTH } from "../common/constants";
 import AddBoxIcon from "@material-ui/icons/AddBox";
-import Chat from "./Chat";
 
+import { DRAWER_WIDTH } from "../common/constants";
 import { RELOAD_PERIOD } from "../common/constants";
 
-class SideBar extends Component {
+class SideBar extends React.Component {
   constructor(props) {
     super(props);
 
@@ -85,6 +90,21 @@ class SideBar extends Component {
     );
   }
 }
+
+SideBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+  getChats: PropTypes.func.isRequired,
+  drawerIsOpen: PropTypes.bool.isRequired,
+  chats: PropTypes.shape({
+    allIds: PropTypes.arrayOf(PropTypes.string),
+    byId: PropTypes.object
+  }),
+  activeChat: PropTypes.string,
+  onDrawerClose: PropTypes.func.isRequired,
+  changeActiveChat: PropTypes.func.isRequired,
+  openAddChatDialog: PropTypes.func.isRequired,
+  openModifyChatDialog: PropTypes.func.isRequired
+};
 
 const styles = theme => ({
   drawerPaper: {

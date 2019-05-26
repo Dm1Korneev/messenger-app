@@ -13,7 +13,8 @@ const mapStateToProps = state => {
     .filter(element => element !== state.session.user._id)
     .map(value => usersFromState.byId[value]);
   const isModify = state.session.modifyChatDialogIsOpen;
-  const chat = isModify && state.chats.byId[state.session.modifiableChat];
+  const chat =
+    (isModify && state.chats.byId[state.session.modifiableChat]) || undefined;
 
   return {
     users,

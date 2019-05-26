@@ -1,7 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+// components
+import UsersAvatar from "./UsersAvatar";
+
+// @material-ui
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputLabel from "@material-ui/core/InputLabel";
-import UsersAvatar from "./UsersAvatar";
 import Button from "@material-ui/core/Button";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import ClearIcon from "@material-ui/icons/Clear";
@@ -43,7 +48,9 @@ class AvatarSelector extends React.Component {
     this.setState({
       avatar: undefined
     });
-    onChange(event);
+    if (onChange) {
+      onChange(event);
+    }
   };
 
   render() {
@@ -92,6 +99,13 @@ class AvatarSelector extends React.Component {
     );
   }
 }
+
+AvatarSelector.propTypes = {
+  classes: PropTypes.object.isRequired,
+  avatarFileInput: PropTypes.object.isRequired,
+  onChange: PropTypes.func,
+  avatar: PropTypes.string
+};
 
 const styles = theme => ({
   avatar: { marginRight: theme.spacing.unit * 2 },

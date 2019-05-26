@@ -1,8 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+// components
+import UsersAvatar from "./UsersAvatar";
+
+// @material-ui
+import withStyles from "@material-ui/core/styles/withStyles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import withStyles from "@material-ui/core/styles/withStyles";
-import UsersAvatar from "./UsersAvatar";
 import CreateIcon from "@material-ui/icons/Create";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -34,6 +39,18 @@ function Chat(props) {
     </ListItem>
   );
 }
+
+Chat.propTypes = {
+  classes: PropTypes.object.isRequired,
+  selected: PropTypes.bool.isRequired,
+  chatOnClick: PropTypes.func.isRequired,
+  chatModifyOnClick: PropTypes.func.isRequired,
+  chat: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired
+  })
+};
 
 const styles = theme => ({
   listItem: {

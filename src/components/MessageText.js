@@ -1,9 +1,12 @@
 import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+
+// @material-ui
+import withStyles from "@material-ui/core/styles/withStyles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
-import classNames from "classnames";
 
 function Message(props) {
   const { text, isCurrentUserMessage, classes } = props;
@@ -28,6 +31,12 @@ function Message(props) {
     </ListItem>
   );
 }
+
+Message.propTypes = {
+  classes: PropTypes.object.isRequired,
+  text: PropTypes.string,
+  isCurrentUserMessage: PropTypes.bool.isRequired
+};
 
 const styles = theme => ({
   ListItemText: {

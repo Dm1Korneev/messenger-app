@@ -1,8 +1,12 @@
 import React from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
+import PropTypes from "prop-types";
 
+// containers
 import MessagesList from "../containers/MessagesList";
 import MessageInput from "../containers/MessageInput";
+
+// @material-ui
+import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
 
 function MainContent(props) {
@@ -20,6 +24,10 @@ function MainContent(props) {
     </main>
   );
 }
+
+MainContent.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 const styles = theme => ({
   main: {

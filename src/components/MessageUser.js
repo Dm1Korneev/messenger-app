@@ -1,10 +1,15 @@
 import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+
+// components
+import UsersAvatar from "./UsersAvatar";
+
+// @material-ui
+import withStyles from "@material-ui/core/styles/withStyles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
-import classNames from "classnames";
-import UsersAvatar from "./UsersAvatar";
 
 function MessageUser(props) {
   const { isCurrentUserMessage, author, avatar, children, classes } = props;
@@ -41,6 +46,14 @@ function MessageUser(props) {
     </ListItem>
   );
 }
+
+MessageUser.propTypes = {
+  classes: PropTypes.object.isRequired,
+  isCurrentUserMessage: PropTypes.bool.isRequired,
+  author: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
+  children: PropTypes.element
+};
 
 const styles = theme => ({
   ListItemText: {

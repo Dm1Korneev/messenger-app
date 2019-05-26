@@ -1,20 +1,21 @@
 import React from "react";
+import { ValidatorForm } from "react-material-ui-form-validator";
+import PropTypes from "prop-types";
+
+// components
+import AvatarSelector from "./AvatarSelector";
+import UserPasswordField from "./UserPasswordField";
+import UserNameField from "./UserNameField";
+import UserEmailField from "./UserEmailField";
 
 // material-ui
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import FormHelperText from "@material-ui/core/FormHelperText";
-
-import { ValidatorForm } from "react-material-ui-form-validator";
-
-import AvatarSelector from "./AvatarSelector";
-import UserPasswordField from "./UserPasswordField";
-import UserNameField from "./UserNameField";
-import UserEmailField from "./UserEmailField";
 
 class UserModifyDialog extends React.Component {
   constructor(props) {
@@ -117,6 +118,18 @@ class UserModifyDialog extends React.Component {
     );
   }
 }
+
+UserModifyDialog.propTypes = {
+  user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    avatar: PropTypes.string,
+    name: PropTypes.string,
+    email: PropTypes.string
+  }),
+  onSave: PropTypes.func.isRequired,
+  closeUserModifyDialog: PropTypes.func.isRequired,
+  error: PropTypes.string
+};
 
 const styles = theme => ({});
 

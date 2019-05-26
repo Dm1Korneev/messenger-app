@@ -1,6 +1,9 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 import { TextValidator } from "react-material-ui-form-validator";
+import PropTypes from "prop-types";
+
+// material-ui
+import withStyles from "@material-ui/core/styles/withStyles";
 
 function UserNameField(props) {
   const { value, onChange } = props;
@@ -21,6 +24,11 @@ function UserNameField(props) {
     />
   );
 }
+
+UserNameField.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired
+};
 
 const styles = theme => ({});
 

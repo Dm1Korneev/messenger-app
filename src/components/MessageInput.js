@@ -1,8 +1,11 @@
-import React, { Component } from "react";
-import TextField from "@material-ui/core/TextField";
-import withStyles from "@material-ui/core/styles/withStyles";
+import React from "react";
+import PropTypes from "prop-types";
 
-class MessageInput extends Component {
+// @material-ui
+import withStyles from "@material-ui/core/styles/withStyles";
+import TextField from "@material-ui/core/TextField";
+
+class MessageInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = { messageText: "" };
@@ -50,6 +53,11 @@ class MessageInput extends Component {
     );
   }
 }
+
+MessageInput.propTypes = {
+  classes: PropTypes.object.isRequired,
+  onSendMessage: PropTypes.func.isRequired
+};
 
 const styles = theme => ({
   InputLabel: { fontSize: theme.typography.pxToRem(13) },
