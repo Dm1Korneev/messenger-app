@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var passport = require("passport");
-var UserModel = mongoose.model("User");
-var {
+const mongoose = require("mongoose");
+const passport = require("passport");
+const UserModel = mongoose.model("User");
+const {
   sendJsResponse,
   isUserNameIsAvailable,
   isEmailIsAvailable
@@ -114,7 +114,7 @@ module.exports.updateUserByID = async function(req, res, next) {
       return user.save();
     })
     .then(user => {
-      token = user.generateJwt();
+      const token = user.generateJwt();
       sendJsResponse(res, 200, { token: token });
     })
     .catch(err => {
@@ -152,7 +152,7 @@ module.exports.register = async function(req, res) {
         return Promise.reject(undefined);
       }
 
-      user = new UserModel();
+      let user = new UserModel();
 
       user.name = name;
       user.email = email;
@@ -162,7 +162,7 @@ module.exports.register = async function(req, res) {
       return user.save();
     })
     .then(user => {
-      token = user.generateJwt();
+      const token = user.generateJwt();
       sendJsResponse(res, 200, { token: token });
     })
     .catch(err => {
@@ -185,7 +185,7 @@ module.exports.login = function(req, res) {
       return;
     }
     if (user) {
-      token = user.generateJwt();
+      const token = user.generateJwt();
       sendJsResponse(res, 200, { token: token });
     } else {
       sendJsResponse(res, 401, info);

@@ -5,7 +5,7 @@ const uuidv4 = require("uuid/v4");
 module.exports = function loadToAWS(file) {
   return new Promise((resolve, reject) => {
     const s3 = new aws.S3();
-    var params = {
+    const params = {
       Bucket: S3_BUCKET,
       Key: uuidv4(),
       Body: file.buffer,

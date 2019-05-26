@@ -1,6 +1,6 @@
-var mongoose = require("mongoose");
-var ChatModel = mongoose.model("Chat");
-var { sendJsResponse, parseToken } = require("./common");
+const mongoose = require("mongoose");
+const ChatModel = mongoose.model("Chat");
+const { sendJsResponse, parseToken } = require("./common");
 const fileLoaderToAWS = require("../common/fileLoaderToAWS");
 
 module.exports.getChats = function(req, res, next) {

@@ -1,4 +1,4 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 const dbURI = process.env.MONGODB_URI;
 console.log(dbURI);
@@ -14,7 +14,7 @@ mongoose.connection.on("disconnected", function() {
   console.log("Mongoose disconnected");
 });
 
-var gracefulShutdown = function(msg, callback) {
+const gracefulShutdown = function(msg, callback) {
   mongoose.connection.close(function() {
     console.log("Mongoose disconnected through " + msg);
     callback();

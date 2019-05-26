@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var MessageModel = mongoose.model("Message");
-var ChatModel = mongoose.model("Chat");
-var { sendJsResponse, parseToken } = require("./common");
+const mongoose = require("mongoose");
+const MessageModel = mongoose.model("Message");
+const ChatModel = mongoose.model("Chat");
+const { sendJsResponse, parseToken } = require("./common");
 
 module.exports.getMessages = function(req, res, next) {
   if (!req.params || !req.params.chatId) {

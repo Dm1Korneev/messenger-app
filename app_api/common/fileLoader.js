@@ -1,6 +1,5 @@
-var multer = require("multer");
-const { MAX_AVATAR_SIZE, AVATARS_DIR } = require("./constants");
-var path = require("path");
+const multer = require("multer");
+const { MAX_AVATAR_SIZE } = require("./constants");
 
 module.exports = multer({
   limits: { fileSize: MAX_AVATAR_SIZE }
