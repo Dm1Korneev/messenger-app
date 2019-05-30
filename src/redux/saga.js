@@ -1,4 +1,4 @@
-import { call, put, select, takeEvery } from "redux-saga/effects";
+import { call, put, select, takeEvery, all } from 'redux-saga/effects';
 import {
   addUsers,
   addMessages,
@@ -8,9 +8,9 @@ import {
   setSessionInfo,
   setActiveChat,
   clearStore
-} from "./actions";
-import * as actionNames from "./actionNames";
-import { getRequestAction, getSuccessAction, getFailureAction } from "./shared";
+} from './actions';
+import * as actionNames from './actionNames';
+import { getRequestAction, getSuccessAction, getFailureAction } from './shared';
 import {
   getUsers as getUsers_API,
   sendMessage as sendMessage_API,
@@ -21,14 +21,14 @@ import {
   getChats as getChats_API,
   login as login_API,
   register as register_API
-} from "../common/messengerAPI";
+} from '../common/messengerAPI';
 import {
   getUserInfo,
   saveTokenToStorage,
   isLoggedIn,
   getTokenFromStorage,
   removeTokenFromStorage
-} from "../common/authentication";
+} from '../common/authentication';
 
 const getToken = state => state.session.token;
 const getActiveChat = state => state.session.activeChat;
@@ -204,22 +204,27 @@ function* logOut() {
 }
 
 export default function* mainSaga() {
-  yield takeEvery(getRequestAction(actionNames.GET_USERS).type, getUsers);
-  yield takeEvery(getRequestAction(actionNames.SEND_MESSAGE).type, sendMessage);
-  yield takeEvery(
-    getRequestAction(actionNames.GET_MESSAGES).type,
-    loadMessages
-  );
-  yield takeEvery(getRequestAction(actionNames.CREATE_CHAT).type, createChat);
-  yield takeEvery(getRequestAction(actionNames.MODIFY_CHAT).type, modifyChat);
-  yield takeEvery(getRequestAction(actionNames.MODIFY_USER).type, modifyUser);
-  yield takeEvery(getRequestAction(actionNames.GET_CHATS).type, getChats);
-  yield takeEvery(getRequestAction(actionNames.LOGIN).type, signIn);
-  yield takeEvery(getRequestAction(actionNames.REGISTER).type, register);
-  yield takeEvery(
-    getRequestAction(actionNames.LOGIN_FROM_STORE).type,
-    loginFromStore
-  );
-  yield takeEvery(actionNames.CHANGE_ACTIVE_CHAT, changeActiveChat);
-  yield takeEvery(actionNames.LOGOUT, logOut);
+  yield all([
+    yield takeEvery(getRequestAction(actionNames.GET_USERS).type, getUsers),
+    yield takeEvery(
+      getRequestAction(actionNames.SEND_MESSAGE).type,
+      sendMessage
+    ),
+    yield takeEvery(
+      getRequestAction(actionNames.GET_MESSAGES).type,
+      loadMessages
+    ),
+    yield takeEvery(getRequestAction(actionNames.CREATE_CHAT).type, createChat),
+    yield takeEvery(getRequestAction(actionNames.MODIFY_CHAT).type, modifyChat),
+    yield takeEvery(getRequestAction(actionNames.MODIFY_USER).type, modifyUser),
+    yield takeEvery(getRequestAction(actionNames.GET_CHATS).type, getChats),
+    yield takeEvery(getRequestAction(actionNames.LOGIN).type, signIn),
+    yield takeEvery(getRequestAction(actionNames.REGISTER).type, register),
+    yield takeEvery(
+      getRequestAction(actionNames.LOGIN_FROM_STORE).type,
+      loginFromStore
+    ),
+    yield takeEvery(actionNames.CHANGE_ACTIVE_CHAT, changeActiveChat),
+    yield takeEvery(actionNames.LOGOUT, logOut)
+  ]);
 }
