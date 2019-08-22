@@ -52,12 +52,14 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "start mongod && start nodemon ./bin/www && start react-scripts start",
-    "react-start": "start react-scripts start",
+    "start": "start mongod '--config ./mongod.cfg' && start nodemon ./bin/www && start react-scripts start",
+    "react-start": "react-scripts start",
     "build": "react-scripts build",
     "heroku-postbuild": "npm run build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-nodemon": "nodemon ./bin/www",
+    "start-mongod": "mongod --config ./mongod.cfg"
   },
   "proxy": "http://localhost:8080",
   "eslintConfig": {
