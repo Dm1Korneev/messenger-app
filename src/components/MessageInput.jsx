@@ -1,26 +1,26 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // @material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
-import TextField from "@material-ui/core/TextField";
+import withStyles from '@material-ui/core/styles/withStyles';
+import TextField from '@material-ui/core/TextField';
 
 class MessageInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { messageText: "" };
+    this.state = { messageText: '' };
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({ messageText: event.target.value });
   };
 
-  handleKeyPress = event => {
-    if (event.key === "Enter") {
+  handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
       event.preventDefault();
       if (this.state.messageText.trim()) {
         this.props.onSendMessage(this.state.messageText);
-        this.setState({ messageText: "" });
+        this.setState({ messageText: '' });
       }
     }
   };
@@ -32,10 +32,10 @@ class MessageInput extends React.Component {
     return (
       <TextField
         InputLabelProps={{
-          classes: { root: classes.InputLabel }
+          classes: { root: classes.InputLabel },
         }}
         InputProps={{
-          classes: { input: classes.Input }
+          classes: { input: classes.Input },
         }}
         className={classes.textField}
         value={messageText}
@@ -56,13 +56,13 @@ class MessageInput extends React.Component {
 
 MessageInput.propTypes = {
   classes: PropTypes.object.isRequired,
-  onSendMessage: PropTypes.func.isRequired
+  onSendMessage: PropTypes.func.isRequired,
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   InputLabel: { fontSize: theme.typography.pxToRem(13) },
   Input: { fontSize: theme.typography.pxToRem(13), padding: 0 },
-  textField: { flexShrink: 0 }
+  textField: { flexShrink: 0 },
 });
 
 export default withStyles(styles)(MessageInput);

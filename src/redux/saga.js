@@ -1,37 +1,39 @@
-import { call, put, select, takeEvery, all } from 'redux-saga/effects';
 import {
-  addUsers,
-  addMessages,
-  loadMessages as loadMessagesAction,
-  getChats as getChatsAction,
+  all, call, put, select, takeEvery,
+} from 'redux-saga/effects';
+import {
   addChats,
-  setSessionInfo,
+  addMessages,
+  addUsers,
+  clearStore,
+  getChats as getChatsAction,
+  loadMessages as loadMessagesAction,
   setActiveChat,
-  clearStore
+  setSessionInfo,
 } from './actions';
 import * as actionNames from './actionNames';
-import { getRequestAction, getSuccessAction, getFailureAction } from './shared';
+import { getFailureAction, getRequestAction, getSuccessAction } from './shared';
 import {
-  getUsers as getUsers_API,
-  sendMessage as sendMessage_API,
-  getMessages as getMessages_API,
   createChat as createChat_API,
+  getChats as getChats_API,
+  getMessages as getMessages_API,
+  getUsers as getUsers_API,
+  login as login_API,
   modifyChat as modifyChat_API,
   modifyUser as modifyUser_API,
-  getChats as getChats_API,
-  login as login_API,
-  register as register_API
+  register as register_API,
+  sendMessage as sendMessage_API,
 } from '../common/messengerAPI';
 import {
-  getUserInfo,
-  saveTokenToStorage,
-  isLoggedIn,
   getTokenFromStorage,
-  removeTokenFromStorage
+  getUserInfo,
+  isLoggedIn,
+  removeTokenFromStorage,
+  saveTokenToStorage,
 } from '../common/authentication';
 
-const getToken = state => state.session.token;
-const getActiveChat = state => state.session.activeChat;
+const getToken = (state) => state.session.token;
+const getActiveChat = (state) => state.session.activeChat;
 
 function* getUsers() {
   try {
@@ -48,7 +50,7 @@ function* sendMessage(action) {
   try {
     const token = yield select(getToken);
     const activeChat = yield select(getActiveChat);
-    const messageText = action.payload.messageText;
+    const { messageText } = action.payload;
     const message = yield call(sendMessage_API, token, activeChat, messageText);
     yield put(getSuccessAction(actionNames.SEND_MESSAGE, { message }));
     yield put(addMessages(message));
@@ -83,7 +85,7 @@ function* createChat(action) {
       token,
       title,
       avatar,
-      selectedUserIds
+      selectedUserIds,
     );
     yield put(getSuccessAction(actionNames.CREATE_CHAT, { chat }));
     yield put(addChats(chat));
@@ -171,7 +173,9 @@ function* signIn(action) {
 
 function* register(action) {
   try {
-    const { email, password, name, avatar, remember } = action.payload;
+    const {
+      email, password, name, avatar, remember,
+    } = action.payload;
     const result = yield call(register_API, email, password, name, avatar);
     yield put(getSuccessAction(actionNames.REGISTER, { result }));
     yield* initAfterLogin(result.token);
@@ -208,11 +212,11 @@ export default function* mainSaga() {
     yield takeEvery(getRequestAction(actionNames.GET_USERS).type, getUsers),
     yield takeEvery(
       getRequestAction(actionNames.SEND_MESSAGE).type,
-      sendMessage
+      sendMessage,
     ),
     yield takeEvery(
       getRequestAction(actionNames.GET_MESSAGES).type,
-      loadMessages
+      loadMessages,
     ),
     yield takeEvery(getRequestAction(actionNames.CREATE_CHAT).type, createChat),
     yield takeEvery(getRequestAction(actionNames.MODIFY_CHAT).type, modifyChat),
@@ -222,9 +226,9 @@ export default function* mainSaga() {
     yield takeEvery(getRequestAction(actionNames.REGISTER).type, register),
     yield takeEvery(
       getRequestAction(actionNames.LOGIN_FROM_STORE).type,
-      loginFromStore
+      loginFromStore,
     ),
     yield takeEvery(actionNames.CHANGE_ACTIVE_CHAT, changeActiveChat),
-    yield takeEvery(actionNames.LOGOUT, logOut)
+    yield takeEvery(actionNames.LOGOUT, logOut),
   ]);
 }

@@ -1,27 +1,29 @@
-import React from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
+import React from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 // components
-import UsersAvatar from "./UsersAvatar";
 
 // @material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Typography from "@material-ui/core/Typography";
+import withStyles from '@material-ui/core/styles/withStyles';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+import UsersAvatar from './UsersAvatar';
 
 function MessageUser(props) {
-  const { isCurrentUserMessage, author, avatar, children, classes } = props;
+  const {
+    isCurrentUserMessage, author, avatar, children, classes,
+  } = props;
 
   const ListItemTextClass = classNames(
     classes.ListItemText,
-    isCurrentUserMessage && classes.reverse
+    isCurrentUserMessage && classes.reverse,
   );
 
   const ListItemClass = classNames(
     classes.ListItem,
-    isCurrentUserMessage && classes.reverse
+    isCurrentUserMessage && classes.reverse,
   );
 
   return (
@@ -32,14 +34,14 @@ function MessageUser(props) {
       <div className={classes.textContent}>
         <ListItemText
           className={classNames(ListItemTextClass, classes.sticky)}
-          primary={
+          primary={(
             <Typography
               component="span"
               className={classes.ListItemText__author}
             >
               {author}
             </Typography>
-          }
+)}
         />
         {children}
       </div>
@@ -52,44 +54,44 @@ MessageUser.propTypes = {
   isCurrentUserMessage: PropTypes.bool.isRequired,
   author: PropTypes.string.isRequired,
   avatar: PropTypes.string,
-  children: PropTypes.element
+  children: PropTypes.element,
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   ListItemText: {
     backgroundColor: theme.palette.background.default,
     zIndex: 999,
-    display: "flex",
-    justifyContent: "space-between",
-    "&:first-child": {
-      paddingLeft: theme.spacing.unit * 2
-    }
+    display: 'flex',
+    justifyContent: 'space-between',
+    '&:first-child': {
+      paddingLeft: theme.spacing.unit * 2,
+    },
   },
   ListItemText_reverse: {
-    display: "flex",
-    flexDirection: "row-reverse",
-    justifyContent: "space-between"
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
   },
   reverse: {
-    flexDirection: "row-reverse"
+    flexDirection: 'row-reverse',
   },
   ListItem: {
-    alignItems: "start",
+    alignItems: 'start',
     paddingTop: theme.spacing.unit,
     paddingBottom: 0,
-    paddingLeft: theme.spacing.unit * 2
+    paddingLeft: theme.spacing.unit * 2,
   },
   textContent: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   ListItemText__author: {
     fontSize: theme.typography.pxToRem(12),
-    fontWeight: 700
+    fontWeight: 700,
   },
   sticky: {
-    position: "sticky",
-    top: 0
-  }
+    position: 'sticky',
+    top: 0,
+  },
 });
 
 export default withStyles(styles)(MessageUser);

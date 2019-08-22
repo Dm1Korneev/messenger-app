@@ -1,22 +1,21 @@
-import React from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
-import moment from "../common/moment";
+import React from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 // @material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Typography from "@material-ui/core/Typography";
+import withStyles from '@material-ui/core/styles/withStyles';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+import moment from '../common/moment';
 
 function getDateTimeText(_value) {
   if (_value) {
     const value = moment(_value);
-    if (value.isAfter(moment().startOf("day"))) {
-      return value.format("LT");
-    } else {
-      return value.format("LLLL");
+    if (value.isAfter(moment().startOf('day'))) {
+      return value.format('LT');
     }
+    return value.format('LLLL');
   }
 }
 
@@ -24,14 +23,14 @@ function MessageDateTime(props) {
   const { isCurrentUserMessage, children, classes } = props;
   const dateTime = getDateTimeText(props.dateTime);
 
-  let ListItemTextClass = classNames(
+  const ListItemTextClass = classNames(
     classes.ListItemText,
-    !isCurrentUserMessage && classes.reverse
+    !isCurrentUserMessage && classes.reverse,
   );
 
   const ListItemClass = classNames(
     classes.ListItem,
-    isCurrentUserMessage && classes.reverse
+    isCurrentUserMessage && classes.reverse,
   );
 
   return (
@@ -39,7 +38,7 @@ function MessageDateTime(props) {
       <div className={classes.textContent}>
         <ListItemText
           className={classNames(ListItemTextClass, classes.sticky)}
-          secondary={
+          secondary={(
             <Typography
               component="span"
               color="textSecondary"
@@ -47,7 +46,7 @@ function MessageDateTime(props) {
             >
               {dateTime}
             </Typography>
-          }
+)}
         />
         {children}
       </div>
@@ -58,43 +57,43 @@ function MessageDateTime(props) {
 MessageDateTime.propTypes = {
   classes: PropTypes.object.isRequired,
   isCurrentUserMessage: PropTypes.bool.isRequired,
-  children: PropTypes.element
+  children: PropTypes.element,
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   ListItemText: {
     backgroundColor: theme.palette.background.default,
     zIndex: 1000,
-    width: "50%",
-    display: "flex",
-    justifyContent: "space-between",
-    "&:first-child": {
-      paddingLeft: theme.spacing.unit * 2
-    }
+    width: '50%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    '&:first-child': {
+      paddingLeft: theme.spacing.unit * 2,
+    },
   },
   reverse: {
-    flexDirection: "row-reverse",
-    alignSelf: "flex-end"
+    flexDirection: 'row-reverse',
+    alignSelf: 'flex-end',
   },
   ListItem: {
-    alignItems: "start",
+    alignItems: 'start',
     paddingTop: 0,
     paddingBottom: 0,
     paddingRight: 0,
-    paddingLeft: 0
+    paddingLeft: 0,
   },
   textContent: {
     flexGrow: 1,
-    display: "flex",
-    flexDirection: "column"
+    display: 'flex',
+    flexDirection: 'column',
   },
   ListItemText__dateTime: {
-    fontSize: theme.typography.pxToRem(11)
+    fontSize: theme.typography.pxToRem(11),
   },
   sticky: {
-    position: "sticky",
-    top: 0
-  }
+    position: 'sticky',
+    top: 0,
+  },
 });
 
 export default withStyles(styles)(MessageDateTime);

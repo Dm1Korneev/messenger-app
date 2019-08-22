@@ -1,21 +1,19 @@
-import React from "react";
-import { ValidatorForm } from "react-material-ui-form-validator";
-import PropTypes from "prop-types";
+import React from 'react';
+import { ValidatorForm } from 'react-material-ui-form-validator';
+import PropTypes from 'prop-types';
 
-// components
-import AvatarSelector from "./AvatarSelector";
-import UserPasswordField from "./UserPasswordField";
-import UserNameField from "./UserNameField";
-import UserEmailField from "./UserEmailField";
+import withStyles from '@material-ui/core/styles/withStyles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
-// material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import UserEmailField from './UserEmailField';
+import UserNameField from './UserNameField';
+import UserPasswordField from './UserPasswordField';
+import AvatarSelector from './AvatarSelector';
 
 class UserModifyDialog extends React.Component {
   constructor(props) {
@@ -24,29 +22,29 @@ class UserModifyDialog extends React.Component {
     this.state = {
       name: props.user.name,
       email: props.user.email,
-      password: "**********",
+      password: '**********',
       nameIsModified: false,
       emailIsModified: false,
       avatarIsModified: false,
-      passwordIsModified: false
+      passwordIsModified: false,
     };
     this.avatarFileInput = React.createRef();
   }
 
   avatarOnChange = () => {
     this.setState({
-      avatarIsModified: true
+      avatarIsModified: true,
     });
   };
 
-  handleInputChange = event => {
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
+  handleInputChange = (event) => {
+    const { target } = event;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
 
     this.setState({
       [name]: value,
-      [name + "IsModified"]: true
+      [`${name}IsModified`]: true,
     });
   };
 
@@ -58,7 +56,7 @@ class UserModifyDialog extends React.Component {
       nameIsModified,
       emailIsModified,
       avatarIsModified,
-      passwordIsModified
+      passwordIsModified,
     } = this.state;
     const { onSave, user } = this.props;
 
@@ -75,7 +73,7 @@ class UserModifyDialog extends React.Component {
     if (avatarIsModified) {
       options = {
         ...options,
-        avatar: this.avatarFileInput.current.files[0]
+        avatar: this.avatarFileInput.current.files[0],
       };
     }
 
@@ -124,13 +122,13 @@ UserModifyDialog.propTypes = {
     _id: PropTypes.string.isRequired,
     avatar: PropTypes.string,
     name: PropTypes.string,
-    email: PropTypes.string
+    email: PropTypes.string,
   }),
   onSave: PropTypes.func.isRequired,
   closeUserModifyDialog: PropTypes.func.isRequired,
-  error: PropTypes.string
+  error: PropTypes.string,
 };
 
-const styles = theme => ({});
+const styles = (theme) => ({});
 
 export default withStyles(styles)(UserModifyDialog);

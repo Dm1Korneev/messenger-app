@@ -1,19 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-// components
-import MessageUser from "./MessageUser";
-import MessageDateTime from "./MessageDateTime";
-import MessageText from "./MessageText";
+import withStyles from '@material-ui/core/styles/withStyles';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 
-// @material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
+import MessageUser from './MessageUser';
+import MessageDateTime from './MessageDateTime';
+import MessageText from './MessageText';
 
-import { RELOAD_PERIOD } from "../common/constants";
+import { RELOAD_PERIOD } from '../common/constants';
 
 class MessagesList extends React.Component {
+  messagesEnd = React.createRef();
+
   constructor(props) {
     super(props);
 
@@ -21,17 +21,6 @@ class MessagesList extends React.Component {
     this.interval = undefined;
     this.state = { bottomPosition: true };
   }
-
-  messagesEnd = React.createRef();
-
-  scrollToBottom = () => {
-    if (this.messagesEnd.current) {
-      this.messagesEnd.current.scrollIntoView({
-        blok: "end",
-        behavior: "smooth"
-      });
-    }
-  };
 
   componentDidUpdate() {
     const { bottomPosition } = this.state;
@@ -51,18 +40,28 @@ class MessagesList extends React.Component {
     }
   }
 
-  handlerOnScroll = event => {
+  scrollToBottom = () => {
+    if (this.messagesEnd.current) {
+      this.messagesEnd.current.scrollIntoView({
+        blok: 'end',
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  handlerOnScroll = (event) => {
     const { bottomPosition } = this.state;
-    const newBottomPosition =
-      event.target.scrollHeight - event.target.offsetHeight ===
-      event.target.scrollTop;
+    const newBottomPosition = event.target.scrollHeight - event.target.offsetHeight
+      === event.target.scrollTop;
     if (bottomPosition !== newBottomPosition) {
       this.setState({ bottomPosition: newBottomPosition });
     }
   };
 
   render() {
-    const { messagesTree, classes, user, users } = this.props;
+    const {
+      messagesTree, classes, user, users,
+    } = this.props;
 
     return (
       <List className={classes.list} onScroll={this.handlerOnScroll}>
@@ -74,7 +73,7 @@ class MessagesList extends React.Component {
           const childrenComponents = childrens.map((value, index) => {
             const { dateTime, childrens } = value;
 
-            const childrenComponents = childrens.map(value => (
+            const childrenComponents = childrens.map((value) => (
               <MessageText
                 key={value._id}
                 text={value.text}
@@ -95,7 +94,8 @@ class MessagesList extends React.Component {
 
           const messageAuthor = users[author];
 
-          let name, avatar;
+          let name; let
+            avatar;
           if (messageAuthor) {
             name = messageAuthor.name;
             avatar = messageAuthor.avatar;
@@ -127,20 +127,20 @@ MessagesList.propTypes = {
   loadMessages: PropTypes.func.isRequired,
   messagesTree: PropTypes.arrayOf(PropTypes.object),
   user: PropTypes.shape({
-    _id: PropTypes.string.isRequired
+    _id: PropTypes.string.isRequired,
   }),
-  users: PropTypes.object
+  users: PropTypes.object,
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   list: {
-    overflow: "auto",
+    overflow: 'auto',
     flexGrow: 1,
-    padding: 0
+    padding: 0,
   },
   Divider: {
-    marginTop: theme.spacing.unit
-  }
+    marginTop: theme.spacing.unit,
+  },
 });
 
 export default withStyles(styles)(MessagesList);

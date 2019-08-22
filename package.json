@@ -47,6 +47,8 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-react": "^7.14.3",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.3",
     "nodemon": "^1.19.1",
@@ -62,12 +64,11 @@
     "eject": "react-scripts eject",
     "start-nodemon": "nodemon ./bin/www",
     "start-mongod": "mongod --config ./mongod.cfg",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "lint": "eslint src/ --ext .jsx,.js --color",
+    "lint-fix": "eslint src/ --ext .jsx,.js --color --fix"
   },
   "proxy": "http://localhost:8080",
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -90,7 +91,6 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --single-quote --write",
       "git add"
     ]
   }

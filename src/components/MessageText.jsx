@@ -1,19 +1,19 @@
-import React from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
+import React from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 // @material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Typography from "@material-ui/core/Typography";
+import withStyles from '@material-ui/core/styles/withStyles';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
 
 function Message(props) {
   const { text, isCurrentUserMessage, classes } = props;
 
-  let ListItemClass = classNames(
+  const ListItemClass = classNames(
     classes.ListItem,
-    isCurrentUserMessage && classes.ListItem_reverse
+    isCurrentUserMessage && classes.ListItem_reverse,
   );
 
   return (
@@ -21,11 +21,11 @@ function Message(props) {
       <div className={classes.textContent}>
         <ListItemText
           className={classes.ListItemText}
-          primary={
+          primary={(
             <Typography component="span" className={classes.ListItemText__text}>
               {text}
             </Typography>
-          }
+)}
         />
       </div>
     </ListItem>
@@ -35,33 +35,33 @@ function Message(props) {
 Message.propTypes = {
   classes: PropTypes.object.isRequired,
   text: PropTypes.string,
-  isCurrentUserMessage: PropTypes.bool.isRequired
+  isCurrentUserMessage: PropTypes.bool.isRequired,
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   ListItemText: {
-    display: "flex",
-    justifyContent: "space-between",
-    "&:first-child": {
-      paddingLeft: theme.spacing.unit * 2
-    }
+    display: 'flex',
+    justifyContent: 'space-between',
+    '&:first-child': {
+      paddingLeft: theme.spacing.unit * 2,
+    },
   },
   ListItem_reverse: {
-    flexDirection: "row-reverse"
+    flexDirection: 'row-reverse',
   },
   ListItem: {
-    alignItems: "start",
+    alignItems: 'start',
     paddingTop: theme.spacing.unit,
     paddingRight: 0,
     paddingLeft: 0,
-    paddingBottom: 0
+    paddingBottom: 0,
   },
   textContent: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   ListItemText__text: {
-    fontSize: theme.typography.pxToRem(13)
-  }
+    fontSize: theme.typography.pxToRem(13),
+  },
 });
 
 export default withStyles(styles)(Message);

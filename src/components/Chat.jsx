@@ -1,18 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // components
-import UsersAvatar from "./UsersAvatar";
 
 // @material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import CreateIcon from "@material-ui/icons/Create";
-import IconButton from "@material-ui/core/IconButton";
+import withStyles from '@material-ui/core/styles/withStyles';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
+import UsersAvatar from './UsersAvatar';
 
 function Chat(props) {
-  const { selected, chatOnClick, chatModifyOnClick, classes, chat } = props;
+  const {
+    selected, chatOnClick, chatModifyOnClick, classes, chat,
+  } = props;
   const { title, avatar, _id } = chat;
 
   return (
@@ -31,7 +33,7 @@ function Chat(props) {
           chatModifyOnClick(_id);
         }}
         classes={{
-          root: classes.modifyButton
+          root: classes.modifyButton,
         }}
       >
         <CreateIcon />
@@ -41,29 +43,29 @@ function Chat(props) {
 }
 
 Chat.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
   selected: PropTypes.bool.isRequired,
   chatOnClick: PropTypes.func.isRequired,
   chatModifyOnClick: PropTypes.func.isRequired,
   chat: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired
-  })
+    avatar: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-const styles = theme => ({
+const styles = () => ({
   listItem: {
-    "&:hover": {
-      "& button": {
-        visibility: "visible"
-      }
-    }
+    '&:hover': {
+      '& button': {
+        visibility: 'visible',
+      },
+    },
   },
   modifyButton: {
-    visibility: "hidden",
-    color: "#FFF"
-  }
+    visibility: 'hidden',
+    color: '#FFF',
+  },
 });
 
 export default withStyles(styles)(Chat);

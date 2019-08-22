@@ -1,43 +1,43 @@
-import React from "react";
-import { ValidatorForm } from "react-material-ui-form-validator";
-import PropTypes from "prop-types";
+import React from 'react';
+import { ValidatorForm } from 'react-material-ui-form-validator';
+import PropTypes from 'prop-types';
 
 // components
-import AvatarSelector from "./AvatarSelector";
-import UserPasswordField from "./UserPasswordField";
-import UserNameField from "./UserNameField";
-import UserEmailField from "./UserEmailField";
 
 // material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import PersonAddIcon from "@material-ui/icons/PersonAddOutlined";
+import withStyles from '@material-ui/core/styles/withStyles';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
+import UserEmailField from './UserEmailField';
+import UserNameField from './UserNameField';
+import UserPasswordField from './UserPasswordField';
+import AvatarSelector from './AvatarSelector';
 
-const SIGN_IN = "SIGN_IN";
-const REGISTER = "REGISTER";
+const SIGN_IN = 'SIGN_IN';
+const REGISTER = 'REGISTER';
 
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
-      name: "",
+      email: '',
+      password: '',
+      name: '',
       remember: false,
       errorMessage: undefined,
       avatar: undefined,
-      variant: SIGN_IN
+      variant: SIGN_IN,
     };
     this.avatarFileInput = React.createRef();
   }
@@ -62,17 +62,19 @@ class SignIn extends React.Component {
     const avatar = this.avatarFileInput.current.files[0];
 
     const { onRegister } = this.props;
-    const { email, password, name, remember } = this.state;
+    const {
+      email, password, name, remember,
+    } = this.state;
     onRegister(email, password, name, avatar, remember);
   };
 
-  handleInputChange = event => {
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
+  handleInputChange = (event) => {
+    const { target } = event;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -82,7 +84,9 @@ class SignIn extends React.Component {
 
   render() {
     const { loginError, registerError, classes } = this.props;
-    const { email, password, name, remember, variant } = this.state;
+    const {
+      email, password, name, remember, variant,
+    } = this.state;
 
     return (
       <main className={classes.main}>
@@ -105,8 +109,8 @@ class SignIn extends React.Component {
               {variant === REGISTER && <PersonAddIcon />}
             </Avatar>
             <Typography component="h1" variant="h5">
-              {variant === SIGN_IN && "Sign in"}
-              {variant === REGISTER && "Register"}
+              {variant === SIGN_IN && 'Sign in'}
+              {variant === REGISTER && 'Register'}
             </Typography>
             <ValidatorForm
               className={classes.form}
@@ -133,7 +137,7 @@ class SignIn extends React.Component {
                 onChange={this.handleInputChange}
               />
               <FormControlLabel
-                control={
+                control={(
                   <Checkbox
                     value="remember"
                     name="remember"
@@ -141,7 +145,7 @@ class SignIn extends React.Component {
                     color="primary"
                     onChange={this.handleInputChange}
                   />
-                }
+)}
                 label="Remember me"
               />
               <Button
@@ -151,8 +155,8 @@ class SignIn extends React.Component {
                 color="primary"
                 className={classes.submit}
               >
-                {variant === SIGN_IN && "Sign in"}
-                {variant === REGISTER && "Register"}
+                {variant === SIGN_IN && 'Sign in'}
+                {variant === REGISTER && 'Register'}
               </Button>
             </ValidatorForm>
           </div>
@@ -167,45 +171,45 @@ SignIn.propTypes = {
   onSignIn: PropTypes.func.isRequired,
   onRegister: PropTypes.func.isRequired,
   loginError: PropTypes.string,
-  registerError: PropTypes.string
+  registerError: PropTypes.string,
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   main: {
-    width: "auto",
-    display: "block", // Fix IE 11 issue.
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
     [theme.breakpoints.up(500 + theme.spacing.unit * 3 * 2)]: {
       width: 500,
-      marginLeft: "auto",
-      marginRight: "auto"
-    }
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   },
   container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`
+      .spacing.unit * 3}px`,
   },
   paper: {
-    marginTop: theme.spacing.unit * 8
+    marginTop: theme.spacing.unit * 8,
   },
   icon: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing.unit
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing.unit,
   },
   submit: {
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
   },
   tabsIndicator: {
-    backgroundColor: "#fff"
-  }
+    backgroundColor: '#fff',
+  },
 });
 
 export default withStyles(styles)(SignIn);

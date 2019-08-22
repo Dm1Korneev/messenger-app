@@ -1,23 +1,23 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import {
-  setDrawerIsOpen,
   logOut,
-  setUserModifyDialogIsOpen
-} from "../redux/actions";
-import TopBar from "../components/TopBar";
+  setDrawerIsOpen,
+  setUserModifyDialogIsOpen,
+} from '../redux/actions';
+import TopBar from '../components/TopBar';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.session.user,
-  drawerIsOpen: state.session.drawerIsOpen
+  drawerIsOpen: state.session.drawerIsOpen,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onDriwerOpen: () => dispatch(setDrawerIsOpen(true)),
   onLogout: () => dispatch(logOut()),
-  openUserModifyDialog: () => dispatch(setUserModifyDialogIsOpen(true))
+  openUserModifyDialog: () => dispatch(setUserModifyDialogIsOpen(true)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TopBar);

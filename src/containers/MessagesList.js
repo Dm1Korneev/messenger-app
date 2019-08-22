@@ -1,22 +1,23 @@
-import { connect } from "react-redux";
-import { loadMessages } from "../redux/actions";
-import MessagesList from "../components/MessagesList";
+import { connect } from 'react-redux';
+import { loadMessages } from '../redux/actions';
+import MessagesList from '../components/MessagesList';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let messages;
   if (
-    state.session.activeChat &&
-    state.messages.byChats[state.session.activeChat]
+    state.session.activeChat
+    && state.messages.byChats[state.session.activeChat]
   ) {
     messages = state.messages.byChats[state.session.activeChat].map(
-      messageId => state.messages.byId[messageId]
+      (messageId) => state.messages.byId[messageId],
     );
   } else {
     messages = [];
   }
 
   const messagesTree = [];
-  let authorNode, dateTimeNode, dateTime;
+  let authorNode; let dateTimeNode; let
+    dateTime;
   messages.forEach((element, index) => {
     dateTime = new Date(element.dateTime);
     dateTime.setSeconds(0);
@@ -25,15 +26,15 @@ const mapStateToProps = state => {
       messagesTree.push({ author: element.author, childrens: [] });
       authorNode = messagesTree[messagesTree.length - 1];
       authorNode.childrens.push({
-        dateTime: dateTime,
-        childrens: []
+        dateTime,
+        childrens: [],
       });
       dateTimeNode = authorNode.childrens[authorNode.childrens.length - 1];
       dateTimeNode.childrens.push(element);
     } else if (dateTime > dateTimeNode.dateTime) {
       authorNode.childrens.push({
-        dateTime: dateTime,
-        childrens: []
+        dateTime,
+        childrens: [],
       });
       dateTimeNode = authorNode.childrens[authorNode.childrens.length - 1];
       dateTimeNode.childrens.push(element);
@@ -45,15 +46,15 @@ const mapStateToProps = state => {
   return {
     messagesTree,
     users: state.users.byId,
-    user: state.session.user
+    user: state.session.user,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  loadMessages: () => dispatch(loadMessages())
+const mapDispatchToProps = (dispatch) => ({
+  loadMessages: () => dispatch(loadMessages()),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(MessagesList);

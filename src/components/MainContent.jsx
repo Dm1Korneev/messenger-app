@@ -1,13 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // containers
-import MessagesList from "../containers/MessagesList";
-import MessageInput from "../containers/MessageInput";
+import withStyles from '@material-ui/core/styles/withStyles';
+import Grid from '@material-ui/core/Grid';
+import MessagesList from '../containers/MessagesList';
+import MessageInput from '../containers/MessageInput';
 
 // @material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
-import Grid from "@material-ui/core/Grid";
 
 function MainContent(props) {
   const { classes } = props;
@@ -26,24 +26,24 @@ function MainContent(props) {
 }
 
 MainContent.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   main: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   grid: {
-    margin: "0 auto",
-    height: "100%"
+    margin: '0 auto',
+    height: '100%',
   },
   appBarSpacer: { marginTop: theme.spacing.unit, ...theme.mixins.toolbar },
   content: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between"
-  }
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
 });
 
 export default withStyles(styles)(MainContent);

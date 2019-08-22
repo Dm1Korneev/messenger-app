@@ -1,19 +1,19 @@
-import { connect } from "react-redux";
-import App from "../components/App";
-import { loginFromStore } from "../redux/actions";
+import { connect } from 'react-redux';
+import App from '../components/App';
+import { loginFromStore } from '../redux/actions';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   chatDialogIsOpen:
     state.session.addChatDialogIsOpen || state.session.modifyChatDialogIsOpen,
   userModifyDialogIsOpen: state.session.userModifyDialogIsOpen,
-  isLoggedIn: state.session.isLoggedIn
+  isLoggedIn: state.session.isLoggedIn,
 });
 
-const mapDispatchToProps = dispatch => ({
-  loginFromStore: () => dispatch(loginFromStore())
+const mapDispatchToProps = (dispatch) => ({
+  loginFromStore: () => dispatch(loginFromStore()),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(App);

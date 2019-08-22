@@ -1,9 +1,9 @@
-import React from "react";
-import { TextValidator } from "react-material-ui-form-validator";
-import PropTypes from "prop-types";
+import React from 'react';
+import { TextValidator } from 'react-material-ui-form-validator';
+import PropTypes from 'prop-types';
 
 // material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 
 function UserNameField(props) {
   const { value, onChange } = props;
@@ -19,17 +19,17 @@ function UserNameField(props) {
       autoComplete="name"
       color="primary"
       value={value}
-      validators={["required"]}
-      errorMessages={["this field is required"]}
+      validators={['required']}
+      errorMessages={['this field is required']}
     />
   );
 }
 
 UserNameField.propTypes = {
   value: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
-const styles = theme => ({});
+const styles = (theme) => ({});
 
 export default withStyles(styles)(UserNameField);

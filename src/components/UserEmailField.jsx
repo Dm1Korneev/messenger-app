@@ -1,9 +1,9 @@
-import React from "react";
-import { TextValidator } from "react-material-ui-form-validator";
-import PropTypes from "prop-types";
+import React from 'react';
+import { TextValidator } from 'react-material-ui-form-validator';
+import PropTypes from 'prop-types';
 
 // material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 
 function UserEmailField(props) {
   const { value, onChange } = props;
@@ -19,17 +19,17 @@ function UserEmailField(props) {
       autoComplete="email"
       color="primary"
       value={value}
-      validators={["required", "isEmail"]}
-      errorMessages={["this field is required", "email is not valid"]}
+      validators={['required', 'isEmail']}
+      errorMessages={['this field is required', 'email is not valid']}
     />
   );
 }
 
 UserEmailField.propTypes = {
   value: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
-const styles = theme => ({});
+const styles = (theme) => ({});
 
 export default withStyles(styles)(UserEmailField);

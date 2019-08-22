@@ -1,20 +1,20 @@
-import React from "react";
-import { TextValidator } from "react-material-ui-form-validator";
-import PropTypes from "prop-types";
+import React from 'react';
+import { TextValidator } from 'react-material-ui-form-validator';
+import PropTypes from 'prop-types';
 
 // material-ui
-import withStyles from "@material-ui/core/styles/withStyles";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import IconButton from "@material-ui/core/IconButton";
+import withStyles from '@material-ui/core/styles/withStyles';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
 
 class UserPasswordField extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      showPassword: false
+      showPassword: false,
     };
   }
 
@@ -41,13 +41,13 @@ class UserPasswordField extends React.Component {
         fullWidth
         onChange={onChange}
         name="password"
-        type={showPassword ? "text" : "password"}
+        type={showPassword ? 'text' : 'password'}
         id="password"
         autoComplete="current-password"
         color="primary"
         value={value}
-        validators={["required", "minStringLength:6"]}
-        errorMessages={["this field is required", "minimum length 6 symbols"]}
+        validators={['required', 'minStringLength:6']}
+        errorMessages={['this field is required', 'minimum length 6 symbols']}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -60,7 +60,7 @@ class UserPasswordField extends React.Component {
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </IconButton>
             </InputAdornment>
-          )
+          ),
         }}
       />
     );
@@ -69,9 +69,9 @@ class UserPasswordField extends React.Component {
 
 UserPasswordField.propTypes = {
   value: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
-const styles = theme => ({});
+const styles = (theme) => ({});
 
 export default withStyles(styles)(UserPasswordField);
