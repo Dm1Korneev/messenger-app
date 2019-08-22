@@ -88,5 +88,8 @@
       "prettier --single-quote --write",
       "git add"
     ]
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }
