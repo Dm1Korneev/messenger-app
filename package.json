@@ -50,7 +50,8 @@
     "husky": "^3.0.4",
     "lint-staged": "^9.2.3",
     "nodemon": "^1.19.1",
-    "react-scripts": "^3.1.1"
+    "react-scripts": "^3.1.1",
+    "source-map-explorer": "^2.0.1"
   },
   "scripts": {
     "start": "start mongod '--config ./mongod.cfg' && start nodemon ./bin/www && start react-scripts start",
@@ -60,7 +61,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-nodemon": "nodemon ./bin/www",
-    "start-mongod": "mongod --config ./mongod.cfg"
+    "start-mongod": "mongod --config ./mongod.cfg",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "proxy": "http://localhost:8080",
   "eslintConfig": {
