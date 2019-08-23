@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
+
 import {
   logOut,
   setDrawerIsOpen,
   setUserModifyDialogIsOpen,
-} from '../redux/actions';
-import TopBar from '../components/TopBar';
+} from 'Redux/actions';
+import TopBar from 'Components/TopBar';
 
 const mapStateToProps = (state) => ({
   user: state.session.user,

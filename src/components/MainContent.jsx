@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 // containers
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-import MessagesList from '../containers/MessagesList';
-import MessageInput from '../containers/MessageInput';
+import MessagesList from 'Containers/MessagesList';
+import MessageInput from 'Containers/MessageInput';
 
 // @material-ui
 
@@ -26,7 +26,7 @@ function MainContent(props) {
 }
 
 MainContent.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
 };
 
 const styles = (theme) => ({

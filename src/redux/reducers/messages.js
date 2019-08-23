@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
-import { objectsAdd } from './operations';
-import { distinct } from '../../common/utils';
-import * as actionNames from '../actionNames';
+import { objectsAdd } from 'Redux/reducers/operations';
+import { distinct } from 'Common/utils';
+import * as actionNames from 'Redux/actionNames';
 
 const defaultStore = { byId: {}, allIds: [], byChats: {} };
 

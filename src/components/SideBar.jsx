@@ -2,9 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-// components
-
-// @material-ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
@@ -14,9 +11,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-import Chat from './Chat';
 
-import { DRAWER_WIDTH, RELOAD_PERIOD } from '../common/constants';
+import { DRAWER_WIDTH, RELOAD_PERIOD } from 'Common/constants';
+
+import Chat from './Chat';
 
 class SideBar extends React.Component {
   constructor(props) {
@@ -90,8 +88,12 @@ class SideBar extends React.Component {
   }
 }
 
+SideBar.defaultProps = {
+  activeChat: null,
+  chats: [],
+};
 SideBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
   getChats: PropTypes.func.isRequired,
   drawerIsOpen: PropTypes.bool.isRequired,
   chats: PropTypes.shape({

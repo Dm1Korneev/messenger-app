@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 
-import MessageUser from './MessageUser';
-import MessageDateTime from './MessageDateTime';
-import MessageText from './MessageText';
+import MessageUser from 'Components/MessageUser';
+import MessageDateTime from 'Components/MessageDateTime';
+import MessageText from 'Components/MessageText';
 
-import { RELOAD_PERIOD } from '../common/constants';
+import { RELOAD_PERIOD } from 'Common/constants';
 
 class MessagesList extends React.Component {
   messagesEnd = React.createRef();
@@ -22,16 +22,16 @@ class MessagesList extends React.Component {
     this.state = { bottomPosition: true };
   }
 
+  componentDidMount() {
+    this.scrollToBottom();
+    this.interval = setInterval(this.loadMessages, RELOAD_PERIOD);
+  }
+
   componentDidUpdate() {
     const { bottomPosition } = this.state;
     if (bottomPosition) {
       this.scrollToBottom();
     }
-  }
-
-  componentDidMount() {
-    this.scrollToBottom();
-    this.interval = setInterval(this.loadMessages, RELOAD_PERIOD);
   }
 
   componentWillUnmount() {
@@ -65,15 +65,16 @@ class MessagesList extends React.Component {
 
     return (
       <List className={classes.list} onScroll={this.handlerOnScroll}>
-        {messagesTree.map((value, index) => {
-          const { author, childrens } = value;
+        {messagesTree.map((valueAuthor, indexAuthor) => {
+          const { author, childrens: childrensAuthor } = valueAuthor;
 
           const isCurrentUserMessage = user._id === author;
+          const firstDateTime = childrensAuthor[0].dateTime;
 
-          const childrenComponents = childrens.map((value, index) => {
-            const { dateTime, childrens } = value;
+          const childrenComponentsAuthor = childrensAuthor.map((valueDateTime) => {
+            const { dateTime, childrens: childrensDateTime } = valueDateTime;
 
-            const childrenComponents = childrens.map((value) => (
+            const childrenComponentsDateTime = childrensDateTime.map((value) => (
               <MessageText
                 key={value._id}
                 text={value.text}
@@ -83,11 +84,11 @@ class MessagesList extends React.Component {
 
             return (
               <MessageDateTime
-                key={index}
+                key={`${author}-${dateTime}`}
                 dateTime={dateTime}
                 isCurrentUserMessage={isCurrentUserMessage}
               >
-                <List disablePadding>{childrenComponents}</List>
+                <List disablePadding>{childrenComponentsDateTime}</List>
               </MessageDateTime>
             );
           });
@@ -102,8 +103,8 @@ class MessagesList extends React.Component {
           }
 
           return (
-            <React.Fragment key={index}>
-              {index > 0 && (
+            <Fragment key={`${author}-${firstDateTime}`}>
+              {indexAuthor > 0 && (
                 <Divider variant="middle" className={classes.Divider} />
               )}
               <MessageUser
@@ -111,9 +112,9 @@ class MessagesList extends React.Component {
                 avatar={avatar}
                 isCurrentUserMessage={isCurrentUserMessage}
               >
-                <List disablePadding>{childrenComponents}</List>
+                <List disablePadding>{childrenComponentsAuthor}</List>
               </MessageUser>
-            </React.Fragment>
+            </Fragment>
           );
         })}
         <div ref={this.messagesEnd} />
@@ -122,14 +123,17 @@ class MessagesList extends React.Component {
   }
 }
 
+MessagesList.defaultProps = {
+  messagesTree: [],
+};
 MessagesList.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
   loadMessages: PropTypes.func.isRequired,
   messagesTree: PropTypes.arrayOf(PropTypes.object),
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-  }),
-  users: PropTypes.object,
+  }).isRequired,
+  users: PropTypes.instanceOf(Object).isRequired,
 };
 
 const styles = (theme) => ({

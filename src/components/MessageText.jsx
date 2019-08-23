@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-// @material-ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -32,8 +31,11 @@ function Message(props) {
   );
 }
 
+Message.defaultProps = {
+  text: '',
+};
 Message.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
   text: PropTypes.string,
   isCurrentUserMessage: PropTypes.bool.isRequired,
 };

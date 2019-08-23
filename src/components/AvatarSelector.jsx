@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// components
-
-// @material-ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ClearIcon from '@material-ui/icons/Clear';
-import UsersAvatar from './UsersAvatar';
+
+import UsersAvatar from 'Components/UsersAvatar';
 
 class AvatarSelector extends React.Component {
   constructor(props) {

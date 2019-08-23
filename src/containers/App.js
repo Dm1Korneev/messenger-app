@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import App from '../components/App';
-import { loginFromStore } from '../redux/actions';
+
+import App from 'Components/App';
+import { loginFromStore } from 'Redux/actions';
 
 const mapStateToProps = (state) => ({
   chatDialogIsOpen:

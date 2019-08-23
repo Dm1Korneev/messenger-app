@@ -1,19 +1,21 @@
 import { connect } from 'react-redux';
+
 import {
   closeChatDialog,
   createChat,
   getUsers,
   modifyChat,
-} from '../redux/actions';
-import ChatDialog from '../components/ChatDialog';
+} from 'Redux/actions';
+import ChatDialog from 'Components/ChatDialog';
 
 const mapStateToProps = (state) => {
-  const usersFromState = state.users;
+  const { session, chats, users: usersFromState } = state;
+
   const users = usersFromState.allIds
-    .filter((element) => element !== state.session.user._id)
+    .filter((element) => element !== session.user._id)
     .map((value) => usersFromState.byId[value]);
-  const isModify = state.session.modifyChatDialogIsOpen;
-  const chat = (isModify && state.chats.byId[state.session.modifiableChat]) || undefined;
+  const isModify = session.modifyChatDialogIsOpen;
+  const chat = (isModify && chats.byId[session.modifiableChat]) || undefined;
 
   return {
     users,

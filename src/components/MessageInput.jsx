@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// @material-ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 
@@ -17,9 +16,12 @@ class MessageInput extends React.Component {
 
   handleKeyPress = (event) => {
     if (event.key === 'Enter') {
+      const { messageText } = this.state;
+      const { onSendMessage } = this.props;
+
       event.preventDefault();
-      if (this.state.messageText.trim()) {
-        this.props.onSendMessage(this.state.messageText);
+      if (messageText.trim()) {
+        onSendMessage(messageText);
         this.setState({ messageText: '' });
       }
     }
@@ -55,7 +57,7 @@ class MessageInput extends React.Component {
 }
 
 MessageInput.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
   onSendMessage: PropTypes.func.isRequired,
 };
 

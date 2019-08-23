@@ -2,12 +2,12 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-// @material-ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import moment from '../common/moment';
+
+import moment from 'Common/moment';
 
 function getDateTimeText(_value) {
   if (_value) {
@@ -17,11 +17,14 @@ function getDateTimeText(_value) {
     }
     return value.format('LLLL');
   }
+  return undefined;
 }
 
 function MessageDateTime(props) {
-  const { isCurrentUserMessage, children, classes } = props;
-  const dateTime = getDateTimeText(props.dateTime);
+  const {
+    isCurrentUserMessage, children, classes, dateTime: dateTimeFromProps,
+  } = props;
+  const dateTime = getDateTimeText(dateTimeFromProps);
 
   const ListItemTextClass = classNames(
     classes.ListItemText,
@@ -55,9 +58,10 @@ function MessageDateTime(props) {
 }
 
 MessageDateTime.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
   isCurrentUserMessage: PropTypes.bool.isRequired,
-  children: PropTypes.element,
+  children: PropTypes.element.isRequired,
+  dateTime: PropTypes.instanceOf(Object).isRequired,
 };
 
 const styles = (theme) => ({

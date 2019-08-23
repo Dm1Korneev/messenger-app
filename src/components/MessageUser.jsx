@@ -2,14 +2,12 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-// components
-
-// @material-ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import UsersAvatar from './UsersAvatar';
+
+import UsersAvatar from 'Components/UsersAvatar';
 
 function MessageUser(props) {
   const {
@@ -50,11 +48,11 @@ function MessageUser(props) {
 }
 
 MessageUser.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
   isCurrentUserMessage: PropTypes.bool.isRequired,
   author: PropTypes.string.isRequired,
-  avatar: PropTypes.string,
-  children: PropTypes.element,
+  avatar: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 const styles = (theme) => ({

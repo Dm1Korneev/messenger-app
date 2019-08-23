@@ -1,6 +1,6 @@
 import { TOKEN_FIELD } from './constants';
 
-function localStorageAvailable(): boolean {
+function localStorageAvailable() {
   try {
     const storage = window.sessionStorage;
     const x = '__storage_test__';
@@ -12,20 +12,20 @@ function localStorageAvailable(): boolean {
   }
 }
 
-export function saveTokenToStorage(token: string): void {
+export function saveTokenToStorage(token) {
   if (localStorageAvailable()) {
     sessionStorage[TOKEN_FIELD] = token;
   }
 }
 
-export function getTokenFromStorage(): string | undefined {
+export function getTokenFromStorage() {
   if (localStorageAvailable()) {
     return sessionStorage[TOKEN_FIELD];
   }
   return undefined;
 }
 
-export function removeTokenFromStorage(): boolean {
+export function removeTokenFromStorage() {
   if (localStorageAvailable()) {
     sessionStorage.removeItem(TOKEN_FIELD);
     return true;
@@ -33,7 +33,7 @@ export function removeTokenFromStorage(): boolean {
   return false;
 }
 
-export function isLoggedIn(token: string): boolean {
+export function isLoggedIn(token) {
   if (token) {
     if (typeof token !== 'string' || token.split('.').length < 2) {
       removeTokenFromStorage();
@@ -46,7 +46,7 @@ export function isLoggedIn(token: string): boolean {
   return false;
 }
 
-export function getUserInfo(token: string): object | undefined {
+export function getUserInfo(token) {
   if (isLoggedIn(token)) {
     const payload = JSON.parse(window.atob(token.split('.')[1]));
 

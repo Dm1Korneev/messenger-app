@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import { modifyUser, setUserModifyDialogIsOpen } from '../redux/actions';
-import UserModifyDialog from '../components/UserModifyDialog';
+
+import { modifyUser, setUserModifyDialogIsOpen } from 'Redux/actions';
+import UserModifyDialog from 'Components/UserModifyDialog';
 
 const mapStateToProps = (state) => ({
   user: state.session.user,

@@ -2,7 +2,6 @@ import React from 'react';
 import { TextValidator } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
 
-// material-ui
 import withStyles from '@material-ui/core/styles/withStyles';
 
 function UserEmailField(props) {
@@ -25,11 +24,14 @@ function UserEmailField(props) {
   );
 }
 
+UserEmailField.defaultProps = {
+  value: undefined,
+};
 UserEmailField.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
 
-const styles = (theme) => ({});
+const styles = () => ({});
 
 export default withStyles(styles)(UserEmailField);

@@ -2,7 +2,6 @@ import React from 'react';
 import { TextValidator } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
 
-// material-ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
@@ -24,6 +23,12 @@ class UserPasswordField extends React.Component {
 
   handleOnMouseUpShowPassword = () => {
     this.setState({ showPassword: false });
+  };
+
+  handleOnKeyDownShowPassword = ({ keyCode }) => {
+    if (keyCode === 13) { // Enter key
+      this.setState({ showPassword: true });
+    }
   };
 
   handleOnMouseOutShowPassword = () => {
@@ -55,7 +60,10 @@ class UserPasswordField extends React.Component {
                 aria-label="Toggle password visibility"
                 onMouseDown={this.handleOnMouseDownShowPassword}
                 onMouseUp={this.handleOnMouseUpShowPassword}
+                onKeyDown={this.handleOnKeyDownShowPassword}
                 onMouseOut={this.handleOnMouseOutShowPassword}
+                onBlur={this.handleOnMouseOutShowPassword}
+                onKeyUp={this.handleOnMouseOutShowPassword}
               >
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </IconButton>
@@ -67,11 +75,14 @@ class UserPasswordField extends React.Component {
   }
 }
 
+UserPasswordField.defaultProps = {
+  value: undefined,
+};
 UserPasswordField.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
 
-const styles = (theme) => ({});
+const styles = () => ({});
 
 export default withStyles(styles)(UserPasswordField);

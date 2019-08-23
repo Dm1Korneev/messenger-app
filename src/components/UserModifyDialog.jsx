@@ -10,10 +10,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-import UserEmailField from './UserEmailField';
-import UserNameField from './UserNameField';
-import UserPasswordField from './UserPasswordField';
-import AvatarSelector from './AvatarSelector';
+import UserEmailField from 'Components/UserEmailField';
+import UserNameField from 'Components/UserNameField';
+import UserPasswordField from 'Components/UserPasswordField';
+import AvatarSelector from 'Components/AvatarSelector';
 
 class UserModifyDialog extends React.Component {
   constructor(props) {
@@ -117,18 +117,21 @@ class UserModifyDialog extends React.Component {
   }
 }
 
+UserModifyDialog.defaultProps = {
+  error: undefined,
+};
 UserModifyDialog.propTypes = {
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     avatar: PropTypes.string,
     name: PropTypes.string,
     email: PropTypes.string,
-  }),
+  }).isRequired,
   onSave: PropTypes.func.isRequired,
   closeUserModifyDialog: PropTypes.func.isRequired,
   error: PropTypes.string,
 };
 
-const styles = (theme) => ({});
+const styles = () => ({});
 
 export default withStyles(styles)(UserModifyDialog);

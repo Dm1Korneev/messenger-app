@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// @material-ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-// components
-import SignIn from '../containers/SignIn';
-import TopBar from '../containers/TopBar';
-import SideBar from '../containers/SideBar';
-import ChatDialog from '../containers/ChatDialog';
-import UserModifyDialog from '../containers/UserModifyDialog';
-import MainContent from './MainContent';
+import SignIn from 'Containers/SignIn';
+import TopBar from 'Containers/TopBar';
+import SideBar from 'Containers/SideBar';
+import ChatDialog from 'Containers/ChatDialog';
+import UserModifyDialog from 'Containers/UserModifyDialog';
+import MainContent from 'Components/MainContent';
 
 class App extends Component {
   constructor(props) {

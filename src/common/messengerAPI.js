@@ -8,10 +8,13 @@ function parseJSON(response) {
   })));
 }
 
-function apiCall(URI, options) {
-  options.headers = {
-    ...options.headers,
-    Accept: 'application/json',
+function apiCall(URI, optionsParams) {
+  const options = {
+    ...optionsParams,
+    headers: {
+      ...optionsParams.headers,
+      Accept: 'application/json',
+    },
   };
 
   return new Promise((resolve, reject) => {

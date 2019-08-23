@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { register, signIn } from '../redux/actions';
-import SignIn from '../components/SignIn';
+import { register, signIn } from 'Redux/actions';
+import SignIn from 'Components/SignIn';
 
 const mapStateToProps = (state) => ({
   loginError: state.errors.LOGIN,

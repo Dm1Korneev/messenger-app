@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// components
-
-// @material-ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
-import UsersAvatar from './UsersAvatar';
+
+import UsersAvatar from 'Components/UsersAvatar';
 
 function Chat(props) {
   const {

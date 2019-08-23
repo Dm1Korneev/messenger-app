@@ -5,8 +5,8 @@ import {
   openModifyChatDialog,
   setAddChatDialogIsOpen,
   setDrawerIsOpen,
-} from '../redux/actions';
-import SideBar from '../components/SideBar';
+} from 'Redux/actions';
+import SideBar from 'Components/SideBar';
 
 const mapStateToProps = (state) => ({
   chats: state.chats,

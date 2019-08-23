@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import { sendMessage } from '../redux/actions';
-import MessageInput from '../components/MessageInput';
+import { sendMessage } from 'Redux/actions';
+import MessageInput from 'Components/MessageInput';
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
   onSendMessage: (messageText) => dispatch(sendMessage(messageText)),

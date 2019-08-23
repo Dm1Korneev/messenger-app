@@ -2,6 +2,24 @@ import {
   all, call, put, select, takeEvery,
 } from 'redux-saga/effects';
 import {
+  createChat as createChatAPI,
+  getChats as getChatsAPI,
+  getMessages as getMessagesAPI,
+  getUsers as getUsersAPI,
+  login as loginAPI,
+  modifyChat as modifyChatAPI,
+  modifyUser as modifyUserAPI,
+  register as registerAPI,
+  sendMessage as sendMessageAPI,
+} from 'Common/messengerAPI';
+import {
+  getTokenFromStorage,
+  getUserInfo,
+  isLoggedIn,
+  removeTokenFromStorage,
+  saveTokenToStorage,
+} from 'Common/authentication';
+import {
   addChats,
   addMessages,
   addUsers,
@@ -10,27 +28,9 @@ import {
   loadMessages as loadMessagesAction,
   setActiveChat,
   setSessionInfo,
-} from './actions';
-import * as actionNames from './actionNames';
-import { getFailureAction, getRequestAction, getSuccessAction } from './shared';
-import {
-  createChat as createChat_API,
-  getChats as getChats_API,
-  getMessages as getMessages_API,
-  getUsers as getUsers_API,
-  login as login_API,
-  modifyChat as modifyChat_API,
-  modifyUser as modifyUser_API,
-  register as register_API,
-  sendMessage as sendMessage_API,
-} from '../common/messengerAPI';
-import {
-  getTokenFromStorage,
-  getUserInfo,
-  isLoggedIn,
-  removeTokenFromStorage,
-  saveTokenToStorage,
-} from '../common/authentication';
+} from 'Redux/actions';
+import * as actionNames from 'Redux/actionNames';
+import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 
 const getToken = (state) => state.session.token;
 const getActiveChat = (state) => state.session.activeChat;
@@ -38,7 +38,7 @@ const getActiveChat = (state) => state.session.activeChat;
 function* getUsers() {
   try {
     const token = yield select(getToken);
-    const users = yield call(getUsers_API, token);
+    const users = yield call(getUsersAPI, token);
     yield put(getSuccessAction(actionNames.GET_USERS, { users }));
     yield put(addUsers(users));
   } catch (error) {
@@ -51,7 +51,7 @@ function* sendMessage(action) {
     const token = yield select(getToken);
     const activeChat = yield select(getActiveChat);
     const { messageText } = action.payload;
-    const message = yield call(sendMessage_API, token, activeChat, messageText);
+    const message = yield call(sendMessageAPI, token, activeChat, messageText);
     yield put(getSuccessAction(actionNames.SEND_MESSAGE, { message }));
     yield put(addMessages(message));
     yield put(loadMessagesAction());
@@ -67,7 +67,7 @@ function* loadMessages() {
       return;
     }
     const token = yield select(getToken);
-    const { messages, users } = yield call(getMessages_API, token, activeChat);
+    const { messages, users } = yield call(getMessagesAPI, token, activeChat);
     yield put(getSuccessAction(actionNames.GET_MESSAGES, { messages, users }));
     yield put(addUsers(users));
     yield put(addMessages(messages));
@@ -81,7 +81,7 @@ function* createChat(action) {
     const token = yield select(getToken);
     const { title, avatar, selectedUserIds } = action.payload;
     const chat = yield call(
-      createChat_API,
+      createChatAPI,
       token,
       title,
       avatar,
@@ -100,7 +100,7 @@ function* modifyChat(action) {
   try {
     const token = yield select(getToken);
     const { chatId, options } = action.payload;
-    const chat = yield call(modifyChat_API, token, chatId, options);
+    const chat = yield call(modifyChatAPI, token, chatId, options);
     yield put(getSuccessAction(actionNames.MODIFY_CHAT, { chat }));
     yield put(addChats(chat));
     yield put(getChatsAction());
@@ -113,7 +113,7 @@ function* modifyUser(action) {
   try {
     let token = yield select(getToken);
     const { userId, options } = action.payload;
-    const result = yield call(modifyUser_API, token, userId, options);
+    const result = yield call(modifyUserAPI, token, userId, options);
     yield put(getSuccessAction(actionNames.MODIFY_USER, { result }));
     token = result.token;
     const user = yield call(getUserInfo, token);
@@ -126,11 +126,16 @@ function* modifyUser(action) {
   }
 }
 
+function* initActiveChat(activeChat) {
+  yield put(setActiveChat(activeChat));
+  yield put(loadMessagesAction());
+}
+
 function* getChats() {
   try {
     const token = yield select(getToken);
     const activeChat = yield select(getActiveChat);
-    const chats = yield call(getChats_API, token);
+    const chats = yield call(getChatsAPI, token);
     yield put(getSuccessAction(actionNames.GET_CHATS, { chats }));
     yield put(addChats(chats));
     if (!activeChat && chats.length) {
@@ -152,15 +157,10 @@ function* initAfterLogin(token) {
   }
 }
 
-function* initActiveChat(activeChat) {
-  yield put(setActiveChat(activeChat));
-  yield put(loadMessagesAction());
-}
-
 function* signIn(action) {
   try {
     const { email, password, remember } = action.payload;
-    const result = yield call(login_API, email, password);
+    const result = yield call(loginAPI, email, password);
     yield put(getSuccessAction(actionNames.LOGIN, { result }));
     yield* initAfterLogin(result.token);
     if (remember) {
@@ -176,7 +176,7 @@ function* register(action) {
     const {
       email, password, name, avatar, remember,
     } = action.payload;
-    const result = yield call(register_API, email, password, name, avatar);
+    const result = yield call(registerAPI, email, password, name, avatar);
     yield put(getSuccessAction(actionNames.REGISTER, { result }));
     yield* initAfterLogin(result.token);
     if (remember) {

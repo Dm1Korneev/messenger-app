@@ -12,8 +12,8 @@ import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import AvatarSelector from './AvatarSelector';
-import UsersAvatar from './UsersAvatar';
+import AvatarSelector from 'Components/AvatarSelector';
+import UsersAvatar from 'Components/UsersAvatar';
 
 class ChatDialog extends React.Component {
   constructor(props) {
@@ -215,8 +215,10 @@ class ChatDialog extends React.Component {
 }
 
 ChatDialog.propTypes = {
-  classes: PropTypes.instanceOf(Object).isRequired,
   closeChatDialog: PropTypes.func.isRequired,
+  onAddChat: PropTypes.func.isRequired,
+  onSaveChat: PropTypes.func.isRequired,
+  getUsers: PropTypes.func.isRequired,
   users: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
@@ -224,11 +226,14 @@ ChatDialog.propTypes = {
       avatar: PropTypes.string.isRequired,
       email: PropTypes.string,
     }),
-  ),
+  ).isRequired,
   isModify: PropTypes.bool.isRequired,
   chat: PropTypes.shape({
+    _id: PropTypes.string,
     avatar: PropTypes.string,
-  }),
+    title: PropTypes.string,
+    users: PropTypes.array,
+  }).isRequired,
 };
 
 const styles = () => ({});
