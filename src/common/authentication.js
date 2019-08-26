@@ -1,4 +1,4 @@
-import { TOKEN_FIELD } from './constants';
+import { TOKEN_FIELD } from 'Common/constants';
 
 function localStorageAvailable() {
   try {

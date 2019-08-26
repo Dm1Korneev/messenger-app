@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
-import { objectsAdd } from './operations';
-import * as actionNames from '../actionNames';
+import * as actionNames from 'Redux/actionNames';
+import { objectsAdd } from 'Redux/reducers/operations';
 
 const defaultStore = { byId: {}, allIds: [] };
 

@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import * as actionNames from '../actionNames';
+import * as actionNames from 'Redux/actionNames';
 
 const defaultStore = {
   activeChat: undefined,

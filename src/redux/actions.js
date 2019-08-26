@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
-import * as actionNames from './actionNames';
-import { getRequestAction } from './shared';
+
+import * as actionNames from 'Redux/actionNames';
+import { getRequestAction } from 'Redux/shared';
 
 // session
 export const setActiveChat = createAction(actionNames.ACTIVE_CHAT_SET);

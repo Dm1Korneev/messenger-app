@@ -1,4 +1,4 @@
-import { MESSAGES_API_URL } from './constants';
+import { MESSAGES_API_URL } from 'Common/constants';
 
 function parseJSON(response) {
   return new Promise((resolve) => response.json().then((result) => resolve({

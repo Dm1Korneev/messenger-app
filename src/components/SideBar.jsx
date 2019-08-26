@@ -14,7 +14,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 
 import { DRAWER_WIDTH, RELOAD_PERIOD } from 'Common/constants';
 
-import Chat from './Chat';
+import Chat from 'Components/Chat';
 
 class SideBar extends React.Component {
   constructor(props) {
