@@ -1,0 +1,28 @@
+export const GET_CHATS = 'GET_CHATS';
+export const ADD_CHATS = 'ADD_CHATS';
+export const CREATE_CHAT = 'CREATE_CHAT';
+export const MODIFY_CHAT = 'MODIFY_CHAT';
+
+export const GET_MESSAGES = 'GET_MESSAGES';
+export const ADD_MESSAGES = 'ADD_MESSAGES';
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+
+export const GET_USERS = 'GET_USERS';
+export const ADD_USERS = 'ADD_USERS';
+export const MODIFY_USER = 'MODIFY_USER';
+
+export const CLEAR_STORE = 'CLEAR_STORE';
+
+export const LOGIN = 'LOGIN';
+export const REGISTER = 'REGISTER';
+export const LOGIN_FROM_STORE = 'LOGIN_FROM_STORE';
+export const LOGOUT = 'LOGOUT';
+
+export const SET_SESSION_INFO = 'SET_SESSION_INFO';
+export const SET_IS_LOGGED_IN = 'SET_IS_LOGGED_IN';
+export const SET_ACTIVE_CHAT = 'SET_ACTIVE_CHAT';
+export const SET_DRAWER_IS_OPEN = 'SET_DRAWER_IS_OPEN';
+export const CHANGE_ACTIVE_CHAT = 'CHANGE_ACTIVE_CHAT';
+export const SET_ADD_CHAT_DIALOG_IS_OPEN = 'SET_ADD_CHAT_DIALOG_IS_OPEN';
+export const SET_MODIFY_CHAT_DIALOG_IS_OPEN = 'SET_MODIFY_CHAT_DIALOG_IS_OPEN';
+export const SET_MODIFY_USER_DIALOG_IS_OPEN = 'SET_MODIFY_USER_DIALOG_IS_OPEN';

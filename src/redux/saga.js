@@ -29,7 +29,7 @@ import {
   setActiveChat,
   setSessionInfo,
 } from 'Redux/actions';
-import * as actionNames from 'Redux/actionNames';
+import * as actionNames from 'Constants/actionNames';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 
 const getToken = (state) => state.session.token;

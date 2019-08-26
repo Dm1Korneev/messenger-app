@@ -1,49 +1,49 @@
 import { createAction } from 'redux-actions';
 
-import * as actionNames from 'Redux/actionNames';
+import * as actionNames from 'Constants/actionNames';
 import { getRequestAction } from 'Redux/shared';
 
 // session
-export const setActiveChat = createAction(actionNames.ACTIVE_CHAT_SET);
+export const setActiveChat = createAction(actionNames.SET_ACTIVE_CHAT);
 
-export const setDrawerIsOpen = createAction(actionNames.DRAWER_IS_OPEN_SET);
+export const setDrawerIsOpen = createAction(actionNames.SET_DRAWER_IS_OPEN);
 
 export const setAddChatDialogIsOpen = createAction(
-  actionNames.ADD_CHAT_DIALOG_IS_OPEN_SET,
+  actionNames.SET_ADD_CHAT_DIALOG_IS_OPEN,
 );
 
 export const setModifyChatDialogIsOpen = createAction(
-  actionNames.MODIFY_CHAT_DIALOG_IS_OPEN_SET,
+  actionNames.SET_MODIFY_CHAT_DIALOG_IS_OPEN,
 );
 
 export const setUserModifyDialogIsOpen = createAction(
-  actionNames.USER_MODIFY_DIALOG_IS_OPEN_SET,
+  actionNames.SET_MODIFY_USER_DIALOG_IS_OPEN,
 );
 
-export const setSessionInfo = createAction(actionNames.SESSION_INFO_SET);
+export const setSessionInfo = createAction(actionNames.SET_SESSION_INFO);
 
-export const closeChatDialog = () => createAction(actionNames.SESSION_INFO_SET)({
+export const closeChatDialog = () => createAction(actionNames.SET_SESSION_INFO)({
   modifyChatDialogIsOpen: false,
   addChatDialogIsOpen: false,
   modifiableChat: undefined,
 });
 
-export const openModifyChatDialog = (modifiableChat) => createAction(actionNames.SESSION_INFO_SET)({
+export const openModifyChatDialog = (modifiableChat) => createAction(actionNames.SET_SESSION_INFO)({
   modifyChatDialogIsOpen: true,
   modifiableChat,
 });
 
 // chats
-export const addChats = createAction(actionNames.CHATS_ADD);
+export const addChats = createAction(actionNames.ADD_CHATS);
 
 // messages
-export const addMessages = createAction(actionNames.MESSAGES_ADD);
+export const addMessages = createAction(actionNames.ADD_MESSAGES);
 
 // users
-export const addUsers = createAction(actionNames.USERS_ADD);
+export const addUsers = createAction(actionNames.ADD_USERS);
 
 // others
-export const clearStore = createAction(actionNames.STORE_CLEAR);
+export const clearStore = createAction(actionNames.CLEAR_STORE);
 
 // async actions
 export const getUsers = () => getRequestAction(actionNames.GET_USERS);
