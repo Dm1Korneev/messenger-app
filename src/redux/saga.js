@@ -32,12 +32,11 @@ import {
 import * as actionNames from 'Constants/actionNames';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 
-const getToken = (state) => state.session.token;
-const getActiveChat = (state) => state.session.activeChat;
+import { activeChatIdSelector, tokenSelector } from 'Selectors/session';
 
 function* getUsers() {
   try {
-    const token = yield select(getToken);
+    const token = yield select(tokenSelector);
     const users = yield call(getUsersAPI, token);
     yield put(getSuccessAction(actionNames.GET_USERS, { users }));
     yield put(addUsers(users));
@@ -48,8 +47,8 @@ function* getUsers() {
 
 function* sendMessage(action) {
   try {
-    const token = yield select(getToken);
-    const activeChat = yield select(getActiveChat);
+    const token = yield select(tokenSelector);
+    const activeChat = yield select(activeChatIdSelector);
     const { messageText } = action.payload;
     const message = yield call(sendMessageAPI, token, activeChat, messageText);
     yield put(getSuccessAction(actionNames.SEND_MESSAGE, { message }));
@@ -62,11 +61,11 @@ function* sendMessage(action) {
 
 function* loadMessages() {
   try {
-    const activeChat = yield select(getActiveChat);
+    const activeChat = yield select(activeChatIdSelector);
     if (!activeChat) {
       return;
     }
-    const token = yield select(getToken);
+    const token = yield select(tokenSelector);
     const { messages, users } = yield call(getMessagesAPI, token, activeChat);
     yield put(getSuccessAction(actionNames.GET_MESSAGES, { messages, users }));
     yield put(addUsers(users));
@@ -78,7 +77,7 @@ function* loadMessages() {
 
 function* createChat(action) {
   try {
-    const token = yield select(getToken);
+    const token = yield select(tokenSelector);
     const { title, avatar, selectedUserIds } = action.payload;
     const chat = yield call(
       createChatAPI,
@@ -98,7 +97,7 @@ function* createChat(action) {
 
 function* modifyChat(action) {
   try {
-    const token = yield select(getToken);
+    const token = yield select(tokenSelector);
     const { chatId, options } = action.payload;
     const chat = yield call(modifyChatAPI, token, chatId, options);
     yield put(getSuccessAction(actionNames.MODIFY_CHAT, { chat }));
@@ -111,7 +110,7 @@ function* modifyChat(action) {
 
 function* modifyUser(action) {
   try {
-    let token = yield select(getToken);
+    let token = yield select(tokenSelector);
     const { userId, options } = action.payload;
     const result = yield call(modifyUserAPI, token, userId, options);
     yield put(getSuccessAction(actionNames.MODIFY_USER, { result }));
@@ -133,8 +132,8 @@ function* initActiveChat(activeChat) {
 
 function* getChats() {
   try {
-    const token = yield select(getToken);
-    const activeChat = yield select(getActiveChat);
+    const token = yield select(tokenSelector);
+    const activeChat = yield select(activeChatIdSelector);
     const chats = yield call(getChatsAPI, token);
     yield put(getSuccessAction(actionNames.GET_CHATS, { chats }));
     yield put(addChats(chats));

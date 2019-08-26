@@ -214,6 +214,10 @@ class ChatDialog extends React.Component {
   }
 }
 
+ChatDialog.defaultProps = {
+  chat: undefined,
+};
+
 ChatDialog.propTypes = {
   closeChatDialog: PropTypes.func.isRequired,
   onAddChat: PropTypes.func.isRequired,
@@ -233,7 +237,7 @@ ChatDialog.propTypes = {
     avatar: PropTypes.string,
     title: PropTypes.string,
     users: PropTypes.array,
-  }).isRequired,
+  }),
 };
 
 const styles = () => ({});

@@ -1,24 +1,27 @@
-import { connect } from 'react-redux';
+import commonHoc from 'Containers/commonHoc';
 
 import {
   logOut,
   setDrawerIsOpen,
   setUserModifyDialogIsOpen,
 } from 'Redux/actions';
+
+import { currentUserSelector, drawerIsOpenSelector } from 'Selectors/session';
+
 import TopBar from 'Components/TopBar';
 
 const mapStateToProps = (state) => ({
-  user: state.session.user,
-  drawerIsOpen: state.session.drawerIsOpen,
+  user: currentUserSelector(state),
+  drawerIsOpen: drawerIsOpenSelector(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onDriwerOpen: () => dispatch(setDrawerIsOpen(true)),
-  onLogout: () => dispatch(logOut()),
-  openUserModifyDialog: () => dispatch(setUserModifyDialogIsOpen(true)),
-});
+const mapDispatchToProps = {
+  onDriwerOpen: () => setDrawerIsOpen(true),
+  onLogout: logOut,
+  openUserModifyDialog: () => setUserModifyDialogIsOpen(true),
+};
 
-export default connect(
+export default commonHoc(TopBar, {
   mapStateToProps,
   mapDispatchToProps,
-)(TopBar);
+});

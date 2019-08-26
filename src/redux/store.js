@@ -8,13 +8,16 @@ import saga from 'Redux/saga';
 const storeFactory = () => {
   const sagaMiddleware = createSagaMiddleware();
   const middlewareEnhancer = applyMiddleware(sagaMiddleware);
-  const composeEnhancers = (process.env.NODE_ENV === 'production')
+  const composeEnhancers = process.env.NODE_ENV === 'production'
     ? middlewareEnhancer : composeWithDevTools(middlewareEnhancer);
+
   const store = createStore(
     rootReducer,
     composeEnhancers,
   );
+
   sagaMiddleware.run(saga);
+
   return store;
 };
 

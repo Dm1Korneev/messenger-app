@@ -8,7 +8,7 @@ const defaultStore = {
   drawerIsOpen: true,
   addChatDialogIsOpen: false,
   modifyChatDialogIsOpen: false,
-  modifiableChat: undefined,
+  modifiableChatId: undefined,
   userModifyDialogIsOpen: false,
   user: undefined,
 };

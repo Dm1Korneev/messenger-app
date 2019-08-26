@@ -1,20 +1,21 @@
-import { connect } from 'react-redux';
+import commonHoc from 'Containers/commonHoc';
+
+import { loginFromStore } from 'Redux/actions';
+import { chatDialogIsOpenSelector, isLoggedInSelector, userModifyDialogIsOpenSelector } from 'Selectors/session';
 
 import App from 'Components/App';
-import { loginFromStore } from 'Redux/actions';
 
 const mapStateToProps = (state) => ({
-  chatDialogIsOpen:
-    state.session.addChatDialogIsOpen || state.session.modifyChatDialogIsOpen,
-  userModifyDialogIsOpen: state.session.userModifyDialogIsOpen,
-  isLoggedIn: state.session.isLoggedIn,
+  chatDialogIsOpen: chatDialogIsOpenSelector(state),
+  userModifyDialogIsOpen: userModifyDialogIsOpenSelector(state),
+  isLoggedIn: isLoggedInSelector(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loginFromStore: () => dispatch(loginFromStore()),
-});
+const mapDispatchToProps = {
+  loginFromStore,
+};
 
-export default connect(
+export default commonHoc(App, {
   mapStateToProps,
   mapDispatchToProps,
-)(App);
+});

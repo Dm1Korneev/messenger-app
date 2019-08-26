@@ -1,18 +1,22 @@
-import { connect } from 'react-redux';
+import commonHoc from 'Containers/commonHoc';
+
+import { LOGIN, REGISTER } from 'Constants/actionNames';
 import { register, signIn } from 'Redux/actions';
+import { errorSelector } from 'Selectors/errors';
+
 import SignIn from 'Components/SignIn';
 
 const mapStateToProps = (state) => ({
-  loginError: state.errors.LOGIN,
-  registerError: state.errors.REGISTER,
+  loginError: errorSelector(state, LOGIN),
+  registerError: errorSelector(state, REGISTER),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onSignIn: (...args) => dispatch(signIn(...args)),
-  onRegister: (...args) => dispatch(register(...args)),
-});
+const mapDispatchToProps = {
+  onSignIn: signIn,
+  onRegister: register,
+};
 
-export default connect(
+export default commonHoc(SignIn, {
   mapStateToProps,
   mapDispatchToProps,
-)(SignIn);
+});

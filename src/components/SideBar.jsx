@@ -69,8 +69,7 @@ class SideBar extends React.Component {
             <ListItemText primary="Add chat" />
           </ListItem>
 
-          {chats.allIds.map((value) => {
-            const chat = chats.byId[value];
+          {chats.map((chat) => {
             const { _id } = chat;
             return (
               <Chat
@@ -96,10 +95,7 @@ SideBar.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   getChats: PropTypes.func.isRequired,
   drawerIsOpen: PropTypes.bool.isRequired,
-  chats: PropTypes.shape({
-    allIds: PropTypes.arrayOf(PropTypes.string),
-    byId: PropTypes.object,
-  }),
+  chats: PropTypes.arrayOf(PropTypes.instanceOf(Object)),
   activeChat: PropTypes.string,
   onDrawerClose: PropTypes.func.isRequired,
   changeActiveChat: PropTypes.func.isRequired,

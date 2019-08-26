@@ -18,6 +18,7 @@
   "rules": {
     "no-var": "error",
     "linebreak-style": "off",
+    "no-extra-parens": "error",
     "no-multiple-empty-lines": ["error", {"max": 1}],
     "max-len": ["error", 140],
     "sort-imports": ["error", {"ignoreDeclarationSort": true}],

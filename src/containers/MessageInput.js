@@ -1,14 +1,12 @@
-import { connect } from 'react-redux';
+import commonHoc from 'Containers/commonHoc';
+
 import { sendMessage } from 'Redux/actions';
 import MessageInput from 'Components/MessageInput';
 
-const mapStateToProps = () => ({});
+const mapDispatchToProps = {
+  onSendMessage: sendMessage,
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  onSendMessage: (messageText) => dispatch(sendMessage(messageText)),
-});
-
-export default connect(
-  mapStateToProps,
+export default commonHoc(MessageInput, {
   mapDispatchToProps,
-)(MessageInput);
+});

@@ -25,12 +25,12 @@ export const setSessionInfo = createAction(actionNames.SET_SESSION_INFO);
 export const closeChatDialog = () => createAction(actionNames.SET_SESSION_INFO)({
   modifyChatDialogIsOpen: false,
   addChatDialogIsOpen: false,
-  modifiableChat: undefined,
+  modifiableChatId: undefined,
 });
 
-export const openModifyChatDialog = (modifiableChat) => createAction(actionNames.SET_SESSION_INFO)({
+export const openModifyChatDialog = (modifiableChatId) => createAction(actionNames.SET_SESSION_INFO)({
   modifyChatDialogIsOpen: true,
-  modifiableChat,
+  modifiableChatId,
 });
 
 // chats

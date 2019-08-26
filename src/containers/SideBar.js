@@ -1,4 +1,5 @@
-import { connect } from 'react-redux';
+import commonHoc from 'Containers/commonHoc';
+
 import {
   changeActiveChat,
   getChats,
@@ -6,23 +7,27 @@ import {
   setAddChatDialogIsOpen,
   setDrawerIsOpen,
 } from 'Redux/actions';
+
+import { chatsArraySelector } from 'Selectors/chats';
+import { activeChatIdSelector, drawerIsOpenSelector } from 'Selectors/session';
+
 import SideBar from 'Components/SideBar';
 
 const mapStateToProps = (state) => ({
-  chats: state.chats,
-  activeChat: state.session.activeChat,
-  drawerIsOpen: state.session.drawerIsOpen,
+  chats: chatsArraySelector(state),
+  activeChat: activeChatIdSelector(state),
+  drawerIsOpen: drawerIsOpenSelector(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onDrawerClose: () => dispatch(setDrawerIsOpen(false)),
-  changeActiveChat: (activeChat) => dispatch(changeActiveChat(activeChat)),
-  openAddChatDialog: () => dispatch(setAddChatDialogIsOpen(true)),
-  openModifyChatDialog: (chat) => dispatch(openModifyChatDialog(chat)),
-  getChats: () => dispatch(getChats()),
-});
+const mapDispatchToProps = {
+  onDrawerClose: () => setDrawerIsOpen(false),
+  changeActiveChat,
+  openAddChatDialog: () => setAddChatDialogIsOpen(true),
+  openModifyChatDialog,
+  getChats,
+};
 
-export default connect(
+export default commonHoc(SideBar, {
   mapStateToProps,
   mapDispatchToProps,
-)(SideBar);
+});
