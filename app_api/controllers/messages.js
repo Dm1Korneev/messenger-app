@@ -1,11 +1,12 @@
-const mongoose = require("mongoose");
-const MessageModel = mongoose.model("Message");
-const ChatModel = mongoose.model("Chat");
-const { sendJsResponse, parseToken } = require("./common");
+const mongoose = require('mongoose');
 
-module.exports.getMessages = function(req, res, next) {
+const MessageModel = mongoose.model('Message');
+const ChatModel = mongoose.model('Chat');
+const { sendJsResponse, parseToken } = require('./common');
+
+module.exports.getMessages = (req, res) => {
   if (!req.params || !req.params.chatId) {
-    sendJsResponse(res, 400, { message: "No chatId in request" });
+    sendJsResponse(res, 400, { message: 'No chatId in request' });
     return;
   }
 
@@ -14,8 +15,8 @@ module.exports.getMessages = function(req, res, next) {
   const messageGetQuery = MessageModel.aggregate([
     {
       $match: {
-        chat
-      }
+        chat,
+      },
     },
     {
       $project: {
@@ -23,60 +24,60 @@ module.exports.getMessages = function(req, res, next) {
         dateTime: 1,
         text: 1,
         author: 1,
-        chat: 1
-      }
+        chat: 1,
+      },
     },
-    { $sort: { dateTime: 1 } }
+    { $sort: { dateTime: 1 } },
   ]).exec();
 
   const usersGetQuery = MessageModel.aggregate([
     {
       $match: {
-        chat
-      }
+        chat,
+      },
     },
     {
       $lookup: {
-        from: "users",
-        localField: "author",
-        foreignField: "_id",
-        as: "authors"
-      }
+        from: 'users',
+        localField: 'author',
+        foreignField: '_id',
+        as: 'authors',
+      },
     },
-    { $unwind: "$authors" },
+    { $unwind: '$authors' },
     {
       $group: {
-        _id: "$authors._id",
-        name: { $max: "$authors.name" },
-        avatar: { $max: "$authors.avatar" }
-      }
-    }
+        _id: '$authors._id',
+        name: { $max: '$authors.name' },
+        avatar: { $max: '$authors.avatar' },
+      },
+    },
   ]).exec();
 
   Promise.all([messageGetQuery, usersGetQuery])
     .then(([messages, users]) => {
       sendJsResponse(res, 200, { messages, users });
     })
-    .catch(err => {
+    .catch((err) => {
       sendJsResponse(res, 400, err);
     });
 };
 
-module.exports.postMessage = function(req, res, next) {
+module.exports.postMessage = (req, res) => {
   if (!req.params || !req.params.chatId) {
-    sendJsResponse(res, 400, { message: "No chatId in request" });
+    sendJsResponse(res, 400, { message: 'No chatId in request' });
     return;
   }
 
   const author = parseToken(req.headers.authorization)._id;
-  const chatId = req.params.chatId;
+  const { chatId } = req.params;
 
   ChatModel.findOne({ users: author, _id: chatId })
     .exec()
-    .then(chat => {
+    .then((chat) => {
       if (!chat) {
         sendJsResponse(res, 404, { message: "'chatId' not found" });
-        return;
+        return undefined;
       }
 
       const { text } = req.body;
@@ -84,19 +85,19 @@ module.exports.postMessage = function(req, res, next) {
       return new MessageModel({
         chat: chatId,
         text,
-        author
+        author,
       }).save();
     })
-    .then(message => {
+    .then((message) => {
       sendJsResponse(res, 200, {
         _id: message._id,
         text: message.text,
         author: message.author,
         dateTime: message.dateTime,
-        chat: message.chat
+        chat: message.chat,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       sendJsResponse(res, 400, err);
     });
 };

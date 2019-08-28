@@ -1,30 +1,31 @@
-const mongoose = require("mongoose");
-const passport = require("passport");
-const UserModel = mongoose.model("User");
+const mongoose = require('mongoose');
+const passport = require('passport');
+
+const UserModel = mongoose.model('User');
 const {
   sendJsResponse,
   isUserNameIsAvailable,
-  isEmailIsAvailable
-} = require("./common");
-const fileLoaderToAWS = require("../common/fileLoaderToAWS");
+  isEmailIsAvailable,
+} = require('./common');
+const fileLoaderToAWS = require('../common/fileLoaderToAWS');
 
-module.exports.getUsers = function(req, res, next) {
+module.exports.getUsers = (req, res) => {
   UserModel.aggregate([
     {
       $project: {
         _id: 1,
         name: 1,
         email: 1,
-        avatar: 1
-      }
-    }
+        avatar: 1,
+      },
+    },
   ])
     .exec()
-    .then(users => sendJsResponse(res, 200, users))
-    .catch(err => sendJsResponse(res, 400, err));
+    .then((users) => sendJsResponse(res, 200, users))
+    .catch((err) => sendJsResponse(res, 400, err));
 };
 
-module.exports.getUserByID = function(req, res, next) {
+module.exports.getUserByID = (req, res) => {
   if (!req.params || !req.params.userId) {
     sendJsResponse(res, 400, { message: "No 'userId' in request" });
     return;
@@ -34,69 +35,73 @@ module.exports.getUserByID = function(req, res, next) {
   UserModel.aggregate([
     {
       $match: {
-        _id: userId
-      }
+        _id: userId,
+      },
     },
     {
       $project: {
         _id: 1,
         name: 1,
         email: 1,
-        avatar: 1
-      }
-    }
+        avatar: 1,
+      },
+    },
   ])
     .exec()
-    .then(user => {
+    .then((user) => {
       if (!user) {
         sendJsResponse(res, 404, { message: "'userId' not found" });
         return;
       }
       sendJsResponse(res, 200, user);
     })
-    .catch(err => sendJsResponse(res, 400, err));
+    .catch((err) => sendJsResponse(res, 400, err));
 };
 
-module.exports.updateUserByID = async function(req, res, next) {
+module.exports.updateUserByID = async (req, res) => {
   if (!req.params || !req.params.userId) {
     sendJsResponse(res, 400, { message: "No 'userId' in request" });
     return;
   }
   const userId = mongoose.Types.ObjectId(req.params.userId);
-  const { name, email, password, avatar } = req.body;
-  let newAvatar = undefined;
+  const {
+    name, email, password, avatar,
+  } = req.body;
+  let newAvatar;
   let avatarIsCange = false;
   if (req.file) {
     newAvatar = await fileLoaderToAWS(req.file);
     avatarIsCange = true;
-  } else if (avatar === "undefined") {
-    newAvatar = "";
+  } else if (avatar === 'undefined') {
+    newAvatar = '';
     avatarIsCange = true;
   }
 
   Promise.all([
     isUserNameIsAvailable(name, userId),
-    isEmailIsAvailable(email, userId)
+    isEmailIsAvailable(email, userId),
   ])
     .then(([userNameIsFound, emailNameIsFound]) => {
-      let errorMessage = "";
+      let errorMessage = '';
       if (userNameIsFound) {
-        errorMessage += "Username is already use";
+        errorMessage += 'Username is already use';
       }
       if (emailNameIsFound) {
-        errorMessage += "\nEmail is already use";
+        errorMessage += '\nEmail is already use';
       }
       if (errorMessage) {
-        sendJsResponse(res, 400, { message: errorMessage });
-        return Promise.reject(undefined);
+        const error = new Error(errorMessage);
+        sendJsResponse(res, 400, error);
+        return Promise.reject();
       }
 
       return UserModel.findById(userId);
     })
-    .then(user => {
+    .then((userParam) => {
+      const user = userParam;
       if (!user) {
         sendJsResponse(res, 404, { message: "'userId' not found" });
-        return;
+        return undefined;
       }
       if (name) {
         user.name = name;
@@ -113,11 +118,11 @@ module.exports.updateUserByID = async function(req, res, next) {
       }
       return user.save();
     })
-    .then(user => {
+    .then((user) => {
       const token = user.generateJwt();
-      sendJsResponse(res, 200, { token: token });
+      sendJsResponse(res, 200, { token });
     })
-    .catch(err => {
+    .catch((err) => {
       if (!err) {
         return;
       }
@@ -126,33 +131,34 @@ module.exports.updateUserByID = async function(req, res, next) {
     });
 };
 
-module.exports.register = async function(req, res) {
+module.exports.register = async (req, res) => {
   if (!req.body.name || !req.body.email || !req.body.password) {
-    sendJsResponse(res, 400, { message: "all fields required" });
+    sendJsResponse(res, 400, { message: 'all fields required' });
     return;
   }
 
   const { name, email, password } = req.body;
-  let avatar = "";
+  let avatar = '';
   if (req.file) {
     avatar = await fileLoaderToAWS(req.file);
   }
 
   Promise.all([isUserNameIsAvailable(name), isEmailIsAvailable(email)])
     .then(([userNameIsFound, emailNameIsFound]) => {
-      let errorMessage = "";
+      let errorMessage = '';
       if (userNameIsFound) {
-        errorMessage += "Username is already use";
+        errorMessage += 'Username is already use';
       }
       if (emailNameIsFound) {
-        errorMessage += "\nEmail is already use";
+        errorMessage += '\nEmail is already use';
       }
       if (errorMessage) {
-        sendJsResponse(res, 400, { message: errorMessage });
-        return Promise.reject(undefined);
+        const error = new Error(errorMessage);
+        sendJsResponse(res, 400, error);
+        return Promise.reject();
       }
 
-      let user = new UserModel();
+      const user = new UserModel();
 
       user.name = name;
       user.email = email;
@@ -161,11 +167,11 @@ module.exports.register = async function(req, res) {
       user.setPassword(password);
       return user.save();
     })
-    .then(user => {
+    .then((user) => {
       const token = user.generateJwt();
-      sendJsResponse(res, 200, { token: token });
+      sendJsResponse(res, 200, { token });
     })
-    .catch(err => {
+    .catch((err) => {
       if (!err) {
         return;
       }
@@ -173,20 +179,20 @@ module.exports.register = async function(req, res) {
     });
 };
 
-module.exports.login = function(req, res) {
+module.exports.login = (req, res) => {
   if (!req.body.email || !req.body.password) {
-    sendJsResponse(res, 400, { message: "all fields required" });
+    sendJsResponse(res, 400, { message: 'all fields required' });
     return;
   }
 
-  passport.authenticate("local", function(err, user, info) {
+  passport.authenticate('local', (err, user, info) => {
     if (err) {
       sendJsResponse(res, 404, err);
       return;
     }
     if (user) {
       const token = user.generateJwt();
-      sendJsResponse(res, 200, { token: token });
+      sendJsResponse(res, 200, { token });
     } else {
       sendJsResponse(res, 401, info);
     }

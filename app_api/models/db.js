@@ -1,44 +1,46 @@
-const mongoose = require("mongoose");
+/* eslint-disable no-console */
+
+const mongoose = require('mongoose');
 
 const dbURI = process.env.MONGODB_URI;
 console.log(dbURI);
-mongoose.connect(dbURI, { useNewUrlParser: true });
+mongoose.connect(dbURI, { useNewUrlParser: true, useCreateIndex: true });
 
-mongoose.connection.on("connected", function() {
-  console.log("Mongoose connected to " + dbURI);
+mongoose.connection.on('connected', () => {
+  console.log(`Mongoose connected to ${dbURI}`);
 });
-mongoose.connection.on("error", function(err) {
-  console.log("Mongoose connection error: " + err);
+mongoose.connection.on('error', (err) => {
+  console.error(`Mongoose connection error: ${err}`);
 });
-mongoose.connection.on("disconnected", function() {
-  console.log("Mongoose disconnected");
+mongoose.connection.on('disconnected', () => {
+  console.log('Mongoose disconnected');
 });
 
-const gracefulShutdown = function(msg, callback) {
-  mongoose.connection.close(function() {
-    console.log("Mongoose disconnected through " + msg);
+const gracefulShutdown = (msg, callback) => {
+  mongoose.connection.close(() => {
+    console.log(`Mongoose disconnected through ${msg}`);
     callback();
   });
 };
 
-process.on("SIGUSR2", function() {
-  gracefulShutdown("nodemon restart", function() {
-    process.kill(process.pid, "SIGUSR2");
+process.on('SIGUSR2', () => {
+  gracefulShutdown('nodemon restart', () => {
+    process.kill(process.pid, 'SIGUSR2');
   });
 });
 
-process.on("SIGINT", function() {
-  gracefulShutdown("app termination", function() {
+process.on('SIGINT', () => {
+  gracefulShutdown('app termination', () => {
     process.exit(0);
   });
 });
 
-process.on("SIGTERM", function() {
-  gracefulShutdown("Heroku app shutdown", function() {
+process.on('SIGTERM', () => {
+  gracefulShutdown('Heroku app shutdown', () => {
     process.exit(0);
   });
 });
 
-require("./chats");
-require("./users");
-require("./messages");
+require('./chats');
+require('./users');
+require('./messages');

@@ -1,17 +1,18 @@
-const mongoose = require("mongoose");
-const ChatModel = mongoose.model("Chat");
-const { sendJsResponse, parseToken } = require("./common");
-const fileLoaderToAWS = require("../common/fileLoaderToAWS");
+const mongoose = require('mongoose');
 
-module.exports.getChats = function(req, res, next) {
+const ChatModel = mongoose.model('Chat');
+const { sendJsResponse, parseToken } = require('./common');
+const fileLoaderToAWS = require('../common/fileLoaderToAWS');
+
+module.exports.getChats = (req, res) => {
   const userInfo = parseToken(req.headers.authorization);
   const user = mongoose.Types.ObjectId(userInfo._id);
 
   ChatModel.aggregate([
     {
       $match: {
-        $expr: { $in: [user, "$users"] }
-      }
+        $expr: { $in: [user, '$users'] },
+      },
     },
     {
       $project: {
@@ -19,16 +20,16 @@ module.exports.getChats = function(req, res, next) {
         title: 1,
         users: 1,
         admin: 1,
-        avatar: 1
-      }
-    }
+        avatar: 1,
+      },
+    },
   ])
     .exec()
-    .then(chats => sendJsResponse(res, 200, chats))
-    .catch(err => sendJsResponse(res, 400, err));
+    .then((chats) => sendJsResponse(res, 200, chats))
+    .catch((err) => sendJsResponse(res, 400, err));
 };
 
-module.exports.getChatByID = function(req, res, next) {
+module.exports.getChatByID = (req, res) => {
   if (!req.params || !req.params.chatId) {
     sendJsResponse(res, 400, { message: "No 'chatId' in request" });
     return;
@@ -40,8 +41,8 @@ module.exports.getChatByID = function(req, res, next) {
     {
       $match: {
         _id: req.params.chatId,
-        $expr: { $in: [user, "$users"] }
-      }
+        $expr: { $in: [user, '$users'] },
+      },
     },
     {
       $project: {
@@ -49,28 +50,28 @@ module.exports.getChatByID = function(req, res, next) {
         title: 1,
         users: 1,
         admin: 1,
-        avatar: 1
-      }
-    }
+        avatar: 1,
+      },
+    },
   ])
     .exec()
-    .then(chat => {
+    .then((chat) => {
       if (!chat) {
         sendJsResponse(res, 404, { message: "'chatId' not found" });
         return;
       }
       sendJsResponse(res, 200, chat);
     })
-    .catch(err => sendJsResponse(res, 400, err));
+    .catch((err) => sendJsResponse(res, 400, err));
 };
 
-module.exports.postChat = async function(req, res, next) {
+module.exports.postChat = async (req, res) => {
   if (!req.body || !req.body.title) {
     sendJsResponse(res, 400, { message: "No 'title' in request" });
     return;
   }
 
-  let avatar = "";
+  let avatar = '';
   if (req.file) {
     avatar = await fileLoaderToAWS(req.file);
   }
@@ -81,29 +82,27 @@ module.exports.postChat = async function(req, res, next) {
   }
   const admin = parseToken(req.headers.authorization)._id;
   users = [...users, admin].filter(
-    (value, index, array) => array.indexOf(value) === index
+    (value, index, array) => array.indexOf(value) === index,
   );
 
   new ChatModel({
     title,
     users,
     admin,
-    avatar
+    avatar,
   })
     .save()
-    .then(chat =>
-      sendJsResponse(res, 201, {
-        _id: chat._id,
-        users: chat.users,
-        title: chat.title,
-        admin: chat.admin,
-        avatar: chat.avatar
-      })
-    )
-    .catch(err => sendJsResponse(res, 400, err));
+    .then((chat) => sendJsResponse(res, 201, {
+      _id: chat._id,
+      users: chat.users,
+      title: chat.title,
+      admin: chat.admin,
+      avatar: chat.avatar,
+    }))
+    .catch((err) => sendJsResponse(res, 400, err));
 };
 
-module.exports.updateChatByID = async function(req, res, next) {
+module.exports.updateChatByID = async (req, res) => {
   if (!req.params || !req.params.chatId) {
     sendJsResponse(res, 400, { message: "No 'chatId' in request" });
     return;
@@ -112,27 +111,28 @@ module.exports.updateChatByID = async function(req, res, next) {
   const { title, avatar } = req.body;
   let { users } = req.body;
 
-  let newAvatar = undefined;
+  let newAvatar;
   let avatarIsCange = false;
   if (req.file) {
     newAvatar = await fileLoaderToAWS(req.file);
     avatarIsCange = true;
-  } else if (avatar === "undefined") {
-    newAvatar = "";
+  } else if (avatar === 'undefined') {
+    newAvatar = '';
     avatarIsCange = true;
   }
   if (users) {
     const admin = parseToken(req.headers.authorization)._id;
     users = [...users, admin].filter(
-      (value, index, array) => array.indexOf(value) === index
+      (value, index, array) => array.indexOf(value) === index,
     );
   }
 
   ChatModel.findById(chatId)
-    .then(chat => {
+    .then((chatParam) => {
+      const chat = chatParam;
       if (!chat) {
         sendJsResponse(res, 404, { message: "'chatId' not found" });
-        return;
+        return undefined;
       }
       if (title) {
         chat.title = title;
@@ -146,16 +146,16 @@ module.exports.updateChatByID = async function(req, res, next) {
 
       return chat.save();
     })
-    .then(chat => {
+    .then((chat) => {
       sendJsResponse(res, 200, {
         _id: chat._id,
         users: chat.users,
         title: chat.title,
         admin: chat.admin,
-        avatar: chat.avatar
+        avatar: chat.avatar,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       if (!err) {
         return;
       }
