@@ -42,7 +42,11 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.4.0",
     "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-jest": "^22.15.2",
     "eslint-plugin-react": "^7.14.3",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.3",
@@ -56,12 +60,13 @@
     "build": "react-scripts build",
     "heroku-postbuild": "npm run build",
     "test": "react-scripts test",
+    "test-coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "start-nodemon": "nodemon ./bin/www",
     "start-mongod": "mongod --config ./mongod.cfg",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "lint": "eslint src/ --ext .jsx,.js --color",
-    "lint-fix": "eslint src/ --ext .jsx,.js --color --fix"
+    "lint": "eslint src/ app_api/ bin/www server.js --ext .jsx,.js --color",
+    "lint-fix": "eslint src/ app_api/ bin/www server.js --ext .jsx,.js --color --fix"
   },
   "proxy": "http://localhost:8080",
   "browserslist": [
@@ -85,7 +90,8 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "*.{js,jsx,ts,tsx}": [
+      "eslint",
       "git add"
     ]
   }
