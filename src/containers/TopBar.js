@@ -3,7 +3,7 @@ import commonHoc from 'Containers/commonHoc';
 import {
   logOut,
   setDrawerIsOpen,
-  setUserModifyDialogIsOpen,
+  setModifyUserDialogIsOpen,
 } from 'Redux/actions';
 
 import { currentUserSelector, drawerIsOpenSelector } from 'Selectors/session';
@@ -18,7 +18,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   onDriwerOpen: () => setDrawerIsOpen(true),
   onLogout: logOut,
-  openUserModifyDialog: () => setUserModifyDialogIsOpen(true),
+  openModifyUserDialog: () => setModifyUserDialogIsOpen(true),
 };
 
 export default commonHoc(TopBar, {

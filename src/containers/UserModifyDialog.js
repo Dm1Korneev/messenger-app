@@ -1,6 +1,6 @@
 import commonHoc from 'Containers/commonHoc';
 
-import { modifyUser, setUserModifyDialogIsOpen } from 'Redux/actions';
+import { modifyUser, setModifyUserDialogIsOpen } from 'Redux/actions';
 import { MODIFY_USER } from 'Constants/actionNames';
 
 import { currentUserSelector } from 'Selectors/session';
@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  closeUserModifyDialog: () => setUserModifyDialogIsOpen(false),
+  closeUserModifyDialog: () => setModifyUserDialogIsOpen(false),
   onSave: modifyUser,
 };
 

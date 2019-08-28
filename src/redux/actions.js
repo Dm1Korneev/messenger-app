@@ -16,7 +16,7 @@ export const setModifyChatDialogIsOpen = createAction(
   actionNames.SET_MODIFY_CHAT_DIALOG_IS_OPEN,
 );
 
-export const setUserModifyDialogIsOpen = createAction(
+export const setModifyUserDialogIsOpen = createAction(
   actionNames.SET_MODIFY_USER_DIALOG_IS_OPEN,
 );
 

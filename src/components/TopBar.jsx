@@ -19,7 +19,7 @@ function TopBar(props) {
     user,
     onLogout,
     onDriwerOpen,
-    openUserModifyDialog,
+    openModifyUserDialog,
     classes,
   } = props;
   const userName = user && user.name;
@@ -52,7 +52,7 @@ function TopBar(props) {
           className={classes.title}
         >
           {userName}
-          <IconButton color="inherit" onClick={openUserModifyDialog}>
+          <IconButton color="inherit" onClick={openModifyUserDialog}>
             <CreateIcon />
           </IconButton>
         </Typography>
@@ -69,7 +69,7 @@ TopBar.propTypes = {
   drawerIsOpen: PropTypes.bool.isRequired,
   onLogout: PropTypes.func.isRequired,
   onDriwerOpen: PropTypes.func.isRequired,
-  openUserModifyDialog: PropTypes.func.isRequired,
+  openModifyUserDialog: PropTypes.func.isRequired,
   user: PropTypes.shape({
     name: PropTypes.string,
   }).isRequired,
