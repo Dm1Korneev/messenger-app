@@ -7,6 +7,6 @@ export default function loadingReducer(state = {}, action) {
   const [, requestName, requestState] = matches;
   return {
     ...state,
-    [requestName]: requestState === 'FAILURE' ? payload.error && payload.error.message : '',
+    [requestName]: requestState === 'FAILURE' ? payload && payload.error && payload.error.message : '',
   };
 }

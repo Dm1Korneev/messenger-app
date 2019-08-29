@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from 'Redux/reducers';
-import saga from 'Redux/saga';
+import rootSaga from 'Redux/sagas';
 
 const storeFactory = () => {
   const sagaMiddleware = createSagaMiddleware();
@@ -16,7 +16,7 @@ const storeFactory = () => {
     composeEnhancers,
   );
 
-  sagaMiddleware.run(saga);
+  sagaMiddleware.run(rootSaga);
 
   return store;
 };
