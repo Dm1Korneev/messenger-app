@@ -20,9 +20,14 @@ describe('chats reducer', () => {
         allIds: ['TEST'],
       },
     );
+  });
 
+  test('should handle CLEAR_STORE', () => {
     expect(
-      reducer({}, {
+      reducer({
+        byId: { TEST: { _id: 'TEST' } },
+        allIds: ['TEST'],
+      }, {
         type: actionNames.CLEAR_STORE,
       }),
     ).toStrictEqual(
