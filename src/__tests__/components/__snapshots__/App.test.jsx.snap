@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot-test App component Renders correct properties 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+        Symbol(observable): [Function],
+      },
+      "storeState": Object {
+        "chats": Object {
+          "allIds": Array [],
+          "byId": Object {},
+        },
+        "errors": Object {
+          "LOGIN_FROM_STORE": undefined,
+        },
+        "loading": Object {
+          "LOGIN_FROM_STORE": false,
+        },
+        "messages": Object {
+          "allIds": Array [],
+          "byChats": Object {},
+          "byId": Object {},
+        },
+        "session": Object {
+          "activeChat": undefined,
+          "addChatDialogIsOpen": false,
+          "drawerIsOpen": true,
+          "isLoggedIn": false,
+          "modifiableChatId": undefined,
+          "modifyChatDialogIsOpen": false,
+          "token": undefined,
+          "user": undefined,
+          "userModifyDialogIsOpen": false,
+        },
+        "users": Object {
+          "allIds": Array [],
+          "byId": Object {},
+        },
+      },
+    }
+  }
+>
+  <Connect(WithStyles(App)) />
+</ContextProvider>
+`;

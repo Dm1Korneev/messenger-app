@@ -1,6 +1,6 @@
 {
   "env": { 
-    "node": false,
+    "node": true,
     "browser": true,
     "jest": true,
     "jest/globals": true

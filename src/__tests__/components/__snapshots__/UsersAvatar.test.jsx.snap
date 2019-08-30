@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot-test UsersAvatar component Renders correct properties 1`] = `
+<UsersAvatar
+  classes={
+    Object {
+      "ListItemAvatar": "UsersAvatar-ListItemAvatar-1",
+    }
+  }
+/>
+`;
