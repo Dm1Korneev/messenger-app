@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// containers
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
+
 import MessagesList from 'Containers/MessagesList';
 import MessageInput from 'Containers/MessageInput';
-
-// @material-ui
 
 function MainContent(props) {
   const { classes } = props;
