@@ -96,5 +96,12 @@
       "npm run test",
       "git add"
     ]
+  },
+  "jest": {
+    "coveragePathIgnorePatterns" : [
+      "/node_modules/", 
+      "/src/index.jsx",
+      "/src/serviceWorker.js" 
+    ]
   }
 }
