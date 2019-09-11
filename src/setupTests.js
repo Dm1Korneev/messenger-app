@@ -1,6 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-filename-extension */
 
-import { configure, mount, shallow } from 'enzyme';
+import React from 'react';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import toJSON from 'enzyme-to-json';
 import { compose } from 'redux';
@@ -13,11 +16,14 @@ global.mockAPICalls = () => {
 
 };
 
+global.mockComponent = (componentName) => (props) => (
+  <div originalcomponent={componentName} testprops={props}>{props.children}</div>
+);
+
 global.store = storeFactory();
 global.mount = mount;
-global.shallow = shallow;
-global.shallowExpect = compose(
+global.mountExpect = compose(
   expect,
   toJSON,
-  shallow,
+  mount,
 );
