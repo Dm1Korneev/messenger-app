@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot-test TopBar component Renders correct properties 1`] = `
+<WithStyles(TopBar)
+  drawerIsOpen={false}
+  onDriwerOpen={[MockFunction]}
+  onLogout={[MockFunction]}
+  openModifyUserDialog={[MockFunction]}
+  user={
+    Object {
+      "name": "name",
+    }
+  }
+>
+  <TopBar
+    classes={
+      Object {
+        "appBar": "TopBar-appBar-1",
+        "appBarShift": "TopBar-appBarShift-2",
+        "menuButton": "TopBar-menuButton-4",
+        "menuButtonHidden": "TopBar-menuButtonHidden-5",
+        "title": "TopBar-title-6",
+        "toolbar": "TopBar-toolbar-3",
+      }
+    }
+    drawerIsOpen={false}
+    onDriwerOpen={[MockFunction]}
+    onLogout={[MockFunction]}
+    openModifyUserDialog={[MockFunction]}
+    user={
+      Object {
+        "name": "name",
+      }
+    }
+  >
+    <Component
+      className="TopBar-appBar-1"
+      position="absolute"
+    >
+      <div
+        originalcomponent="AppBar"
+        testprops={
+          Object {
+            "children": <Unknown
+              className="TopBar-toolbar-3"
+              disableGutters={true}
+            >
+              <Unknown
+                aria-label="Open drawer"
+                className="TopBar-menuButton-4"
+                color="inherit"
+                onClick={[MockFunction]}
+              >
+                <Unknown />
+              </Unknown>
+              <Unknown
+                className="TopBar-title-6"
+                color="inherit"
+                component="h1"
+                noWrap={true}
+                variant="h6"
+              >
+                name
+                <Unknown
+                  color="inherit"
+                  onClick={[MockFunction]}
+                >
+                  <Unknown />
+                </Unknown>
+              </Unknown>
+              <Unknown
+                color="inherit"
+                onClick={[MockFunction]}
+              >
+                logout
+              </Unknown>
+            </Unknown>,
+            "className": "TopBar-appBar-1",
+            "position": "absolute",
+          }
+        }
+      >
+        <Component
+          className="TopBar-toolbar-3"
+          disableGutters={true}
+        >
+          <div
+            originalcomponent="Toolbar"
+            testprops={
+              Object {
+                "children": Array [
+                  <Unknown
+                    aria-label="Open drawer"
+                    className="TopBar-menuButton-4"
+                    color="inherit"
+                    onClick={[MockFunction]}
+                  >
+                    <Unknown />
+                  </Unknown>,
+                  <Unknown
+                    className="TopBar-title-6"
+                    color="inherit"
+                    component="h1"
+                    noWrap={true}
+                    variant="h6"
+                  >
+                    name
+                    <Unknown
+                      color="inherit"
+                      onClick={[MockFunction]}
+                    >
+                      <Unknown />
+                    </Unknown>
+                  </Unknown>,
+                  <Unknown
+                    color="inherit"
+                    onClick={[MockFunction]}
+                  >
+                    logout
+                  </Unknown>,
+                ],
+                "className": "TopBar-toolbar-3",
+                "disableGutters": true,
+              }
+            }
+          >
+            <Component
+              aria-label="Open drawer"
+              className="TopBar-menuButton-4"
+              color="inherit"
+              onClick={[MockFunction]}
+            >
+              <div
+                originalcomponent="IconButton"
+                testprops={
+                  Object {
+                    "aria-label": "Open drawer",
+                    "children": <Unknown />,
+                    "className": "TopBar-menuButton-4",
+                    "color": "inherit",
+                    "onClick": [MockFunction],
+                  }
+                }
+              >
+                <Component>
+                  <div
+                    originalcomponent="Menu"
+                    testprops={Object {}}
+                  />
+                </Component>
+              </div>
+            </Component>
+            <Component
+              className="TopBar-title-6"
+              color="inherit"
+              component="h1"
+              noWrap={true}
+              variant="h6"
+            >
+              <div
+                originalcomponent="Typography"
+                testprops={
+                  Object {
+                    "children": Array [
+                      "name",
+                      <Unknown
+                        color="inherit"
+                        onClick={[MockFunction]}
+                      >
+                        <Unknown />
+                      </Unknown>,
+                    ],
+                    "className": "TopBar-title-6",
+                    "color": "inherit",
+                    "component": "h1",
+                    "noWrap": true,
+                    "variant": "h6",
+                  }
+                }
+              >
+                name
+                <Component
+                  color="inherit"
+                  onClick={[MockFunction]}
+                >
+                  <div
+                    originalcomponent="IconButton"
+                    testprops={
+                      Object {
+                        "children": <Unknown />,
+                        "color": "inherit",
+                        "onClick": [MockFunction],
+                      }
+                    }
+                  >
+                    <Component>
+                      <div
+                        originalcomponent="Create"
+                        testprops={Object {}}
+                      />
+                    </Component>
+                  </div>
+                </Component>
+              </div>
+            </Component>
+            <Component
+              color="inherit"
+              onClick={[MockFunction]}
+            >
+              <div
+                originalcomponent="Button"
+                testprops={
+                  Object {
+                    "children": "logout",
+                    "color": "inherit",
+                    "onClick": [MockFunction],
+                  }
+                }
+              >
+                logout
+              </div>
+            </Component>
+          </div>
+        </Component>
+      </div>
+    </Component>
+  </TopBar>
+</WithStyles(TopBar)>
+`;
