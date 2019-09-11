@@ -1,0 +1,362 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot-test SignIn component Renders correct properties 1`] = `
+<WithStyles(SignIn)
+  onRegister={[MockFunction]}
+  onSignIn={[MockFunction]}
+>
+  <SignIn
+    classes={
+      Object {
+        "container": "SignIn-container-2",
+        "form": "SignIn-form-5",
+        "icon": "SignIn-icon-4",
+        "main": "SignIn-main-1",
+        "paper": "SignIn-paper-3",
+        "submit": "SignIn-submit-6",
+        "tabsIndicator": "SignIn-tabsIndicator-7",
+      }
+    }
+    loginError={null}
+    onRegister={[MockFunction]}
+    onSignIn={[MockFunction]}
+    registerError={null}
+  >
+    <main
+      className="SignIn-main-1"
+    >
+      <Component>
+        <div
+          originalcomponent="CssBaseline"
+          testprops={Object {}}
+        />
+      </Component>
+      <Component
+        className="SignIn-paper-3"
+      >
+        <div
+          originalcomponent="Paper"
+          testprops={
+            Object {
+              "children": Array [
+                <Unknown
+                  position="static"
+                >
+                  <Unknown
+                    classes={
+                      Object {
+                        "indicator": "SignIn-tabsIndicator-7",
+                      }
+                    }
+                    onChange={[Function]}
+                    value="SIGN_IN"
+                    variant="fullWidth"
+                  >
+                    <Unknown
+                      label="Sign in"
+                      value="SIGN_IN"
+                    />
+                    <Unknown
+                      label="Register"
+                      value="REGISTER"
+                    />
+                  </Unknown>
+                </Unknown>,
+                <div
+                  className="SignIn-container-2"
+                >
+                  <Unknown
+                    className="SignIn-icon-4"
+                  >
+                    <Unknown />
+                  </Unknown>
+                  <Unknown
+                    component="h1"
+                    variant="h5"
+                  >
+                    Sign in
+                  </Unknown>
+                  <ValidatorForm
+                    className="SignIn-form-5"
+                    debounceTime={0}
+                    onError={[Function]}
+                    onSubmit={[Function]}
+                  >
+                    <Unknown
+                      onChange={[Function]}
+                      value=""
+                    />
+                    <Unknown
+                      onChange={[Function]}
+                      value=""
+                    />
+                    <Unknown
+                      control={
+                        <Unknown
+                          checked={false}
+                          color="primary"
+                          name="remember"
+                          onChange={[Function]}
+                          value="remember"
+                        />
+                      }
+                      label="Remember me"
+                    />
+                    <Unknown
+                      className="SignIn-submit-6"
+                      color="primary"
+                      fullWidth={true}
+                      type="submit"
+                      variant="contained"
+                    >
+                      Sign in
+                    </Unknown>
+                  </ValidatorForm>
+                </div>,
+              ],
+              "className": "SignIn-paper-3",
+            }
+          }
+        >
+          <Component
+            position="static"
+          >
+            <div
+              originalcomponent="AppBar"
+              testprops={
+                Object {
+                  "children": <Unknown
+                    classes={
+                      Object {
+                        "indicator": "SignIn-tabsIndicator-7",
+                      }
+                    }
+                    onChange={[Function]}
+                    value="SIGN_IN"
+                    variant="fullWidth"
+                  >
+                    <Unknown
+                      label="Sign in"
+                      value="SIGN_IN"
+                    />
+                    <Unknown
+                      label="Register"
+                      value="REGISTER"
+                    />
+                  </Unknown>,
+                  "position": "static",
+                }
+              }
+            >
+              <Component
+                classes={
+                  Object {
+                    "indicator": "SignIn-tabsIndicator-7",
+                  }
+                }
+                onChange={[Function]}
+                value="SIGN_IN"
+                variant="fullWidth"
+              >
+                <div
+                  originalcomponent="Tabs"
+                  testprops={
+                    Object {
+                      "children": Array [
+                        <Unknown
+                          label="Sign in"
+                          value="SIGN_IN"
+                        />,
+                        <Unknown
+                          label="Register"
+                          value="REGISTER"
+                        />,
+                      ],
+                      "classes": Object {
+                        "indicator": "SignIn-tabsIndicator-7",
+                      },
+                      "onChange": [Function],
+                      "value": "SIGN_IN",
+                      "variant": "fullWidth",
+                    }
+                  }
+                >
+                  <Component
+                    label="Sign in"
+                    value="SIGN_IN"
+                  >
+                    <div
+                      originalcomponent="Tab"
+                      testprops={
+                        Object {
+                          "label": "Sign in",
+                          "value": "SIGN_IN",
+                        }
+                      }
+                    />
+                  </Component>
+                  <Component
+                    label="Register"
+                    value="REGISTER"
+                  >
+                    <div
+                      originalcomponent="Tab"
+                      testprops={
+                        Object {
+                          "label": "Register",
+                          "value": "REGISTER",
+                        }
+                      }
+                    />
+                  </Component>
+                </div>
+              </Component>
+            </div>
+          </Component>
+          <div
+            className="SignIn-container-2"
+          >
+            <Component
+              className="SignIn-icon-4"
+            >
+              <div
+                originalcomponent="Avatar"
+                testprops={
+                  Object {
+                    "children": Array [
+                      <Unknown />,
+                      false,
+                    ],
+                    "className": "SignIn-icon-4",
+                  }
+                }
+              >
+                <Component>
+                  <div
+                    originalcomponent="LockOutlined"
+                    testprops={Object {}}
+                  />
+                </Component>
+              </div>
+            </Component>
+            <Component
+              component="h1"
+              variant="h5"
+            >
+              <div
+                originalcomponent="Typography"
+                testprops={
+                  Object {
+                    "children": Array [
+                      "Sign in",
+                      false,
+                    ],
+                    "component": "h1",
+                    "variant": "h5",
+                  }
+                }
+              >
+                Sign in
+              </div>
+            </Component>
+            <ValidatorForm
+              className="SignIn-form-5"
+              debounceTime={0}
+              onError={[Function]}
+              onSubmit={[Function]}
+            >
+              <form
+                className="SignIn-form-5"
+                onSubmit={[Function]}
+              >
+                <Component
+                  onChange={[Function]}
+                  value=""
+                >
+                  <div
+                    originalcomponent="UserEmailField"
+                    testprops={
+                      Object {
+                        "onChange": [Function],
+                        "value": "",
+                      }
+                    }
+                  />
+                </Component>
+                <Component
+                  onChange={[Function]}
+                  value=""
+                >
+                  <div
+                    originalcomponent="UserPasswordField"
+                    testprops={
+                      Object {
+                        "onChange": [Function],
+                        "value": "",
+                      }
+                    }
+                  />
+                </Component>
+                <Component
+                  control={
+                    <Unknown
+                      checked={false}
+                      color="primary"
+                      name="remember"
+                      onChange={[Function]}
+                      value="remember"
+                    />
+                  }
+                  label="Remember me"
+                >
+                  <div
+                    originalcomponent="FormControlLabel"
+                    testprops={
+                      Object {
+                        "control": <Unknown
+                          checked={false}
+                          color="primary"
+                          name="remember"
+                          onChange={[Function]}
+                          value="remember"
+                        />,
+                        "label": "Remember me",
+                      }
+                    }
+                  />
+                </Component>
+                <Component
+                  className="SignIn-submit-6"
+                  color="primary"
+                  fullWidth={true}
+                  type="submit"
+                  variant="contained"
+                >
+                  <div
+                    originalcomponent="Button"
+                    testprops={
+                      Object {
+                        "children": Array [
+                          "Sign in",
+                          false,
+                        ],
+                        "className": "SignIn-submit-6",
+                        "color": "primary",
+                        "fullWidth": true,
+                        "type": "submit",
+                        "variant": "contained",
+                      }
+                    }
+                  >
+                    Sign in
+                  </div>
+                </Component>
+              </form>
+            </ValidatorForm>
+          </div>
+        </div>
+      </Component>
+    </main>
+  </SignIn>
+</WithStyles(SignIn)>
+`;
