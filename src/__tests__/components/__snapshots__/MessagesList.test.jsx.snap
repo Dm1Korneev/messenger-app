@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot-test MessagesList component Renders correct properties 1`] = `
+<WithStyles(MessagesList)
+  loadMessages={[MockFunction]}
+  user={
+    Object {
+      "_id": "",
+    }
+  }
+  users={Array []}
+>
+  <MessagesList
+    classes={
+      Object {
+        "Divider": "MessagesList-Divider-2",
+        "list": "MessagesList-list-1",
+      }
+    }
+    loadMessages={[MockFunction]}
+    messagesTree={Array []}
+    user={
+      Object {
+        "_id": "",
+      }
+    }
+    users={Array []}
+  >
+    <Component
+      className="MessagesList-list-1"
+      onScroll={[Function]}
+    >
+      <div
+        originalcomponent="List"
+        testprops={
+          Object {
+            "children": Array [
+              Array [],
+              <div />,
+            ],
+            "className": "MessagesList-list-1",
+            "onScroll": [Function],
+          }
+        }
+      >
+        <div />
+      </div>
+    </Component>
+  </MessagesList>
+</WithStyles(MessagesList)>
+`;
