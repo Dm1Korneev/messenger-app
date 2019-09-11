@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot-test MessageDateTime component Renders correct properties 1`] = `
+<WithStyles(MessageDateTime)
+  dateTime={Object {}}
+  isCurrentUserMessage={false}
+>
+  <MessageDateTime
+    classes={
+      Object {
+        "ListItem": "MessageDateTime-ListItem-3",
+        "ListItemText": "MessageDateTime-ListItemText-1",
+        "ListItemText__dateTime": "MessageDateTime-ListItemText__dateTime-5",
+        "reverse": "MessageDateTime-reverse-2",
+        "sticky": "MessageDateTime-sticky-6",
+        "textContent": "MessageDateTime-textContent-4",
+      }
+    }
+    dateTime={Object {}}
+    isCurrentUserMessage={false}
+  >
+    <Component
+      className="MessageDateTime-ListItem-3"
+    >
+      <div
+        originalcomponent="ListItem"
+        testprops={
+          Object {
+            "children": <div
+              className="MessageDateTime-textContent-4"
+            >
+              <Unknown
+                className="MessageDateTime-ListItemText-1 MessageDateTime-reverse-2 MessageDateTime-sticky-6"
+                secondary={
+                  <Unknown
+                    className="MessageDateTime-ListItemText__dateTime-5"
+                    color="textSecondary"
+                    component="span"
+                  >
+                    4:42 PM
+                  </Unknown>
+                }
+              />
+              <React.Fragment />
+            </div>,
+            "className": "MessageDateTime-ListItem-3",
+          }
+        }
+      >
+        <div
+          className="MessageDateTime-textContent-4"
+        >
+          <Component
+            className="MessageDateTime-ListItemText-1 MessageDateTime-reverse-2 MessageDateTime-sticky-6"
+            secondary={
+              <Unknown
+                className="MessageDateTime-ListItemText__dateTime-5"
+                color="textSecondary"
+                component="span"
+              >
+                4:42 PM
+              </Unknown>
+            }
+          >
+            <div
+              originalcomponent="ListItemText"
+              testprops={
+                Object {
+                  "className": "MessageDateTime-ListItemText-1 MessageDateTime-reverse-2 MessageDateTime-sticky-6",
+                  "secondary": <Unknown
+                    className="MessageDateTime-ListItemText__dateTime-5"
+                    color="textSecondary"
+                    component="span"
+                  >
+                    4:42 PM
+                  </Unknown>,
+                }
+              }
+            />
+          </Component>
+        </div>
+      </div>
+    </Component>
+  </MessageDateTime>
+</WithStyles(MessageDateTime)>
+`;
+
+exports[`snapshot-test MessageInput component Renders correct properties 1`] = `
+<WithStyles(MessageInput)
+  onSendMessage={[MockFunction]}
+>
+  <MessageInput
+    classes={
+      Object {
+        "Input": "MessageInput-Input-2",
+        "InputLabel": "MessageInput-InputLabel-1",
+        "textField": "MessageInput-textField-3",
+      }
+    }
+    onSendMessage={[MockFunction]}
+  >
+    <Component
+      InputLabelProps={
+        Object {
+          "classes": Object {
+            "root": "MessageInput-InputLabel-1",
+          },
+        }
+      }
+      InputProps={
+        Object {
+          "classes": Object {
+            "input": "MessageInput-Input-2",
+          },
+        }
+      }
+      className="MessageInput-textField-3"
+      color="primary"
+      fullWidth={true}
+      label="Write a message..."
+      margin="normal"
+      multiline={true}
+      onChange={[Function]}
+      onKeyPress={[Function]}
+      rows="2"
+      rowsMax="5"
+      value=""
+      variant="outlined"
+    >
+      <div
+        originalcomponent="TextField"
+        testprops={
+          Object {
+            "InputLabelProps": Object {
+              "classes": Object {
+                "root": "MessageInput-InputLabel-1",
+              },
+            },
+            "InputProps": Object {
+              "classes": Object {
+                "input": "MessageInput-Input-2",
+              },
+            },
+            "className": "MessageInput-textField-3",
+            "color": "primary",
+            "fullWidth": true,
+            "label": "Write a message...",
+            "margin": "normal",
+            "multiline": true,
+            "onChange": [Function],
+            "onKeyPress": [Function],
+            "rows": "2",
+            "rowsMax": "5",
+            "value": "",
+            "variant": "outlined",
+          }
+        }
+      />
+    </Component>
+  </MessageInput>
+</WithStyles(MessageInput)>
+`;
