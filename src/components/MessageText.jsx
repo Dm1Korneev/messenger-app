@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
-function Message(props) {
+function MessageText(props) {
   const { text, isCurrentUserMessage, classes } = props;
 
   const ListItemClass = classNames(
@@ -31,10 +31,10 @@ function Message(props) {
   );
 }
 
-Message.defaultProps = {
+MessageText.defaultProps = {
   text: '',
 };
-Message.propTypes = {
+MessageText.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   text: PropTypes.string,
   isCurrentUserMessage: PropTypes.bool.isRequired,
@@ -66,4 +66,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(Message);
+export default withStyles(styles)(MessageText);
