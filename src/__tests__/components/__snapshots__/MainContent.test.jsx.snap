@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot-test MainContent component Renders correct properties 1`] = `
+<WithStyles(MainContent)>
+  <MainContent
+    classes={
+      Object {
+        "appBarSpacer": "MainContent-appBarSpacer-3",
+        "content": "MainContent-content-4",
+        "grid": "MainContent-grid-2",
+        "main": "MainContent-main-1",
+      }
+    }
+  >
+    <main
+      className="MainContent-main-1"
+    >
+      <Component
+        className="MainContent-grid-2"
+        item={true}
+        lg={9}
+        md={10}
+        sm={11}
+        xs={12}
+      >
+        <div
+          originalcomponent="Grid"
+          testprops={
+            Object {
+              "children": <div
+                className="MainContent-content-4"
+              >
+                <div
+                  className="MainContent-appBarSpacer-3"
+                />
+                <Unknown />
+                <Unknown />
+              </div>,
+              "className": "MainContent-grid-2",
+              "item": true,
+              "lg": 9,
+              "md": 10,
+              "sm": 11,
+              "xs": 12,
+            }
+          }
+        >
+          <div
+            className="MainContent-content-4"
+          >
+            <div
+              className="MainContent-appBarSpacer-3"
+            />
+            <Component>
+              <div
+                originalcomponent="MessagesList"
+                testprops={Object {}}
+              />
+            </Component>
+            <Component>
+              <div
+                originalcomponent="MessageInput"
+                testprops={Object {}}
+              />
+            </Component>
+          </div>
+        </div>
+      </Component>
+    </main>
+  </MainContent>
+</WithStyles(MainContent)>
+`;
