@@ -1,0 +1,337 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot-test UserModifyDialog component Renders correct properties 1`] = `
+<WithStyles(UserModifyDialog)
+  closeUserModifyDialog={[MockFunction]}
+  error="error"
+  onSave={[MockFunction]}
+  user={
+    Object {
+      "_id": "_id",
+      "avatar": "avatar",
+      "email": "email",
+      "name": "name",
+    }
+  }
+>
+  <UserModifyDialog
+    classes={Object {}}
+    closeUserModifyDialog={[MockFunction]}
+    error="error"
+    onSave={[MockFunction]}
+    user={
+      Object {
+        "_id": "_id",
+        "avatar": "avatar",
+        "email": "email",
+        "name": "name",
+      }
+    }
+  >
+    <Component
+      onClose={[MockFunction]}
+      open={true}
+    >
+      <div
+        originalcomponent="Dialog"
+        testprops={
+          Object {
+            "children": Array [
+              <Unknown>
+                Modify user
+              </Unknown>,
+              <Unknown>
+                <Unknown
+                  id="validatorForm"
+                  onSubmit={[Function]}
+                >
+                  <Unknown
+                    error={true}
+                  >
+                    error
+                  </Unknown>
+                  <Unknown
+                    avatar="avatar"
+                    avatarFileInput={
+                      Object {
+                        "current": null,
+                      }
+                    }
+                    onChange={[Function]}
+                  />
+                  <Unknown
+                    onChange={[Function]}
+                    value="name"
+                  />
+                  <Unknown
+                    onChange={[Function]}
+                    value="email"
+                  />
+                  <Unknown
+                    onChange={[Function]}
+                    value="**********"
+                  />
+                </Unknown>
+              </Unknown>,
+              <Unknown>
+                <Unknown
+                  color="primary"
+                  form="validatorForm"
+                  type="submit"
+                >
+                  Save
+                </Unknown>
+                <Unknown
+                  color="primary"
+                  onClick={[MockFunction]}
+                >
+                  Close
+                </Unknown>
+              </Unknown>,
+            ],
+            "onClose": [MockFunction],
+            "open": true,
+          }
+        }
+      >
+        <Component>
+          <div
+            originalcomponent="DialogTitle"
+            testprops={
+              Object {
+                "children": "Modify user",
+              }
+            }
+          >
+            Modify user
+          </div>
+        </Component>
+        <Component>
+          <div
+            originalcomponent="DialogContent"
+            testprops={
+              Object {
+                "children": <Unknown
+                  id="validatorForm"
+                  onSubmit={[Function]}
+                >
+                  <Unknown
+                    error={true}
+                  >
+                    error
+                  </Unknown>
+                  <Unknown
+                    avatar="avatar"
+                    avatarFileInput={
+                      Object {
+                        "current": null,
+                      }
+                    }
+                    onChange={[Function]}
+                  />
+                  <Unknown
+                    onChange={[Function]}
+                    value="name"
+                  />
+                  <Unknown
+                    onChange={[Function]}
+                    value="email"
+                  />
+                  <Unknown
+                    onChange={[Function]}
+                    value="**********"
+                  />
+                </Unknown>,
+              }
+            }
+          >
+            <Component
+              id="validatorForm"
+              onSubmit={[Function]}
+            >
+              <div
+                originalcomponent="ValidatorForm"
+                testprops={
+                  Object {
+                    "children": Array [
+                      <Unknown
+                        error={true}
+                      >
+                        error
+                      </Unknown>,
+                      <Unknown
+                        avatar="avatar"
+                        avatarFileInput={
+                          Object {
+                            "current": null,
+                          }
+                        }
+                        onChange={[Function]}
+                      />,
+                      <Unknown
+                        onChange={[Function]}
+                        value="name"
+                      />,
+                      <Unknown
+                        onChange={[Function]}
+                        value="email"
+                      />,
+                      <Unknown
+                        onChange={[Function]}
+                        value="**********"
+                      />,
+                    ],
+                    "id": "validatorForm",
+                    "onSubmit": [Function],
+                  }
+                }
+              >
+                <Component
+                  error={true}
+                >
+                  <div
+                    originalcomponent="FormHelperText"
+                    testprops={
+                      Object {
+                        "children": "error",
+                        "error": true,
+                      }
+                    }
+                  >
+                    error
+                  </div>
+                </Component>
+                <Component
+                  avatar="avatar"
+                  avatarFileInput={
+                    Object {
+                      "current": null,
+                    }
+                  }
+                  onChange={[Function]}
+                >
+                  <div
+                    originalcomponent="AvatarSelector"
+                    testprops={
+                      Object {
+                        "avatar": "avatar",
+                        "avatarFileInput": Object {
+                          "current": null,
+                        },
+                        "onChange": [Function],
+                      }
+                    }
+                  />
+                </Component>
+                <Component
+                  onChange={[Function]}
+                  value="name"
+                >
+                  <div
+                    originalcomponent="UserNameField"
+                    testprops={
+                      Object {
+                        "onChange": [Function],
+                        "value": "name",
+                      }
+                    }
+                  />
+                </Component>
+                <Component
+                  onChange={[Function]}
+                  value="email"
+                >
+                  <div
+                    originalcomponent="UserEmailField"
+                    testprops={
+                      Object {
+                        "onChange": [Function],
+                        "value": "email",
+                      }
+                    }
+                  />
+                </Component>
+                <Component
+                  onChange={[Function]}
+                  value="**********"
+                >
+                  <div
+                    originalcomponent="UserPasswordField"
+                    testprops={
+                      Object {
+                        "onChange": [Function],
+                        "value": "**********",
+                      }
+                    }
+                  />
+                </Component>
+              </div>
+            </Component>
+          </div>
+        </Component>
+        <Component>
+          <div
+            originalcomponent="DialogActions"
+            testprops={
+              Object {
+                "children": Array [
+                  <Unknown
+                    color="primary"
+                    form="validatorForm"
+                    type="submit"
+                  >
+                    Save
+                  </Unknown>,
+                  <Unknown
+                    color="primary"
+                    onClick={[MockFunction]}
+                  >
+                    Close
+                  </Unknown>,
+                ],
+              }
+            }
+          >
+            <Component
+              color="primary"
+              form="validatorForm"
+              type="submit"
+            >
+              <div
+                originalcomponent="Button"
+                testprops={
+                  Object {
+                    "children": "Save",
+                    "color": "primary",
+                    "form": "validatorForm",
+                    "type": "submit",
+                  }
+                }
+              >
+                Save
+              </div>
+            </Component>
+            <Component
+              color="primary"
+              onClick={[MockFunction]}
+            >
+              <div
+                originalcomponent="Button"
+                testprops={
+                  Object {
+                    "children": "Close",
+                    "color": "primary",
+                    "onClick": [MockFunction],
+                  }
+                }
+              >
+                Close
+              </div>
+            </Component>
+          </div>
+        </Component>
+      </div>
+    </Component>
+  </UserModifyDialog>
+</WithStyles(UserModifyDialog)>
+`;
