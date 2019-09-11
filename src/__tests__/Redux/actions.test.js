@@ -190,6 +190,21 @@ describe('actions', () => {
     expect(actions.signIn(email, password, remember)).toStrictEqual(expectedAction);
   });
 
+  test('should create an action to sign in with default remember parameter', () => {
+    const email = 'email_TEST';
+    const password = 'password_TEST';
+    const remember = false;
+    const expectedAction = {
+      type: getRequestActionName(actionNames.LOGIN),
+      payload: {
+        email,
+        password,
+        remember,
+      },
+    };
+    expect(actions.signIn(email, password)).toStrictEqual(expectedAction);
+  });
+
   test('should create an action to register', () => {
     const email = 'email_TEST';
     const password = 'password_TEST';
@@ -208,6 +223,26 @@ describe('actions', () => {
       },
     };
     expect(actions.register(email, password, name, avatar, remember)).toStrictEqual(expectedAction);
+  });
+
+  test('should create an action to register with default remember parameter', () => {
+    const email = 'email_TEST';
+    const password = 'password_TEST';
+    const name = 'name_TEST';
+
+    const avatar = 'avatar_TEST';
+    const remember = false;
+    const expectedAction = {
+      type: getRequestActionName(actionNames.REGISTER),
+      payload: {
+        email,
+        password,
+        name,
+        avatar,
+        remember,
+      },
+    };
+    expect(actions.register(email, password, name, avatar)).toStrictEqual(expectedAction);
   });
 
   test('should create an action to log out', () => {
