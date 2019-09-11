@@ -2,6 +2,8 @@ import React from 'react';
 
 import MessageDateTime from 'Components/MessageDateTime';
 
+import moment from 'Common/moment';
+
 jest.mock('@material-ui/core/ListItem', () => global.mockComponent('ListItem'));
 jest.mock('@material-ui/core/ListItemText', () => global.mockComponent('ListItemText'));
 jest.mock('@material-ui/core/Typography', () => global.mockComponent('Typography'));
@@ -9,7 +11,7 @@ jest.mock('@material-ui/core/Typography', () => global.mockComponent('Typography
 const props = {
   isCurrentUserMessage: false,
   children: <></>,
-  dateTime: {},
+  dateTime: moment('20010101'),
 };
 
 describe('render MessageDateTime component', () => {
