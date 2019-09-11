@@ -1,14 +1,7 @@
 import React from 'react';
 
 import UserPasswordField from 'Components/UserPasswordField';
-
-jest.mock('react-material-ui-form-validator', () => ({
-  TextValidator: global.mockComponent('TextValidator'),
-}));
-jest.mock('@material-ui/core/InputAdornment', () => global.mockComponent('InputAdornment'));
-jest.mock('@material-ui/icons/Visibility', () => global.mockComponent('Visibility'));
-jest.mock('@material-ui/icons/VisibilityOff', () => global.mockComponent('VisibilityOff'));
-jest.mock('@material-ui/core/IconButton', () => global.mockComponent('IconButton'));
+import { ValidatorForm } from 'react-material-ui-form-validator';
 
 describe('render UserPasswordField component', () => {
   let wrapper;
@@ -18,9 +11,15 @@ describe('render UserPasswordField component', () => {
     onChange: jest.fn(),
   };
 
+  const propsValidatorForm = {
+    onSubmit: jest.fn(),
+  };
+
   beforeAll(() => {
     wrapper = global.mount(
-      <UserPasswordField {...props} />,
+      <ValidatorForm {...propsValidatorForm}>
+        <UserPasswordField {...props} />
+      </ValidatorForm>,
     );
   });
 
@@ -28,21 +27,56 @@ describe('render UserPasswordField component', () => {
     expect(wrapper.find('UserPasswordField').length).toBe(1);
   });
 
-  test('TextValidator subcomponent is render', () => {
-    wrapper.update();
-    expect(wrapper.find({ originalcomponent: 'TextValidator' }).length).toBe(1);
-  });
-});
+  test('Password field visibility is changes', () => {
+    expect(wrapper.find('input').first().prop('type'))
+      .toBe('password');
 
-describe('snapshot-test UserPasswordField component', () => {
-  test('Renders correct properties', () => {
-    const props = {
-      value: 'TEST',
-      onChange: jest.fn(),
-    };
+    const buttonTogglePasswordVisibility = wrapper.find({ 'aria-label': 'Toggle password visibility' })
+      .first();
 
-    global.mountExpect(
-      <UserPasswordField {...props} />,
-    ).toMatchSnapshot();
+    buttonTogglePasswordVisibility.simulate('mouseDown');
+
+    expect(wrapper.find('input').first().prop('type'))
+      .toBe('text');
+
+    buttonTogglePasswordVisibility.simulate('mouseUp');
+
+    expect(wrapper.find('input').first().prop('type'))
+      .toBe('password');
+
+    buttonTogglePasswordVisibility.simulate('keyDown', { keyCode: 12 });
+
+    expect(wrapper.find('input').first().prop('type'))
+      .toBe('password');
+
+    buttonTogglePasswordVisibility.simulate('keyDown', { keyCode: 13 });
+
+    expect(wrapper.find('input').first().prop('type'))
+      .toBe('text');
+
+    buttonTogglePasswordVisibility.simulate('keyUp');
+
+    expect(wrapper.find('input').first().prop('type'))
+      .toBe('password');
+
+    buttonTogglePasswordVisibility.simulate('mouseDown');
+
+    expect(wrapper.find('input').first().prop('type'))
+      .toBe('text');
+
+    buttonTogglePasswordVisibility.simulate('mouseOut');
+
+    expect(wrapper.find('input').first().prop('type'))
+      .toBe('password');
+
+    buttonTogglePasswordVisibility.simulate('mouseDown');
+
+    expect(wrapper.find('input').first().prop('type'))
+      .toBe('text');
+
+    buttonTogglePasswordVisibility.simulate('blur');
+
+    expect(wrapper.find('input').first().prop('type'))
+      .toBe('password');
   });
 });
