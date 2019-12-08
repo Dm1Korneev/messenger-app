@@ -16,15 +16,14 @@ describe('render app when not logged', () => {
   let wrapper;
 
   beforeAll(() => {
-    const props = {
-      loginFromStore: jest.fn(),
-      chatDialogIsOpen: false,
-      userModifyDialogIsOpen: false,
-      isLoggedIn: false,
-    };
     wrapper = global.mount(
       <Provider store={emptyStore}>
-        <App {...props} />
+        <App
+          loginFromStore={jest.fn()}
+          chatDialogIsOpen={false}
+          userModifyDialogIsOpen={false}
+          isLoggedIn={false}
+        />
       </Provider>,
     );
   });
@@ -43,15 +42,14 @@ describe('render app when logged', () => {
   let wrapper;
 
   beforeAll(() => {
-    const props = {
-      loginFromStore: jest.fn(),
-      chatDialogIsOpen: false,
-      userModifyDialogIsOpen: false,
-      isLoggedIn: true,
-    };
     wrapper = global.mount(
       <Provider store={emptyStore}>
-        <App {...props} />
+        <App
+          loginFromStore={jest.fn()}
+          chatDialogIsOpen={false}
+          userModifyDialogIsOpen={false}
+          isLoggedIn
+        />
       </Provider>,
     );
   });
