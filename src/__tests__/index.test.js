@@ -1,5 +1,5 @@
 
-describe.skip('app Entry Point - /src/index.jsx', () => {
+describe('app Entry Point - /src/index.jsx', () => {
   beforeEach(() => {
     // Set up our document body
     document.body.innerHTML = '<div id="root"></div>';

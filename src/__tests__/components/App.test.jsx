@@ -4,7 +4,7 @@ import { createStore } from 'redux';
 
 import App from 'Components/App';
 
-const emptyStore = createStore(() => {});
+const emptyStore = createStore(() => { });
 
 jest.mock('Containers/TopBar', () => 'TopBar');
 jest.mock('Containers/SignIn', () => 'SignIn');
@@ -39,7 +39,7 @@ describe('render app when not logged', () => {
   });
 });
 
-describe.only('render app when logged', () => {
+describe('render app when logged', () => {
   let wrapper;
 
   beforeAll(() => {
@@ -56,7 +56,7 @@ describe.only('render app when logged', () => {
     );
   });
 
-  test.only('MainContent subcomponent is render', () => {
+  test('MainContent subcomponent is render', () => {
     wrapper.update();
     // console.log(wrapper2.debug());
     expect(wrapper.dive().find('MainContent').length).toBe(1);

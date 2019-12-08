@@ -49,7 +49,7 @@ function MessageDateTime(props) {
             >
               {dateTime}
             </Typography>
-)}
+          )}
         />
         {children}
       </div>

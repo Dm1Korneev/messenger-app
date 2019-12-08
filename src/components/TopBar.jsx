@@ -11,7 +11,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CreateIcon from '@material-ui/icons/Create';
 import Button from '@material-ui/core/Button';
 
-import { DRAWER_WIDTH } from 'Common/constants';
+import { DRAWER_WIDTH } from 'Constants';
 
 function TopBar(props) {
   const {
