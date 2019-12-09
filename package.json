@@ -92,8 +92,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,md}": [
-      "npm run lint",
-      "npm run test",
+      "eslint --ext .jsx,.js --color",
       "git add"
     ]
   }
