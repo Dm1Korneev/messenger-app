@@ -91,9 +91,10 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,md}": [
+    "*.{js,jsx,ts,tsx}": [
       "eslint --ext .jsx,.js --color",
-      "git add"
+      "git add",
+      "jest --bail --findRelatedTests"
     ]
   }
 }
