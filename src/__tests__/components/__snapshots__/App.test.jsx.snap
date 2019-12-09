@@ -16,12 +16,8 @@ exports[`snapshot-test App component Renders correct properties 1`] = `
           "allIds": Array [],
           "byId": Object {},
         },
-        "errors": Object {
-          "LOGIN_FROM_STORE": undefined,
-        },
-        "loading": Object {
-          "LOGIN_FROM_STORE": false,
-        },
+        "errors": Object {},
+        "loading": Object {},
         "messages": Object {
           "allIds": Array [],
           "byChats": Object {},
@@ -46,6 +42,6 @@ exports[`snapshot-test App component Renders correct properties 1`] = `
     }
   }
 >
-  <Connect(WithStyles(App)) />
+  <WithStyles(App) />
 </ContextProvider>
 `;

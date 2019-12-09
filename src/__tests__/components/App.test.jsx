@@ -6,11 +6,11 @@ import App from 'Components/App';
 
 const emptyStore = createStore(() => { });
 
-jest.mock('Containers/TopBar', () => 'TopBar');
-jest.mock('Containers/SignIn', () => 'SignIn');
-jest.mock('Containers/SideBar', () => 'SideBar');
-jest.mock('Components/MainContent', () => 'MainContent');
-jest.mock('@material-ui/core/CssBaseline', () => 'CssBaseline');
+jest.mock('Containers/TopBar', () => () => (<div className="TopBar" />));
+jest.mock('Containers/SignIn', () => () => (<div className="SignIn" />));
+jest.mock('Containers/SideBar', () => () => (<div className="SideBar" />));
+jest.mock('Components/MainContent', () => () => (<div className="MainContent" />));
+jest.mock('@material-ui/core/CssBaseline', () => () => (<div className="CssBaseline" />));
 
 describe('render app when not logged', () => {
   let wrapper;
@@ -34,7 +34,7 @@ describe('render app when not logged', () => {
 
   test('SignIn subcomponent is render', () => {
     wrapper.update();
-    expect(wrapper.find('SignIn').length).toBe(1);
+    expect(wrapper.find('.SignIn').length).toBe(1);
   });
 });
 
@@ -56,8 +56,7 @@ describe('render app when logged', () => {
 
   test('MainContent subcomponent is render', () => {
     wrapper.update();
-    // console.log(wrapper2.debug());
-    expect(wrapper.dive().find('MainContent').length).toBe(1);
+    expect(wrapper.find('.MainContent').length).toBe(1);
   });
 });
 
