@@ -9,7 +9,7 @@ import MessageUser from 'Components/MessageUser';
 import MessageDateTime from 'Components/MessageDateTime';
 import MessageText from 'Components/MessageText';
 
-import { RELOAD_PERIOD } from 'Common/constants';
+import { RELOAD_PERIOD } from 'Constants';
 
 class MessagesList extends React.Component {
   messagesEnd = React.createRef();
@@ -71,32 +71,36 @@ class MessagesList extends React.Component {
           const isCurrentUserMessage = user._id === author;
           const firstDateTime = childrensAuthor[0].dateTime;
 
-          const childrenComponentsAuthor = childrensAuthor.map((valueDateTime) => {
-            const { dateTime, childrens: childrensDateTime } = valueDateTime;
+          const childrenComponentsAuthor = childrensAuthor.map(
+            (valueDateTime) => {
+              const { dateTime, childrens: childrensDateTime } = valueDateTime;
 
-            const childrenComponentsDateTime = childrensDateTime.map((value) => (
-              <MessageText
-                key={value._id}
-                text={value.text}
-                isCurrentUserMessage={isCurrentUserMessage}
-              />
-            ));
+              const childrenComponentsDateTime = childrensDateTime.map(
+                (value) => (
+                  <MessageText
+                    key={value._id}
+                    text={value.text}
+                    isCurrentUserMessage={isCurrentUserMessage}
+                  />
+                ),
+              );
 
-            return (
-              <MessageDateTime
-                key={`${author}-${dateTime}`}
-                dateTime={dateTime}
-                isCurrentUserMessage={isCurrentUserMessage}
-              >
-                <List disablePadding>{childrenComponentsDateTime}</List>
-              </MessageDateTime>
-            );
-          });
+              return (
+                <MessageDateTime
+                  key={`${author}-${dateTime}`}
+                  dateTime={dateTime}
+                  isCurrentUserMessage={isCurrentUserMessage}
+                >
+                  <List disablePadding>{childrenComponentsDateTime}</List>
+                </MessageDateTime>
+              );
+            },
+          );
 
           const messageAuthor = users[author];
 
-          let name; let
-            avatar;
+          let name;
+          let avatar;
           if (messageAuthor) {
             name = messageAuthor.name;
             avatar = messageAuthor.avatar;

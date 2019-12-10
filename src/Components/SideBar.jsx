@@ -12,7 +12,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
-import { DRAWER_WIDTH, RELOAD_PERIOD } from 'Common/constants';
+import { DRAWER_WIDTH, RELOAD_PERIOD } from 'Constants';
 
 import Chat from 'Components/Chat';
 

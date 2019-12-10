@@ -1,6 +1,10 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
 import App from 'Components/App';
+
+const emptyStore = createStore(() => { });
 
 jest.mock('Containers/TopBar', () => global.mockComponent('Icon'));
 jest.mock('Containers/SignIn', () => global.mockComponent('SignIn'));
@@ -14,16 +18,16 @@ describe('render app when not logged', () => {
 
   const loginFromStore = jest.fn();
 
-  const props = {
-    loginFromStore,
-    chatDialogIsOpen: false,
-    userModifyDialogIsOpen: false,
-    isLoggedIn: false,
-  };
-
   beforeAll(() => {
     wrapper = global.mount(
-      <App {...props} />,
+      <Provider store={emptyStore}>
+        <App
+          loginFromStore={loginFromStore}
+          chatDialogIsOpen={false}
+          userModifyDialogIsOpen={false}
+          isLoggedIn={false}
+        />
+      </Provider>,
     );
   });
 
@@ -44,16 +48,14 @@ describe('render app when not logged', () => {
 describe('render app when logged', () => {
   let wrapper;
 
-  const props = {
-    loginFromStore: jest.fn(),
-    chatDialogIsOpen: false,
-    userModifyDialogIsOpen: false,
-    isLoggedIn: true,
-  };
-
   beforeAll(() => {
     wrapper = global.mount(
-      <App {...props} />,
+      <App
+        loginFromStore={jest.fn()}
+        chatDialogIsOpen={false}
+        userModifyDialogIsOpen={false}
+        isLoggedIn
+      />,
     );
   });
 
@@ -81,15 +83,13 @@ describe('render app when logged', () => {
 
 describe('snapshot-test App component', () => {
   test('Renders correct properties', () => {
-    const props = {
-      loginFromStore: jest.fn(),
-      chatDialogIsOpen: false,
-      userModifyDialogIsOpen: false,
-      isLoggedIn: true,
-    };
-
     global.mountExpect(
-      <App {...props} />,
+      <App
+        loginFromStore={jest.fn()}
+        chatDialogIsOpen={false}
+        userModifyDialogIsOpen={false}
+        isLoggedIn
+      />,
     ).toMatchSnapshot();
   });
 });
