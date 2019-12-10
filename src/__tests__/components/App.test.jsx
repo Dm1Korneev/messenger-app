@@ -19,14 +19,16 @@ describe('render app when not logged', () => {
   const loginFromStore = jest.fn();
 
   beforeAll(() => {
+    const props = {
+      loginFromStore,
+      chatDialogIsOpen: false,
+      userModifyDialogIsOpen: false,
+      isLoggedIn: false,
+    };
+
     wrapper = global.mount(
       <Provider store={emptyStore}>
-        <App
-          loginFromStore={loginFromStore}
-          chatDialogIsOpen={false}
-          userModifyDialogIsOpen={false}
-          isLoggedIn={false}
-        />
+        <App {...props} />
       </Provider>,
     );
   });
@@ -49,13 +51,15 @@ describe('render app when logged', () => {
   let wrapper;
 
   beforeAll(() => {
+    const props = {
+      loginFromStore: jest.fn(),
+      chatDialogIsOpen: false,
+      userModifyDialogIsOpen: false,
+      isLoggedIn: true,
+    };
+
     wrapper = global.mount(
-      <App
-        loginFromStore={jest.fn()}
-        chatDialogIsOpen={false}
-        userModifyDialogIsOpen={false}
-        isLoggedIn
-      />,
+      <App {...props} />,
     );
   });
 
@@ -83,13 +87,15 @@ describe('render app when logged', () => {
 
 describe('snapshot-test App component', () => {
   test('Renders correct properties', () => {
+    const props = {
+      loginFromStore: jest.fn(),
+      chatDialogIsOpen: false,
+      userModifyDialogIsOpen: false,
+      isLoggedIn: true,
+    };
+
     global.mountExpect(
-      <App
-        loginFromStore={jest.fn()}
-        chatDialogIsOpen={false}
-        userModifyDialogIsOpen={false}
-        isLoggedIn
-      />,
+      <App {...props} />,
     ).toMatchSnapshot();
   });
 });
