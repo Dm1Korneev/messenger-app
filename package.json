@@ -34,7 +34,7 @@
     "react-dom": "^16.8.6",
     "react-material-ui-form-validator": "^2.0.8",
     "react-redux": "^6.0.1",
-    "redux": "^4.0.1",
+    "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.0.2",
@@ -98,10 +98,10 @@
     ]
   },
   "jest": {
-    "coveragePathIgnorePatterns" : [
-      "/node_modules/", 
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
       "/src/index.jsx",
-      "/src/serviceWorker.js" 
+      "/src/serviceWorker.js"
     ]
   }
 }
