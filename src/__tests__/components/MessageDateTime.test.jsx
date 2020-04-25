@@ -11,7 +11,7 @@ jest.mock('@material-ui/core/Typography', () => global.mockComponent('Typography
 const props = {
   isCurrentUserMessage: false,
   children: <></>,
-  dateTime: moment('20010101'),
+  dateTime: moment.utc('20010101'),
 };
 
 describe('render MessageDateTime component', () => {
