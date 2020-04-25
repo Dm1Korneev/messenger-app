@@ -67,7 +67,8 @@
     "start-mongod": "mongod --config ./mongod.cfg",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "lint": "eslint src/ app_api/ bin/www server.js --ext .jsx,.js --color",
-    "lint-fix": "eslint src/ app_api/ bin/www server.js --ext .jsx,.js --color --fix"
+    "lint-fix": "eslint src/ app_api/ bin/www server.js --ext .jsx,.js --color --fix",
+    "test-all": "react-scripts test --watchAll=false"
   },
   "proxy": "http://localhost:8080",
   "browserslist": [
@@ -88,7 +89,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm run lint && npm test"
+      "pre-push": "npm run lint && npm run test-all"
     }
   },
   "lint-staged": {
