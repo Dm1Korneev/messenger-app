@@ -78,7 +78,7 @@ class AvatarSelector extends React.Component {
                 className={classes.button}
               >
                 <CloudUploadIcon className={classes.leftIcon} />
-                {'Upload'}
+                Upload
               </Button>
               <Button
                 variant="outlined"
@@ -88,7 +88,7 @@ class AvatarSelector extends React.Component {
                 onClick={this.handlerRemoveButton}
               >
                 <ClearIcon className={classes.leftIcon} />
-                {'Remove'}
+                Remove
               </Button>
             </div>
           </InputLabel>
