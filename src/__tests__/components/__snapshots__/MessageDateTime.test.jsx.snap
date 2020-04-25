@@ -2,7 +2,7 @@
 
 exports[`snapshot-test MessageDateTime component Renders correct properties 1`] = `
 <WithStyles(MessageDateTime)
-  dateTime={"2000-12-31T21:00:00.000Z"}
+  dateTime={"2001-01-01T00:00:00.000Z"}
   isCurrentUserMessage={false}
 >
   <MessageDateTime
@@ -16,7 +16,7 @@ exports[`snapshot-test MessageDateTime component Renders correct properties 1`] 
         "textContent": "MessageDateTime-textContent-4",
       }
     }
-    dateTime={"2000-12-31T21:00:00.000Z"}
+    dateTime={"2001-01-01T00:00:00.000Z"}
     isCurrentUserMessage={false}
   >
     <Component
