@@ -87,14 +87,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "(git-branch-is master && lint-staged) || true"
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run lint && npm test"
     }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --ext .jsx,.js --color",
-      "git add",
-      "jest --bail --findRelatedTests"
+      "eslint --ext .jsx,.js --color"
     ]
   },
   "jest": {
