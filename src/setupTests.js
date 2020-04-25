@@ -16,9 +16,10 @@ global.mockAPICalls = () => {
 
 };
 
-global.mockComponent = (componentName) => (props) => (
-  <div originalcomponent={componentName} testprops={props}>{props.children}</div>
-);
+global.mockComponent = (componentName) => (props) => {
+  const { children } = props;
+  return <div originalcomponent={componentName} testprops={props}>{children}</div>;
+};
 
 global.store = storeFactory();
 global.mount = mount;
