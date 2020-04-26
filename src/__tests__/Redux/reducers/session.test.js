@@ -100,22 +100,6 @@ describe('session reducer', () => {
     );
   });
 
-  test('should handle SET_IS_LOGGED_IN', () => {
-    const isLoggedIn = true;
-
-    expect(
-      reducer(defaultStore, {
-        type: actionNames.SET_IS_LOGGED_IN,
-        payload: isLoggedIn,
-      }),
-    ).toStrictEqual(
-      {
-        ...defaultStore,
-        isLoggedIn,
-      },
-    );
-  });
-
   test('should handle SET_SESSION_INFO', () => {
     const payload = {
       isLoggedIn: true,

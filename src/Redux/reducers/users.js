@@ -1,13 +1,11 @@
-import { handleActions } from 'redux-actions';
-import * as actionNames from 'Constants/actionNames';
+import { createReducer } from '@reduxjs/toolkit';
+
 import { objectsAdd } from 'Redux/reducers/operations';
+import * as actions from '../actions';
 
 const defaultStore = { byId: {}, allIds: [] };
 
-export default handleActions(
-  {
-    [actionNames.ADD_USERS]: (state, action) => objectsAdd(state, action.payload),
-    [actionNames.CLEAR_STORE]: () => defaultStore,
-  },
-  defaultStore,
-);
+export default createReducer(defaultStore, (builder) => builder
+  .addCase(actions.addUsers, (state, action) => objectsAdd(state, action.payload))
+  .addCase(actions.clearStore, () => defaultStore));
+

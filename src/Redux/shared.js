@@ -1,14 +1,7 @@
-import { createAction } from 'redux-actions';
+import { createAction } from '@reduxjs/toolkit';
 
-const payloadCreator = ({ ...params }) => {
-  if (Object.keys(params).length) {
-    return { ...params };
-  }
-  return undefined;
-};
+export const getRequestAction = (name) => createAction(`${name}_REQUEST`);
 
-export const getRequestAction = (name, { ...params } = {}) => createAction(`${name}_REQUEST`, payloadCreator)({ ...params });
+export const getSuccessAction = (name) => createAction(`${name}_SUCCESS`);
 
-export const getSuccessAction = (name, { ...params } = {}) => createAction(`${name}_SUCCESS`, payloadCreator)({ ...params });
-
-export const getFailureAction = (name, { ...params } = {}) => createAction(`${name}_FAILURE`, payloadCreator)({ ...params });
+export const getFailureAction = (name) => createAction(`${name}_FAILURE`);

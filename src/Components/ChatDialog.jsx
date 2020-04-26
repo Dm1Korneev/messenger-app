@@ -114,9 +114,9 @@ class ChatDialog extends React.Component {
         };
       }
 
-      onSaveChat(chat._id, options);
+      onSaveChat({ chatId: chat._id, options });
     } else {
-      onAddChat(title, avatar, selectedUserIds);
+      onAddChat({ title, avatar, selectedUserIds });
     }
     closeChatDialog();
   };

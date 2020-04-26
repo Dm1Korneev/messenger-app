@@ -77,7 +77,7 @@ class UserModifyDialog extends React.Component {
       };
     }
 
-    onSave(user._id, options);
+    onSave({ userId: user._id, options });
   };
 
   render() {

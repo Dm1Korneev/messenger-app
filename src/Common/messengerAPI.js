@@ -147,7 +147,7 @@ export function modifyChat(token, chatId, modifyData) {
   const formData = new FormData();
   Object.keys(modifyData).forEach((key) => {
     if (key === 'users') {
-      formData.append('users[]', modifyData[key]);
+      modifyData[key].forEach((value) => formData.append('users[]', value));
     } else {
       formData.append(key, modifyData[key]);
     }

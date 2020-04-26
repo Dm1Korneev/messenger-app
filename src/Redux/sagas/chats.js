@@ -29,12 +29,12 @@ function* createChat(action) {
       avatar,
       selectedUserIds,
     );
-    yield put(getSuccessAction(actionNames.CREATE_CHAT, { chat }));
+    yield put(getSuccessAction(actionNames.CREATE_CHAT)({ chat }));
     yield put(addChats(chat));
     yield put(getChatsAction());
     yield put(loadMessagesAction());
   } catch (error) {
-    yield put(getFailureAction(actionNames.CREATE_CHAT, { error }));
+    yield put(getFailureAction(actionNames.CREATE_CHAT)({ error }));
   }
 }
 
@@ -43,11 +43,11 @@ function* modifyChat(action) {
     const token = yield select(tokenSelector);
     const { chatId, options } = action.payload;
     const chat = yield call(modifyChatAPI, token, chatId, options);
-    yield put(getSuccessAction(actionNames.MODIFY_CHAT, { chat }));
+    yield put(getSuccessAction(actionNames.MODIFY_CHAT)({ chat }));
     yield put(addChats(chat));
     yield put(getChatsAction());
   } catch (error) {
-    yield put(getFailureAction(actionNames.MODIFY_CHAT, { error }));
+    yield put(getFailureAction(actionNames.MODIFY_CHAT)({ error }));
   }
 }
 
@@ -61,19 +61,19 @@ function* getChats() {
     const token = yield select(tokenSelector);
     const activeChat = yield select(activeChatIdSelector);
     const chats = yield call(getChatsAPI, token);
-    yield put(getSuccessAction(actionNames.GET_CHATS, { chats }));
+    yield put(getSuccessAction(actionNames.GET_CHATS)({ chats }));
     yield put(addChats(chats));
     if (!activeChat && chats.length) {
-      yield* initActiveChat(chats[0]._id);
+      yield call(initActiveChat, chats[0]._id);
     }
   } catch (error) {
-    yield put(getFailureAction(actionNames.GET_CHATS, { error }));
+    yield put(getFailureAction(actionNames.GET_CHATS)({ error }));
   }
 }
 
 function* changeActiveChat(action) {
-  const { activeChat } = action.payload;
-  yield* initActiveChat(activeChat);
+  const activeChat = action.payload;
+  yield call(initActiveChat, activeChat);
 }
 
 export default function* chatsSaga() {
