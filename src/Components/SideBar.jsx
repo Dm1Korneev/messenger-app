@@ -8,8 +8,9 @@ import Drawer from '@material-ui/core/Drawer';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
+
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
 import { DRAWER_WIDTH, RELOAD_PERIOD } from 'Constants';

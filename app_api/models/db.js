@@ -1,24 +1,23 @@
-/* eslint-disable no-console */
-
 const mongoose = require('mongoose');
+const debug = require('../debug');
 
 const dbURI = process.env.MONGODB_URI;
-console.log(dbURI);
-mongoose.connect(dbURI, { useNewUrlParser: true, useCreateIndex: true });
+debug.log(dbURI);
+mongoose.connect(dbURI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 
 mongoose.connection.on('connected', () => {
-  console.log(`Mongoose connected to ${dbURI}`);
+  debug.log(`Mongoose connected to ${dbURI}`);
 });
 mongoose.connection.on('error', (err) => {
-  console.error(`Mongoose connection error: ${err}`);
+  debug.error(`Mongoose connection error: ${err}`);
 });
 mongoose.connection.on('disconnected', () => {
-  console.log('Mongoose disconnected');
+  debug.log('Mongoose disconnected');
 });
 
 const gracefulShutdown = (msg, callback) => {
   mongoose.connection.close(() => {
-    console.log(`Mongoose disconnected through ${msg}`);
+    debug.log(`Mongoose disconnected through ${msg}`);
     callback();
   });
 };

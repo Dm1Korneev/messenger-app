@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
+
+import CreateIcon from '@material-ui/icons/Create';
 
 import UsersAvatar from 'Components/UsersAvatar';
 
