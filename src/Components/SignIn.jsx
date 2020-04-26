@@ -52,7 +52,7 @@ class SignIn extends React.Component {
   signIn = () => {
     const { onSignIn } = this.props;
     const { email, password, remember } = this.state;
-    onSignIn(email, password, remember);
+    onSignIn({ email, password, remember });
   };
 
   register = () => {
@@ -62,7 +62,9 @@ class SignIn extends React.Component {
     const {
       email, password, name, remember,
     } = this.state;
-    onRegister(email, password, name, avatar, remember);
+    onRegister({
+      email, password, name, avatar, remember,
+    });
   };
 
   handleInputChange = (event) => {

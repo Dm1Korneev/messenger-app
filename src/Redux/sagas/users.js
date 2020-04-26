@@ -22,10 +22,10 @@ function* getUsers() {
   try {
     const token = yield select(tokenSelector);
     const users = yield call(getUsersAPI, token);
-    yield put(getSuccessAction(actionNames.GET_USERS, { users }));
+    yield put(getSuccessAction(actionNames.GET_USERS)({ users }));
     yield put(addUsers(users));
   } catch (error) {
-    yield put(getFailureAction(actionNames.GET_USERS, { error }));
+    yield put(getFailureAction(actionNames.GET_USERS)({ error }));
   }
 }
 
@@ -34,7 +34,7 @@ function* modifyUser(action) {
     let token = yield select(tokenSelector);
     const { userId, options } = action.payload;
     const result = yield call(modifyUserAPI, token, userId, options);
-    yield put(getSuccessAction(actionNames.MODIFY_USER, { result }));
+    yield put(getSuccessAction(actionNames.MODIFY_USER)({ result }));
     token = result.token;
     const user = yield call(getUserInfo, token);
     const userModifyDialogIsOpen = false;
@@ -42,7 +42,7 @@ function* modifyUser(action) {
     yield put(addUsers(user));
     yield call(saveTokenToStorage, token);
   } catch (error) {
-    yield put(getFailureAction(actionNames.MODIFY_USER, { error }));
+    yield put(getFailureAction(actionNames.MODIFY_USER)({ error }));
   }
 }
 

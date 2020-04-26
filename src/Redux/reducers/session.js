@@ -1,5 +1,6 @@
-import { handleActions } from 'redux-actions';
-import * as actionNames from 'Constants/actionNames';
+import { createReducer } from '@reduxjs/toolkit';
+
+import * as actions from '../actions';
 
 const defaultStore = {
   activeChat: undefined,
@@ -13,38 +14,30 @@ const defaultStore = {
   user: undefined,
 };
 
-export default handleActions(
-  {
-    [actionNames.SET_ACTIVE_CHAT]: (state, action) => ({
-      ...state,
-      activeChat: action.payload,
-    }),
-    [actionNames.SET_DRAWER_IS_OPEN]: (state, action) => ({
-      ...state,
-      drawerIsOpen: action.payload,
-    }),
+export default createReducer(defaultStore, (builder) => builder
+  .addCase(actions.setActiveChat, (state, action) => ({
+    ...state,
+    activeChat: action.payload,
+  }))
+  .addCase(actions.setDrawerIsOpen, (state, action) => ({
+    ...state,
+    drawerIsOpen: action.payload,
+  }))
+  .addCase(actions.setAddChatDialogIsOpen, (state, action) => ({
+    ...state,
+    addChatDialogIsOpen: action.payload,
+  }))
+  .addCase(actions.setModifyChatDialogIsOpen, (state, action) => ({
+    ...state,
+    modifyChatDialogIsOpen: action.payload,
+  }))
+  .addCase(actions.setModifyUserDialogIsOpen, (state, action) => ({
+    ...state,
+    userModifyDialogIsOpen: action.payload,
+  }))
+  .addCase(actions.setSessionInfo, (state, action) => ({
+    ...state,
+    ...action.payload,
+  }))
+  .addCase(actions.clearStore, () => defaultStore));
 
-    [actionNames.SET_ADD_CHAT_DIALOG_IS_OPEN]: (state, action) => ({
-      ...state,
-      addChatDialogIsOpen: action.payload,
-    }),
-    [actionNames.SET_MODIFY_CHAT_DIALOG_IS_OPEN]: (state, action) => ({
-      ...state,
-      modifyChatDialogIsOpen: action.payload,
-    }),
-    [actionNames.SET_MODIFY_USER_DIALOG_IS_OPEN]: (state, action) => ({
-      ...state,
-      userModifyDialogIsOpen: action.payload,
-    }),
-    [actionNames.SET_IS_LOGGED_IN]: (state, action) => ({
-      ...state,
-      isLoggedIn: action.payload,
-    }),
-    [actionNames.SET_SESSION_INFO]: (state, action) => ({
-      ...state,
-      ...action.payload,
-    }),
-    [actionNames.CLEAR_STORE]: () => defaultStore,
-  },
-  defaultStore,
-);

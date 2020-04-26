@@ -19,7 +19,6 @@ export const LOGIN_FROM_STORE = 'LOGIN_FROM_STORE';
 export const LOGOUT = 'LOGOUT';
 
 export const SET_SESSION_INFO = 'SET_SESSION_INFO';
-export const SET_IS_LOGGED_IN = 'SET_IS_LOGGED_IN';
 export const SET_ACTIVE_CHAT = 'SET_ACTIVE_CHAT';
 export const SET_DRAWER_IS_OPEN = 'SET_DRAWER_IS_OPEN';
 export const CHANGE_ACTIVE_CHAT = 'CHANGE_ACTIVE_CHAT';

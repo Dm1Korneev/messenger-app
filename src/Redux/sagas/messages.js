@@ -22,11 +22,11 @@ function* sendMessage(action) {
     const activeChat = yield select(activeChatIdSelector);
     const { messageText } = action.payload;
     const message = yield call(sendMessageAPI, token, activeChat, messageText);
-    yield put(getSuccessAction(actionNames.SEND_MESSAGE, { message }));
+    yield put(getSuccessAction(actionNames.SEND_MESSAGE)({ message }));
     yield put(addMessages(message));
     yield put(loadMessagesAction());
   } catch (error) {
-    yield put(getFailureAction(actionNames.SEND_MESSAGE, { error }));
+    yield put(getFailureAction(actionNames.SEND_MESSAGE)({ error }));
   }
 }
 
@@ -38,11 +38,11 @@ function* loadMessages() {
     }
     const token = yield select(tokenSelector);
     const { messages, users } = yield call(getMessagesAPI, token, activeChat);
-    yield put(getSuccessAction(actionNames.GET_MESSAGES, { messages, users }));
+    yield put(getSuccessAction(actionNames.GET_MESSAGES)({ messages, users }));
     yield put(addUsers(users));
     yield put(addMessages(messages));
   } catch (error) {
-    yield put(getFailureAction(actionNames.GET_MESSAGES, { error }));
+    yield put(getFailureAction(actionNames.GET_MESSAGES)({ error }));
   }
 }
 

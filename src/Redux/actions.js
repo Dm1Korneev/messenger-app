@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions';
+import { createAction } from '@reduxjs/toolkit';
 
 import * as actionNames from 'Constants/actionNames';
 import { getRequestAction } from 'Redux/shared';
@@ -46,32 +46,26 @@ export const addUsers = createAction(actionNames.ADD_USERS);
 export const clearStore = createAction(actionNames.CLEAR_STORE);
 
 // async actions
-export const getUsers = () => getRequestAction(actionNames.GET_USERS);
+export const getUsers = getRequestAction(actionNames.GET_USERS);
 
-export const sendMessage = (messageText) => getRequestAction(actionNames.SEND_MESSAGE, { messageText });
+export const sendMessage = getRequestAction(actionNames.SEND_MESSAGE);
 
-export const loadMessages = () => getRequestAction(actionNames.GET_MESSAGES);
+export const loadMessages = getRequestAction(actionNames.GET_MESSAGES);
 
-export const createChat = (title, avatar, selectedUserIds) => getRequestAction(actionNames.CREATE_CHAT, { title, avatar, selectedUserIds });
+export const createChat = getRequestAction(actionNames.CREATE_CHAT);
 
-export const modifyChat = (chatId, options) => getRequestAction(actionNames.MODIFY_CHAT, { chatId, options });
+export const modifyChat = getRequestAction(actionNames.MODIFY_CHAT);
 
-export const modifyUser = (userId, options) => getRequestAction(actionNames.MODIFY_USER, { userId, options });
+export const modifyUser = getRequestAction(actionNames.MODIFY_USER);
 
-export const getChats = () => getRequestAction(actionNames.GET_CHATS);
+export const getChats = getRequestAction(actionNames.GET_CHATS);
 
-export const signIn = (email, password, remember = false) => getRequestAction(actionNames.LOGIN, { email, password, remember });
+export const signIn = getRequestAction(actionNames.LOGIN);
 
-export const register = (email, password, name, avatar, remember = false) => getRequestAction(actionNames.REGISTER, {
-  email,
-  password,
-  name,
-  avatar,
-  remember,
-});
+export const register = getRequestAction(actionNames.REGISTER);
 
 export const logOut = createAction(actionNames.LOGOUT);
 
-export const loginFromStore = () => getRequestAction(actionNames.LOGIN_FROM_STORE);
+export const loginFromStore = getRequestAction(actionNames.LOGIN_FROM_STORE);
 
-export const changeActiveChat = (activeChat) => createAction(actionNames.CHANGE_ACTIVE_CHAT)({ activeChat });
+export const changeActiveChat = createAction(actionNames.CHANGE_ACTIVE_CHAT);
