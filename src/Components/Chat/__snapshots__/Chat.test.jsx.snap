@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render Chat component snapshot test 1`] = `
+<DocumentFragment>
+  <div
+    data-originalcomponent="ListItem"
+    test-prop-button="true"
+    test-prop-classname="\\"Chat-listItem-1\\""
+    test-prop-selected="false"
+  >
+    <div
+      data-originalcomponent="UsersAvatar"
+      test-prop-author="\\"Title\\""
+      test-prop-avatar="\\"avatar\\""
+    />
+    <div
+      data-originalcomponent="ListItemText"
+      test-prop-primary="\\"Title\\""
+    />
+    <div
+      data-originalcomponent="IconButton"
+      test-prop-classes="{\\"root\\":\\"Chat-modifyButton-2\\"}"
+    >
+      <div
+        data-originalcomponent="Create"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

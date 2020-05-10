@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render UserModifyDialog component snapshot test 1`] = `
+<DocumentFragment>
+  <div
+    data-originalcomponent="Dialog"
+    test-prop-open="true"
+  >
+    <div
+      data-originalcomponent="DialogTitle"
+    >
+      Modify user
+    </div>
+    <div
+      data-originalcomponent="DialogContent"
+    >
+      <div
+        data-originalcomponent="ValidatorForm"
+        test-prop-id="\\"validatorForm\\""
+      >
+        <div
+          data-originalcomponent="FormHelperText"
+          test-prop-error="true"
+        >
+          error
+        </div>
+        <div
+          data-originalcomponent="AvatarSelector"
+          test-prop-avatar="\\"avatar\\""
+          test-prop-avatarfileinput="{\\"current\\":null}"
+        />
+        <div
+          data-originalcomponent="UserNameField"
+          test-prop-value="\\"name\\""
+        />
+        <div
+          data-originalcomponent="UserEmailField"
+          test-prop-value="\\"email\\""
+        />
+        <div
+          data-originalcomponent="UserPasswordField"
+          test-prop-value="\\"**********\\""
+        />
+      </div>
+    </div>
+    <div
+      data-originalcomponent="DialogActions"
+    >
+      <div
+        data-originalcomponent="Button"
+        test-prop-color="\\"primary\\""
+        test-prop-form="\\"validatorForm\\""
+        test-prop-type="\\"submit\\""
+      >
+        Save
+      </div>
+      <div
+        data-originalcomponent="Button"
+        test-prop-color="\\"primary\\""
+      >
+        Close
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

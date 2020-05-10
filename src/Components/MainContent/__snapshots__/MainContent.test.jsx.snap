@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render MainContent component snapshot test 1`] = `
+<DocumentFragment>
+  <main
+    class="MainContent-main-1"
+  >
+    <div
+      data-originalcomponent="Grid"
+      test-prop-classname="\\"MainContent-grid-2\\""
+      test-prop-item="true"
+      test-prop-lg="9"
+      test-prop-md="10"
+      test-prop-sm="11"
+      test-prop-xs="12"
+    >
+      <div
+        class="MainContent-content-4"
+      >
+        <div
+          class="MainContent-appBarSpacer-3"
+        />
+        <div
+          data-originalcomponent="MessagesList"
+        />
+        <div
+          data-originalcomponent="MessageInput"
+        />
+      </div>
+    </div>
+  </main>
+</DocumentFragment>
+`;

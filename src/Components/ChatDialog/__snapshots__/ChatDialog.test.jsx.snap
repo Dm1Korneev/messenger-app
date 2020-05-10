@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render ChatDialog component snapshot test 1`] = `
+<DocumentFragment>
+  <div
+    data-originalcomponent="Dialog"
+    test-prop-open="true"
+  >
+    <div
+      data-originalcomponent="DialogTitle"
+    >
+      Add chat
+    </div>
+    <div
+      data-originalcomponent="DialogContent"
+    >
+      <form
+        id="validatorForm"
+      >
+        <div
+          data-originalcomponent="AvatarSelector"
+          test-prop-avatarfileinput="{\\"current\\":null}"
+        />
+        <div
+          class="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
+          color="primary"
+        >
+          <label
+            class="MuiFormLabel-root-16 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13"
+            data-shrink="false"
+            for="title"
+          >
+            Title *
+          </label>
+          <div
+            class="MuiInputBase-root-36 MuiInput-root-23 MuiInput-underline-27 MuiInputBase-fullWidth-45 MuiInput-fullWidth-30 MuiInputBase-formControl-37 MuiInput-formControl-24"
+          >
+            <input
+              aria-invalid="false"
+              class="MuiInputBase-input-46 MuiInput-input-31"
+              id="title"
+              name="title"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
+          color="primary"
+        >
+          <label
+            class="MuiFormLabel-root-16 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13"
+            data-shrink="false"
+            for="searchText"
+          >
+            Search
+          </label>
+          <div
+            class="MuiInputBase-root-36 MuiInput-root-23 MuiInput-underline-27 MuiInputBase-fullWidth-45 MuiInput-fullWidth-30 MuiInputBase-formControl-37 MuiInput-formControl-24"
+          >
+            <input
+              aria-invalid="false"
+              class="MuiInputBase-input-46 MuiInput-input-31"
+              id="searchText"
+              name="searchText"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          data-originalcomponent="List"
+        >
+          <div
+            data-originalcomponent="ListItem"
+            test-prop-button="true"
+            test-prop-selected="false"
+          >
+            <div
+              data-originalcomponent="UsersAvatar"
+              test-prop-author="\\"name\\""
+              test-prop-avatar="\\"avatar\\""
+            />
+            <div
+              data-originalcomponent="ListItemText"
+              test-prop-primary="\\"name (email)\\""
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      data-originalcomponent="DialogActions"
+    >
+      <div
+        data-originalcomponent="Button"
+        test-prop-color="\\"primary\\""
+        test-prop-form="\\"validatorForm\\""
+        test-prop-type="\\"submit\\""
+      >
+        Add
+      </div>
+      <div
+        data-originalcomponent="Button"
+        test-prop-color="\\"primary\\""
+      >
+        Close
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
