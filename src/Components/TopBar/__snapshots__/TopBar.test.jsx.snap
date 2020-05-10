@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render TopBar component snapshot test 1`] = `
+<DocumentFragment>
+  <div
+    data-originalcomponent="AppBar"
+    test-prop-classname="\\"TopBar-appBar-1\\""
+    test-prop-position="\\"absolute\\""
+  >
+    <div
+      data-originalcomponent="Toolbar"
+      test-prop-classname="\\"TopBar-toolbar-3\\""
+      test-prop-disablegutters="true"
+    >
+      <div
+        data-originalcomponent="IconButton"
+        test-prop-aria-label="\\"Open drawer\\""
+        test-prop-classname="\\"TopBar-menuButton-4\\""
+        test-prop-color="\\"inherit\\""
+      >
+        <div
+          data-originalcomponent="Menu"
+        />
+      </div>
+      <div
+        data-originalcomponent="Typography"
+        test-prop-classname="\\"TopBar-title-6\\""
+        test-prop-color="\\"inherit\\""
+        test-prop-component="\\"h1\\""
+        test-prop-nowrap="true"
+        test-prop-variant="\\"h6\\""
+      >
+        name
+        <div
+          data-originalcomponent="IconButton"
+          test-prop-color="\\"inherit\\""
+        >
+          <div
+            data-originalcomponent="Create"
+          />
+        </div>
+      </div>
+      <div
+        data-originalcomponent="Button"
+        test-prop-color="\\"inherit\\""
+      >
+        logout
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
