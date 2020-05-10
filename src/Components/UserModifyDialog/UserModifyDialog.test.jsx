@@ -1,21 +1,23 @@
 import React from 'react';
+import { render } from '@testing-library/react';
+import { mockComponent } from 'testing/utils';
 
 import UserModifyDialog from './UserModifyDialog';
 
 jest.mock('react-material-ui-form-validator', () => ({
-  ValidatorForm: global.mockComponent('ValidatorForm'),
+  ValidatorForm: mockComponent('ValidatorForm'),
 }));
-jest.mock('@material-ui/core/Button', () => global.mockComponent('Button'));
-jest.mock('@material-ui/core/Dialog', () => global.mockComponent('Dialog'));
-jest.mock('@material-ui/core/DialogActions', () => global.mockComponent('DialogActions'));
-jest.mock('@material-ui/core/DialogContent', () => global.mockComponent('DialogContent'));
-jest.mock('@material-ui/core/DialogTitle', () => global.mockComponent('DialogTitle'));
-jest.mock('@material-ui/core/FormHelperText', () => global.mockComponent('FormHelperText'));
+jest.mock('@material-ui/core/Button', () => mockComponent('Button'));
+jest.mock('@material-ui/core/Dialog', () => mockComponent('Dialog'));
+jest.mock('@material-ui/core/DialogActions', () => mockComponent('DialogActions'));
+jest.mock('@material-ui/core/DialogContent', () => mockComponent('DialogContent'));
+jest.mock('@material-ui/core/DialogTitle', () => mockComponent('DialogTitle'));
+jest.mock('@material-ui/core/FormHelperText', () => mockComponent('FormHelperText'));
 
-jest.mock('Components/UserEmailField', () => global.mockComponent('UserEmailField'));
-jest.mock('Components/UserNameField', () => global.mockComponent('UserNameField'));
-jest.mock('Components/UserPasswordField', () => global.mockComponent('UserPasswordField'));
-jest.mock('Components/AvatarSelector', () => global.mockComponent('AvatarSelector'));
+jest.mock('Components/UserEmailField', () => mockComponent('UserEmailField'));
+jest.mock('Components/UserNameField', () => mockComponent('UserNameField'));
+jest.mock('Components/UserPasswordField', () => mockComponent('UserPasswordField'));
+jest.mock('Components/AvatarSelector', () => mockComponent('AvatarSelector'));
 
 const props = {
   user: {
@@ -30,21 +32,14 @@ const props = {
 };
 
 describe('render UserModifyDialog component', () => {
-  let wrapper;
+  const setup = () => render(
+    <UserModifyDialog {...props} />,
+  );
 
-  beforeAll(() => {
-    wrapper = global.mount(
-      <UserModifyDialog {...props} />,
-    );
-  });
+  test('snapshot test', async () => {
+    const { asFragment } = setup();
 
-  test('component is render', () => {
-    expect(wrapper.find('UserModifyDialog').length).toBe(1);
-  });
-
-  test('Dialog subcomponent is render', () => {
-    wrapper.update();
-    expect(wrapper.find({ originalcomponent: 'Dialog' }).length).toBe(1);
+    expect(asFragment()).toMatchSnapshot();
   });
 });
 
