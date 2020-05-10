@@ -6,12 +6,12 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import SignIn from 'Containers/SignIn';
-import TopBar from 'Containers/TopBar';
-import SideBar from 'Containers/SideBar';
-import ChatDialog from 'Containers/ChatDialog';
-import UserModifyDialog from 'Containers/UserModifyDialog';
+import ChatDialog from 'Components/ChatDialog';
 import MainContent from 'Components/MainContent';
+import SideBar from 'Components/SideBar';
+import SignIn from 'Components/SignIn';
+import TopBar from 'Components/TopBar';
+import UserModifyDialog from 'Components/UserModifyDialog';
 
 class App extends Component {
   constructor(props) {

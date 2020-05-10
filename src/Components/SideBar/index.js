@@ -1,4 +1,4 @@
-import commonHoc from 'Containers/commonHoc';
+import commonHoc from 'Components/commonHoc';
 
 import {
   changeActiveChat,
@@ -11,7 +11,7 @@ import {
 import { chatsArraySelector } from 'Selectors/chats';
 import { activeChatIdSelector, drawerIsOpenSelector } from 'Selectors/session';
 
-import SideBar from 'Components/SideBar';
+import SideBar from './SideBar';
 
 const mapStateToProps = (state) => ({
   chats: chatsArraySelector(state),
@@ -27,7 +27,9 @@ const mapDispatchToProps = {
   getChats,
 };
 
-export default commonHoc(SideBar, {
+const Container = commonHoc(SideBar, {
   mapStateToProps,
   mapDispatchToProps,
 });
+
+export { Container as SideBar };

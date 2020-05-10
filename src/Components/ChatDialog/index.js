@@ -1,4 +1,4 @@
-import commonHoc from 'Containers/commonHoc';
+import commonHoc from 'Components/commonHoc';
 
 import { modifyChatDialogIsOpenSelector } from 'Selectors/session';
 import { notCurrentUsersSelector } from 'Selectors/users';
@@ -10,7 +10,7 @@ import {
   getUsers,
   modifyChat,
 } from 'Redux/actions';
-import ChatDialog from 'Components/ChatDialog';
+import ChatDialog from './ChatDialog';
 
 const mapStateToProps = (state) => ({
   users: notCurrentUsersSelector(state),
@@ -25,7 +25,9 @@ const mapDispatchToProps = {
   getUsers,
 };
 
-export default commonHoc(ChatDialog, {
+const Container = commonHoc(ChatDialog, {
   mapStateToProps,
   mapDispatchToProps,
 });
+
+export { Container as ChatDialog };

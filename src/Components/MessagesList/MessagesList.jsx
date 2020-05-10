@@ -5,9 +5,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 
-import MessageUser from 'Components/MessageUser';
 import MessageDateTime from 'Components/MessageDateTime';
 import MessageText from 'Components/MessageText';
+import MessageUser from 'Components/MessageUser';
 
 import { RELOAD_PERIOD } from 'Constants';
 
@@ -152,3 +152,4 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(MessagesList);
+

@@ -87,3 +87,4 @@ UserPasswordField.propTypes = {
 const styles = () => ({});
 
 export default withStyles(styles)(UserPasswordField);
+

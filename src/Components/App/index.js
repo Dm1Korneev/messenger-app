@@ -1,9 +1,9 @@
-import commonHoc from 'Containers/commonHoc';
+import commonHoc from 'Components/commonHoc';
 
 import { loginFromStore } from 'Redux/actions';
 import { chatDialogIsOpenSelector, isLoggedInSelector, userModifyDialogIsOpenSelector } from 'Selectors/session';
 
-import App from 'Components/App';
+import App from './App';
 
 const mapStateToProps = (state) => ({
   chatDialogIsOpen: chatDialogIsOpenSelector(state),
@@ -15,7 +15,9 @@ const mapDispatchToProps = {
   loginFromStore,
 };
 
-export default commonHoc(App, {
+const Container = commonHoc(App, {
   mapStateToProps,
   mapDispatchToProps,
 });
+
+export { Container as App };

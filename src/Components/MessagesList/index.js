@@ -1,4 +1,4 @@
-import commonHoc from 'Containers/commonHoc';
+import commonHoc from 'Components/commonHoc';
 
 import { loadMessages } from 'Redux/actions';
 
@@ -6,7 +6,7 @@ import { usersByIdSelector } from 'Selectors/users';
 import { currentUserSelector } from 'Selectors/session';
 import { messagesTreeSelector } from 'Selectors/messages';
 
-import MessagesList from 'Components/MessagesList';
+import MessagesList from './MessagesList';
 
 const mapStateToProps = (state) => ({
   messagesTree: messagesTreeSelector(state),
@@ -18,7 +18,9 @@ const mapDispatchToProps = {
   loadMessages,
 };
 
-export default commonHoc(MessagesList, {
+const Container = commonHoc(MessagesList, {
   mapStateToProps,
   mapDispatchToProps,
 });
+
+export { Container as MessagesList };

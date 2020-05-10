@@ -1,4 +1,4 @@
-import commonHoc from 'Containers/commonHoc';
+import commonHoc from 'Components/commonHoc';
 
 import {
   logOut,
@@ -8,7 +8,7 @@ import {
 
 import { currentUserSelector, drawerIsOpenSelector } from 'Selectors/session';
 
-import TopBar from 'Components/TopBar';
+import TopBar from './TopBar';
 
 const mapStateToProps = (state) => ({
   user: currentUserSelector(state),
@@ -21,7 +21,9 @@ const mapDispatchToProps = {
   openModifyUserDialog: () => setModifyUserDialogIsOpen(true),
 };
 
-export default commonHoc(TopBar, {
+const Container = commonHoc(TopBar, {
   mapStateToProps,
   mapDispatchToProps,
 });
+
+export { Container as TopBar };

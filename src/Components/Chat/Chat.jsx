@@ -10,10 +10,9 @@ import CreateIcon from '@material-ui/icons/Create';
 
 import UsersAvatar from 'Components/UsersAvatar';
 
-function Chat(props) {
-  const {
-    selected, chatOnClick, chatModifyOnClick, classes, chat,
-  } = props;
+const Chat = ({
+  selected, chatOnClick, chatModifyOnClick, classes, chat,
+}) => {
   const { title, avatar, _id } = chat;
 
   return (
@@ -39,7 +38,7 @@ function Chat(props) {
       </IconButton>
     </ListItem>
   );
-}
+};
 
 Chat.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
@@ -68,3 +67,4 @@ const styles = () => ({
 });
 
 export default withStyles(styles)(Chat);
+

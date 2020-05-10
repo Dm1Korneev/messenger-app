@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 
-import MessagesList from 'Containers/MessagesList';
-import MessageInput from 'Containers/MessageInput';
+import MessageInput from 'Components/MessageInput';
+import MessagesList from 'Components/MessagesList';
 
 function MainContent(props) {
   const { classes } = props;

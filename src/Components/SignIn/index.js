@@ -1,10 +1,10 @@
-import commonHoc from 'Containers/commonHoc';
+import commonHoc from 'Components/commonHoc';
 
 import { LOGIN, REGISTER } from 'Constants/actionNames';
 import { register, signIn } from 'Redux/actions';
 import { errorSelector } from 'Selectors/errors';
 
-import SignIn from 'Components/SignIn';
+import SignIn from './SignIn';
 
 const mapStateToProps = (state) => ({
   loginError: errorSelector(state, LOGIN),
@@ -16,7 +16,9 @@ const mapDispatchToProps = {
   onRegister: register,
 };
 
-export default commonHoc(SignIn, {
+const Container = commonHoc(SignIn, {
   mapStateToProps,
   mapDispatchToProps,
 });
+
+export { Container as SignIn };

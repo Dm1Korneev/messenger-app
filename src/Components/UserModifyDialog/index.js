@@ -1,4 +1,4 @@
-import commonHoc from 'Containers/commonHoc';
+import commonHoc from 'Components/commonHoc';
 
 import { modifyUser, setModifyUserDialogIsOpen } from 'Redux/actions';
 import { MODIFY_USER } from 'Constants/actionNames';
@@ -6,7 +6,7 @@ import { MODIFY_USER } from 'Constants/actionNames';
 import { currentUserSelector } from 'Selectors/session';
 import { errorSelector } from 'Selectors/errors';
 
-import UserModifyDialog from 'Components/UserModifyDialog';
+import UserModifyDialog from './UserModifyDialog';
 
 const mapStateToProps = (state) => ({
   user: currentUserSelector(state),
@@ -18,7 +18,9 @@ const mapDispatchToProps = {
   onSave: modifyUser,
 };
 
-export default commonHoc(UserModifyDialog, {
+const Container = commonHoc(UserModifyDialog, {
   mapStateToProps,
   mapDispatchToProps,
 });
+
+export { Container as UserModifyDialog };
