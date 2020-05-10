@@ -1,6 +1,5 @@
-import * as sessionSelectors from 'Selectors/session';
-
 import { chatsArraySelector, modifiableChatSelector } from 'Selectors/chats';
+import * as sessionSelectors from './session';
 
 describe('chats selectors', () => {
   const store = {

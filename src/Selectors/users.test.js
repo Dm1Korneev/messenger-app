@@ -1,6 +1,5 @@
-import * as sessionSelectors from 'Selectors/session';
-
-import { notCurrentUsersSelector, usersByIdSelector } from 'Selectors/users';
+import * as sessionSelectors from './session';
+import { notCurrentUsersSelector, usersByIdSelector } from './users';
 
 describe('users selectors', () => {
   const store = {

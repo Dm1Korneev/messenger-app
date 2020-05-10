@@ -1,4 +1,4 @@
-import { errorSelector } from 'Selectors/errors';
+import { errorSelector } from './errors';
 
 describe('error selectors', () => {
   const store = {

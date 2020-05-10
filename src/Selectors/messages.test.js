@@ -1,6 +1,6 @@
-import * as sessionSelectors from 'Selectors/session';
+import * as sessionSelectors from './session';
 
-import { messagesTreeSelector } from 'Selectors/messages';
+import { messagesTreeSelector } from './messages';
 
 describe('messages selectors', () => {
   const store = {

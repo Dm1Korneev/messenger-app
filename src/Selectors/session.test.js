@@ -9,7 +9,7 @@ import {
   modifyChatDialogIsOpenSelector,
   tokenSelector,
   userModifyDialogIsOpenSelector,
-} from 'Selectors/session';
+} from './session';
 
 describe('session selectors', () => {
   test('isLoggedInSelector should return true if "isLoggedIn = true" in store', () => {
