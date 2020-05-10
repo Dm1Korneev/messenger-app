@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render app when not logged snapshot test 1`] = `
+<DocumentFragment>
+  <main
+    class="App-root-2"
+  >
+    <div
+      data-originalcomponent="SignIn"
+    />
+  </main>
+</DocumentFragment>
+`;
