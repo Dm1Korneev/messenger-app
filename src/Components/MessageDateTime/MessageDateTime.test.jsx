@@ -1,11 +1,13 @@
 import React from 'react';
+import { render } from '@testing-library/react';
+import { mockComponent } from 'testing/utils';
 
 import moment from 'Common/moment';
 import MessageDateTime from './MessageDateTime';
 
-jest.mock('@material-ui/core/ListItem', () => global.mockComponent('ListItem'));
-jest.mock('@material-ui/core/ListItemText', () => global.mockComponent('ListItemText'));
-jest.mock('@material-ui/core/Typography', () => global.mockComponent('Typography'));
+jest.mock('@material-ui/core/ListItem', () => mockComponent('ListItem'));
+jest.mock('@material-ui/core/ListItemText', () => mockComponent('ListItemText'));
+jest.mock('@material-ui/core/Typography', () => mockComponent('Typography'));
 
 const props = {
   isCurrentUserMessage: false,
@@ -14,19 +16,13 @@ const props = {
 };
 
 describe('render MessageDateTime component', () => {
-  let wrapper;
+  const setup = () => render(
+    <MessageDateTime {...props} />,
+  );
 
-  beforeAll(() => {
-    wrapper = global.mount(
-      <MessageDateTime {...props} />,
-    );
-  });
+  test('snapshot test', async () => {
+    const { asFragment } = setup();
 
-  test('component is render', () => {
-    expect(wrapper.find('MessageDateTime').length).toBe(1);
-  });
-
-  test('ListItem subcomponent is render', () => {
-    expect(wrapper.find({ originalcomponent: 'ListItem' }).length).toBe(1);
+    expect(asFragment()).toMatchSnapshot();
   });
 });
