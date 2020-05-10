@@ -1,10 +1,12 @@
 import React from 'react';
+import { render } from '@testing-library/react';
+import { mockComponent } from 'testing/utils';
 
 import MessageText from './MessageText';
 
-jest.mock('@material-ui/core/ListItem', () => global.mockComponent('ListItem'));
-jest.mock('@material-ui/core/ListItemText', () => global.mockComponent('ListItemText'));
-jest.mock('@material-ui/core/Typography', () => global.mockComponent('Typography'));
+jest.mock('@material-ui/core/ListItem', () => mockComponent('ListItem'));
+jest.mock('@material-ui/core/ListItemText', () => mockComponent('ListItemText'));
+jest.mock('@material-ui/core/Typography', () => mockComponent('Typography'));
 
 const scrollIntoViewMock = jest.fn();
 window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
@@ -14,20 +16,14 @@ const props = {
 };
 
 describe('render MessageText component', () => {
-  let wrapper;
+  const setup = () => render(
+    <MessageText {...props} />,
+  );
 
-  beforeAll(() => {
-    wrapper = global.mount(
-      <MessageText {...props} />,
-    );
-  });
+  test('snapshot test', async () => {
+    const { asFragment } = setup();
 
-  test('component is render', () => {
-    expect(wrapper.find('MessageText').length).toBe(1);
-  });
-
-  test('ListItem subcomponent is render', () => {
-    expect(wrapper.find({ originalcomponent: 'ListItem' }).length).toBe(1);
+    expect(asFragment()).toMatchSnapshot();
   });
 });
 
