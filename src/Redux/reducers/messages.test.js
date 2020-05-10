@@ -1,5 +1,5 @@
-import reducer from 'Redux/reducers/messages';
 import * as actionNames from 'Constants/actionNames';
+import reducer from './messages';
 
 describe('chats reducer', () => {
   test('should return the initial state', () => {

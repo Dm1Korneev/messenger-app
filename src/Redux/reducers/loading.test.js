@@ -1,5 +1,5 @@
-import reducer from 'Redux/reducers/loadingReducer';
 import * as actionNames from 'Constants/actionNames';
+import reducer from './loading';
 
 const getFailureActionName = (actionName) => `${actionName}_FAILURE`;
 const getRequestActionName = (actionName) => `${actionName}_REQUEST`;

@@ -1,5 +1,5 @@
-import reducer from 'Redux/reducers/session';
 import * as actionNames from 'Constants/actionNames';
+import reducer from './session';
 
 const defaultStore = {
   activeChat: undefined,

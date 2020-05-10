@@ -1,5 +1,5 @@
-import reducer from 'Redux/reducers/users';
 import * as actionNames from 'Constants/actionNames';
+import reducer from './users';
 
 describe('users reducer', () => {
   test('should return the initial state', () => {
