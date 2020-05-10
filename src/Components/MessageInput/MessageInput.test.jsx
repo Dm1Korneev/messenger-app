@@ -1,28 +1,24 @@
 import React from 'react';
+import { render } from '@testing-library/react';
+import { mockComponent } from 'testing/utils';
 
 import MessageInput from './MessageInput';
 
-jest.mock('@material-ui/core/TextField', () => global.mockComponent('TextField'));
+jest.mock('@material-ui/core/TextField', () => mockComponent('TextField'));
 
 const props = {
   onSendMessage: jest.fn(),
 };
 
 describe('render MessageInput component', () => {
-  let wrapper;
+  const setup = () => render(
+    <MessageInput {...props} />,
+  );
 
-  beforeAll(() => {
-    wrapper = global.mount(
-      <MessageInput {...props} />,
-    );
-  });
+  test('snapshot test', async () => {
+    const { asFragment } = setup();
 
-  test('component is render', () => {
-    expect(wrapper.find('MessageInput').length).toBe(1);
-  });
-
-  test('TextField subcomponent is render', () => {
-    expect(wrapper.find({ originalcomponent: 'TextField' }).length).toBe(1);
+    expect(asFragment()).toMatchSnapshot();
   });
 });
 
