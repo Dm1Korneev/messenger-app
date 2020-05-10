@@ -25,9 +25,8 @@ const mapDispatchToProps = {
   getUsers,
 };
 
-const Container = commonHoc(ChatDialog, {
+export default commonHoc(ChatDialog, {
   mapStateToProps,
   mapDispatchToProps,
 });
 
-export { Container as ChatDialog };

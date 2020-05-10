@@ -18,9 +18,8 @@ const mapDispatchToProps = {
   onSave: modifyUser,
 };
 
-const Container = commonHoc(UserModifyDialog, {
+export default commonHoc(UserModifyDialog, {
   mapStateToProps,
   mapDispatchToProps,
 });
 
-export { Container as UserModifyDialog };

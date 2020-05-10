@@ -15,9 +15,8 @@ const mapDispatchToProps = {
   loginFromStore,
 };
 
-const Container = commonHoc(App, {
+export default commonHoc(App, {
   mapStateToProps,
   mapDispatchToProps,
 });
 
-export { Container as App };

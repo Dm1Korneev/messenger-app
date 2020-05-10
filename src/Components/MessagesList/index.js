@@ -18,9 +18,8 @@ const mapDispatchToProps = {
   loadMessages,
 };
 
-const Container = commonHoc(MessagesList, {
+export default commonHoc(MessagesList, {
   mapStateToProps,
   mapDispatchToProps,
 });
 
-export { Container as MessagesList };

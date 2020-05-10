@@ -27,9 +27,8 @@ const mapDispatchToProps = {
   getChats,
 };
 
-const Container = commonHoc(SideBar, {
+export default commonHoc(SideBar, {
   mapStateToProps,
   mapDispatchToProps,
 });
 
-export { Container as SideBar };

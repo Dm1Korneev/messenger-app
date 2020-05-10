@@ -7,8 +7,7 @@ const mapDispatchToProps = {
   onSendMessage: sendMessage,
 };
 
-const Container = commonHoc(MessageInput, {
+export default commonHoc(MessageInput, {
   mapDispatchToProps,
 });
 
-export { Container as MessageInput };

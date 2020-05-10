@@ -21,9 +21,8 @@ const mapDispatchToProps = {
   openModifyUserDialog: () => setModifyUserDialogIsOpen(true),
 };
 
-const Container = commonHoc(TopBar, {
+export default commonHoc(TopBar, {
   mapStateToProps,
   mapDispatchToProps,
 });
 
-export { Container as TopBar };

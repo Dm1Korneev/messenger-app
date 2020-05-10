@@ -16,9 +16,8 @@ const mapDispatchToProps = {
   onRegister: register,
 };
 
-const Container = commonHoc(SignIn, {
+export default commonHoc(SignIn, {
   mapStateToProps,
   mapDispatchToProps,
 });
 
-export { Container as SignIn };
