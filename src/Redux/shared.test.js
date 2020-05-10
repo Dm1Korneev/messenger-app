@@ -1,4 +1,4 @@
-import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
+import { getFailureAction, getRequestAction, getSuccessAction } from './shared';
 
 describe('shared', () => {
   test('should create get failure action', () => {

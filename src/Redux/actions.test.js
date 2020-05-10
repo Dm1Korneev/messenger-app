@@ -1,5 +1,5 @@
-import * as actions from 'Redux/actions';
 import * as actionNames from 'Constants/actionNames';
+import * as actions from './actions';
 
 const getRequestActionName = (actionName) => `${actionName}_REQUEST`;
 
@@ -113,7 +113,6 @@ describe('actions', () => {
       type: getRequestActionName(actionNames.GET_USERS),
       payload: undefined,
     };
-    console.log('getUsers', actions.getUsers);
     expect(actions.getUsers()).toStrictEqual(expectedAction);
   });
 
