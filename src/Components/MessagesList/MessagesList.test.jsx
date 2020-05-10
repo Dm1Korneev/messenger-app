@@ -1,13 +1,15 @@
 import React from 'react';
+import { render } from '@testing-library/react';
+import { mockComponent } from 'testing/utils';
 
 import MessagesList from './MessagesList';
 
-jest.mock('Components/MessageUser', () => global.mockComponent('MessageUser'));
-jest.mock('Components/MessageDateTime', () => global.mockComponent('MessageDateTime'));
-jest.mock('Components/MessageText', () => global.mockComponent('MessageText'));
+jest.mock('Components/MessageUser', () => mockComponent('MessageUser'));
+jest.mock('Components/MessageDateTime', () => mockComponent('MessageDateTime'));
+jest.mock('Components/MessageText', () => mockComponent('MessageText'));
 
-jest.mock('@material-ui/core/List', () => global.mockComponent('List'));
-jest.mock('@material-ui/core/Divider', () => global.mockComponent('Divider'));
+jest.mock('@material-ui/core/List', () => mockComponent('List'));
+jest.mock('@material-ui/core/Divider', () => mockComponent('Divider'));
 
 const scrollIntoViewMock = jest.fn();
 window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
@@ -21,23 +23,19 @@ const props = {
 };
 
 describe('render MessagesList component', () => {
-  let wrapper;
+  const setup = () => render(
+    <MessagesList {...props} />,
+  );
 
-  beforeAll(() => {
-    wrapper = global.mount(
-      <MessagesList {...props} />,
-    );
-  });
+  test('snapshot test', async () => {
+    const { asFragment } = setup();
 
-  test('component is render', () => {
-    expect(wrapper.find('MessagesList').length).toBe(1);
-  });
-
-  test('List subcomponent is render', () => {
-    expect(wrapper.find({ originalcomponent: 'List' }).length).toBe(1);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('Scroll to and of messages is called on mout', () => {
+    setup();
+
     expect(scrollIntoViewMock).toHaveBeenCalled();
   });
 });
