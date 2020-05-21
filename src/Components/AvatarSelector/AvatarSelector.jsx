@@ -110,9 +110,9 @@ AvatarSelector.defaultProps = {
 };
 
 const styles = (theme) => ({
-  avatar: { marginRight: theme.spacing.unit * 2 },
+  avatar: { marginRight: theme.spacing(2) },
   avatarSelector: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
     display: 'flex',
   },
   avatarSelector__labalButtons: {
@@ -120,15 +120,15 @@ const styles = (theme) => ({
     flexDirection: 'column',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   avatarSelector__buttons: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'row',
   },
   button: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

@@ -35,7 +35,7 @@ UsersAvatar.propTypes = {
 
 const styles = (theme) => ({
   ListItemAvatar: {
-    borderRadius: theme.spacing.unit / 2,
+    borderRadius: theme.spacing(0.5),
   },
 });
 

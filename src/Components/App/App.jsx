@@ -20,9 +20,6 @@ class App extends Component {
       palette: {
         primary: blue,
       },
-      typography: {
-        useNextVariants: true,
-      },
       overrides: {
         MuiListItem: {
           button: {

@@ -71,7 +71,7 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     '&:first-child': {
-      paddingLeft: theme.spacing.unit * 2,
+      paddingLeft: theme.spacing(2),
     },
   },
   reverse: {

@@ -11,6 +11,7 @@ exports[`render SignIn component snapshot test 1`] = `
     <div
       data-originalcomponent="Paper"
       test-prop-classname="\\"SignIn-paper-3\\""
+      test-prop-elevation="2"
     >
       <div
         data-originalcomponent="AppBar"

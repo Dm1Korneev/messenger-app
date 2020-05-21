@@ -44,7 +44,7 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     '&:first-child': {
-      paddingLeft: theme.spacing.unit * 2,
+      paddingLeft: theme.spacing(2),
     },
   },
   ListItem_reverse: {
@@ -52,7 +52,7 @@ const styles = (theme) => ({
   },
   ListItem: {
     alignItems: 'start',
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
     paddingRight: 0,
     paddingLeft: 0,
     paddingBottom: 0,

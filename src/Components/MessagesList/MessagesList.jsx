@@ -145,7 +145,7 @@ const styles = (theme) => ({
     padding: 0,
   },
   Divider: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 });
 

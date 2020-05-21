@@ -117,9 +117,9 @@ const styles = (theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    width: theme.spacing.unit * 7,
+    width: theme.spacing(7),
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing.unit * 9,
+      width: theme.spacing(9),
     },
   },
   toolbarIcon: {
@@ -130,8 +130,8 @@ const styles = (theme) => ({
     ...theme.mixins.toolbar,
   },
   addChatIcon: {
-    fontSize: theme.spacing.unit * 7,
-    marginLeft: -theme.spacing.unit,
+    fontSize: theme.spacing(7),
+    marginLeft: -theme.spacing(1),
   },
 });
 

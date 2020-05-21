@@ -34,7 +34,7 @@ const styles = (theme) => ({
     margin: '0 auto',
     height: '100%',
   },
-  appBarSpacer: { marginTop: theme.spacing.unit, ...theme.mixins.toolbar },
+  appBarSpacer: { marginTop: theme.spacing(1), ...theme.mixins.toolbar },
   content: {
     height: '100%',
     display: 'flex',
