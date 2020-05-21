@@ -21,6 +21,20 @@
     "no-extra-parens": "error",
     "no-multiple-empty-lines": ["error", {"max": 1}],
     "max-len": ["error", 140],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always"
+      }
+    ],
     "sort-imports": ["error", {"ignoreDeclarationSort": true}],
     "import/prefer-default-export": "off",
     "import/no-cycle": "error",

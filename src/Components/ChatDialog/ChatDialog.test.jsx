@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+
 import { mockComponent } from 'testing/utils';
 
 import ChatDialog from './ChatDialog';

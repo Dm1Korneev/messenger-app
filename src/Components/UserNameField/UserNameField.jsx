@@ -1,7 +1,6 @@
 import React from 'react';
 import { TextValidator } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 
 function UserNameField(props) {

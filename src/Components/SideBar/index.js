@@ -1,5 +1,4 @@
 import commonHoc from 'Components/commonHoc';
-
 import {
   changeActiveChat,
   getChats,
@@ -7,7 +6,6 @@ import {
   setAddChatDialogIsOpen,
   setDrawerIsOpen,
 } from 'Redux/actions';
-
 import { chatsArraySelector } from 'Selectors/chats';
 import { activeChatIdSelector, drawerIsOpenSelector } from 'Selectors/session';
 

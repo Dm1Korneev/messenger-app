@@ -1,4 +1,5 @@
 import { chatsArraySelector, modifiableChatSelector } from 'Selectors/chats';
+
 import * as sessionSelectors from './session';
 
 describe('chats selectors', () => {

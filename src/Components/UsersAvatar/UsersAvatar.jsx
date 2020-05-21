@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-
 import AccountIcon from '@material-ui/icons/AccountCircleOutlined';
 
 function UsersAvatar(props) {

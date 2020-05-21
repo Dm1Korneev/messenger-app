@@ -57,15 +57,15 @@
     "start-react": "react-scripts start",
     "start-nodemon": "nodemon ./bin/www",
     "start-mongod": "mongod --config ./mongod.cfg",
-    "build": "react-scripts build",
-    "heroku-postbuild": "npm run build",
-    "test": "react-scripts test",
-    "test-coverage": "react-scripts test --coverage --watchAll=false",
-    "eject": "react-scripts eject",
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "lint": "eslint src/ app_api/ bin/www server.js --ext .jsx,.js --color",
     "lint-fix": "eslint src/ app_api/ bin/www server.js --ext .jsx,.js --color --fix",
-    "test-all": "react-scripts test --watchAll=false"
+    "test": "react-scripts test",
+    "test-all": "react-scripts test --watchAll=false",
+    "test-coverage": "react-scripts test --coverage --watchAll=false",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "eject": "react-scripts eject",
+    "build": "react-scripts build",
+    "heroku-postbuild": "npm run build"
   },
   "proxy": "http://localhost:8080",
   "browserslist": [

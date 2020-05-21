@@ -1,7 +1,6 @@
 import React from 'react';
 import { ValidatorForm } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -14,7 +13,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import FormHelperText from '@material-ui/core/FormHelperText';
-
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
 

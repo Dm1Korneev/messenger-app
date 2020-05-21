@@ -1,6 +1,7 @@
 import {
   all, call, put, select, takeEvery,
 } from 'redux-saga/effects';
+
 import {
   getUsers as getUsersAPI,
   modifyUser as modifyUserAPI,
@@ -15,7 +16,6 @@ import {
 } from 'Redux/actions';
 import * as actionNames from 'Constants/actionNames';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
-
 import { tokenSelector } from 'Selectors/session';
 
 function* getUsers() {

@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ClearIcon from '@material-ui/icons/Clear';
 

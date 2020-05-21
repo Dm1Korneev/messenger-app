@@ -13,7 +13,6 @@ import {
 } from 'Redux/actions';
 import * as actionNames from 'Constants/actionNames';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
-
 import { activeChatIdSelector, tokenSelector } from 'Selectors/session';
 
 function* sendMessage(action) {

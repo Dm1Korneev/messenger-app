@@ -1,4 +1,5 @@
 import * as actionNames from 'Constants/actionNames';
+
 import * as actions from './actions';
 
 const getRequestActionName = (actionName) => `${actionName}_REQUEST`;

@@ -1,11 +1,12 @@
 const express = require('express');
-
-const router = express.Router();
 const jwt = require('express-jwt');
+
 const ctrlMessages = require('../controllers/messages');
 const ctrlChats = require('../controllers/chats');
 const ctrlUsers = require('../controllers/users');
 const fileLoader = require('../common/fileLoader');
+
+const router = express.Router();
 
 const auth = jwt({
   secret: process.env.JWT_SECRET,

@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { mockComponent } from 'testing/utils';
 
+import { mockComponent } from 'testing/utils';
 import moment from 'Common/moment';
+
 import MessageDateTime from './MessageDateTime';
 
 jest.mock('@material-ui/core/ListItem', () => mockComponent('ListItem'));

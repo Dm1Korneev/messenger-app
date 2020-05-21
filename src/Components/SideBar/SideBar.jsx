@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
@@ -9,12 +8,10 @@ import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
 import { DRAWER_WIDTH, RELOAD_PERIOD } from 'Constants';
-
 import Chat from 'Components/Chat';
 
 class SideBar extends React.Component {
