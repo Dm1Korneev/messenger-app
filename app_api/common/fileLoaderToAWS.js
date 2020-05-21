@@ -1,7 +1,7 @@
 const aws = require('aws-sdk');
+const { v4: uuidv4 } = require('uuid');
 
 const { S3_BUCKET } = process.env;
-const { v4: uuidv4 } = require('uuid');
 
 module.exports = function loadToAWS(file) {
   return new Promise((resolve) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-
 import { ValidatorForm } from 'react-material-ui-form-validator';
+
 import UserPasswordField from './UserPasswordField';
 
 describe('render UserPasswordField component', () => {

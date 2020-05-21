@@ -1,5 +1,4 @@
 import commonHoc from 'Components/commonHoc';
-
 import { LOGIN, REGISTER } from 'Constants/actionNames';
 import { register, signIn } from 'Redux/actions';
 import { errorSelector } from 'Selectors/errors';

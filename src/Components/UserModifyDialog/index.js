@@ -1,8 +1,6 @@
 import commonHoc from 'Components/commonHoc';
-
 import { modifyUser, setModifyUserDialogIsOpen } from 'Redux/actions';
 import { MODIFY_USER } from 'Constants/actionNames';
-
 import { currentUserSelector } from 'Selectors/session';
 import { errorSelector } from 'Selectors/errors';
 

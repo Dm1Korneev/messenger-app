@@ -1,11 +1,9 @@
 import commonHoc from 'Components/commonHoc';
-
 import {
   logOut,
   setDrawerIsOpen,
   setModifyUserDialogIsOpen,
 } from 'Redux/actions';
-
 import { currentUserSelector, drawerIsOpenSelector } from 'Selectors/session';
 
 import TopBar from './TopBar';

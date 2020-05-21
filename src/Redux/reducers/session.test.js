@@ -1,4 +1,5 @@
 import * as actionNames from 'Constants/actionNames';
+
 import reducer from './session';
 
 const defaultStore = {

@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const UserModel = mongoose.model('User');
+const fileLoaderToAWS = require('../common/fileLoaderToAWS');
+
 const {
   sendJsResponse,
   isUserNameIsAvailable,
   isEmailIsAvailable,
 } = require('./common');
-const fileLoaderToAWS = require('../common/fileLoaderToAWS');
 
 module.exports.getUsers = (req, res) => {
   UserModel.aggregate([

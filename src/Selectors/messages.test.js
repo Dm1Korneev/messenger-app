@@ -1,5 +1,4 @@
 import * as sessionSelectors from './session';
-
 import { messagesTreeSelector } from './messages';
 
 describe('messages selectors', () => {

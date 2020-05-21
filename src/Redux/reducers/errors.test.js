@@ -1,4 +1,5 @@
 import * as actionNames from 'Constants/actionNames';
+
 import reducer from './errors';
 
 const getFailureActionName = (actionName) => `${actionName}_FAILURE`;

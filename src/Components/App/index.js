@@ -1,5 +1,4 @@
 import commonHoc from 'Components/commonHoc';
-
 import { loginFromStore } from 'Redux/actions';
 import { chatDialogIsOpenSelector, isLoggedInSelector, userModifyDialogIsOpenSelector } from 'Selectors/session';
 

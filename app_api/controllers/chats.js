@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const ChatModel = mongoose.model('Chat');
-const { sendJsResponse, parseToken } = require('./common');
 const fileLoaderToAWS = require('../common/fileLoaderToAWS');
+
+const { sendJsResponse, parseToken } = require('./common');
 
 module.exports.getChats = (req, res) => {
   const userInfo = parseToken(req.headers.authorization);

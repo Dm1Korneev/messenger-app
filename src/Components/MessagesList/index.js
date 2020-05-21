@@ -1,7 +1,5 @@
 import commonHoc from 'Components/commonHoc';
-
 import { loadMessages } from 'Redux/actions';
-
 import { usersByIdSelector } from 'Selectors/users';
 import { currentUserSelector } from 'Selectors/session';
 import { messagesTreeSelector } from 'Selectors/messages';

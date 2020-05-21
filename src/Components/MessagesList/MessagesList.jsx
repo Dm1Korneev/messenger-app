@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -8,7 +7,6 @@ import Divider from '@material-ui/core/Divider';
 import MessageDateTime from 'Components/MessageDateTime';
 import MessageText from 'Components/MessageText';
 import MessageUser from 'Components/MessageUser';
-
 import { RELOAD_PERIOD } from 'Constants';
 
 class MessagesList extends React.Component {
