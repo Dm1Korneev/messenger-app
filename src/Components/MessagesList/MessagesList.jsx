@@ -138,11 +138,11 @@ MessagesList.propTypes = {
   users: PropTypes.instanceOf(Object).isRequired,
 };
 
-const styles = () => ({
+const styles = (theme) => ({
   list: {
     overflow: 'auto',
     flexGrow: 1,
-    padding: 0,
+    padding: theme.spacing(0),
   },
 });
 

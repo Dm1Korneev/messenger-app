@@ -129,7 +129,7 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    padding: '0 8px',
+    padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
   },
   addChatIcon: {

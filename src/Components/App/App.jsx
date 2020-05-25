@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -12,41 +12,47 @@ import SignIn from 'Components/SignIn';
 import TopBar from 'Components/TopBar';
 import UserModifyDialog from 'Components/UserModifyDialog';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.theme = createMuiTheme({
-      palette: {
-        primary: blue,
-      },
-      overrides: {
-        MuiListItem: {
-          button: {
-            '&$selected': {
-              backgroundColor: blue[100],
-            },
-            '&$selected:focus': {
-              backgroundColor: blue[100],
-            },
-            '&:focus': {
-              backgroundColor: 'transparent',
-            },
-            '&$selected:hover': {
-              backgroundColor: blue[300],
-            },
-            '&:hover': {
-              backgroundColor: blue[300],
-            },
-            '&:hover:focus': {
-              backgroundColor: blue[300],
-            },
-          },
+const theme = createMuiTheme({
+  palette: {
+    primary: blue,
+  },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        html: {
+          'font-family': 'Roboto',
+        },
+        body: {
+          margin: 0,
         },
       },
-    });
-  }
+    },
+    MuiListItem: {
+      button: {
+        '&$selected': {
+          backgroundColor: blue[100],
+        },
+        '&$selected:focus': {
+          backgroundColor: blue[100],
+        },
+        '&:focus': {
+          backgroundColor: 'transparent',
+        },
+        '&$selected:hover': {
+          backgroundColor: blue[300],
+        },
+        '&:hover': {
+          backgroundColor: blue[300],
+        },
+        '&:hover:focus': {
+          backgroundColor: blue[300],
+        },
+      },
+    },
+  },
+});
 
+class App extends Component {
   componentDidMount() {
     const { loginFromStore } = this.props;
     loginFromStore();
@@ -78,7 +84,7 @@ class App extends Component {
 
     return (
       <main className={classes.root}>
-        <MuiThemeProvider theme={this.theme}>{result}</MuiThemeProvider>
+        <ThemeProvider theme={theme}>{result}</ThemeProvider>
       </main>
     );
   }

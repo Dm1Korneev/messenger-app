@@ -60,8 +60,7 @@ const styles = (theme) => ({
     zIndex: 999,
     display: 'flex',
     justifyContent: 'space-between',
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
+    padding: theme.spacing(0, 2),
   },
   ListItemText_reverse: {
     display: 'flex',

@@ -93,7 +93,7 @@ const styles = (theme) => ({
     }),
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: theme.spacing(3), // keep right padding when drawer closed
   },
   menuButton: {
     marginLeft: 12,

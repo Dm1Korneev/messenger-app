@@ -70,8 +70,7 @@ const styles = (theme) => ({
     width: '50%',
     display: 'flex',
     justifyContent: 'space-between',
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
+    padding: theme.spacing(0, 2),
   },
   reverse: {
     flexDirection: 'row-reverse',
@@ -79,10 +78,7 @@ const styles = (theme) => ({
   },
   ListItem: {
     alignItems: 'start',
-    paddingTop: 0,
-    paddingBottom: 0,
-    paddingRight: 0,
-    paddingLeft: 0,
+    padding: theme.spacing(0),
   },
   textContent: {
     flexGrow: 1,

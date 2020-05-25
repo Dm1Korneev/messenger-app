@@ -52,10 +52,7 @@ const styles = (theme) => ({
   },
   ListItem: {
     alignItems: 'start',
-    paddingTop: theme.spacing(1),
-    paddingRight: 0,
-    paddingLeft: 0,
-    paddingBottom: 0,
+    padding: theme.spacing(1, 0, 0, 0),
   },
   textContent: {
     flexGrow: 1,
