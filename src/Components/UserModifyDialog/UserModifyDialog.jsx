@@ -1,7 +1,6 @@
 import React from 'react';
 import { ValidatorForm } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -131,7 +130,5 @@ UserModifyDialog.propTypes = {
   error: PropTypes.string,
 };
 
-const styles = () => ({});
-
-export default withStyles(styles)(UserModifyDialog);
+export default UserModifyDialog;
 

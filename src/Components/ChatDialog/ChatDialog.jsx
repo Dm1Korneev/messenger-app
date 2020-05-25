@@ -1,7 +1,6 @@
 import React from 'react';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -10,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 
 import AvatarSelector from 'Components/AvatarSelector';
 import UsersAvatar from 'Components/UsersAvatar';
@@ -193,7 +193,9 @@ class ChatDialog extends React.Component {
                   selected={selectedUserIds.includes(value._id)}
                   onClick={() => this.userSelect(value._id)}
                 >
-                  <UsersAvatar author={value.name} avatar={value.avatar} />
+                  <ListItemAvatar>
+                    <UsersAvatar author={value.name} avatar={value.avatar} />
+                  </ListItemAvatar>
                   <ListItemText primary={`${value.name} (${value.email})`} />
                 </ListItem>
               ))}
@@ -239,6 +241,4 @@ ChatDialog.propTypes = {
   }),
 };
 
-const styles = () => ({});
-
-export default withStyles(styles)(ChatDialog);
+export default ChatDialog;

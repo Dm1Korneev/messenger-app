@@ -107,7 +107,7 @@ class MessagesList extends React.Component {
           return (
             <Fragment key={`${author}-${firstDateTime}`}>
               {indexAuthor > 0 && (
-                <Divider variant="middle" className={classes.Divider} />
+                <Divider variant="middle" />
               )}
               <MessageUser
                 author={name}
@@ -138,14 +138,11 @@ MessagesList.propTypes = {
   users: PropTypes.instanceOf(Object).isRequired,
 };
 
-const styles = (theme) => ({
+const styles = () => ({
   list: {
     overflow: 'auto',
     flexGrow: 1,
     padding: 0,
-  },
-  Divider: {
-    marginTop: theme.spacing(1),
   },
 });
 

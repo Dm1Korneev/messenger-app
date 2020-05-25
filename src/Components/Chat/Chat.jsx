@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
-import { ListItem, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import CreateIcon from '@material-ui/icons/Create';
 
 import UsersAvatar from 'Components/UsersAvatar';
@@ -16,12 +18,12 @@ const Chat = ({
     <ListItem
       button
       selected={selected}
-      onClick={() => {
-        chatOnClick(_id);
-      }}
+      onClick={chatOnClick}
       className={classes.listItem}
     >
-      <UsersAvatar author={title} avatar={avatar} />
+      <ListItemAvatar>
+        <UsersAvatar author={title} avatar={avatar} />
+      </ListItemAvatar>
       <ListItemText primary={title} />
       <IconButton
         onClick={() => {

@@ -4,12 +4,8 @@ exports[`render MessageInput component snapshot test 1`] = `
 <DocumentFragment>
   <div
     data-originalcomponent="TextField"
-    test-prop-classname="\\"MessageInput-textField-3\\""
-    test-prop-color="\\"primary\\""
     test-prop-fullwidth="true"
-    test-prop-inputlabelprops="{\\"classes\\":{\\"root\\":\\"MessageInput-InputLabel-1\\"}}"
-    test-prop-inputprops="{\\"classes\\":{\\"input\\":\\"MessageInput-Input-2\\"}}"
-    test-prop-label="\\"Write a message...\\""
+    test-prop-label="\\"Write a message\\""
     test-prop-margin="\\"normal\\""
     test-prop-multiline="true"
     test-prop-rows="\\"2\\""

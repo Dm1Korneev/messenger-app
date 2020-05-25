@@ -77,7 +77,7 @@ class SideBar extends React.Component {
                 chat={chat}
                 key={_id}
                 selected={_id === activeChat}
-                chatOnClick={changeActiveChat}
+                chatOnClick={() => changeActiveChat({ activeChat: _id })}
                 chatModifyOnClick={openModifyChatDialog}
               />
             );

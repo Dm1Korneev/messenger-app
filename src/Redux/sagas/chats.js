@@ -71,7 +71,7 @@ function* getChats() {
 }
 
 function* changeActiveChat(action) {
-  const activeChat = action.payload;
+  const { activeChat } = action.payload;
   yield call(initActiveChat, activeChat);
 }
 

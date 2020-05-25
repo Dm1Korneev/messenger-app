@@ -1,7 +1,6 @@
 import React from 'react';
 import { TextValidator } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
 
 function UserEmailField(props) {
   const { value, onChange } = props;
@@ -31,7 +30,5 @@ UserEmailField.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-const styles = () => ({});
-
-export default withStyles(styles)(UserEmailField);
+export default UserEmailField;
 

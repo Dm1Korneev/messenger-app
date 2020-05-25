@@ -70,9 +70,8 @@ const styles = (theme) => ({
     width: '50%',
     display: 'flex',
     justifyContent: 'space-between',
-    '&:first-child': {
-      paddingLeft: theme.spacing(2),
-    },
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   },
   reverse: {
     flexDirection: 'row-reverse',

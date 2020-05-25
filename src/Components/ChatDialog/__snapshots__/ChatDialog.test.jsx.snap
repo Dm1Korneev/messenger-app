@@ -53,10 +53,14 @@ exports[`render ChatDialog component snapshot test 1`] = `
             test-prop-selected="false"
           >
             <div
-              data-originalcomponent="UsersAvatar"
-              test-prop-author="\\"name\\""
-              test-prop-avatar="\\"avatar\\""
-            />
+              class="MuiListItemAvatar-root"
+            >
+              <div
+                data-originalcomponent="UsersAvatar"
+                test-prop-author="\\"name\\""
+                test-prop-avatar="\\"avatar\\""
+              />
+            </div>
             <div
               data-originalcomponent="ListItemText"
               test-prop-primary="\\"name (email)\\""
