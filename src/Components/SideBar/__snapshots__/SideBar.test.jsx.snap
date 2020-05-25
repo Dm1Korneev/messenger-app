@@ -30,10 +30,14 @@ exports[`render SideBar component snapshot test 1`] = `
         test-prop-button="true"
       >
         <div
-          data-originalcomponent="AddBox"
-          test-prop-classname="\\"SideBar-addChatIcon-4\\""
-          test-prop-color="\\"primary\\""
-        />
+          class="MuiListItemAvatar-root"
+        >
+          <div
+            data-originalcomponent="AddBox"
+            test-prop-classname="\\"SideBar-addChatIcon-4\\""
+            test-prop-color="\\"primary\\""
+          />
+        </div>
         <div
           data-originalcomponent="ListItemText"
           test-prop-primary="\\"Add chat\\""
