@@ -8,6 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
@@ -63,7 +64,9 @@ class SideBar extends React.Component {
         <Divider />
         <List>
           <ListItem button key="add_chat" onClick={openAddChatDialog}>
-            <AddBoxIcon color="primary" className={classes.addChatIcon} />
+            <ListItemAvatar>
+              <AddBoxIcon color="primary" className={classes.addChatIcon} />
+            </ListItemAvatar>
             <ListItemText primary="Add chat" />
           </ListItem>
 
@@ -130,8 +133,8 @@ const styles = (theme) => ({
     ...theme.mixins.toolbar,
   },
   addChatIcon: {
-    fontSize: theme.spacing(7),
-    marginLeft: -theme.spacing(1),
+    fontSize: theme.spacing(6),
+    marginLeft: -theme.spacing(0.5),
   },
 });
 
