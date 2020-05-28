@@ -1,10 +1,8 @@
 import React from 'react';
 import { ValidatorForm } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
@@ -80,85 +78,92 @@ class SignIn extends React.Component {
   };
 
   render() {
-    const { loginError, registerError, classes } = this.props;
+    const { loginError, registerError } = this.props;
     const {
       email, password, name, remember, variant,
     } = this.state;
 
     return (
-      <main className={classes.main}>
-        <CssBaseline />
-        <Paper elevation={2} className={classes.paper}>
-          <AppBar position="static">
-            <Tabs
-              value={variant}
-              onChange={this.handleTabChange}
-              variant="fullWidth"
-              classes={{ indicator: classes.tabsIndicator }}
-            >
-              <Tab value={SIGN_IN} label="Sign in" />
-              <Tab value={REGISTER} label="Register" />
-            </Tabs>
-          </AppBar>
-          <div className={classes.container}>
-            <Avatar className={classes.icon}>
-              {variant === SIGN_IN && <LockOutlinedIcon />}
-              {variant === REGISTER && <PersonAddIcon />}
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              {variant === SIGN_IN && 'Sign in'}
-              {variant === REGISTER && 'Register'}
-            </Typography>
-            <ValidatorForm
-              className={classes.form}
-              onSubmit={this.handleSubmit}
-            >
-              {loginError && variant === SIGN_IN && (
-                <FormHelperText error>{loginError}</FormHelperText>
-              )}
-              {registerError && variant === REGISTER && (
-                <FormHelperText error>{registerError}</FormHelperText>
-              )}
-              {variant === REGISTER && (
-                <>
-                  <AvatarSelector avatarFileInput={this.avatarFileInput} />
-                  <UserNameField
-                    value={name}
-                    onChange={this.handleInputChange}
-                  />
-                </>
-              )}
-              <UserEmailField value={email} onChange={this.handleInputChange} />
-              <UserPasswordField
-                value={password}
-                onChange={this.handleInputChange}
-              />
-              <FormControlLabel
-                control={(
-                  <Checkbox
-                    value="remember"
-                    name="remember"
-                    checked={remember}
-                    color="primary"
-                    onChange={this.handleInputChange}
-                  />
-)}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
+      <Box pt={8} px={2} width="100%" alignItems="center" display="flex" flexDirection="column">
+        <Paper elevation={2}>
+          <Box width={{ all: 'auot', sm: '500px' }}>
+            <AppBar position="static">
+              <Tabs
+                value={variant}
+                onChange={this.handleTabChange}
+                variant="fullWidth"
               >
+                <Tab value={SIGN_IN} label="Sign in" />
+                <Tab value={REGISTER} label="Register" />
+              </Tabs>
+            </AppBar>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              p={3}
+            >
+              <Box p={1}>
+                {variant === SIGN_IN && <LockOutlinedIcon color="primary" fontSize="large" />}
+                {variant === REGISTER && <PersonAddIcon color="primary" fontSize="large" />}
+              </Box>
+              <Typography component="h1" variant="h5">
                 {variant === SIGN_IN && 'Sign in'}
                 {variant === REGISTER && 'Register'}
-              </Button>
-            </ValidatorForm>
-          </div>
+              </Typography>
+              <Box mt={1}>
+                <ValidatorForm
+                  onSubmit={this.handleSubmit}
+                >
+                  {loginError && variant === SIGN_IN && (
+                  <FormHelperText error>{loginError}</FormHelperText>
+                  )}
+                  {registerError && variant === REGISTER && (
+                  <FormHelperText error>{registerError}</FormHelperText>
+                  )}
+                  {variant === REGISTER && (
+                  <>
+                    <AvatarSelector avatarFileInput={this.avatarFileInput} />
+                    <UserNameField
+                      value={name}
+                      onChange={this.handleInputChange}
+                    />
+                  </>
+                  )}
+                  <UserEmailField value={email} onChange={this.handleInputChange} />
+                  <UserPasswordField
+                    value={password}
+                    onChange={this.handleInputChange}
+                  />
+                  <FormControlLabel
+                    control={(
+                      <Checkbox
+                        value="remember"
+                        name="remember"
+                        checked={remember}
+                        color="primary"
+                        onChange={this.handleInputChange}
+                      />
+)}
+                    label="Remember me"
+                  />
+                  <Box mt={3}>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                    >
+                      {variant === SIGN_IN && 'Sign in'}
+                      {variant === REGISTER && 'Register'}
+                    </Button>
+                  </Box>
+                </ValidatorForm>
+              </Box>
+            </Box>
+          </Box>
         </Paper>
-      </main>
+      </Box>
     );
   }
 }
@@ -168,48 +173,10 @@ SignIn.defaultProps = {
   registerError: null,
 };
 SignIn.propTypes = {
-  classes: PropTypes.instanceOf(Object).isRequired,
   onSignIn: PropTypes.func.isRequired,
   onRegister: PropTypes.func.isRequired,
   loginError: PropTypes.string,
   registerError: PropTypes.string,
 };
 
-const styles = (theme) => ({
-  main: {
-    width: 'auto',
-    display: 'block', // Fix IE 11 issue.
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    [theme.breakpoints.up(500 + theme.spacing(3) * 2)]: {
-      width: 500,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: theme.spacing(3),
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-  },
-  icon: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    marginTop: theme.spacing(3),
-  },
-  tabsIndicator: {
-    backgroundColor: '#fff',
-  },
-});
-
-export default withStyles(styles)(SignIn);
+export default SignIn;

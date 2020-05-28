@@ -1,9 +1,10 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { blue } from '@material-ui/core/colors';
+import { amber, blue } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
   palette: {
     primary: blue,
+    secondary: amber,
   },
   overrides: {
     MuiCssBaseline: {
