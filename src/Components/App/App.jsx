@@ -10,7 +10,9 @@ const App = ({
   isLoggedIn,
   loginFromStore,
 }) => {
-  useEffect(() => loginFromStore(), [loginFromStore]);
+  useEffect(() => {
+    loginFromStore();
+  }, [loginFromStore]);
 
   let result;
   if (!isLoggedIn) {
