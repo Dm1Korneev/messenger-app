@@ -52,7 +52,7 @@ class AvatarSelector extends React.Component {
 
   render() {
     const { avatar } = this.state;
-    const { classes, avatarFileInput } = this.props;
+    const { classes, avatarFileInput, disabled } = this.props;
 
     return (
       <div className={classes.avatarSelector}>
@@ -60,7 +60,7 @@ class AvatarSelector extends React.Component {
           <UsersAvatar avatar={avatar} size={60} />
         </div>
         <div className={classes.avatarSelector__labalButtons}>
-          <InputLabel>
+          <InputLabel disabled={disabled}>
             <span>Avatar</span>
             <input
               accept="image/*"
@@ -75,6 +75,7 @@ class AvatarSelector extends React.Component {
                 component="span"
                 size="small"
                 className={classes.button}
+                disabled={disabled}
               >
                 <CloudUploadIcon className={classes.leftIcon} />
                 Upload
@@ -85,6 +86,7 @@ class AvatarSelector extends React.Component {
                 size="small"
                 className={classes.button}
                 onClick={this.handlerRemoveButton}
+                disabled={disabled}
               >
                 <ClearIcon className={classes.leftIcon} />
                 Remove
@@ -102,11 +104,13 @@ AvatarSelector.propTypes = {
   avatarFileInput: PropTypes.instanceOf(Object).isRequired,
   onChange: PropTypes.func,
   avatar: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 AvatarSelector.defaultProps = {
   onChange: () => {},
   avatar: undefined,
+  disabled: false,
 };
 
 const styles = (theme) => ({

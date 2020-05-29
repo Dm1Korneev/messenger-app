@@ -10,22 +10,20 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-import UserEmailField from 'Components/UserEmailFieldNew';
+import UserEmailField from 'Components/UserEmailField';
 import AvatarSelector from 'Components/AvatarSelector';
-import UserNameField from 'Components/UserNameFieldNew';
-import UserPasswordField from 'Components/UserPasswordFieldNew';
+import UserNameField from 'Components/UserNameField';
+import UserPasswordField from 'Components/UserPasswordField';
+import {
+  email as emailValidation,
+  name as nameValidation,
+  password as passwordValidation,
+} from 'Common/validation';
 
-const SignupSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2)
-    .max(50)
-    .required(),
-  email: Yup.string()
-    .email()
-    .required(),
-  password: Yup.string()
-    .min(6)
-    .required(),
+const validationSchema = Yup.object().shape({
+  email: emailValidation,
+  password: passwordValidation,
+  name: nameValidation,
 });
 
 const DEFAULT_PASSWORD = '**********';
@@ -63,7 +61,7 @@ const UserModifyDialog = ({
           email: user.email,
           password: DEFAULT_PASSWORD,
         }}
-        validationSchema={SignupSchema}
+        validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         {({ isSubmitting, submitForm }) => (

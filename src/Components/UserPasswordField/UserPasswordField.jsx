@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { TextValidator } from 'react-material-ui-form-validator';
-import PropTypes from 'prop-types';
+import { TextField } from 'formik-material-ui';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
@@ -8,7 +7,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const ENTER_KEY_CODE = 13;
 
-const UserPasswordField = ({ value, onChange }) => {
+const UserPasswordField = (props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleOnMouseDownShowPassword = () => {
@@ -30,18 +29,12 @@ const UserPasswordField = ({ value, onChange }) => {
   };
 
   return (
-    <TextValidator
+    <TextField
       margin="normal"
       label="Password *"
       fullWidth
-      onChange={onChange}
-      name="password"
       type={showPassword ? 'text' : 'password'}
-      id="password"
       autoComplete="current-password"
-      value={value}
-      validators={['required', 'minStringLength:6']}
-      errorMessages={['this field is required', 'minimum length 6 symbols']}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -59,16 +52,9 @@ const UserPasswordField = ({ value, onChange }) => {
           </InputAdornment>
         ),
       }}
+      {...props}
     />
   );
-};
-
-UserPasswordField.defaultProps = {
-  value: undefined,
-};
-UserPasswordField.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default UserPasswordField;
