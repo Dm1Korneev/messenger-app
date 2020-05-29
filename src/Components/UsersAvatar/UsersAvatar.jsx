@@ -12,7 +12,7 @@ function UsersAvatar(props) {
 
   return (
     <Avatar variant="rounded" alt={author} src={avatar} style={style}>
-      {!avatar && <AccountIcon style={{ fontSize: 40 }} />}
+      {!avatar && <AccountIcon fontSize="large" />}
     </Avatar>
   );
 }
