@@ -2,86 +2,105 @@
 
 exports[`render SignIn component snapshot test 1`] = `
 <DocumentFragment>
-  <main
-    class="SignIn-main-1"
+  <div
+    data-originalcomponent="Box"
+    test-prop-alignitems="\\"center\\""
+    test-prop-display="\\"flex\\""
+    test-prop-flexdirection="\\"column\\""
+    test-prop-pt="8"
+    test-prop-px="2"
+    test-prop-width="\\"100%\\""
   >
     <div
-      data-originalcomponent="CssBaseline"
-    />
-    <div
       data-originalcomponent="Paper"
-      test-prop-classname="\\"SignIn-paper-3\\""
       test-prop-elevation="2"
     >
       <div
-        data-originalcomponent="AppBar"
-        test-prop-position="\\"static\\""
+        data-originalcomponent="Box"
+        test-prop-maxwidth="\\"30rem\\""
       >
         <div
-          data-originalcomponent="Tabs"
-          test-prop-classes="{\\"indicator\\":\\"SignIn-tabsIndicator-7\\"}"
-          test-prop-value="\\"SIGN_IN\\""
-          test-prop-variant="\\"fullWidth\\""
+          data-originalcomponent="AppBar"
+          test-prop-position="\\"static\\""
         >
           <div
-            data-originalcomponent="Tab"
-            test-prop-label="\\"Sign in\\""
+            data-originalcomponent="Tabs"
             test-prop-value="\\"SIGN_IN\\""
-          />
-          <div
-            data-originalcomponent="Tab"
-            test-prop-label="\\"Register\\""
-            test-prop-value="\\"REGISTER\\""
-          />
-        </div>
-      </div>
-      <div
-        class="SignIn-container-2"
-      >
-        <div
-          data-originalcomponent="Avatar"
-          test-prop-classname="\\"SignIn-icon-4\\""
-        >
-          <div
-            data-originalcomponent="LockOutlined"
-          />
+            test-prop-variant="\\"fullWidth\\""
+          >
+            <div
+              data-originalcomponent="Tab"
+              test-prop-label="\\"Sign in\\""
+              test-prop-value="\\"SIGN_IN\\""
+            />
+            <div
+              data-originalcomponent="Tab"
+              test-prop-label="\\"Register\\""
+              test-prop-value="\\"REGISTER\\""
+            />
+          </div>
         </div>
         <div
-          data-originalcomponent="Typography"
-          test-prop-component="\\"h1\\""
-          test-prop-variant="\\"h5\\""
-        >
-          Sign in
-        </div>
-        <form
-          class="SignIn-form-5"
+          data-originalcomponent="Box"
+          test-prop-alignitems="\\"center\\""
+          test-prop-display="\\"flex\\""
+          test-prop-flexdirection="\\"column\\""
+          test-prop-p="3"
         >
           <div
-            data-originalcomponent="UserEmailField"
-            test-prop-value="\\"\\""
-          />
+            data-originalcomponent="Box"
+            test-prop-p="1"
+          >
+            <div
+              data-originalcomponent="LockOutlined"
+              test-prop-color="\\"primary\\""
+              test-prop-fontsize="\\"large\\""
+            />
+          </div>
           <div
-            data-originalcomponent="UserPasswordField"
-            test-prop-value="\\"\\""
-          />
-          <div
-            data-originalcomponent="FormControlLabel"
-            test-prop-control="<div data-originalcomponent=\\"Checkbox\\" test-prop-value=\\"&quot;remember&quot;\\" test-prop-name=\\"&quot;remember&quot;\\" test-prop-checked=\\"false\\" test-prop-color=\\"&quot;primary&quot;\\" data-reactroot=\\"\\"></div>"
-            test-prop-label="\\"Remember me\\""
-          />
-          <div
-            data-originalcomponent="Button"
-            test-prop-classname="\\"SignIn-submit-6\\""
-            test-prop-color="\\"primary\\""
-            test-prop-fullwidth="true"
-            test-prop-type="\\"submit\\""
-            test-prop-variant="\\"contained\\""
+            data-originalcomponent="Typography"
+            test-prop-component="\\"h1\\""
+            test-prop-variant="\\"h5\\""
           >
             Sign in
           </div>
-        </form>
+          <div
+            data-originalcomponent="Box"
+            test-prop-mt="1"
+          >
+            <form>
+              <div
+                data-originalcomponent="UserEmailField"
+                test-prop-value="\\"\\""
+              />
+              <div
+                data-originalcomponent="UserPasswordField"
+                test-prop-value="\\"\\""
+              />
+              <div
+                data-originalcomponent="FormControlLabel"
+                test-prop-control="<div data-originalcomponent=\\"Checkbox\\" test-prop-value=\\"&quot;remember&quot;\\" test-prop-name=\\"&quot;remember&quot;\\" test-prop-checked=\\"false\\" test-prop-color=\\"&quot;primary&quot;\\" data-reactroot=\\"\\"></div>"
+                test-prop-label="\\"Remember me\\""
+              />
+              <div
+                data-originalcomponent="Box"
+                test-prop-mt="3"
+              >
+                <div
+                  data-originalcomponent="Button"
+                  test-prop-color="\\"primary\\""
+                  test-prop-fullwidth="true"
+                  test-prop-type="\\"submit\\""
+                  test-prop-variant="\\"contained\\""
+                >
+                  Sign in
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </main>
+  </div>
 </DocumentFragment>
 `;

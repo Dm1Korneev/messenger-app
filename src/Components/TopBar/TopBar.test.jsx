@@ -10,6 +10,7 @@ jest.mock('@material-ui/core/AppBar', () => mockComponent('AppBar'));
 jest.mock('@material-ui/core/Toolbar', () => mockComponent('Toolbar'));
 jest.mock('@material-ui/core/IconButton', () => mockComponent('IconButton'));
 jest.mock('@material-ui/core/Button', () => mockComponent('Button'));
+jest.mock('@material-ui/core/Box', () => mockComponent('Box'));
 jest.mock('@material-ui/icons/Menu', () => mockComponent('Menu'));
 jest.mock('@material-ui/icons/Create', () => mockComponent('Create'));
 

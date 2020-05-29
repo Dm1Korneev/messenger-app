@@ -86,7 +86,7 @@ class SignIn extends React.Component {
     return (
       <Box pt={8} px={2} width="100%" alignItems="center" display="flex" flexDirection="column">
         <Paper elevation={2}>
-          <Box width={{ all: 'auot', sm: '500px' }}>
+          <Box maxWidth="30rem">
             <AppBar position="static">
               <Tabs
                 value={variant}

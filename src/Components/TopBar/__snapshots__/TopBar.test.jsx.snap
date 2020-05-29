@@ -4,40 +4,46 @@ exports[`render TopBar component snapshot test 1`] = `
 <DocumentFragment>
   <div
     data-originalcomponent="AppBar"
-    test-prop-classname="\\"TopBar-appBar-1\\""
-    test-prop-position="\\"absolute\\""
+    test-prop-classname="\\"makeStyles-appBar-1\\""
+    test-prop-position="\\"fixed\\""
   >
     <div
       data-originalcomponent="Toolbar"
-      test-prop-classname="\\"TopBar-toolbar-3\\""
-      test-prop-disablegutters="true"
     >
       <div
-        data-originalcomponent="IconButton"
-        test-prop-aria-label="\\"Open drawer\\""
-        test-prop-classname="\\"TopBar-menuButton-4\\""
-        test-prop-color="\\"inherit\\""
+        data-originalcomponent="Box"
+        test-prop-hidden="false"
+        test-prop-mr="2"
       >
-        <div
-          data-originalcomponent="Menu"
-        />
-      </div>
-      <div
-        data-originalcomponent="Typography"
-        test-prop-classname="\\"TopBar-title-6\\""
-        test-prop-color="\\"inherit\\""
-        test-prop-component="\\"h1\\""
-        test-prop-nowrap="true"
-        test-prop-variant="\\"h6\\""
-      >
-        name
         <div
           data-originalcomponent="IconButton"
+          test-prop-aria-label="\\"Open drawer\\""
           test-prop-color="\\"inherit\\""
+          test-prop-edge="\\"start\\""
         >
           <div
-            data-originalcomponent="Create"
+            data-originalcomponent="Menu"
           />
+        </div>
+      </div>
+      <div
+        data-originalcomponent="Box"
+        test-prop-flexgrow="\\"1\\""
+      >
+        <div
+          data-originalcomponent="Typography"
+          test-prop-color="\\"inherit\\""
+          test-prop-variant="\\"h6\\""
+        >
+          name
+          <div
+            data-originalcomponent="IconButton"
+            test-prop-color="\\"inherit\\""
+          >
+            <div
+              data-originalcomponent="Create"
+            />
+          </div>
         </div>
       </div>
       <div

@@ -2,12 +2,17 @@
 
 exports[`render app when not logged snapshot test 1`] = `
 <DocumentFragment>
-  <main
-    class="App-root-2"
+  <div
+    data-originalcomponent="Box"
+    test-prop-display="\\"flex\\""
+    test-prop-height="\\"100vh\\""
   >
+    <div
+      data-originalcomponent="CssBaseline"
+    />
     <div
       data-originalcomponent="SignIn"
     />
-  </main>
+  </div>
 </DocumentFragment>
 `;

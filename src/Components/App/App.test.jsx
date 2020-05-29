@@ -14,6 +14,7 @@ jest.mock('Components/SignIn', () => mockComponent('SignIn'));
 jest.mock('Components/SideBar', () => mockComponent('SideBar'));
 jest.mock('Components/TopBar', () => mockComponent('TopBar'));
 jest.mock('Components/MainContent', () => mockComponent('MainContent'));
+jest.mock('@material-ui/core/Box', () => mockComponent('Box'));
 jest.mock('@material-ui/core/CssBaseline', () => mockComponent('CssBaseline'));
 
 describe('render app when not logged', () => {

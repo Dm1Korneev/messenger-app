@@ -21,6 +21,7 @@ jest.mock('@material-ui/core/AppBar', () => mockComponent('AppBar'));
 jest.mock('@material-ui/core/Tabs', () => mockComponent('Tabs'));
 jest.mock('@material-ui/core/Tab', () => mockComponent('Tab'));
 jest.mock('@material-ui/core/FormHelperText', () => mockComponent('FormHelperText'));
+jest.mock('@material-ui/core/Box', () => mockComponent('Box'));
 jest.mock('@material-ui/icons/LockOutlined', () => mockComponent('LockOutlined'));
 jest.mock('@material-ui/icons/PersonAddOutlined', () => mockComponent('PersonAddOutlined'));
 
