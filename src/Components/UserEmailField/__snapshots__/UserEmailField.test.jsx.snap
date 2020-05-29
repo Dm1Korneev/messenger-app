@@ -5,7 +5,6 @@ exports[`render UserEmailField component snapshot test 1`] = `
   <div
     data-originalcomponent="TextValidator"
     test-prop-autocomplete="\\"email\\""
-    test-prop-color="\\"primary\\""
     test-prop-errormessages="[\\"this field is required\\",\\"email is not valid\\"]"
     test-prop-fullwidth="true"
     test-prop-id="\\"email\\""

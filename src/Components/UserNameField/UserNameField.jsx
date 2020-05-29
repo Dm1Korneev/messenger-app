@@ -14,7 +14,6 @@ function UserNameField(props) {
       name="name"
       id="name"
       autoComplete="name"
-      color="primary"
       value={value}
       validators={['required']}
       errorMessages={['this field is required']}

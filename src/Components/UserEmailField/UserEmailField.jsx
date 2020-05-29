@@ -14,7 +14,6 @@ function UserEmailField(props) {
       name="email"
       id="email"
       autoComplete="email"
-      color="primary"
       value={value}
       validators={['required', 'isEmail']}
       errorMessages={['this field is required', 'email is not valid']}

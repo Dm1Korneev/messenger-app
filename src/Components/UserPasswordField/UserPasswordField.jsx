@@ -39,7 +39,6 @@ const UserPasswordField = ({ value, onChange }) => {
       type={showPassword ? 'text' : 'password'}
       id="password"
       autoComplete="current-password"
-      color="primary"
       value={value}
       validators={['required', 'minStringLength:6']}
       errorMessages={['this field is required', 'minimum length 6 symbols']}
