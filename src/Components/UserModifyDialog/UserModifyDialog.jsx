@@ -1,5 +1,4 @@
-import React from 'react';
-import { ValidatorForm } from 'react-material-ui-form-validator';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,113 +6,101 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
 
+import UserEmailField from 'Components/UserEmailFieldNew';
 import AvatarSelector from 'Components/AvatarSelector';
-import UserEmailField from 'Components/UserEmailField';
-import UserNameField from 'Components/UserNameField';
-import UserPasswordField from 'Components/UserPasswordField';
+import UserNameField from 'Components/UserNameFieldNew';
+import UserPasswordField from 'Components/UserPasswordFieldNew';
 
-class UserModifyDialog extends React.Component {
-  constructor(props) {
-    super(props);
+const SignupSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2)
+    .max(50)
+    .required(),
+  email: Yup.string()
+    .email()
+    .required(),
+  password: Yup.string()
+    .min(6)
+    .required(),
+});
 
-    this.state = {
-      name: props.user.name,
-      email: props.user.email,
-      password: '**********',
-      nameIsModified: false,
-      emailIsModified: false,
-      avatarIsModified: false,
-      passwordIsModified: false,
-    };
-    this.avatarFileInput = React.createRef();
-  }
+const DEFAULT_PASSWORD = '**********';
 
-  avatarOnChange = () => {
-    this.setState({
-      avatarIsModified: true,
-    });
+const UserModifyDialog = ({
+  user, error, closeUserModifyDialog, onSave,
+}) => {
+  const [avatarIsModified, setAvatarIsModified] = useState(false);
+
+  const avatarFileInput = useRef();
+
+  const avatarOnChange = () => {
+    setAvatarIsModified(true);
   };
 
-  handleInputChange = (event) => {
-    const { target } = event;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const { name } = target;
-
-    this.setState({
-      [name]: value,
-      [`${name}IsModified`]: true,
-    });
-  };
-
-  onSubmit = () => {
-    const {
-      name,
-      email,
-      password,
-      nameIsModified,
-      emailIsModified,
-      avatarIsModified,
-      passwordIsModified,
-    } = this.state;
-    const { onSave, user } = this.props;
-
-    let options = {};
-    if (nameIsModified) {
-      options = { ...options, name };
-    }
-    if (emailIsModified) {
-      options = { ...options, email };
-    }
-    if (passwordIsModified) {
-      options = { ...options, password };
+  const onSubmit = (values) => {
+    const { name, email, password } = values;
+    const options = { name, email };
+    if (password !== DEFAULT_PASSWORD) {
+      options.password = password;
     }
     if (avatarIsModified) {
-      options = {
-        ...options,
-        avatar: this.avatarFileInput.current.files[0],
-      };
+      const [avatarValue] = avatarFileInput.current.files;
+      options.avatar = avatarValue;
     }
 
     onSave({ userId: user._id, options });
   };
 
-  render() {
-    const { closeUserModifyDialog, user, error } = this.props;
-    const { name, email, password } = this.state;
-    const { avatar } = user;
-
-    return (
-      <Dialog open onClose={closeUserModifyDialog}>
-        <DialogTitle>Modify user</DialogTitle>
-        <DialogContent>
-          <ValidatorForm id="validatorForm" onSubmit={this.onSubmit}>
-            {error && <FormHelperText error>{error}</FormHelperText>}
-            <AvatarSelector
-              onChange={this.avatarOnChange}
-              avatar={avatar}
-              avatarFileInput={this.avatarFileInput}
-            />
-            <UserNameField value={name} onChange={this.handleInputChange} />
-            <UserEmailField value={email} onChange={this.handleInputChange} />
-            <UserPasswordField
-              value={password}
-              onChange={this.handleInputChange}
-            />
-          </ValidatorForm>
-        </DialogContent>
-        <DialogActions>
-          <Button type="submit" color="primary" form="validatorForm">
-            Save
-          </Button>
-          <Button onClick={closeUserModifyDialog} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
-}
+  return (
+    <Dialog open onClose={closeUserModifyDialog}>
+      <Formik
+        initialValues={{
+          name: user.name,
+          email: user.email,
+          password: DEFAULT_PASSWORD,
+        }}
+        validationSchema={SignupSchema}
+        onSubmit={onSubmit}
+      >
+        {({ isSubmitting, submitForm }) => (
+          <Form>
+            <DialogTitle>Modify user</DialogTitle>
+            <DialogContent>
+              {error && <FormHelperText error>{error}</FormHelperText>}
+              <AvatarSelector
+                onChange={avatarOnChange}
+                avatar={user.avatar}
+                avatarFileInput={avatarFileInput}
+              />
+              <Field component={UserNameField} name="name" />
+              <Field component={UserEmailField} name="email" />
+              <Field component={UserPasswordField} name="password" />
+              {isSubmitting && <LinearProgress />}
+            </DialogContent>
+            <DialogActions>
+              <Button
+                type="submit"
+                color="primary"
+                form="validatorForm"
+                disabled={isSubmitting}
+                onClick={submitForm}
+              >
+                Save
+              </Button>
+              <Button onClick={closeUserModifyDialog} color="primary">
+                Close
+              </Button>
+            </DialogActions>
+          </Form>
+        )}
+      </Formik>
+    </Dialog>
+  );
+};
 
 UserModifyDialog.defaultProps = {
   error: undefined,
