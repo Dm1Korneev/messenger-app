@@ -7,7 +7,7 @@ const MessageText = ({ text, isCurrentUserMessage }) => {
   const flexDirection = isCurrentUserMessage ? 'row' : 'row-reverse';
 
   return (
-    <Box display="flex" flex="1" flexDirection={flexDirection} pt={1} px={2}>
+    <Box display="flex" flex="1" flexDirection={flexDirection} pt={1}>
       <Typography variant="body2">
         {text}
       </Typography>

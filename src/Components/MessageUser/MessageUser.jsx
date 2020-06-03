@@ -11,16 +11,13 @@ const useStyles = makeStyles((theme) => ({
   ListItemText: {
     backgroundColor: theme.palette.background.default,
     zIndex: 999,
-    padding: theme.spacing(0, 2),
   },
 }));
 
-const MessageUser = (props) => {
+const MessageUser = ({
+  isCurrentUserMessage, author, avatar, children,
+}) => {
   const classes = useStyles();
-
-  const {
-    isCurrentUserMessage, author, avatar, children,
-  } = props;
 
   const flexDirection = isCurrentUserMessage ? 'row-reverse' : 'row';
 
@@ -35,7 +32,7 @@ const MessageUser = (props) => {
         <Box position="sticky" top={0}>
           <UsersAvatar author={author} avatar={avatar} />
         </Box>
-        <Box display="flex" flex="1" flexDirection="column">
+        <Box display="flex" flex="1" flexDirection="column" px={2}>
           <Box
             position="sticky"
             top={0}

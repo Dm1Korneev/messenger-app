@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
 
 import MessageDateTime from 'Components/MessageDateTime';
 import MessageText from 'Components/MessageText';
@@ -89,7 +90,7 @@ class MessagesList extends React.Component {
                   dateTime={dateTime}
                   isCurrentUserMessage={isCurrentUserMessage}
                 >
-                  <List disablePadding>{childrenComponentsDateTime}</List>
+                  <Box display="flex" flexDirection="column">{childrenComponentsDateTime}</Box>
                 </MessageDateTime>
               );
             },
@@ -114,7 +115,7 @@ class MessagesList extends React.Component {
                 avatar={avatar}
                 isCurrentUserMessage={isCurrentUserMessage}
               >
-                <List disablePadding>{childrenComponentsAuthor}</List>
+                <Box display="flex" flexDirection="column">{childrenComponentsAuthor}</Box>
               </MessageUser>
             </Fragment>
           );
