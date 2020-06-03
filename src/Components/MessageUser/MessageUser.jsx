@@ -1,90 +1,68 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
 import UsersAvatar from 'Components/UsersAvatar';
 
-function MessageUser(props) {
+const useStyles = makeStyles((theme) => ({
+  ListItemText: {
+    backgroundColor: theme.palette.background.default,
+    zIndex: 999,
+    padding: theme.spacing(0, 2),
+  },
+}));
+
+const MessageUser = (props) => {
+  const classes = useStyles();
+
   const {
-    isCurrentUserMessage, author, avatar, children, classes,
+    isCurrentUserMessage, author, avatar, children,
   } = props;
 
-  const ListItemTextClass = classNames(
-    classes.ListItemText,
-    isCurrentUserMessage && classes.reverse,
-  );
-
-  const ListItemClass = classNames(
-    classes.ListItem,
-    isCurrentUserMessage && classes.reverse,
-  );
+  const flexDirection = isCurrentUserMessage ? 'row-reverse' : 'row';
 
   return (
-    <ListItem className={ListItemClass}>
-      <div className={classes.sticky}>
-        <UsersAvatar author={author} avatar={avatar} />
-      </div>
-      <div className={classes.textContent}>
-        <ListItemText
-          className={classNames(ListItemTextClass, classes.sticky)}
-          primary={(
+    <ListItem>
+      <Box
+        display="flex"
+        flex="1"
+        alignItems="start"
+        flexDirection={flexDirection}
+      >
+        <Box position="sticky" top={0}>
+          <UsersAvatar author={author} avatar={avatar} />
+        </Box>
+        <Box display="flex" flex="1" flexDirection="column">
+          <Box
+            position="sticky"
+            top={0}
+            display="flex"
+            flexDirection={flexDirection}
+            className={classes.ListItemText}
+          >
             <Typography
               component="span"
-              className={classes.ListItemText__author}
+              variant="subtitle2"
             >
               {author}
             </Typography>
-          )}
-        />
-        {children}
-      </div>
+          </Box>
+          {children}
+        </Box>
+      </Box>
     </ListItem>
   );
-}
+};
 
 MessageUser.propTypes = {
-  classes: PropTypes.instanceOf(Object).isRequired,
   isCurrentUserMessage: PropTypes.bool.isRequired,
   author: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired,
 };
 
-const styles = (theme) => ({
-  ListItemText: {
-    backgroundColor: theme.palette.background.default,
-    zIndex: 999,
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: theme.spacing(0, 2),
-  },
-  ListItemText_reverse: {
-    display: 'flex',
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-between',
-  },
-  reverse: {
-    flexDirection: 'row-reverse',
-  },
-  ListItem: {
-    alignItems: 'start',
-  },
-  textContent: {
-    flexGrow: 1,
-  },
-  ListItemText__author: {
-    fontSize: theme.typography.pxToRem(12),
-    fontWeight: 700,
-  },
-  sticky: {
-    position: 'sticky',
-    top: 0,
-  },
-});
-
-export default withStyles(styles)(MessageUser);
+export default MessageUser;
 
