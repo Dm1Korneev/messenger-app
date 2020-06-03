@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import AccountIcon from '@material-ui/icons/AccountCircleOutlined';
 
-function UsersAvatar(props) {
-  const {
-    avatar, author, size,
-  } = props;
-
+const UsersAvatar = ({ avatar, author, size }) => {
   const style = size ? { width: size, height: size } : {};
 
   return (
@@ -15,7 +11,7 @@ function UsersAvatar(props) {
       {!avatar && <AccountIcon fontSize="large" />}
     </Avatar>
   );
-}
+};
 
 UsersAvatar.defaultProps = {
   size: undefined,
