@@ -5,11 +5,6 @@ import { mockComponent } from 'testing/utils';
 
 import ChatDialog from './ChatDialog';
 
-jest.mock('react-material-ui-form-validator', () => ({
-  ValidatorForm: mockComponent('ValidatorForm'),
-  TextValidator: mockComponent('TextValidator'),
-}));
-
 jest.mock('Components/UsersAvatar', () => mockComponent('UsersAvatar'));
 jest.mock('Components/AvatarSelector', () => mockComponent('AvatarSelector'));
 

@@ -5,9 +5,6 @@ import { mockComponent } from 'testing/utils';
 
 import UserModifyDialog from './UserModifyDialog';
 
-jest.mock('react-material-ui-form-validator', () => ({
-  ValidatorForm: mockComponent('ValidatorForm'),
-}));
 jest.mock('@material-ui/core/Button', () => mockComponent('Button'));
 jest.mock('@material-ui/core/Dialog', () => mockComponent('Dialog'));
 jest.mock('@material-ui/core/DialogActions', () => mockComponent('DialogActions'));
