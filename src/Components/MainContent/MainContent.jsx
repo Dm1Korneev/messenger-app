@@ -11,14 +11,17 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
     height: '100%',
   },
-  appBarSpacer: { marginTop: theme.spacing(1), ...theme.mixins.toolbar },
+  appBarSpacer: {
+    marginTop: theme.spacing(1),
+    ...theme.mixins.toolbar,
+  },
 }));
 
 function MainContent() {
   const classes = useStyles();
 
   return (
-    <Box>
+    <Box width="100%">
       <Grid item xs={12} sm={11} md={10} lg={9} className={classes.grid}>
         <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
           <Box className={classes.appBarSpacer} />
