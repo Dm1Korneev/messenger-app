@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MainContent() {
+const MainContent = () => {
   const classes = useStyles();
 
   return (
@@ -31,6 +31,6 @@ function MainContent() {
       </Grid>
     </Box>
   );
-}
+};
 
 export default MainContent;
