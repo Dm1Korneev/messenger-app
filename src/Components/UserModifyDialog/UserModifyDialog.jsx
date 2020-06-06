@@ -35,7 +35,8 @@ const UserModifyDialog = ({
 
   const avatarFileInput = useRef();
 
-  const avatarOnChange = () => {
+  const avatarOnChange = (value) => {
+    avatarFileInput.current.value = value;
     setAvatarIsModified(true);
   };
 
