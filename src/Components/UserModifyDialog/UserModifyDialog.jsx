@@ -39,8 +39,7 @@ const UserModifyDialog = ({
     setAvatarIsModified(true);
   };
 
-  const onSubmit = (values) => {
-    const { name, email, password } = values;
+  const onSubmit = ({ name, email, password }) => {
     const options = { name, email };
     if (password !== DEFAULT_PASSWORD) {
       options.password = password;
@@ -83,7 +82,6 @@ const UserModifyDialog = ({
               <Button
                 type="submit"
                 color="primary"
-                form="validatorForm"
                 disabled={isSubmitting}
                 onClick={submitForm}
               >
