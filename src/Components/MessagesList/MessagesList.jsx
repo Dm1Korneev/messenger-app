@@ -1,135 +1,131 @@
-import React, { Fragment } from 'react';
+import React, {
+  Fragment, useEffect, useRef, useState,
+} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
 
 import MessageDateTime from 'Components/MessageDateTime';
 import MessageText from 'Components/MessageText';
 import MessageUser from 'Components/MessageUser';
 import { RELOAD_PERIOD } from 'Constants';
 
-class MessagesList extends React.Component {
-  messagesEnd = React.createRef();
+const useStyles = makeStyles((theme) => ({
+  list: {
+    overflow: 'auto',
+    flexGrow: 1,
+    padding: theme.spacing(0),
+  },
+}));
 
-  constructor(props) {
-    super(props);
+const MessagesList = ({
+  messagesTree, user, users, loadMessages,
+}) => {
+  const classes = useStyles();
+  const messagesEnd = useRef();
 
-    this.loadMessages = props.loadMessages;
-    this.interval = undefined;
-    this.state = { bottomPosition: true };
-  }
+  const [bottomPosition, setBottomPosition] = useState(true);
 
-  componentDidMount() {
-    this.scrollToBottom();
-    this.interval = setInterval(this.loadMessages, RELOAD_PERIOD);
-  }
-
-  componentDidUpdate() {
-    const { bottomPosition } = this.state;
-    if (bottomPosition) {
-      this.scrollToBottom();
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.interval) {
-      clearInterval(this.interval);
-    }
-  }
-
-  scrollToBottom = () => {
-    if (this.messagesEnd.current) {
-      this.messagesEnd.current.scrollIntoView({
+  const scrollToBottom = () => {
+    if (messagesEnd.current) {
+      messagesEnd.current.scrollIntoView({
         blok: 'end',
         behavior: 'smooth',
       });
     }
   };
 
-  handlerOnScroll = (event) => {
-    const { bottomPosition } = this.state;
+  useEffect(() => {
+    scrollToBottom();
+  }, [messagesTree]);
+
+  useEffect(() => {
+    const interval = setInterval(loadMessages, RELOAD_PERIOD);
+    return () => clearInterval(interval);
+  }, [loadMessages]);
+
+  useEffect(() => {
+    const interval = setInterval(loadMessages, RELOAD_PERIOD);
+    return () => clearInterval(interval);
+  }, [loadMessages]);
+
+  const handlerOnScroll = (event) => {
     const newBottomPosition = event.target.scrollHeight - event.target.offsetHeight
       === event.target.scrollTop;
     if (bottomPosition !== newBottomPosition) {
-      this.setState({ bottomPosition: newBottomPosition });
+      setBottomPosition(newBottomPosition);
     }
   };
 
-  render() {
-    const {
-      messagesTree, classes, user, users,
-    } = this.props;
+  return (
+    <List className={classes.list} onScroll={handlerOnScroll}>
+      {messagesTree.map((valueAuthor, indexAuthor) => {
+        const { author, childrens: childrensAuthor } = valueAuthor;
 
-    return (
-      <List className={classes.list} onScroll={this.handlerOnScroll}>
-        {messagesTree.map((valueAuthor, indexAuthor) => {
-          const { author, childrens: childrensAuthor } = valueAuthor;
+        const isCurrentUserMessage = user._id === author;
+        const firstDateTime = childrensAuthor[0].dateTime;
 
-          const isCurrentUserMessage = user._id === author;
-          const firstDateTime = childrensAuthor[0].dateTime;
+        const childrenComponentsAuthor = childrensAuthor.map(
+          (valueDateTime) => {
+            const { dateTime, childrens: childrensDateTime } = valueDateTime;
 
-          const childrenComponentsAuthor = childrensAuthor.map(
-            (valueDateTime) => {
-              const { dateTime, childrens: childrensDateTime } = valueDateTime;
-
-              const childrenComponentsDateTime = childrensDateTime.map(
-                (value) => (
-                  <MessageText
-                    key={value._id}
-                    text={value.text}
-                    isCurrentUserMessage={isCurrentUserMessage}
-                  />
-                ),
-              );
-
-              return (
-                <MessageDateTime
-                  key={`${author}-${dateTime}`}
-                  dateTime={dateTime}
+            const childrenComponentsDateTime = childrensDateTime.map(
+              (value) => (
+                <MessageText
+                  key={value._id}
+                  text={value.text}
                   isCurrentUserMessage={isCurrentUserMessage}
-                >
-                  <List disablePadding>{childrenComponentsDateTime}</List>
-                </MessageDateTime>
-              );
-            },
-          );
+                />
+              ),
+            );
 
-          const messageAuthor = users[author];
-
-          let name;
-          let avatar;
-          if (messageAuthor) {
-            name = messageAuthor.name;
-            avatar = messageAuthor.avatar;
-          }
-
-          return (
-            <Fragment key={`${author}-${firstDateTime}`}>
-              {indexAuthor > 0 && (
-                <Divider variant="middle" className={classes.Divider} />
-              )}
-              <MessageUser
-                author={name}
-                avatar={avatar}
+            return (
+              <MessageDateTime
+                key={`${author}-${dateTime}`}
+                dateTime={dateTime}
                 isCurrentUserMessage={isCurrentUserMessage}
               >
-                <List disablePadding>{childrenComponentsAuthor}</List>
-              </MessageUser>
-            </Fragment>
-          );
-        })}
-        <div ref={this.messagesEnd} />
-      </List>
-    );
-  }
-}
+                <Box display="flex" flexDirection="column">{childrenComponentsDateTime}</Box>
+              </MessageDateTime>
+            );
+          },
+        );
+
+        const messageAuthor = users[author];
+
+        let name;
+        let avatar;
+        if (messageAuthor) {
+          name = messageAuthor.name;
+          avatar = messageAuthor.avatar;
+        }
+
+        return (
+          <Fragment key={`${author}-${firstDateTime}`}>
+            {indexAuthor > 0 && (
+            <Divider variant="middle" />
+            )}
+            <MessageUser
+              author={name}
+              avatar={avatar}
+              isCurrentUserMessage={isCurrentUserMessage}
+            >
+              <Box display="flex" flexDirection="column">{childrenComponentsAuthor}</Box>
+            </MessageUser>
+          </Fragment>
+        );
+      })}
+      <div ref={messagesEnd} />
+    </List>
+  );
+};
 
 MessagesList.defaultProps = {
   messagesTree: [],
 };
 MessagesList.propTypes = {
-  classes: PropTypes.instanceOf(Object).isRequired,
   loadMessages: PropTypes.func.isRequired,
   messagesTree: PropTypes.arrayOf(PropTypes.object),
   user: PropTypes.shape({
@@ -138,16 +134,5 @@ MessagesList.propTypes = {
   users: PropTypes.instanceOf(Object).isRequired,
 };
 
-const styles = (theme) => ({
-  list: {
-    overflow: 'auto',
-    flexGrow: 1,
-    padding: 0,
-  },
-  Divider: {
-    marginTop: theme.spacing.unit,
-  },
-});
-
-export default withStyles(styles)(MessagesList);
+export default MessagesList;
 

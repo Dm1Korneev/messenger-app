@@ -1,27 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import { ListItem, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import CreateIcon from '@material-ui/icons/Create';
 
 import UsersAvatar from 'Components/UsersAvatar';
 
+const useStyles = makeStyles(() => ({
+  listItem: {
+    '&:hover': {
+      '& button': {
+        visibility: 'visible',
+      },
+    },
+  },
+  modifyButton: {
+    visibility: 'hidden',
+    color: '#FFF',
+  },
+}));
+
 const Chat = ({
-  selected, chatOnClick, chatModifyOnClick, classes, chat,
+  selected, chatOnClick, chatModifyOnClick, chat,
 }) => {
+  const classes = useStyles();
+
   const { title, avatar, _id } = chat;
 
   return (
     <ListItem
       button
       selected={selected}
-      onClick={() => {
-        chatOnClick(_id);
-      }}
+      onClick={chatOnClick}
       className={classes.listItem}
     >
-      <UsersAvatar author={title} avatar={avatar} />
+      <ListItemAvatar>
+        <UsersAvatar author={title} avatar={avatar} />
+      </ListItemAvatar>
       <ListItemText primary={title} />
       <IconButton
         onClick={() => {
@@ -38,7 +56,6 @@ const Chat = ({
 };
 
 Chat.propTypes = {
-  classes: PropTypes.instanceOf(Object).isRequired,
   selected: PropTypes.bool.isRequired,
   chatOnClick: PropTypes.func.isRequired,
   chatModifyOnClick: PropTypes.func.isRequired,
@@ -49,19 +66,5 @@ Chat.propTypes = {
   }).isRequired,
 };
 
-const styles = () => ({
-  listItem: {
-    '&:hover': {
-      '& button': {
-        visibility: 'visible',
-      },
-    },
-  },
-  modifyButton: {
-    visibility: 'hidden',
-    color: '#FFF',
-  },
-});
-
-export default withStyles(styles)(Chat);
+export default Chat;
 

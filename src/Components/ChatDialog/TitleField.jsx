@@ -1,15 +1,14 @@
 import React from 'react';
 import { TextField } from 'formik-material-ui';
 
-const UserNameField = (props) => (
+const TitleField = (props) => (
   <TextField
     margin="normal"
-    label="Name *"
+    label="Title *"
     fullWidth
-    name="name"
-    autoComplete="name"
+    name="title"
     {...props}
   />
 );
 
-export default UserNameField;
+export default TitleField;

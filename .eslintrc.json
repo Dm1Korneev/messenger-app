@@ -3,7 +3,7 @@
     "browser": true,
     "jest": true
   },
-  "extends": "airbnb",
+  "extends": ["react-app", "airbnb"],
   "parser": "babel-eslint",
   "plugins": [
     "react"
@@ -50,5 +50,5 @@
           "global-require": "off"
         }
     }
-]
+  ]
 }
