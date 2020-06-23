@@ -4,7 +4,46 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
-import moment from 'Common/moment';
+function getLang() {
+  if (navigator.languages) {
+    return navigator.languages[0];
+  }
+  return navigator.language;
+}
+
+const optionsLong = {
+  weekday: 'long',
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  dateStyle: 'full',
+  timeStyle: 'short',
+  minute: '2-digit',
+};
+const dateLongFormat = new Intl.DateTimeFormat(getLang(), optionsLong);
+
+const optionsShort = {
+  timeStyle: 'short',
+  minute: '2-digit',
+};
+const dateShortFormat = new Intl.DateTimeFormat(getLang(), optionsShort);
+
+const isToday = (someDate) => {
+  const today = new Date();
+  return someDate.getDate() === today.getDate()
+    && someDate.getMonth() === today.getMonth()
+    && someDate.getFullYear() === today.getFullYear();
+};
+
+const getDateTimeText = (value) => {
+  if (value) {
+    if (isToday(value)) {
+      return dateShortFormat.format(value);
+    }
+    return dateLongFormat.format(value);
+  }
+  return undefined;
+};
 
 const useStyles = makeStyles((theme) => ({
   ListItemText: {
@@ -13,22 +52,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getDateTimeText(_value) {
-  if (_value) {
-    const value = moment(_value);
-    if (value.isAfter(moment().startOf('day'))) {
-      return value.format('LT');
-    }
-    return value.format('LLLL');
-  }
-  return undefined;
-}
-
-function MessageDateTime({
+const MessageDateTime = ({
   isCurrentUserMessage, children, dateTime: dateTimeFromProps,
-}) {
+}) => {
   const classes = useStyles();
-  const dateTime = getDateTimeText(dateTimeFromProps);
 
   const flexDirection = isCurrentUserMessage ? 'row' : 'row-reverse';
   const alignSelf = isCurrentUserMessage ? 'flex-start' : 'flex-end';
@@ -48,13 +75,13 @@ function MessageDateTime({
           color="textSecondary"
           variant="caption"
         >
-          {dateTime}
+          {getDateTimeText(dateTimeFromProps)}
         </Typography>
       </Box>
       {children}
     </Box>
   );
-}
+};
 
 MessageDateTime.propTypes = {
   isCurrentUserMessage: PropTypes.bool.isRequired,
