@@ -1,5 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 
+import { User } from 'Types';
+
 import * as actions from '../actions';
 
 export type SessionState = {
@@ -11,7 +13,7 @@ export type SessionState = {
   modifyChatDialogIsOpen: boolean;
   modifiableChatId?: string;
   userModifyDialogIsOpen: boolean;
-  user?: string;
+  user?: User;
 }
 
 const defaultStore: SessionState = {

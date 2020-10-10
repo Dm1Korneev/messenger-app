@@ -1,6 +1,6 @@
 import { AnyAction } from '@reduxjs/toolkit';
 
-export default function loadingReducer(state = {}, action: AnyAction) {
+export default function loadingReducer(state = {}, action: AnyAction): Record<string, string> {
   const { type, payload } = action;
   const matches = /(.*)_(REQUEST|FAILURE)/.exec(type);
 

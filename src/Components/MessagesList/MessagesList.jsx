@@ -62,16 +62,16 @@ const MessagesList = ({
   return (
     <List className={classes.list} onScroll={handlerOnScroll}>
       {messagesTree.map((valueAuthor, indexAuthor) => {
-        const { author, childrens: childrensAuthor } = valueAuthor;
+        const { author, children: childrenAuthor } = valueAuthor;
 
         const isCurrentUserMessage = user._id === author;
-        const firstDateTime = childrensAuthor[0].dateTime;
+        const firstDateTime = childrenAuthor[0].dateTime;
 
-        const childrenComponentsAuthor = childrensAuthor.map(
+        const childrenComponentsAuthor = childrenAuthor.map(
           (valueDateTime) => {
-            const { dateTime, childrens: childrensDateTime } = valueDateTime;
+            const { dateTime, children: childrenDateTime } = valueDateTime;
 
-            const childrenComponentsDateTime = childrensDateTime.map(
+            const childrenComponentsDateTime = childrenDateTime.map(
               (value) => (
                 <MessageText
                   key={value._id}
