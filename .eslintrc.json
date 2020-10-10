@@ -57,7 +57,9 @@
     "no-underscore-dangle": ["error", { "allow": ["_id"]}],
     "react/jsx-props-no-spreading": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }]
+    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/camelcase": "off"
   },
   "overrides": [
     {
