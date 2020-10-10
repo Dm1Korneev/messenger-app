@@ -1,4 +1,4 @@
-import * as actionNames from 'Constants/actionNames';
+import ActionNames from 'Constants/actionNames';
 
 import reducer from './loading';
 
@@ -16,7 +16,7 @@ describe('loading reducer', () => {
   test('should not handle actions without REQUEST, SUCCESS FAILURE postfix', () => {
     expect(
       reducer({}, {
-        type: actionNames.ADD_CHATS,
+        type: ActionNames.ADD_CHATS,
       }),
     ).toStrictEqual(
       {},
@@ -26,7 +26,7 @@ describe('loading reducer', () => {
   test('should handle GET_USERS_REQUEST', () => {
     expect(
       reducer({}, {
-        type: getRequestActionName(actionNames.GET_USERS),
+        type: getRequestActionName(ActionNames.GET_USERS),
       }),
     ).toStrictEqual(
       { GET_USERS: true },
@@ -36,7 +36,7 @@ describe('loading reducer', () => {
   test('should handle GET_USERS_SUCCESS', () => {
     expect(
       reducer({ GET_USERS: true }, {
-        type: getSuccessActionName(actionNames.GET_USERS),
+        type: getSuccessActionName(ActionNames.GET_USERS),
       }),
     ).toStrictEqual(
       { GET_USERS: false },
@@ -46,7 +46,7 @@ describe('loading reducer', () => {
   test('should handle GET_USERS_FAILURE', () => {
     expect(
       reducer({ GET_USERS: true }, {
-        type: getFailureActionName(actionNames.GET_USERS),
+        type: getFailureActionName(ActionNames.GET_USERS),
       }),
     ).toStrictEqual(
       { GET_USERS: false },

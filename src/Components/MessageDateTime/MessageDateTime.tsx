@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -16,26 +15,23 @@ const optionsLong = {
   month: 'long',
   day: 'numeric',
   year: 'numeric',
-  dateStyle: 'full',
-  timeStyle: 'short',
   minute: '2-digit',
 };
 const dateLongFormat = new Intl.DateTimeFormat(getLang(), optionsLong);
 
 const optionsShort = {
-  timeStyle: 'short',
   minute: '2-digit',
 };
 const dateShortFormat = new Intl.DateTimeFormat(getLang(), optionsShort);
 
-const isToday = (someDate) => {
+const isToday = (someDate: Date) => {
   const today = new Date();
   return someDate.getDate() === today.getDate()
     && someDate.getMonth() === today.getMonth()
     && someDate.getFullYear() === today.getFullYear();
 };
 
-const getDateTimeText = (value) => {
+const getDateTimeText = (value: Date) => {
   if (value) {
     if (isToday(value)) {
       return dateShortFormat.format(value);
@@ -52,7 +48,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MessageDateTime = ({
+type Props = {
+  isCurrentUserMessage: boolean;
+  dateTime: Date;
+}
+
+const MessageDateTime: FC<Props> = ({
   isCurrentUserMessage, children, dateTime: dateTimeFromProps,
 }) => {
   const classes = useStyles();
@@ -81,12 +82,6 @@ const MessageDateTime = ({
       {children}
     </Box>
   );
-};
-
-MessageDateTime.propTypes = {
-  isCurrentUserMessage: PropTypes.bool.isRequired,
-  children: PropTypes.element.isRequired,
-  dateTime: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default MessageDateTime;

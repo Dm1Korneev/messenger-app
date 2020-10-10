@@ -1,4 +1,7 @@
-export function objectsAdd(state, payload) {
+export function objectsAdd<StateType, PayloadType>(
+  state: { byId: Record<string, PayloadType> },
+  payload: { _id: string }[],
+) {
   const data = Array.isArray(payload) ? payload : [payload];
 
   const byId = { ...state.byId };

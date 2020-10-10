@@ -7,10 +7,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
 
-require('./app_api/models/db');
-require('./app_api/models/config/passport');
+require('./models/db');
+require('./models/config/passport');
 
-const routesApi = require('./app_api/routes');
+const routesApi = require('./routes');
 
 const app = express();
 

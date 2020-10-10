@@ -2,7 +2,19 @@ import { createReducer } from '@reduxjs/toolkit';
 
 import * as actions from '../actions';
 
-const defaultStore = {
+export type SessionState = {
+  activeChat?: string;
+  token?: string;
+  isLoggedIn: boolean;
+  drawerIsOpen: boolean;
+  addChatDialogIsOpen: boolean;
+  modifyChatDialogIsOpen: boolean;
+  modifiableChatId?: string;
+  userModifyDialogIsOpen: boolean;
+  user?: string;
+}
+
+const defaultStore: SessionState = {
   activeChat: undefined,
   token: undefined,
   isLoggedIn: false,

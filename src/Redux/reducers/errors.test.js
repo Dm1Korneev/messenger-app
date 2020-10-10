@@ -1,4 +1,4 @@
-import * as actionNames from 'Constants/actionNames';
+import ActionNames from 'Constants/actionNames';
 
 import reducer from './errors';
 
@@ -15,7 +15,7 @@ describe('error reducer', () => {
   test('should not handle actions without REQUEST or FAILURE postfix', () => {
     expect(
       reducer({}, {
-        type: actionNames.ADD_CHATS,
+        type: ActionNames.ADD_CHATS,
       }),
     ).toStrictEqual(
       {},
@@ -25,7 +25,7 @@ describe('error reducer', () => {
   test('should handle GET_USERS_FAILURE', () => {
     expect(
       reducer({}, {
-        type: getFailureActionName(actionNames.GET_USERS),
+        type: getFailureActionName(ActionNames.GET_USERS),
         payload: { error: { message: 'TEST_MESSAGE' } },
       }),
     ).toStrictEqual(
@@ -36,7 +36,7 @@ describe('error reducer', () => {
   test('should handle GET_USERS_REQUEST', () => {
     expect(
       reducer({ GET_USERS: 'TEST_MESSAGE' }, {
-        type: getRequestActionName(actionNames.GET_USERS),
+        type: getRequestActionName(ActionNames.GET_USERS),
       }),
     ).toStrictEqual(
       { GET_USERS: '' },

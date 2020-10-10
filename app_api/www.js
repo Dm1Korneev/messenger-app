@@ -1,8 +1,8 @@
 // Module dependencies.
 const http = require('http');
 
-const app = require('../server');
-const debug = require('../app_api/debug');
+const app = require('./server');
+const debug = require('./debug');
 
 // Normalize a port into a number, string, or false.
 function normalizePort(val) {

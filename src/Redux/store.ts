@@ -1,10 +1,10 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { EnhancedStore, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
-import rootReducer from 'Redux/reducers';
+import rootReducer, { StateType as StateTypeReducers } from 'Redux/reducers';
 import rootSaga from 'Redux/sagas';
 
-const storeFactory = () => {
+const storeFactory = (): EnhancedStore => {
   const sagaMiddleware = createSagaMiddleware();
 
   const store = configureStore({
@@ -19,3 +19,5 @@ const storeFactory = () => {
 };
 
 export default storeFactory;
+
+export type StateType = StateTypeReducers;

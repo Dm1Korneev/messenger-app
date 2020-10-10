@@ -1,6 +1,6 @@
 import commonHoc from 'Components/commonHoc';
 import { modifyUser, setModifyUserDialogIsOpen } from 'Redux/actions';
-import { MODIFY_USER } from 'Constants/actionNames';
+import ActionNames from 'Constants/actionNames';
 import { currentUserSelector } from 'Selectors/session';
 import { errorSelector } from 'Selectors/errors';
 
@@ -8,7 +8,7 @@ import UserModifyDialog from './UserModifyDialog';
 
 const mapStateToProps = (state) => ({
   user: currentUserSelector(state),
-  error: errorSelector(state, MODIFY_USER),
+  error: errorSelector(state, ActionNames.MODIFY_USER),
 });
 
 const mapDispatchToProps = {

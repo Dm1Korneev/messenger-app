@@ -1,4 +1,4 @@
-import * as actionNames from 'Constants/actionNames';
+import ActionNames from 'Constants/actionNames';
 
 import * as actions from './actions';
 
@@ -8,7 +8,7 @@ describe('actions', () => {
   test('should create an action to set active chat', () => {
     const expectedAction = {
       payload: '1234',
-      type: actionNames.SET_ACTIVE_CHAT,
+      type: ActionNames.SET_ACTIVE_CHAT,
     };
     expect(actions.setActiveChat('1234')).toStrictEqual(expectedAction);
   });
@@ -16,7 +16,7 @@ describe('actions', () => {
   test('should create an action to set drawer is open', () => {
     const expectedAction = {
       payload: true,
-      type: actionNames.SET_DRAWER_IS_OPEN,
+      type: ActionNames.SET_DRAWER_IS_OPEN,
     };
     expect(actions.setDrawerIsOpen(true)).toStrictEqual(expectedAction);
   });
@@ -24,7 +24,7 @@ describe('actions', () => {
   test('should create an action to set add chat dialog is open', () => {
     const expectedAction = {
       payload: true,
-      type: actionNames.SET_ADD_CHAT_DIALOG_IS_OPEN,
+      type: ActionNames.SET_ADD_CHAT_DIALOG_IS_OPEN,
     };
     expect(actions.setAddChatDialogIsOpen(true)).toStrictEqual(expectedAction);
   });
@@ -32,7 +32,7 @@ describe('actions', () => {
   test('should create an action to set modify chat dialog is open', () => {
     const expectedAction = {
       payload: true,
-      type: actionNames.SET_MODIFY_CHAT_DIALOG_IS_OPEN,
+      type: ActionNames.SET_MODIFY_CHAT_DIALOG_IS_OPEN,
     };
     expect(actions.setModifyChatDialogIsOpen(true)).toStrictEqual(expectedAction);
   });
@@ -40,7 +40,7 @@ describe('actions', () => {
   test('should create an action to set modify user dialog is open', () => {
     const expectedAction = {
       payload: true,
-      type: actionNames.SET_MODIFY_USER_DIALOG_IS_OPEN,
+      type: ActionNames.SET_MODIFY_USER_DIALOG_IS_OPEN,
     };
     expect(actions.setModifyUserDialogIsOpen(true)).toStrictEqual(expectedAction);
   });
@@ -48,14 +48,14 @@ describe('actions', () => {
   test('should create an action to set session info', () => {
     const expectedAction = {
       payload: { test: 'test' },
-      type: actionNames.SET_SESSION_INFO,
+      type: ActionNames.SET_SESSION_INFO,
     };
     expect(actions.setSessionInfo({ test: 'test' })).toStrictEqual(expectedAction);
   });
 
   test('should create an action to close chat dialog', () => {
     const expectedAction = {
-      type: actionNames.SET_SESSION_INFO,
+      type: ActionNames.SET_SESSION_INFO,
       payload: {
         modifyChatDialogIsOpen: false,
         addChatDialogIsOpen: false,
@@ -68,7 +68,7 @@ describe('actions', () => {
   test('should create an action to open modify chat dialog', () => {
     const modifiableChatId = 'TEST';
     const expectedAction = {
-      type: actionNames.SET_SESSION_INFO,
+      type: ActionNames.SET_SESSION_INFO,
       payload: {
         modifyChatDialogIsOpen: true,
         modifiableChatId,
@@ -79,7 +79,7 @@ describe('actions', () => {
 
   test('should create an action to add chats', () => {
     const expectedAction = {
-      type: actionNames.ADD_CHATS,
+      type: ActionNames.ADD_CHATS,
       payload: [{ test: 'test' }],
     };
     expect(actions.addChats([{ test: 'test' }])).toStrictEqual(expectedAction);
@@ -87,7 +87,7 @@ describe('actions', () => {
 
   test('should create an action to add messages', () => {
     const expectedAction = {
-      type: actionNames.ADD_MESSAGES,
+      type: ActionNames.ADD_MESSAGES,
       payload: [{ test: 'test' }],
     };
     expect(actions.addMessages([{ test: 'test' }])).toStrictEqual(expectedAction);
@@ -95,7 +95,7 @@ describe('actions', () => {
 
   test('should create an action to add users', () => {
     const expectedAction = {
-      type: actionNames.ADD_USERS,
+      type: ActionNames.ADD_USERS,
       payload: [{ test: 'test' }],
     };
     expect(actions.addUsers([{ test: 'test' }])).toStrictEqual(expectedAction);
@@ -103,7 +103,7 @@ describe('actions', () => {
 
   test('should create an action to clear store', () => {
     const expectedAction = {
-      type: actionNames.CLEAR_STORE,
+      type: ActionNames.CLEAR_STORE,
       payload: undefined,
     };
     expect(actions.clearStore()).toStrictEqual(expectedAction);
@@ -111,7 +111,7 @@ describe('actions', () => {
 
   test('should create an action to get users', () => {
     const expectedAction = {
-      type: getRequestActionName(actionNames.GET_USERS),
+      type: getRequestActionName(ActionNames.GET_USERS),
       payload: undefined,
     };
     expect(actions.getUsers()).toStrictEqual(expectedAction);
@@ -120,7 +120,7 @@ describe('actions', () => {
   test('should create an action to send message', () => {
     const messageText = 'TEST';
     const expectedAction = {
-      type: getRequestActionName(actionNames.SEND_MESSAGE),
+      type: getRequestActionName(ActionNames.SEND_MESSAGE),
       payload: messageText,
     };
     expect(actions.sendMessage(messageText)).toStrictEqual(expectedAction);
@@ -128,7 +128,7 @@ describe('actions', () => {
 
   test('should create an action to load messages', () => {
     const expectedAction = {
-      type: getRequestActionName(actionNames.GET_MESSAGES),
+      type: getRequestActionName(ActionNames.GET_MESSAGES),
       payload: undefined,
     };
     expect(actions.loadMessages()).toStrictEqual(expectedAction);
@@ -139,7 +139,7 @@ describe('actions', () => {
     const avatar = 'avatar_TEST';
     const selectedUserIds = ['123', '321'];
     const expectedAction = {
-      type: getRequestActionName(actionNames.CREATE_CHAT),
+      type: getRequestActionName(ActionNames.CREATE_CHAT),
       payload: {
         title,
         avatar,
@@ -155,7 +155,7 @@ describe('actions', () => {
       test: 'TEST',
     };
     const expectedAction = {
-      type: getRequestActionName(actionNames.MODIFY_CHAT),
+      type: getRequestActionName(ActionNames.MODIFY_CHAT),
       payload: {
         chatId,
         options,
@@ -170,7 +170,7 @@ describe('actions', () => {
       test: 'TEST',
     };
     const expectedAction = {
-      type: getRequestActionName(actionNames.MODIFY_USER),
+      type: getRequestActionName(ActionNames.MODIFY_USER),
       payload: {
         userId,
         options,
@@ -181,7 +181,7 @@ describe('actions', () => {
 
   test('should create an action to get chats', () => {
     const expectedAction = {
-      type: getRequestActionName(actionNames.GET_CHATS),
+      type: getRequestActionName(ActionNames.GET_CHATS),
       payload: undefined,
     };
     expect(actions.getChats()).toStrictEqual(expectedAction);
@@ -192,7 +192,7 @@ describe('actions', () => {
     const password = 'password_TEST';
     const remember = false;
     const expectedAction = {
-      type: getRequestActionName(actionNames.LOGIN),
+      type: getRequestActionName(ActionNames.LOGIN),
       payload: {
         email,
         password,
@@ -207,7 +207,7 @@ describe('actions', () => {
     const password = 'password_TEST';
     const remember = false;
     const expectedAction = {
-      type: getRequestActionName(actionNames.LOGIN),
+      type: getRequestActionName(ActionNames.LOGIN),
       payload: {
         email,
         password,
@@ -225,7 +225,7 @@ describe('actions', () => {
     const avatar = 'avatar_TEST';
     const remember = false;
     const expectedAction = {
-      type: getRequestActionName(actionNames.REGISTER),
+      type: getRequestActionName(ActionNames.REGISTER),
       payload: {
         email,
         password,
@@ -247,7 +247,7 @@ describe('actions', () => {
     const avatar = 'avatar_TEST';
     const remember = false;
     const expectedAction = {
-      type: getRequestActionName(actionNames.REGISTER),
+      type: getRequestActionName(ActionNames.REGISTER),
       payload: {
         email,
         password,
@@ -263,7 +263,7 @@ describe('actions', () => {
 
   test('should create an action to log out', () => {
     const expectedAction = {
-      type: actionNames.LOGOUT,
+      type: ActionNames.LOGOUT,
       payload: undefined,
     };
     expect(actions.logOut()).toStrictEqual(expectedAction);
@@ -271,7 +271,7 @@ describe('actions', () => {
 
   test('should create an action to login from store', () => {
     const expectedAction = {
-      type: getRequestActionName(actionNames.LOGIN_FROM_STORE),
+      type: getRequestActionName(ActionNames.LOGIN_FROM_STORE),
       payload: undefined,
     };
     expect(actions.loginFromStore()).toStrictEqual(expectedAction);
@@ -280,7 +280,7 @@ describe('actions', () => {
   test('should create an action to change active chat', () => {
     const activeChat = 'TEST';
     const expectedAction = {
-      type: actionNames.CHANGE_ACTIVE_CHAT,
+      type: ActionNames.CHANGE_ACTIVE_CHAT,
       payload: activeChat,
     };
     expect(actions.changeActiveChat(activeChat)).toStrictEqual(expectedAction);

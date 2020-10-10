@@ -11,7 +11,7 @@ import {
   addUsers,
   loadMessages as loadMessagesAction,
 } from 'Redux/actions';
-import * as actionNames from 'Constants/actionNames';
+import ActionNames from 'Constants/actionNames';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 import { activeChatIdSelector, tokenSelector } from 'Selectors/session';
 
@@ -21,11 +21,11 @@ function* sendMessage(action) {
     const activeChat = yield select(activeChatIdSelector);
     const { messageText } = action.payload;
     const message = yield call(sendMessageAPI, token, activeChat, messageText);
-    yield put(getSuccessAction(actionNames.SEND_MESSAGE)({ message }));
+    yield put(getSuccessAction(ActionNames.SEND_MESSAGE)({ message }));
     yield put(addMessages(message));
     yield put(loadMessagesAction());
   } catch (error) {
-    yield put(getFailureAction(actionNames.SEND_MESSAGE)({ error }));
+    yield put(getFailureAction(ActionNames.SEND_MESSAGE)({ error }));
   }
 }
 
@@ -37,18 +37,18 @@ function* loadMessages() {
     }
     const token = yield select(tokenSelector);
     const { messages, users } = yield call(getMessagesAPI, token, activeChat);
-    yield put(getSuccessAction(actionNames.GET_MESSAGES)({ messages, users }));
+    yield put(getSuccessAction(ActionNames.GET_MESSAGES)({ messages, users }));
     yield put(addUsers(users));
     yield put(addMessages(messages));
   } catch (error) {
-    yield put(getFailureAction(actionNames.GET_MESSAGES)({ error }));
+    yield put(getFailureAction(ActionNames.GET_MESSAGES)({ error }));
   }
 }
 
 export default function* rootSaga() {
   yield all([
-    yield takeEvery(getRequestAction(actionNames.SEND_MESSAGE).type, sendMessage),
-    yield takeEvery(getRequestAction(actionNames.GET_MESSAGES).type, loadMessages),
+    yield takeEvery(getRequestAction(ActionNames.SEND_MESSAGE).type, sendMessage),
+    yield takeEvery(getRequestAction(ActionNames.GET_MESSAGES).type, loadMessages),
   ]);
 }
 
