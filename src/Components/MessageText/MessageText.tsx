@@ -1,9 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-const MessageText = ({ text, isCurrentUserMessage }) => {
+type Props = {
+  text?: string;
+  isCurrentUserMessage: boolean;
+}
+
+const MessageText = ({ text = '', isCurrentUserMessage }: Props) => {
   const flexDirection = isCurrentUserMessage ? 'row' : 'row-reverse';
 
   return (
@@ -13,14 +17,6 @@ const MessageText = ({ text, isCurrentUserMessage }) => {
       </Typography>
     </Box>
   );
-};
-
-MessageText.defaultProps = {
-  text: '',
-};
-MessageText.propTypes = {
-  text: PropTypes.string,
-  isCurrentUserMessage: PropTypes.bool.isRequired,
 };
 
 export default MessageText;

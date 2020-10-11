@@ -1,12 +1,16 @@
 import React, {
   Fragment, useEffect, useRef, useState,
 } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 
+import { loadMessages } from 'Redux/actions';
+import { usersByIdSelector } from 'Selectors/users';
+import { currentUserSelector } from 'Selectors/session';
+import { messagesTreeSelector } from 'Selectors/messages';
 import MessageDateTime from 'Components/MessageDateTime';
 import MessageText from 'Components/MessageText';
 import MessageUser from 'Components/MessageUser';
@@ -20,18 +24,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MessagesList = ({
-  messagesTree, user, users, loadMessages,
-}) => {
+const MessagesList = () => {
+  const dispatch = useDispatch();
+
+  const messagesTree = useSelector(messagesTreeSelector);
+  const users = useSelector(usersByIdSelector);
+  const currentUser = useSelector(currentUserSelector);
+
   const classes = useStyles();
-  const messagesEnd = useRef();
+  const messagesEnd = useRef<HTMLDivElement>(null);
 
   const [bottomPosition, setBottomPosition] = useState(true);
 
   const scrollToBottom = () => {
     if (messagesEnd.current) {
       messagesEnd.current.scrollIntoView({
-        blok: 'end',
+        block: 'end',
         behavior: 'smooth',
       });
     }
@@ -42,18 +50,13 @@ const MessagesList = ({
   }, [messagesTree]);
 
   useEffect(() => {
-    const interval = setInterval(loadMessages, RELOAD_PERIOD);
+    const interval = setInterval(() => dispatch(loadMessages()), RELOAD_PERIOD);
     return () => clearInterval(interval);
-  }, [loadMessages]);
+  }, [dispatch]);
 
-  useEffect(() => {
-    const interval = setInterval(loadMessages, RELOAD_PERIOD);
-    return () => clearInterval(interval);
-  }, [loadMessages]);
-
-  const handlerOnScroll = (event) => {
-    const newBottomPosition = event.target.scrollHeight - event.target.offsetHeight
-      === event.target.scrollTop;
+  const handlerOnScroll = (event: React.UIEvent<HTMLUListElement>) => {
+    const newBottomPosition = event.currentTarget.scrollHeight - event.currentTarget.offsetHeight
+      === event.currentTarget.scrollTop;
     if (bottomPosition !== newBottomPosition) {
       setBottomPosition(newBottomPosition);
     }
@@ -64,7 +67,7 @@ const MessagesList = ({
       {messagesTree.map((valueAuthor, indexAuthor) => {
         const { author, children: childrenAuthor } = valueAuthor;
 
-        const isCurrentUserMessage = user._id === author;
+        const isCurrentUserMessage = currentUser?._id === author;
         const firstDateTime = childrenAuthor[0].dateTime;
 
         const childrenComponentsAuthor = childrenAuthor.map(
@@ -95,12 +98,7 @@ const MessagesList = ({
 
         const messageAuthor = users[author];
 
-        let name;
-        let avatar;
-        if (messageAuthor) {
-          name = messageAuthor.name;
-          avatar = messageAuthor.avatar;
-        }
+        const { name, avatar } = messageAuthor;
 
         return (
           <Fragment key={`${author}-${firstDateTime}`}>
@@ -120,18 +118,6 @@ const MessagesList = ({
       <div ref={messagesEnd} />
     </List>
   );
-};
-
-MessagesList.defaultProps = {
-  messagesTree: [],
-};
-MessagesList.propTypes = {
-  loadMessages: PropTypes.func.isRequired,
-  messagesTree: PropTypes.arrayOf(PropTypes.object),
-  user: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-  }).isRequired,
-  users: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default MessagesList;

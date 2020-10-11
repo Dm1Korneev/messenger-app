@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -11,10 +10,18 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
-import { Field, Form, Formik } from 'formik';
+import {
+  Field, Form, Formik, FormikHelpers,
+} from 'formik';
 import { CheckboxWithLabel } from 'formik-material-ui';
 import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { register, signIn } from 'Redux/actions';
+import { RootState } from 'Redux/reducers';
+import { errorSelector } from 'Selectors/errors';
+import { loadingSelector } from 'Selectors/loading';
+import ActionNames from 'Constants/actionNames';
 import AvatarSelector from 'Components/AvatarSelector';
 import UserEmailField from 'Components/UserEmailField';
 import UserNameField from 'Components/UserNameField';
@@ -25,8 +32,10 @@ import {
   password as passwordValidation,
 } from 'Common/validation';
 
-const SIGN_IN = 'SIGN_IN';
-const REGISTER = 'REGISTER';
+enum State {
+  SIGN_IN = 'SIGN_IN',
+  REGISTER = 'REGISTER',
+}
 
 const validationSchemaSignIn = Yup.object().shape({
   email: emailValidation,
@@ -39,51 +48,69 @@ const validationSchemaRegister = Yup.object().shape({
   name: nameValidation,
 });
 
-const SignIn = ({
-  loginError, registerError, onSignIn, onRegister, isLoging,
-}) => {
-  const [variant, setVariant] = useState(SIGN_IN);
+type FromValues = {
+  name: string;
+  email: string;
+  password: string;
+  remember: boolean;
+}
 
-  const avatarFileInput = useRef();
+const SignIn = () => {
+  const dispatch = useDispatch();
 
-  const signIn = (values) => {
+  const loginError = useSelector((rootState: RootState) => errorSelector(rootState, ActionNames.LOGIN));
+  const registerError = useSelector((rootState: RootState) => errorSelector(rootState, ActionNames.REGISTER));
+  const loginLoading = useSelector((rootState: RootState) => loadingSelector(rootState, ActionNames.LOGIN));
+  const registerLoading = useSelector((rootState: RootState) => loadingSelector(rootState, ActionNames.REGISTER));
+
+  const isLogging = loginLoading || registerLoading;
+
+  const [variant, setVariant] = useState<State>(State.SIGN_IN);
+
+  const avatarFileInput = useRef<HTMLInputElement>(null);
+
+  const onSignIn = (values: FromValues) => {
     const { email, password, remember } = values;
-    onSignIn({ email, password, remember });
+    dispatch(signIn({ email, password, remember }));
   };
 
-  const register = (values) => {
-    const avatar = avatarFileInput.current.files[0];
+  const onRegister = (values: FromValues) => {
+    const files = avatarFileInput?.current?.files;
+    const avatar = files ? files[0] : undefined;
 
     const {
       email, password, name, remember,
     } = values;
-    onRegister({
+    dispatch(register({
       email, password, name, avatar, remember,
-    });
+    }));
   };
 
-  const onSubmit = (values, { setSubmitting }) => {
-    if (variant === SIGN_IN) {
-      signIn(values);
-    } else if (variant === REGISTER) {
-      register(values);
+  const onSubmit = (values: FromValues, { setSubmitting }: FormikHelpers<FromValues>) => {
+    if (variant === State.SIGN_IN) {
+      onSignIn(values);
+    } else if (variant === State.REGISTER) {
+      onRegister(values);
     }
     setSubmitting(false);
   };
 
-  const handleTabChange = (event, value) => {
-    setVariant(value);
-  };
-
   let validationSchema;
-  let title;
-  if (variant === SIGN_IN) {
+  let title = '';
+  if (variant === State.SIGN_IN) {
     validationSchema = validationSchemaSignIn;
     title = 'Sign in';
-  } else if (variant === REGISTER) {
+  } else if (variant === State.REGISTER) {
     validationSchema = validationSchemaRegister;
     title = 'Register';
   }
+
+  const initialValues: FromValues = {
+    name: '',
+    email: '',
+    password: '',
+    remember: false,
+  };
 
   return (
     <Box pt={8} px={2} width="100%" alignItems="center" display="flex" flexDirection="column">
@@ -92,12 +119,12 @@ const SignIn = ({
           <AppBar position="static">
             <Tabs
               value={variant}
-              onChange={handleTabChange}
+              onChange={(event, value) => setVariant(value)}
               variant="fullWidth"
-              disabled={isLoging}
+              disabled={isLogging}
             >
-              <Tab disabled={isLoging} value={SIGN_IN} label="Sign in" />
-              <Tab disabled={isLoging} value={REGISTER} label="Register" />
+              <Tab disabled={isLogging} value={State.SIGN_IN} label="Sign in" />
+              <Tab disabled={isLogging} value={State.REGISTER} label="Register" />
             </Tabs>
           </AppBar>
           <Box
@@ -107,55 +134,50 @@ const SignIn = ({
             p={3}
           >
             <Box p={1}>
-              {variant === SIGN_IN && <LockOutlinedIcon color="primary" fontSize="large" />}
-              {variant === REGISTER && <PersonAddIcon color="primary" fontSize="large" />}
+              {variant === State.SIGN_IN && <LockOutlinedIcon color="primary" fontSize="large" />}
+              {variant === State.REGISTER && <PersonAddIcon color="primary" fontSize="large" />}
             </Box>
             <Typography component="h1" variant="h5">
               {title}
             </Typography>
             <Box mt={1}>
               <Formik
-                initialValues={{
-                  name: '',
-                  email: '',
-                  password: '',
-                  remember: false,
-                }}
+                initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
               >
                 {({ submitForm }) => (
                   <Form>
-                    {loginError && variant === SIGN_IN && (
+                    {loginError && variant === State.SIGN_IN && (
                     <FormHelperText error>{loginError}</FormHelperText>
                     )}
-                    {registerError && variant === REGISTER && (
+                    {registerError && variant === State.REGISTER && (
                     <FormHelperText error>{registerError}</FormHelperText>
                     )}
-                    {variant === REGISTER && (
+                    {variant === State.REGISTER && (
                     <>
-                      <AvatarSelector disabled={isLoging} avatarFileInput={avatarFileInput} />
-                      <Field disabled={isLoging} component={UserNameField} name="name" />
+                      <AvatarSelector disabled={isLogging} avatarFileInput={avatarFileInput} />
+                      <Field disabled={isLogging} component={UserNameField} name="name" />
                     </>
                     )}
-                    <Field disabled={isLoging} component={UserEmailField} name="email" />
-                    <Field disabled={isLoging} component={UserPasswordField} name="password" />
+                    <Field disabled={isLogging} component={UserEmailField} name="email" />
+                    <Field disabled={isLogging} component={UserPasswordField} name="password" />
                     <Field
-                      disabled={isLoging}
+                      disabled={isLogging}
                       component={CheckboxWithLabel}
                       name="remember"
                       Label={{ label: 'Remember me' }}
                       color="primary"
                       type="checkbox"
                     />
-                    {isLoging && <LinearProgress />}
+                    {isLogging && <LinearProgress />}
                     <Box mt={3}>
                       <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
-                        disabled={isLoging}
+                        disabled={isLogging}
                         onClick={submitForm}
                       >
                         {title}
@@ -170,19 +192,6 @@ const SignIn = ({
       </Paper>
     </Box>
   );
-};
-
-SignIn.defaultProps = {
-  loginError: null,
-  registerError: null,
-  isLoging: false,
-};
-SignIn.propTypes = {
-  onSignIn: PropTypes.func.isRequired,
-  onRegister: PropTypes.func.isRequired,
-  isLoging: PropTypes.bool,
-  loginError: PropTypes.string,
-  registerError: PropTypes.string,
 };
 
 export default SignIn;

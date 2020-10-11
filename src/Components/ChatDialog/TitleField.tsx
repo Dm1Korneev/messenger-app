@@ -1,12 +1,15 @@
 import React from 'react';
 import { TextField } from 'formik-material-ui';
 
-const TitleField = (props) => (
+type Props = Omit<
+  React.ComponentPropsWithoutRef<typeof TextField>,
+  'margin' | 'label' | 'fullWidth'>
+
+const TitleField = (props: Props) => (
   <TextField
     margin="normal"
     label="Title *"
     fullWidth
-    name="title"
     {...props}
   />
 );

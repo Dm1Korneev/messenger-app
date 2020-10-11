@@ -1,15 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 import theme from './theme';
 
-const Provider = ({ children }) => (
+const Provider: FC = ({ children }) => (
   <ThemeProvider theme={theme}>{children}</ThemeProvider>
 );
-
-Provider.propTypes = {
-  children: PropTypes.element.isRequired,
-};
 
 export default Provider;

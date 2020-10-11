@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -9,7 +8,13 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 
+import ActionNames from 'Constants/actionNames';
+import { RootState } from 'Redux/reducers';
+import * as Actions from 'Redux/actions';
+import { currentUserSelector } from 'Selectors/session';
+import { errorSelector } from 'Selectors/errors';
 import UserEmailField from 'Components/UserEmailField';
 import AvatarSelector from 'Components/AvatarSelector';
 import UserNameField from 'Components/UserNameField';
@@ -26,40 +31,58 @@ const validationSchema = Yup.object().shape({
   name: nameValidation,
 });
 
+type FromValues = {
+  name: string;
+          email: string;
+          password: string;
+}
+
 const DEFAULT_PASSWORD = '**********';
 
-const UserModifyDialog = ({
-  user, error, closeUserModifyDialog, onSave,
-}) => {
+const UserModifyDialog = () => {
+  const dispatch = useDispatch();
+
+  const currentUser = useSelector(currentUserSelector);
+  const error = useSelector((rootState: RootState) => errorSelector(rootState, ActionNames.MODIFY_USER));
+
   const [avatarIsModified, setAvatarIsModified] = useState(false);
 
-  const avatarFileInput = useRef();
+  const avatarFileInput = useRef<HTMLInputElement>(null);
+
+  if (!currentUser) {
+    return null;
+  }
+
+  const closeUserModifyDialog = () => dispatch(Actions.setModifyUserDialogIsOpen(false));
 
   const avatarOnChange = () => {
     setAvatarIsModified(true);
   };
 
-  const onSubmit = ({ name, email, password }) => {
-    const options = { name, email };
-    if (password !== DEFAULT_PASSWORD) {
-      options.password = password;
-    }
-    if (avatarIsModified) {
-      const [avatarValue] = avatarFileInput.current.files;
-      options.avatar = avatarValue;
-    }
+  const onSubmit = ({ name, email, password }: FromValues) => {
+    const files = avatarFileInput?.current?.files;
+    const avatar = files ? files[0] : undefined;
 
-    onSave({ userId: user._id, options });
+    const options = {
+      name,
+      email,
+      password: password !== DEFAULT_PASSWORD ? password : undefined,
+      avatar: avatarIsModified ? avatar : undefined,
+    };
+
+    dispatch(Actions.modifyUser({ userId: currentUser._id, options }));
+  };
+
+  const initialValues: FromValues = {
+    name: currentUser.name,
+    email: currentUser.email,
+    password: DEFAULT_PASSWORD,
   };
 
   return (
     <Dialog open onClose={closeUserModifyDialog}>
       <Formik
-        initialValues={{
-          name: user.name,
-          email: user.email,
-          password: DEFAULT_PASSWORD,
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
@@ -70,7 +93,7 @@ const UserModifyDialog = ({
               {error && <FormHelperText error>{error}</FormHelperText>}
               <AvatarSelector
                 onChange={avatarOnChange}
-                avatar={user.avatar}
+                avatar={currentUser.avatar}
                 avatarFileInput={avatarFileInput}
               />
               <Field component={UserNameField} name="name" />
@@ -96,21 +119,6 @@ const UserModifyDialog = ({
       </Formik>
     </Dialog>
   );
-};
-
-UserModifyDialog.defaultProps = {
-  error: undefined,
-};
-UserModifyDialog.propTypes = {
-  user: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    avatar: PropTypes.string,
-    name: PropTypes.string,
-    email: PropTypes.string,
-  }).isRequired,
-  onSave: PropTypes.func.isRequired,
-  closeUserModifyDialog: PropTypes.func.isRequired,
-  error: PropTypes.string,
 };
 
 export default UserModifyDialog;

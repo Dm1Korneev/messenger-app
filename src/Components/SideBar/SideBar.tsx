@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
@@ -11,9 +10,13 @@ import Divider from '@material-ui/core/Divider';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AddBox from '@material-ui/icons/AddBox';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { chatsArraySelector } from 'Selectors/chats';
+import { activeChatIdSelector, drawerIsOpenSelector } from 'Selectors/session';
 import { DRAWER_WIDTH, RELOAD_PERIOD } from 'Constants';
 import Chat from 'Components/Chat';
+import * as Actions from 'Redux/actions';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -48,23 +51,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SideBar = ({
-  getChats, drawerIsOpen,
-  chats,
-  activeChat,
-  onDrawerClose,
-  changeActiveChat,
-  openAddChatDialog,
-  openModifyChatDialog,
-}) => {
+const SideBar = () => {
+  const dispatch = useDispatch();
+
+  const chats = useSelector(chatsArraySelector);
+  const activeChat = useSelector(activeChatIdSelector);
+  const drawerIsOpen = useSelector(drawerIsOpenSelector);
+
+  const onDrawerClose = () => dispatch(Actions.setDrawerIsOpen(false));
+  const openAddChatDialog = () => dispatch(Actions.setAddChatDialogIsOpen(true));
+
   useEffect(() => {
+    const getChats = () => dispatch(Actions.getChats());
     const interval = setInterval(getChats, RELOAD_PERIOD);
     return () => {
       if (interval) {
         clearInterval(interval);
       }
     };
-  }, [getChats]);
+  }, [dispatch]);
   const classes = useStyles();
 
   return (
@@ -100,29 +105,14 @@ const SideBar = ({
               chat={chat}
               key={_id}
               selected={_id === activeChat}
-              chatOnClick={() => changeActiveChat({ activeChat: _id })}
-              chatModifyOnClick={openModifyChatDialog}
+              chatOnClick={() => dispatch(Actions.changeActiveChat({ activeChat: _id }))}
+              chatModifyOnClick={(id) => dispatch(Actions.openModifyChatDialog(id))}
             />
           );
         })}
       </List>
     </Drawer>
   );
-};
-
-SideBar.defaultProps = {
-  activeChat: null,
-  chats: [],
-};
-SideBar.propTypes = {
-  getChats: PropTypes.func.isRequired,
-  drawerIsOpen: PropTypes.bool.isRequired,
-  chats: PropTypes.arrayOf(PropTypes.instanceOf(Object)),
-  activeChat: PropTypes.string,
-  onDrawerClose: PropTypes.func.isRequired,
-  changeActiveChat: PropTypes.func.isRequired,
-  openAddChatDialog: PropTypes.func.isRequired,
-  openModifyChatDialog: PropTypes.func.isRequired,
 };
 
 export default SideBar;

@@ -6,16 +6,17 @@ export type User = {
 }
 
 export type Chat = {
-    admin: string;
+    admin: User['_id'];
     avatar: string;
     title: string;
-    users: string[];
+    users: User['_id'][];
     _id: string;
 }
 
 export type Message = {
-    author: string;
-    chat: string;
-    dateTime: string;
+    author: User['_id'];
+    chat: Chat['_id'];
+    dateTime: Date;
+    text: string;
     _id: string;
 }

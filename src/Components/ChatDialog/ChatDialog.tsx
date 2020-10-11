@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,7 +12,13 @@ import TextField from '@material-ui/core/TextField';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { User } from 'Types';
+import * as Actions from 'Redux/actions';
+import { modifyChatDialogIsOpenSelector } from 'Selectors/session';
+import { notCurrentUsersSelector } from 'Selectors/users';
+import { modifiableChatSelector } from 'Selectors/chats';
 import AvatarSelector from 'Components/AvatarSelector';
 import UsersAvatar from 'Components/UsersAvatar';
 import {
@@ -26,27 +31,37 @@ const validationSchema = Yup.object().shape({
   title: nameValidation,
 });
 
-const ChatDialog = ({
-  users, onAddChat, onSaveChat, isModify, chat, getUsers, closeChatDialog,
-}) => {
-  const [searchText, setSearchText] = useState('');
-  const [selectedUserIds, setSelectedUserIds] = useState([]);
-  const [searchResult, setSearchResult] = useState([]);
-  const [avatarIsModified, setAvatarIsModified] = useState(false);
+type FromValues = {
+  title: string;
+}
 
-  const avatarFileInput = useRef();
+const ChatDialog = () => {
+  const dispatch = useDispatch();
+
+  const users = useSelector(notCurrentUsersSelector);
+  const isModify = useSelector(modifyChatDialogIsOpenSelector);
+  const chat = useSelector(modifiableChatSelector);
+
+  const [searchText, setSearchText] = useState<string>('');
+  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
+  const [searchResult, setSearchResult] = useState<User[]>([]);
+  const [avatarIsModified, setAvatarIsModified] = useState<boolean>(false);
+
+  const avatarFileInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    getUsers();
-  }, [getUsers]);
+    dispatch(Actions.getUsers());
+  }, [dispatch]);
 
   useEffect(() => {
-    if (isModify) {
+    if (isModify && chat) {
       setSelectedUserIds(chat.users);
     }
   }, [chat, isModify]);
 
-  const handleSearchTextChange = (event) => {
+  const closeChatDialog = () => dispatch(Actions.closeChatDialog());
+
+  const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newSearchText = event.target.value;
 
     if (!newSearchText) {
@@ -65,26 +80,25 @@ const ChatDialog = ({
     setAvatarIsModified(true);
   };
 
-  const onSubmit = ({ title }) => {
-    const avatar = avatarFileInput.current.files[0];
+  const onSubmit = ({ title }: FromValues) => {
+    const files = avatarFileInput?.current?.files;
+    const avatar = files ? files[0] : undefined;
 
-    if (isModify) {
-      let options = { title, users: selectedUserIds };
-      if (avatarIsModified) {
-        options = {
-          ...options,
-          avatar: avatarFileInput.current.files[0],
-        };
-      }
+    if (isModify && chat) {
+      const options = {
+        title,
+        users: selectedUserIds,
+        avatar: avatarIsModified ? avatar : undefined,
+      };
 
-      onSaveChat({ chatId: chat._id, options });
-    } else {
-      onAddChat({ title, avatar, selectedUserIds });
+      dispatch(Actions.modifyChat({ chatId: chat._id, options }));
+    } else if (!isModify) {
+      dispatch(Actions.createChat({ title, avatar, selectedUserIds }));
     }
     closeChatDialog();
   };
 
-  const userSelect = (userId) => {
+  const userSelect = (userId: string) => {
     const selectedUserIdsFromState = selectedUserIds;
 
     let newSelectedUserIds;
@@ -99,18 +113,17 @@ const ChatDialog = ({
     setSelectedUserIds(newSelectedUserIds);
   };
 
-  let avatar;
-  if (isModify) {
-    avatar = chat.avatar;
-  }
+  const initialValues: FromValues = {
+    title: (isModify ? chat?.title : '') ?? '',
+  };
+
+  const avatar = isModify ? chat?.avatar : undefined;
 
   const usersList = !searchText ? users : searchResult;
   return (
     <Dialog open onClose={closeChatDialog}>
       <Formik
-        initialValues={{
-          title: isModify ? chat.title : '',
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
@@ -177,28 +190,6 @@ const ChatDialog = ({
 
 ChatDialog.defaultProps = {
   chat: undefined,
-};
-
-ChatDialog.propTypes = {
-  closeChatDialog: PropTypes.func.isRequired,
-  onAddChat: PropTypes.func.isRequired,
-  onSaveChat: PropTypes.func.isRequired,
-  getUsers: PropTypes.func.isRequired,
-  users: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired,
-      email: PropTypes.string,
-    }),
-  ).isRequired,
-  isModify: PropTypes.bool.isRequired,
-  chat: PropTypes.shape({
-    _id: PropTypes.string,
-    avatar: PropTypes.string,
-    title: PropTypes.string,
-    users: PropTypes.array,
-  }),
 };
 
 export default ChatDialog;

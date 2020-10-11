@@ -10,16 +10,18 @@ function getLang() {
   return navigator.language;
 }
 
-const optionsLong = {
+const optionsLong: Intl.DateTimeFormatOptions = {
   weekday: 'long',
   month: 'long',
   day: 'numeric',
   year: 'numeric',
+  hour: 'numeric',
   minute: '2-digit',
 };
 const dateLongFormat = new Intl.DateTimeFormat(getLang(), optionsLong);
 
-const optionsShort = {
+const optionsShort: Intl.DateTimeFormatOptions = {
+  hour: 'numeric',
   minute: '2-digit',
 };
 const dateShortFormat = new Intl.DateTimeFormat(getLang(), optionsShort);

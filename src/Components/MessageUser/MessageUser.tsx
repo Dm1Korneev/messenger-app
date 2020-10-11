@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,7 +13,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MessageUser = ({
+type Props = {
+  isCurrentUserMessage: boolean;
+  author: string;
+  avatar: string;
+}
+
+const MessageUser: FC<Props> = ({
   isCurrentUserMessage, author, avatar, children,
 }) => {
   const classes = useStyles();
@@ -52,13 +57,6 @@ const MessageUser = ({
       </Box>
     </ListItem>
   );
-};
-
-MessageUser.propTypes = {
-  isCurrentUserMessage: PropTypes.bool.isRequired,
-  author: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
 };
 
 export default MessageUser;

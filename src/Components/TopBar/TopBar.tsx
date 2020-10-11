@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,7 +9,10 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import MenuIcon from '@material-ui/icons/Menu';
 import CreateIcon from '@material-ui/icons/Create';
+import { useDispatch, useSelector } from 'react-redux';
 
+import * as Actions from 'Redux/actions';
+import { currentUserSelector, drawerIsOpenSelector } from 'Selectors/session';
 import { DRAWER_WIDTH } from 'Constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,17 +33,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TopBar(props) {
+const TopBar = () => {
+  const dispatch = useDispatch();
+
+  const currentUser = useSelector(currentUserSelector);
+  const drawerIsOpen = useSelector(drawerIsOpenSelector);
+
   const classes = useStyles();
 
-  const {
-    drawerIsOpen,
-    user,
-    onLogout,
-    onDriwerOpen,
-    openModifyUserDialog,
-  } = props;
-  const userName = user && user.name;
+  const onDrawerOpen = () => dispatch(Actions.setDrawerIsOpen(true));
+  const onLogout = () => dispatch(Actions.logOut());
+  const openModifyUserDialog = () => dispatch(Actions.setModifyUserDialogIsOpen(true));
+
+  const userName = currentUser?.name;
 
   return (
     <AppBar
@@ -50,7 +54,6 @@ function TopBar(props) {
         classes.appBar,
         {
           [classes.appBarShift]: drawerIsOpen,
-          [classes.drawerClose]: !drawerIsOpen,
         },
       )}
     >
@@ -60,7 +63,7 @@ function TopBar(props) {
             color="inherit"
             edge="start"
             aria-label="Open drawer"
-            onClick={onDriwerOpen}
+            onClick={onDrawerOpen}
           >
             <MenuIcon />
           </IconButton>
@@ -82,16 +85,6 @@ function TopBar(props) {
       </Toolbar>
     </AppBar>
   );
-}
-
-TopBar.propTypes = {
-  drawerIsOpen: PropTypes.bool.isRequired,
-  onLogout: PropTypes.func.isRequired,
-  onDriwerOpen: PropTypes.func.isRequired,
-  openModifyUserDialog: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    name: PropTypes.string,
-  }).isRequired,
 };
 
 export default TopBar;

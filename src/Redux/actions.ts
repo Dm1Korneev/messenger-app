@@ -56,24 +56,58 @@ export const clearStore = createAction(ActionNames.CLEAR_STORE);
 // async actions
 export const getUsers = getRequestAction(ActionNames.GET_USERS);
 
-export const sendMessage = getRequestAction(ActionNames.SEND_MESSAGE);
+export const sendMessage = getRequestAction<{messageText: string}>(ActionNames.SEND_MESSAGE);
 
 export const loadMessages = getRequestAction(ActionNames.GET_MESSAGES);
 
-export const createChat = getRequestAction(ActionNames.CREATE_CHAT);
+type CreateChatPayload = {
+  title: string;
+  avatar?: File;
+  selectedUserIds: string[];
+}
+export const createChat = getRequestAction<CreateChatPayload>(ActionNames.CREATE_CHAT);
 
-export const modifyChat = getRequestAction(ActionNames.MODIFY_CHAT);
+type ModifyChatPayload = {
+  chatId: string;
+  options: {
+    title: string;
+    users: string[];
+    avatar?: File;
+  };
+}
+export const modifyChat = getRequestAction<ModifyChatPayload>(ActionNames.MODIFY_CHAT);
 
-export const modifyUser = getRequestAction(ActionNames.MODIFY_USER);
+type ModifyUserPayload = {
+  userId: string;
+  options: {
+    name: string;
+    email: string;
+    password?: string;
+    avatar?: File;
+  };
+}
+export const modifyUser = getRequestAction<ModifyUserPayload>(ActionNames.MODIFY_USER);
 
 export const getChats = getRequestAction(ActionNames.GET_CHATS);
 
-export const signIn = getRequestAction(ActionNames.LOGIN);
+type SignInPayload = {
+  email: string;
+  password: string;
+  remember: boolean;
+}
+export const signIn = getRequestAction<SignInPayload>(ActionNames.LOGIN);
 
-export const register = getRequestAction(ActionNames.REGISTER);
+type RegisterPayload = {
+  email: string;
+  password: string;
+  name: string;
+  avatar?: File;
+  remember: boolean;
+}
+export const register = getRequestAction<RegisterPayload>(ActionNames.REGISTER);
 
 export const logOut = createAction(ActionNames.LOGOUT);
 
 export const loginFromStore = getRequestAction(ActionNames.LOGIN_FROM_STORE);
 
-export const changeActiveChat = createAction(ActionNames.CHANGE_ACTIVE_CHAT);
+export const changeActiveChat = createAction<{activeChat: string}>(ActionNames.CHANGE_ACTIVE_CHAT);

@@ -12,5 +12,5 @@ export const chatsArraySelector = (state: RootState) => createSelector(
 
 export const modifiableChatSelector = (state: RootState) => createSelector(
   [chatsSelector, modifiableChatIdSelector],
-  (chats, modifiableChatId) => modifiableChatId && chats.byId[modifiableChatId],
+  (chats, modifiableChatId) => (modifiableChatId ? chats.byId[modifiableChatId] : undefined),
 )(state);

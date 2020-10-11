@@ -1,7 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const getRequestAction = (name: string) => createAction(`${name}_REQUEST`);
+import ActionNames from 'Constants/actionNames';
 
-export const getSuccessAction = (name: string) => createAction(`${name}_SUCCESS`);
+export const getRequestAction = <P = undefined>(name: ActionNames) => createAction<P>(`${name}_REQUEST`);
 
-export const getFailureAction = (name: string) => createAction(`${name}_FAILURE`);
+export const getSuccessAction = <P = undefined>(name: ActionNames) => createAction<P>(`${name}_SUCCESS`);
+
+export const getFailureAction = <P = undefined>(name: ActionNames) => createAction<P>(`${name}_FAILURE`);

@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
+import { useDispatch } from 'react-redux';
 
-const MessageInput = ({ onSendMessage }) => {
+import { sendMessage } from 'Redux/actions';
+
+const MessageInput = () => {
+  const dispatch = useDispatch();
+
   const [messageText, setMessageText] = useState('');
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessageText(event.target.value);
   };
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       if (messageText.trim()) {
-        onSendMessage({ messageText });
+        dispatch(sendMessage({ messageText }));
         setMessageText('');
       }
     }
@@ -33,10 +37,6 @@ const MessageInput = ({ onSendMessage }) => {
       variant="outlined"
     />
   );
-};
-
-MessageInput.propTypes = {
-  onSendMessage: PropTypes.func.isRequired,
 };
 
 export default MessageInput;

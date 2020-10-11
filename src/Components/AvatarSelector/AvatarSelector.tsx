@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -31,35 +30,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+type Props = {
+  avatarFileInput: React.RefObject<HTMLInputElement>;
+  onChange?: () => void;
+  avatar?: string;
+  disabled?: boolean;
+}
+
 const AvatarSelector = ({
-  avatar: avatarProp, onChange, avatarFileInput, disabled,
-}) => {
+  avatar: avatarProp, onChange = () => {}, avatarFileInput, disabled = false,
+}: Props) => {
   const classes = useStyles();
-  const [avatar, setAvatar] = useState();
+  const [avatar, setAvatar] = useState<string>();
 
   useEffect(() => {
     setAvatar(avatarProp);
   }, [avatarProp]);
 
-  const avatarChange = (event) => {
-    if (!event.target.files.length) {
+  const avatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event?.target?.files;
+    if (!files || !files.length) {
       return;
     }
 
-    const newAvatar = URL.createObjectURL(event.target.files[0]);
+    const newAvatar = URL.createObjectURL(files[0]);
 
     setAvatar(newAvatar);
-    if (onChange) {
-      onChange(event);
-    }
+    onChange();
   };
 
-  const handlerRemoveButton = (event) => {
+  const handlerRemoveButton = (event: React.MouseEvent) => {
     event.preventDefault();
     setAvatar(undefined);
-    if (onChange) {
-      onChange(undefined);
-    }
+    onChange();
   };
 
   return (
@@ -104,19 +107,6 @@ const AvatarSelector = ({
       </div>
     </div>
   );
-};
-
-AvatarSelector.propTypes = {
-  avatarFileInput: PropTypes.instanceOf(Object).isRequired,
-  onChange: PropTypes.func,
-  avatar: PropTypes.string,
-  disabled: PropTypes.bool,
-};
-
-AvatarSelector.defaultProps = {
-  onChange: () => {},
-  avatar: undefined,
-  disabled: false,
 };
 
 export default AvatarSelector;

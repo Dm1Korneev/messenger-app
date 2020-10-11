@@ -36,11 +36,12 @@ export const messagesTreeSelector = (state: RootState) => createSelector(
     let authorNode: AuthorNode;
     let dateTimeNode: DateTimeNode;
     let dateTime: Date;
-
+    let lastNodeDateTime: Date;
     currentMessages.forEach((element, index) => {
       dateTime = new Date(element.dateTime);
-      dateTime.setSeconds(0);
-      dateTime.setMilliseconds(0);
+      const currentElementDateTime = new Date(dateTime.getTime());
+      currentElementDateTime.setSeconds(0);
+      currentElementDateTime.setMilliseconds(0);
       if (index === 0 || authorNode.author !== element.author) {
         messagesTree.push({ author: element.author, children: [] });
         authorNode = messagesTree[messagesTree.length - 1];
@@ -50,13 +51,15 @@ export const messagesTreeSelector = (state: RootState) => createSelector(
         });
         dateTimeNode = authorNode.children[authorNode.children.length - 1];
         dateTimeNode.children.push(element);
-      } else if (dateTime > dateTimeNode.dateTime) {
+        lastNodeDateTime = currentElementDateTime;
+      } else if (currentElementDateTime > lastNodeDateTime) {
         authorNode.children.push({
           dateTime,
           children: [],
         });
         dateTimeNode = authorNode.children[authorNode.children.length - 1];
         dateTimeNode.children.push(element);
+        lastNodeDateTime = currentElementDateTime;
       } else {
         dateTimeNode.children.push(element);
       }

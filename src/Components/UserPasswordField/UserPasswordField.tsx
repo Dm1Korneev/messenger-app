@@ -7,7 +7,11 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const ENTER_KEY_CODE = 13;
 
-const UserPasswordField = (props) => {
+type Props = Omit<
+  React.ComponentPropsWithoutRef<typeof TextField>,
+  'margin' | 'label' | 'fullWidth' | 'type' | 'autoComplete' | 'InputProps'>
+
+const UserPasswordField = (props: Props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleOnMouseDownShowPassword = () => {
@@ -18,7 +22,7 @@ const UserPasswordField = (props) => {
     setShowPassword(false);
   };
 
-  const handleOnKeyDownShowPassword = ({ keyCode }) => {
+  const handleOnKeyDownShowPassword = ({ keyCode }: React.KeyboardEvent<HTMLButtonElement>) => {
     if (keyCode === ENTER_KEY_CODE) {
       setShowPassword(true);
     }
