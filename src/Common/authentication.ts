@@ -12,7 +12,7 @@ function localStorageAvailable() {
   }
 }
 
-export function saveTokenToStorage(token) {
+export function saveTokenToStorage(token: string) {
   if (localStorageAvailable()) {
     sessionStorage[TOKEN_FIELD] = token;
   }
@@ -20,7 +20,7 @@ export function saveTokenToStorage(token) {
 
 export function getTokenFromStorage() {
   if (localStorageAvailable()) {
-    return sessionStorage[TOKEN_FIELD];
+    return sessionStorage[TOKEN_FIELD] as string;
   }
   return undefined;
 }
@@ -33,7 +33,7 @@ export function removeTokenFromStorage() {
   return false;
 }
 
-export function isLoggedIn(token) {
+export function isLoggedIn(token: string) {
   if (token) {
     if (typeof token !== 'string' || token.split('.').length < 2) {
       removeTokenFromStorage();
@@ -46,7 +46,7 @@ export function isLoggedIn(token) {
   return false;
 }
 
-export function getUserInfo(token) {
+export function getUserInfo(token: string) {
   if (isLoggedIn(token)) {
     const payload = JSON.parse(window.atob(token.split('.')[1]));
 

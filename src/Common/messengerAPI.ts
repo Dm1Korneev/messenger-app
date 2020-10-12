@@ -1,35 +1,24 @@
 import { MESSAGES_API_URL } from 'Constants';
 
-function parseJSON(response) {
-  return new Promise((resolve) => response.json().then((result) => resolve({
-    status: response.status,
-    ok: response.ok,
-    result,
-  })));
-}
-
-function apiCall(URI, optionsParams) {
+const apiCall = async <T>(URI: string, optionsParams: RequestInit, token?: string): Promise<T> => {
   const options = {
     ...optionsParams,
     headers: {
       ...optionsParams.headers,
       Accept: 'application/json',
+      Authorization: token ? `Bearer ${token}` : '',
     },
   };
 
-  return new Promise((resolve, reject) => {
-    fetch(URI, options)
-      .then(parseJSON)
-      .then((response) => {
-        if (response.ok) {
-          return resolve(response.result);
-        }
-        return reject(response.result);
-      });
-  });
-}
+  const response = await fetch(URI, options);
+  const result = await response.json();
+  if (!response.ok) {
+    throw result;
+  }
+  return result;
+};
 
-function addJsonBodyToRequest(options, bodyObject) {
+function addJsonBodyToRequest(options: RequestInit, bodyObject: Record<string, string[] | string>) {
   return {
     ...options,
     headers: {
@@ -40,7 +29,7 @@ function addJsonBodyToRequest(options, bodyObject) {
   };
 }
 
-export function login(email, password) {
+export function login(email: string, password: string) {
   const uri = `${MESSAGES_API_URL}/login`;
   const options = addJsonBodyToRequest(
     {
@@ -49,15 +38,17 @@ export function login(email, password) {
     { email, password },
   );
 
-  return apiCall(uri, options);
+  return apiCall<{token: string}>(uri, options);
 }
 
-export function register(email, password, name, avatar) {
+export const register = (email: string, password: string, name: string, avatar?: File) => {
   const formData = new FormData();
   formData.append('email', email);
   formData.append('password', password);
   formData.append('name', name);
-  formData.append('avatar', avatar);
+  if (avatar) {
+    formData.append('avatar', avatar);
+  }
 
   const uri = `${MESSAGES_API_URL}/register`;
   const options = {
@@ -65,67 +56,63 @@ export function register(email, password, name, avatar) {
     body: formData,
   };
 
-  return apiCall(uri, options);
+  return apiCall<{token: string}>(uri, options);
+};
+
+type ModifyUserData = {
+  name: string;
+  email: string;
+  password: string;
+  avatar: File;
 }
 
-export function modifyUser(token, userId, modifyData) {
+export function modifyUser(token: string, userId: string, modifyData: ModifyUserData) {
   const formData = new FormData();
-  Object.keys(modifyData).forEach((key) => formData.append(key, modifyData[key]));
+  const keys = Object.keys(modifyData) as (keyof ModifyUserData)[];
+  keys.forEach((key: keyof ModifyUserData) => formData.append(key, modifyData[key]));
 
   const uri = `${MESSAGES_API_URL}/users/${userId}`;
   const options = {
     method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
     body: formData,
   };
 
-  return apiCall(uri, options);
+  return apiCall(uri, options, token);
 }
 
-export function getChats(token) {
+export function getChats(token: string) {
   const uri = `${MESSAGES_API_URL}/chats`;
   const options = {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   };
 
-  return apiCall(uri, options);
+  return apiCall(uri, options, token);
 }
 
-export function getMessages(token, chatId) {
+export function getMessages(token: string, chatId: string) {
   const uri = `${MESSAGES_API_URL}/chats/${chatId}/messages`;
   const options = {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   };
 
-  return apiCall(uri, options);
+  return apiCall(uri, options, token);
 }
 
-export function sendMessage(token, chatId, text) {
+export function sendMessage(token: string, chatId: string, text: string) {
   const uri = `${MESSAGES_API_URL}/chats/${chatId}/messages`;
   const options = addJsonBodyToRequest(
     {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     },
     {
       text,
     },
   );
 
-  return apiCall(uri, options);
+  return apiCall(uri, options, token);
 }
 
-export function createChat(token, title, avatar, users) {
+export function createChat(token: string, title: string, avatar: File, users: string[]) {
   const formData = new FormData();
   formData.append('title', title);
   formData.append('avatar', avatar);
@@ -134,18 +121,22 @@ export function createChat(token, title, avatar, users) {
   const uri = `${MESSAGES_API_URL}/chats`;
   const options = {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
     body: formData,
   };
 
-  return apiCall(uri, options);
+  return apiCall(uri, options, token);
 }
 
-export function modifyChat(token, chatId, modifyData) {
+type ModifyChatData = {
+  title: string;
+  users: string[];
+  avatar: File;
+}
+
+export function modifyChat(token: string, chatId: string, modifyData: ModifyChatData) {
   const formData = new FormData();
-  Object.keys(modifyData).forEach((key) => {
+  const keys = Object.keys(modifyData) as (keyof ModifyChatData)[];
+  keys.forEach((key) => {
     if (key === 'users') {
       modifyData[key].forEach((value) => formData.append('users[]', value));
     } else {
@@ -156,23 +147,17 @@ export function modifyChat(token, chatId, modifyData) {
   const uri = `${MESSAGES_API_URL}/chats/${chatId}`;
   const options = {
     method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
     body: formData,
   };
 
-  return apiCall(uri, options);
+  return apiCall(uri, options, token);
 }
 
-export function getUsers(token) {
+export function getUsers(token: string) {
   const uri = `${MESSAGES_API_URL}/users`;
   const options = {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   };
 
-  return apiCall(uri, options);
+  return apiCall(uri, options, token);
 }

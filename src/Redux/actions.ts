@@ -90,14 +90,14 @@ export const modifyUser = getRequestAction<ModifyUserPayload>(ActionNames.MODIFY
 
 export const getChats = getRequestAction(ActionNames.GET_CHATS);
 
-type SignInPayload = {
+export type SignInPayload = {
   email: string;
   password: string;
   remember: boolean;
 }
 export const signIn = getRequestAction<SignInPayload>(ActionNames.LOGIN);
 
-type RegisterPayload = {
+export type RegisterPayload = {
   email: string;
   password: string;
   name: string;

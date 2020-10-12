@@ -1,6 +1,7 @@
 import {
   all, call, put, takeEvery,
 } from 'redux-saga/effects';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 import {
   login as loginAPI,
@@ -14,13 +15,15 @@ import {
   saveTokenToStorage,
 } from 'Common/authentication';
 import {
+  RegisterPayload,
+  SignInPayload,
   clearStore,
   setSessionInfo,
 } from 'Redux/actions';
 import ActionNames from 'Constants/actionNames';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 
-function* initAfterLogin(token) {
+function* initAfterLogin(token?: string) {
   if (!token) {
     return;
   }
@@ -31,40 +34,40 @@ function* initAfterLogin(token) {
   }
 }
 
-function* signIn(action) {
+function* signIn(action: PayloadAction<SignInPayload>) {
   try {
     const { email, password, remember } = action.payload;
     const result = yield call(loginAPI, email, password);
-    yield put(getSuccessAction(ActionNames.LOGIN)({ result }));
+    yield put(getSuccessAction<any>(ActionNames.LOGIN)({ result }));
     yield call(initAfterLogin, result.token);
     if (remember) {
       saveTokenToStorage(result.token);
     }
   } catch (error) {
-    yield put(getFailureAction(ActionNames.LOGIN)({ error }));
+    yield put(getFailureAction<any>(ActionNames.LOGIN)({ error }));
   }
 }
 
-function* register(action) {
+function* register(action: PayloadAction<RegisterPayload>) {
   try {
     const {
       email, password, name, avatar, remember,
     } = action.payload;
     const result = yield call(registerAPI, email, password, name, avatar);
-    yield put(getSuccessAction(ActionNames.REGISTER)({ result }));
+    yield put(getSuccessAction<{result: {token: string}}>(ActionNames.REGISTER)({ result }));
     yield call(initAfterLogin, result.token);
     if (remember) {
       saveTokenToStorage(result.token);
     }
   } catch (error) {
-    yield put(getFailureAction(ActionNames.REGISTER)({ error }));
+    yield put(getFailureAction<any>(ActionNames.REGISTER)({ error }));
   }
 }
 
 function* loginFromStore() {
   const token = yield call(getTokenFromStorage);
   if (token) {
-    yield put(getSuccessAction(ActionNames.LOGIN_FROM_STORE)({ token }));
+    yield put(getSuccessAction<{ token: string }>(ActionNames.LOGIN_FROM_STORE)({ token }));
     yield call(initAfterLogin, token);
   } else {
     yield put(getFailureAction(ActionNames.LOGIN_FROM_STORE)());
