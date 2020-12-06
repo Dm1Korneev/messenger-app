@@ -38,13 +38,13 @@ function* signIn(action: PayloadAction<SignInPayload>) {
   try {
     const { email, password, remember } = action.payload;
     const result = yield call(loginAPI, email, password);
-    yield put(getSuccessAction<any>(ActionNames.LOGIN)({ result }));
+    yield put(getSuccessAction<{result: unknown}>(ActionNames.LOGIN)({ result }));
     yield call(initAfterLogin, result.token);
     if (remember) {
       saveTokenToStorage(result.token);
     }
   } catch (error) {
-    yield put(getFailureAction<any>(ActionNames.LOGIN)({ error }));
+    yield put(getFailureAction(ActionNames.LOGIN)({ error }));
   }
 }
 
@@ -60,7 +60,7 @@ function* register(action: PayloadAction<RegisterPayload>) {
       saveTokenToStorage(result.token);
     }
   } catch (error) {
-    yield put(getFailureAction<any>(ActionNames.REGISTER)({ error }));
+    yield put(getFailureAction(ActionNames.REGISTER)({ error }));
   }
 }
 

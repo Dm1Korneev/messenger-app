@@ -6,4 +6,6 @@ export const getRequestAction = <P = undefined>(name: ActionNames) => createActi
 
 export const getSuccessAction = <P = undefined>(name: ActionNames) => createAction<P>(`${name}_SUCCESS`);
 
-export const getFailureAction = <P = undefined>(name: ActionNames) => createAction<P>(`${name}_FAILURE`);
+type FailureActionPayload = {error: Error} | undefined
+
+export const getFailureAction = (name: ActionNames) => createAction<FailureActionPayload>(`${name}_FAILURE`);

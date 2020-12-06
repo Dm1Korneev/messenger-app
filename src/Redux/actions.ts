@@ -60,7 +60,7 @@ export const sendMessage = getRequestAction<{messageText: string}>(ActionNames.S
 
 export const loadMessages = getRequestAction(ActionNames.GET_MESSAGES);
 
-type CreateChatPayload = {
+export type CreateChatPayload = {
   title: string;
   avatar?: File;
   selectedUserIds: string[];

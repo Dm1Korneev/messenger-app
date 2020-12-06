@@ -1,6 +1,7 @@
 import {
   all, call, put, select, takeEvery,
 } from 'redux-saga/effects';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 import {
   createChat as createChatAPI,
@@ -8,6 +9,7 @@ import {
   modifyChat as modifyChatAPI,
 } from 'Common/messengerAPI';
 import {
+  CreateChatPayload,
   addChats,
   getChats as getChatsAction,
   loadMessages as loadMessagesAction,
@@ -17,7 +19,7 @@ import ActionNames from 'Constants/actionNames';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 import { activeChatIdSelector, tokenSelector } from 'Selectors/session';
 
-function* createChat(action) {
+function* createChat(action: PayloadAction<CreateChatPayload>) {
   try {
     const token = yield select(tokenSelector);
     const { title, avatar, selectedUserIds } = action.payload;
