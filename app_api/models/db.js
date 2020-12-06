@@ -1,8 +1,20 @@
+const url = require('url');
+
 const mongoose = require('mongoose');
 
 const debug = require('../debug');
 
-const dbURI = process.env.MONGODB_URI;
+const dbCredentials = process.env.MONGO_USERNAME && process.env.MONGO_PASSWORD
+  ? `${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@` : '';
+
+const dbURI = url.format({
+  protocol: 'mongodb',
+  hostname: `${dbCredentials}${process.env.MONGO_HOST}`,
+  port: process.env.MONGO_PORT,
+  pathname: process.env.MONGO_DEFAULT_DB,
+  slashes: true,
+});
+
 debug.log(dbURI);
 mongoose.connect(dbURI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 

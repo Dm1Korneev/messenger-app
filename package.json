@@ -57,7 +57,7 @@
     "start": "start mongod '--config ./mongod.cfg' && start nodemon ./bin/www && start react-scripts start",
     "start-react": "react-scripts start",
     "start-nodemon": "nodemon ./bin/www",
-    "start-mongod": "mongod --config ./mongod.cfg",
+    "start-mongod": "docker-compose up -d mongo",
     "lint": "eslint src/ app_api/ bin/www server.js --ext .jsx,.js --color",
     "lint-fix": "eslint src/ app_api/ bin/www server.js --ext .jsx,.js --color --fix",
     "test": "react-scripts test",
