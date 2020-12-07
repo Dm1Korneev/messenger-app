@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+
+  mongo:
+    image: mongo:4.2.11-bionic
+    container_name: messenger-app-mongo
+    restart: "on-failure"
+    env_file: .env
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data
+    networks:
+      - net
+
+volumes:
+  mongo-data:
+
+networks:
+  net:
