@@ -16,14 +16,12 @@ const optionsLong = {
   month: 'long',
   day: 'numeric',
   year: 'numeric',
-  dateStyle: 'full',
-  timeStyle: 'short',
   minute: '2-digit',
 };
 const dateLongFormat = new Intl.DateTimeFormat(getLang(), optionsLong);
 
 const optionsShort = {
-  timeStyle: 'short',
+  hour: 'numeric',
   minute: '2-digit',
 };
 const dateShortFormat = new Intl.DateTimeFormat(getLang(), optionsShort);
