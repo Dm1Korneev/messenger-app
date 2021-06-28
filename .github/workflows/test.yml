@@ -12,18 +12,20 @@ jobs:
     env:
       CI: true
     steps:
+      - name: Checkout
       - uses: actions/checkout@v1
-      - name: "Use Node.js ${{ matrix.node }}"
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
+
       - name: "Install yarn"
         run: npm install -g yarn
+
       - name: "Install dependencies"
         run: yarn
+
       - name: "ESLint"
         run: npm run lint
+
       - name: "Build production build"
         run: npm run build
+
       - name: "Run tests"
         run: npm test
