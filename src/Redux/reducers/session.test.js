@@ -1,4 +1,4 @@
-import * as actionNames from 'Constants/actionNames';
+import ActionNames from 'Constants/actionNames';
 
 import reducer from './session';
 
@@ -26,7 +26,7 @@ describe('session reducer', () => {
 
     expect(
       reducer(defaultStore, {
-        type: actionNames.SET_ACTIVE_CHAT,
+        type: ActionNames.SET_ACTIVE_CHAT,
         payload: activeChat,
       }),
     ).toStrictEqual(
@@ -42,7 +42,7 @@ describe('session reducer', () => {
 
     expect(
       reducer(defaultStore, {
-        type: actionNames.SET_DRAWER_IS_OPEN,
+        type: ActionNames.SET_DRAWER_IS_OPEN,
         payload: drawerIsOpen,
       }),
     ).toStrictEqual(
@@ -58,7 +58,7 @@ describe('session reducer', () => {
 
     expect(
       reducer(defaultStore, {
-        type: actionNames.SET_ADD_CHAT_DIALOG_IS_OPEN,
+        type: ActionNames.SET_ADD_CHAT_DIALOG_IS_OPEN,
         payload: addChatDialogIsOpen,
       }),
     ).toStrictEqual(
@@ -74,7 +74,7 @@ describe('session reducer', () => {
 
     expect(
       reducer(defaultStore, {
-        type: actionNames.SET_MODIFY_CHAT_DIALOG_IS_OPEN,
+        type: ActionNames.SET_MODIFY_CHAT_DIALOG_IS_OPEN,
         payload: modifyChatDialogIsOpen,
       }),
     ).toStrictEqual(
@@ -90,7 +90,7 @@ describe('session reducer', () => {
 
     expect(
       reducer(defaultStore, {
-        type: actionNames.SET_MODIFY_USER_DIALOG_IS_OPEN,
+        type: ActionNames.SET_MODIFY_USER_DIALOG_IS_OPEN,
         payload: userModifyDialogIsOpen,
       }),
     ).toStrictEqual(
@@ -109,7 +109,7 @@ describe('session reducer', () => {
 
     expect(
       reducer(defaultStore, {
-        type: actionNames.SET_SESSION_INFO,
+        type: ActionNames.SET_SESSION_INFO,
         payload,
       }),
     ).toStrictEqual(
@@ -127,7 +127,7 @@ describe('session reducer', () => {
         isLoggedIn: true,
         userModifyDialogIsOpen: true,
       }, {
-        type: actionNames.CLEAR_STORE,
+        type: ActionNames.CLEAR_STORE,
       }),
     ).toStrictEqual(
       defaultStore,

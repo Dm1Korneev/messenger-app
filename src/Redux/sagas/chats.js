@@ -13,7 +13,7 @@ import {
   loadMessages as loadMessagesAction,
   setActiveChat,
 } from 'Redux/actions';
-import * as actionNames from 'Constants/actionNames';
+import ActionNames from 'Constants/actionNames';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 import { activeChatIdSelector, tokenSelector } from 'Selectors/session';
 
@@ -28,12 +28,12 @@ function* createChat(action) {
       avatar,
       selectedUserIds,
     );
-    yield put(getSuccessAction(actionNames.CREATE_CHAT)({ chat }));
+    yield put(getSuccessAction(ActionNames.CREATE_CHAT)({ chat }));
     yield put(addChats(chat));
     yield put(getChatsAction());
     yield put(loadMessagesAction());
   } catch (error) {
-    yield put(getFailureAction(actionNames.CREATE_CHAT)({ error }));
+    yield put(getFailureAction(ActionNames.CREATE_CHAT)({ error }));
   }
 }
 
@@ -42,11 +42,11 @@ function* modifyChat(action) {
     const token = yield select(tokenSelector);
     const { chatId, options } = action.payload;
     const chat = yield call(modifyChatAPI, token, chatId, options);
-    yield put(getSuccessAction(actionNames.MODIFY_CHAT)({ chat }));
+    yield put(getSuccessAction(ActionNames.MODIFY_CHAT)({ chat }));
     yield put(addChats(chat));
     yield put(getChatsAction());
   } catch (error) {
-    yield put(getFailureAction(actionNames.MODIFY_CHAT)({ error }));
+    yield put(getFailureAction(ActionNames.MODIFY_CHAT)({ error }));
   }
 }
 
@@ -60,13 +60,13 @@ function* getChats() {
     const token = yield select(tokenSelector);
     const activeChat = yield select(activeChatIdSelector);
     const chats = yield call(getChatsAPI, token);
-    yield put(getSuccessAction(actionNames.GET_CHATS)({ chats }));
+    yield put(getSuccessAction(ActionNames.GET_CHATS)({ chats }));
     yield put(addChats(chats));
     if (!activeChat && chats.length) {
       yield call(initActiveChat, chats[0]._id);
     }
   } catch (error) {
-    yield put(getFailureAction(actionNames.GET_CHATS)({ error }));
+    yield put(getFailureAction(ActionNames.GET_CHATS)({ error }));
   }
 }
 
@@ -77,10 +77,10 @@ function* changeActiveChat(action) {
 
 export default function* chatsSaga() {
   yield all([
-    yield takeEvery(getRequestAction(actionNames.CREATE_CHAT).type, createChat),
-    yield takeEvery(getRequestAction(actionNames.MODIFY_CHAT).type, modifyChat),
-    yield takeEvery(getRequestAction(actionNames.GET_CHATS).type, getChats),
-    yield takeEvery(actionNames.CHANGE_ACTIVE_CHAT, changeActiveChat),
+    yield takeEvery(getRequestAction(ActionNames.CREATE_CHAT).type, createChat),
+    yield takeEvery(getRequestAction(ActionNames.MODIFY_CHAT).type, modifyChat),
+    yield takeEvery(getRequestAction(ActionNames.GET_CHATS).type, getChats),
+    yield takeEvery(ActionNames.CHANGE_ACTIVE_CHAT, changeActiveChat),
   ]);
 }
 

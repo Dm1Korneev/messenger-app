@@ -1,4 +1,4 @@
-import * as actionNames from 'Constants/actionNames';
+import ActionNames from 'Constants/actionNames';
 
 import reducer from './messages';
 
@@ -12,7 +12,7 @@ describe('chats reducer', () => {
   test('should handle ADD_MESSAGES with array payload', () => {
     expect(
       reducer({}, {
-        type: actionNames.ADD_MESSAGES,
+        type: ActionNames.ADD_MESSAGES,
         payload: [{ _id: 'id1', chat: 'chatId1' }, { _id: 'id2', chat: 'chatId1' }, { _id: 'id3', chat: 'chatId2' }],
       }),
     ).toStrictEqual(
@@ -45,7 +45,7 @@ describe('chats reducer', () => {
           chatId2: ['id3'],
         },
       }, {
-        type: actionNames.ADD_MESSAGES,
+        type: ActionNames.ADD_MESSAGES,
         payload: { _id: 'id4', chat: 'chatId2' },
       }),
     ).toStrictEqual(
@@ -79,7 +79,7 @@ describe('chats reducer', () => {
           chatId2: ['id3'],
         },
       }, {
-        type: actionNames.CLEAR_STORE,
+        type: ActionNames.CLEAR_STORE,
       }),
     ).toStrictEqual(
       { byId: {}, allIds: [], byChats: {} },

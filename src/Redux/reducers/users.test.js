@@ -1,4 +1,4 @@
-import * as actionNames from 'Constants/actionNames';
+import ActionNames from 'Constants/actionNames';
 
 import reducer from './users';
 
@@ -12,7 +12,7 @@ describe('users reducer', () => {
   test('should handle ADD_USERS with array payload', () => {
     expect(
       reducer({}, {
-        type: actionNames.ADD_USERS,
+        type: ActionNames.ADD_USERS,
         payload: [{ _id: 'id1' }],
       }),
     ).toStrictEqual(
@@ -29,7 +29,7 @@ describe('users reducer', () => {
         byId: { id1: { _id: 'id1' } },
         allIds: ['id1'],
       }, {
-        type: actionNames.ADD_USERS,
+        type: ActionNames.ADD_USERS,
         payload: { _id: 'id2' },
       }),
     ).toStrictEqual(
@@ -46,7 +46,7 @@ describe('users reducer', () => {
         byId: { TEST: { _id: 'TEST' } },
         allIds: ['TEST'],
       }, {
-        type: actionNames.CLEAR_STORE,
+        type: ActionNames.CLEAR_STORE,
       }),
     ).toStrictEqual(
       { byId: {}, allIds: [] },

@@ -1,4 +1,4 @@
-import * as actionNames from 'Constants/actionNames';
+import ActionNames from 'Constants/actionNames';
 
 import reducer from './chats';
 
@@ -12,7 +12,7 @@ describe('chats reducer', () => {
   test('should handle ADD_USERS', () => {
     expect(
       reducer({}, {
-        type: actionNames.ADD_CHATS,
+        type: ActionNames.ADD_CHATS,
         payload: [{ _id: 'TEST' }],
       }),
     ).toStrictEqual(
@@ -29,7 +29,7 @@ describe('chats reducer', () => {
         byId: { TEST: { _id: 'TEST' } },
         allIds: ['TEST'],
       }, {
-        type: actionNames.CLEAR_STORE,
+        type: ActionNames.CLEAR_STORE,
       }),
     ).toStrictEqual(
       { byId: {}, allIds: [] },

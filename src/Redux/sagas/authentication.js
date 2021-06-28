@@ -17,7 +17,7 @@ import {
   clearStore,
   setSessionInfo,
 } from 'Redux/actions';
-import * as actionNames from 'Constants/actionNames';
+import ActionNames from 'Constants/actionNames';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 
 function* initAfterLogin(token) {
@@ -27,7 +27,7 @@ function* initAfterLogin(token) {
   if (yield call(isLoggedIn, token)) {
     const user = yield call(getUserInfo, token);
     yield put(setSessionInfo({ token, isLoggedIn: true, user }));
-    yield put(getRequestAction(actionNames.GET_CHATS)());
+    yield put(getRequestAction(ActionNames.GET_CHATS)());
   }
 }
 
@@ -35,13 +35,13 @@ function* signIn(action) {
   try {
     const { email, password, remember } = action.payload;
     const result = yield call(loginAPI, email, password);
-    yield put(getSuccessAction(actionNames.LOGIN)({ result }));
+    yield put(getSuccessAction(ActionNames.LOGIN)({ result }));
     yield call(initAfterLogin, result.token);
     if (remember) {
       saveTokenToStorage(result.token);
     }
   } catch (error) {
-    yield put(getFailureAction(actionNames.LOGIN)({ error }));
+    yield put(getFailureAction(ActionNames.LOGIN)({ error }));
   }
 }
 
@@ -51,23 +51,23 @@ function* register(action) {
       email, password, name, avatar, remember,
     } = action.payload;
     const result = yield call(registerAPI, email, password, name, avatar);
-    yield put(getSuccessAction(actionNames.REGISTER)({ result }));
+    yield put(getSuccessAction(ActionNames.REGISTER)({ result }));
     yield call(initAfterLogin, result.token);
     if (remember) {
       saveTokenToStorage(result.token);
     }
   } catch (error) {
-    yield put(getFailureAction(actionNames.REGISTER)({ error }));
+    yield put(getFailureAction(ActionNames.REGISTER)({ error }));
   }
 }
 
 function* loginFromStore() {
   const token = yield call(getTokenFromStorage);
   if (token) {
-    yield put(getSuccessAction(actionNames.LOGIN_FROM_STORE)({ token }));
+    yield put(getSuccessAction(ActionNames.LOGIN_FROM_STORE)({ token }));
     yield call(initAfterLogin, token);
   } else {
-    yield put(getFailureAction(actionNames.LOGIN_FROM_STORE)());
+    yield put(getFailureAction(ActionNames.LOGIN_FROM_STORE)());
   }
 }
 
@@ -78,13 +78,13 @@ function* logOut() {
 
 export default function* rootSaga() {
   yield all([
-    yield takeEvery(getRequestAction(actionNames.LOGIN).type, signIn),
-    yield takeEvery(getRequestAction(actionNames.REGISTER).type, register),
+    yield takeEvery(getRequestAction(ActionNames.LOGIN).type, signIn),
+    yield takeEvery(getRequestAction(ActionNames.REGISTER).type, register),
     yield takeEvery(
-      getRequestAction(actionNames.LOGIN_FROM_STORE).type,
+      getRequestAction(ActionNames.LOGIN_FROM_STORE).type,
       loginFromStore,
     ),
-    yield takeEvery(actionNames.LOGOUT, logOut),
+    yield takeEvery(ActionNames.LOGOUT, logOut),
   ]);
 }
 

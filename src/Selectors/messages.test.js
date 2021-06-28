@@ -32,23 +32,23 @@ describe('messages selectors', () => {
   const expectedResult = [
     {
       author: 'authorId4',
-      childrens: [{
-        childrens: [{
+      children: [{
+        children: [{
           _id: 'id1', author: 'authorId4', chat: 'chatId1', dateTime: new Date(2018, 11, 1),
         }],
         dateTime: new Date(2018, 11, 1),
       }],
     }, {
       author: 'authorId5',
-      childrens: [{
-        childrens: [{
+      children: [{
+        children: [{
           _id: 'id2', author: 'authorId5', chat: 'chatId1', dateTime: new Date(2018, 11, 2),
         }, {
           _id: 'id4', author: 'authorId5', chat: 'chatId1', dateTime: new Date(2018, 11, 2),
         }],
         dateTime: new Date(2018, 11, 2),
       }, {
-        childrens: [{
+        children: [{
           _id: 'id5', author: 'authorId5', chat: 'chatId1', dateTime: new Date(2018, 11, 6),
         }],
         dateTime: new Date(2018, 11, 6),

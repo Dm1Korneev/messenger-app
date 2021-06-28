@@ -3,15 +3,21 @@
     "browser": true,
     "jest": true
   },
-  "extends": ["react-app", "airbnb"],
-  "parser": "babel-eslint",
+  "extends": [
+    "react-app", 
+    "airbnb", 
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
   "plugins": [
-    "react"
+    "react", "@typescript-eslint"
   ],
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["src"]
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   },
@@ -21,6 +27,16 @@
     "no-extra-parens": "error",
     "no-multiple-empty-lines": ["error", {"max": 1}],
     "max-len": ["error", 140],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
     "import/order": [
       "error",
       {
@@ -39,7 +55,11 @@
     "import/prefer-default-export": "off",
     "import/no-cycle": "error",
     "no-underscore-dangle": ["error", { "allow": ["_id"]}],
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/camelcase": "off"
   },
   "overrides": [
     {
@@ -49,6 +69,12 @@
         "rules": {
           "global-require": "off"
         }
+    },
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "react/prop-types": "off"
+      }
     }
   ]
 }
