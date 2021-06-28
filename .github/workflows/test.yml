@@ -1,4 +1,4 @@
-name: 'Test'
+name: "Test"
 
 on: [pull_request]
 
@@ -6,24 +6,24 @@ jobs:
   test:
     strategy:
       matrix:
-        node: [12.x]
+        node: [14.x]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     env:
-        CI: true
+      CI: true
     steps:
-    - uses: actions/checkout@v1
-    - name: 'Use Node.js ${{ matrix.node }}'
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node }}
-    - name: 'Install yarn'
-      run: npm install -g yarn
-    - name: 'Install dependencies'
-      run: yarn
-    - name: 'ESLint'
-      run: npm run lint
-    - name: 'Build production build'
-      run: npm run build
-    - name: 'Run tests'
-      run: npm test           
+      - uses: actions/checkout@v1
+      - name: "Use Node.js ${{ matrix.node }}"
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: "Install yarn"
+        run: npm install -g yarn
+      - name: "Install dependencies"
+        run: yarn
+      - name: "ESLint"
+        run: npm run lint
+      - name: "Build production build"
+        run: npm run build
+      - name: "Run tests"
+        run: npm test
