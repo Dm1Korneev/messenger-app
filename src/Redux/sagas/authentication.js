@@ -1,7 +1,6 @@
 import {
   all, call, put, takeEvery,
 } from 'redux-saga/effects';
-import { PayloadAction } from '@reduxjs/toolkit';
 
 import {
   login as loginAPI,
