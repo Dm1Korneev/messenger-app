@@ -15,15 +15,13 @@ import {
   saveTokenToStorage,
 } from 'Common/authentication';
 import {
-  RegisterPayload,
-  SignInPayload,
   clearStore,
   setSessionInfo,
 } from 'Redux/actions';
 import ActionNames from 'Constants/actionNames';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 
-function* initAfterLogin(token?: string) {
+function* initAfterLogin(token) {
   if (!token) {
     return;
   }
@@ -34,11 +32,11 @@ function* initAfterLogin(token?: string) {
   }
 }
 
-function* signIn(action: PayloadAction<SignInPayload>) {
+function* signIn(action) {
   try {
     const { email, password, remember } = action.payload;
     const result = yield call(loginAPI, email, password);
-    yield put(getSuccessAction<{result: unknown}>(ActionNames.LOGIN)({ result }));
+    yield put(getSuccessAction(ActionNames.LOGIN)({ result }));
     yield call(initAfterLogin, result.token);
     if (remember) {
       saveTokenToStorage(result.token);
@@ -48,13 +46,13 @@ function* signIn(action: PayloadAction<SignInPayload>) {
   }
 }
 
-function* register(action: PayloadAction<RegisterPayload>) {
+function* register(action) {
   try {
     const {
       email, password, name, avatar, remember,
     } = action.payload;
     const result = yield call(registerAPI, email, password, name, avatar);
-    yield put(getSuccessAction<{result: {token: string}}>(ActionNames.REGISTER)({ result }));
+    yield put(getSuccessAction(ActionNames.REGISTER)({ result }));
     yield call(initAfterLogin, result.token);
     if (remember) {
       saveTokenToStorage(result.token);
@@ -67,7 +65,7 @@ function* register(action: PayloadAction<RegisterPayload>) {
 function* loginFromStore() {
   const token = yield call(getTokenFromStorage);
   if (token) {
-    yield put(getSuccessAction<{ token: string }>(ActionNames.LOGIN_FROM_STORE)({ token }));
+    yield put(getSuccessAction(ActionNames.LOGIN_FROM_STORE)({ token }));
     yield call(initAfterLogin, token);
   } else {
     yield put(getFailureAction(ActionNames.LOGIN_FROM_STORE)());
