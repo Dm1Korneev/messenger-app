@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const debug = require('../debug');
 
 const dbURI = process.env.MONGODB_URI;
+
 debug.log(dbURI);
 mongoose.connect(dbURI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 
