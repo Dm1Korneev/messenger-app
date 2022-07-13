@@ -20,11 +20,8 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: "Install yarn"
-        run: npm install -g yarn
-
       - name: "Install dependencies"
-        run: yarn
+        run: npm ci
 
       - name: "ESLint"
         run: npm run lint
