@@ -51,4 +51,3 @@ export default function* rootSaga() {
     yield takeEvery(getRequestAction(ActionNames.GET_MESSAGES).type, loadMessages),
   ]);
 }
-

@@ -52,4 +52,3 @@ export default function* usersSaga() {
     yield takeEvery(getRequestAction(ActionNames.MODIFY_USER).type, modifyUser),
   ]);
 }
-
