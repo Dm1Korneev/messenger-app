@@ -61,10 +61,10 @@
     "source-map-explorer": "^2.4.2"
   },
   "scripts": {
-    "start": "start mongod '--config ./mongod.cfg' && start nodemon ./app_api/www.js && start react-scripts start",
+    "start": "docker-compose up -d mongo && start nodemon ./app_api/www.js && start react-scripts start",
     "start-react": "react-scripts start",
     "start-nodemon": "nodemon ./app_api/www.js",
-    "start-mongod": "docker-compose up -d mongo",
+    "start-mongo": "docker-compose up -d mongo",
     "lint": "eslint src/ app_api/ --ext .jsx,.js,.ts,.tsx --color",
     "lint-fix": "eslint src/ app_api/ --ext .jsx,.js,.ts,.tsx --color --fix",
     "test": "react-scripts test",
