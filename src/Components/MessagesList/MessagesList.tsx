@@ -62,9 +62,6 @@ const MessagesList = () => {
     }
   };
 
-  console.log('users', users);
-  console.log('messagesTree', messagesTree);
-
   return (
     <List className={classes.list} onScroll={handlerOnScroll}>
       {messagesTree.map((valueAuthor, indexAuthor) => {
