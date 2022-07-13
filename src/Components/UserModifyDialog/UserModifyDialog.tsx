@@ -33,8 +33,8 @@ const validationSchema = Yup.object().shape({
 
 type FromValues = {
   name: string;
-          email: string;
-          password: string;
+  email: string;
+  password: string;
 }
 
 const DEFAULT_PASSWORD = '**********';
@@ -63,12 +63,17 @@ const UserModifyDialog = () => {
     const files = avatarFileInput?.current?.files;
     const avatar = files ? files[0] : undefined;
 
-    const options = {
+    const options: Actions.ModifyUserPayload['options'] = {
       name,
       email,
-      password: password !== DEFAULT_PASSWORD ? password : undefined,
-      avatar: avatarIsModified ? avatar : undefined,
     };
+
+    if (avatarIsModified) {
+      options.avatar = avatar;
+    }
+    if (password !== DEFAULT_PASSWORD && password) {
+      options.password = password;
+    }
 
     dispatch(Actions.modifyUser({ userId: currentUser._id, options }));
   };
@@ -122,4 +127,3 @@ const UserModifyDialog = () => {
 };
 
 export default UserModifyDialog;
-

@@ -28,6 +28,7 @@ function* initAfterLogin(token) {
     const user = yield call(getUserInfo, token);
     yield put(setSessionInfo({ token, isLoggedIn: true, user }));
     yield put(getRequestAction(ActionNames.GET_CHATS)());
+    yield put(getRequestAction(ActionNames.GET_USERS)());
   }
 }
 
@@ -87,4 +88,3 @@ export default function* rootSaga() {
     yield takeEvery(ActionNames.LOGOUT, logOut),
   ]);
 }
-

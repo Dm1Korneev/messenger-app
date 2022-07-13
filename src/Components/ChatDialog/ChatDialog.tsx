@@ -85,11 +85,13 @@ const ChatDialog = () => {
     const avatar = files ? files[0] : undefined;
 
     if (isModify && chat) {
-      const options = {
+      const options: Actions.ModifyChatPayload['options'] = {
         title,
         users: selectedUserIds,
-        avatar: avatarIsModified ? avatar : undefined,
       };
+      if (avatarIsModified) {
+        options.avatar = avatar;
+      }
 
       dispatch(Actions.modifyChat({ chatId: chat._id, options }));
     } else if (!isModify) {

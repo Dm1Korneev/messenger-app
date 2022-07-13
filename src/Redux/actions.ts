@@ -67,7 +67,7 @@ export type CreateChatPayload = {
 }
 export const createChat = getRequestAction<CreateChatPayload>(ActionNames.CREATE_CHAT);
 
-type ModifyChatPayload = {
+export type ModifyChatPayload = {
   chatId: string;
   options: {
     title: string;
@@ -77,7 +77,7 @@ type ModifyChatPayload = {
 }
 export const modifyChat = getRequestAction<ModifyChatPayload>(ActionNames.MODIFY_CHAT);
 
-type ModifyUserPayload = {
+export type ModifyUserPayload = {
   userId: string;
   options: {
     name: string;

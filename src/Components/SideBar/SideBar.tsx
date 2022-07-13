@@ -63,7 +63,11 @@ const SideBar = () => {
 
   useEffect(() => {
     const getChats = () => dispatch(Actions.getChats());
-    const interval = setInterval(getChats, RELOAD_PERIOD);
+    const getUsers = () => dispatch(Actions.getUsers());
+    const interval = setInterval(() => {
+      getChats();
+      getUsers();
+    }, RELOAD_PERIOD);
     return () => {
       if (interval) {
         clearInterval(interval);
@@ -116,4 +120,3 @@ const SideBar = () => {
 };
 
 export default SideBar;
-
