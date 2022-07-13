@@ -83,4 +83,3 @@ export default function* chatsSaga() {
     yield takeEvery(ActionNames.CHANGE_ACTIVE_CHAT, changeActiveChat),
   ]);
 }
-
