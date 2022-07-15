@@ -1,1 +1,1 @@
-export { default } from './MessageUser';
+export * from './MessageUser';

@@ -7,7 +7,7 @@ type Props = {
   isCurrentUserMessage: boolean;
 }
 
-const MessageText = ({ text = '', isCurrentUserMessage }: Props) => {
+export const MessageText = ({ text = '', isCurrentUserMessage }: Props) => {
   const flexDirection = isCurrentUserMessage ? 'row' : 'row-reverse';
 
   return (
@@ -18,6 +18,3 @@ const MessageText = ({ text = '', isCurrentUserMessage }: Props) => {
     </Box>
   );
 };
-
-export default MessageText;
-

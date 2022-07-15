@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 
-import MessageInput from 'Components/MessageInput';
-import MessagesList from 'Components/MessagesList';
+import { MessageInput } from 'Components/MessageInput';
+import { MessagesList } from 'Components/MessagesList';
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MainContent = () => {
+export const MainContent = () => {
   const classes = useStyles();
 
   return (
@@ -32,5 +32,3 @@ const MainContent = () => {
     </Box>
   );
 };
-
-export default MainContent;

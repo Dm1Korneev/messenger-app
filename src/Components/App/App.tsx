@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { loginFromStore } from 'Redux/actions';
 import { isLoggedInSelector } from 'Selectors/session';
-import MessengerScreen from 'Components/MessengerScreen';
-import SignIn from 'Components/SignIn';
+import { MessengerScreen } from 'Components/MessengerScreen';
+import { SignIn } from 'Components/SignIn';
 
-const App = () => {
+export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,5 +24,3 @@ const App = () => {
     </Box>
   );
 };
-
-export default App;

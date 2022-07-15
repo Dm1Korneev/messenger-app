@@ -1,6 +1,7 @@
-import { AnyAction } from '@reduxjs/toolkit';
+import { Reducer } from '@reduxjs/toolkit';
 
-export default function loadingReducer(state = {}, action: AnyAction): Record<string, string> {
+const errorsReducer: Reducer<Record<string, string>> = (stateProp, action) => {
+  const state = stateProp ?? {};
   const { type, payload } = action;
   const matches = /(.*)_(REQUEST|FAILURE)/.exec(type);
 
@@ -11,4 +12,6 @@ export default function loadingReducer(state = {}, action: AnyAction): Record<st
     ...state,
     [requestName]: requestState === 'FAILURE' ? payload?.error?.message ?? '' : '',
   };
-}
+};
+
+export default errorsReducer;

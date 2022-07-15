@@ -11,7 +11,7 @@ type Props = Omit<
   React.ComponentPropsWithoutRef<typeof TextField>,
   'margin' | 'label' | 'fullWidth' | 'type' | 'autoComplete' | 'InputProps'>
 
-const UserPasswordField = (props: Props) => {
+export const UserPasswordField = (props: Props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleOnMouseDownShowPassword = () => {
@@ -60,6 +60,3 @@ const UserPasswordField = (props: Props) => {
     />
   );
 };
-
-export default UserPasswordField;
-

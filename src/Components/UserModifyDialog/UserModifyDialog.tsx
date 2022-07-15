@@ -10,15 +10,15 @@ import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ActionNames from 'Constants/actionNames';
+import { ActionNames } from 'Constants';
 import { RootState } from 'Redux/reducers';
 import * as Actions from 'Redux/actions';
 import { currentUserSelector } from 'Selectors/session';
 import { errorSelector } from 'Selectors/errors';
-import UserEmailField from 'Components/UserEmailField';
-import AvatarSelector from 'Components/AvatarSelector';
-import UserNameField from 'Components/UserNameField';
-import UserPasswordField from 'Components/UserPasswordField';
+import { UserEmailField } from 'Components/UserEmailField';
+import { AvatarSelector } from 'Components/AvatarSelector';
+import { UserNameField } from 'Components/UserNameField';
+import { UserPasswordField } from 'Components/UserPasswordField';
 import {
   email as emailValidation,
   name as nameValidation,
@@ -39,7 +39,7 @@ type FromValues = {
 
 const DEFAULT_PASSWORD = '**********';
 
-const UserModifyDialog = () => {
+export const UserModifyDialog = () => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(currentUserSelector);
@@ -125,5 +125,3 @@ const UserModifyDialog = () => {
     </Dialog>
   );
 };
-
-export default UserModifyDialog;

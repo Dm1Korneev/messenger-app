@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import ActionNames from 'Constants/actionNames';
+import { ActionNames } from 'Constants';
 
 export const getRequestAction = <P = undefined>(name: ActionNames) => createAction<P>(`${name}_REQUEST`);
 

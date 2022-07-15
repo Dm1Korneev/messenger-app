@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ThemeProvider from 'Components/ThemeProvider';
-import StoreProvider from 'Components/StoreProvider';
-import App from 'Components/App';
+import { ThemeProvider } from 'Components/ThemeProvider';
+import { StoreProvider } from 'Components/StoreProvider';
+import { App } from 'Components/App';
 
 const Main = () => (
   <StoreProvider>

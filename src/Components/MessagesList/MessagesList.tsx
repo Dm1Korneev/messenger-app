@@ -11,9 +11,9 @@ import { loadMessages } from 'Redux/actions';
 import { usersByIdSelector } from 'Selectors/users';
 import { currentUserSelector } from 'Selectors/session';
 import { messagesTreeSelector } from 'Selectors/messages';
-import MessageDateTime from 'Components/MessageDateTime';
-import MessageText from 'Components/MessageText';
-import MessageUser from 'Components/MessageUser';
+import { MessageDateTime } from 'Components/MessageDateTime';
+import { MessageText } from 'Components/MessageText';
+import { MessageUser } from 'Components/MessageUser';
 import { RELOAD_PERIOD } from 'Constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MessagesList = () => {
+export const MessagesList = () => {
   const dispatch = useDispatch();
 
   const messagesTree = useSelector(messagesTreeSelector);
@@ -119,5 +119,3 @@ const MessagesList = () => {
     </List>
   );
 };
-
-export default MessagesList;

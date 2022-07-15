@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 
-import UsersAvatar from 'Components/UsersAvatar';
+import { UsersAvatar } from 'Components/UsersAvatar';
 
 const useStyles = makeStyles((theme) => ({
   ListItemText: {
@@ -19,7 +19,7 @@ type Props = {
   avatar: string;
 }
 
-const MessageUser: FC<Props> = ({
+export const MessageUser: FC<Props> = ({
   isCurrentUserMessage, author, avatar, children,
 }) => {
   const classes = useStyles();
@@ -58,6 +58,3 @@ const MessageUser: FC<Props> = ({
     </ListItem>
   );
 };
-
-export default MessageUser;
-

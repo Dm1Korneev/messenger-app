@@ -5,7 +5,7 @@ type Props = Omit<
   React.ComponentPropsWithoutRef<typeof TextField>,
   'margin' | 'label' | 'fullWidth' | 'autoComplete'>
 
-const UserNameField = (props: Props) => (
+export const UserNameField = (props: Props) => (
   <TextField
     margin="normal"
     label="Name *"
@@ -14,5 +14,3 @@ const UserNameField = (props: Props) => (
     {...props}
   />
 );
-
-export default UserNameField;

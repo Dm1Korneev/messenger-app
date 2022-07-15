@@ -1,4 +1,4 @@
-enum ActionNames {
+export enum ActionNames {
     GET_CHATS = 'GET_CHATS',
     ADD_CHATS = 'ADD_CHATS',
     CREATE_CHAT = 'CREATE_CHAT',
@@ -27,5 +27,3 @@ enum ActionNames {
     SET_MODIFY_CHAT_DIALOG_IS_OPEN = 'SET_MODIFY_CHAT_DIALOG_IS_OPEN',
     SET_MODIFY_USER_DIALOG_IS_OPEN = 'SET_MODIFY_USER_DIALOG_IS_OPEN',
 }
-
-export default ActionNames;

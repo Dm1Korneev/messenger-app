@@ -1,1 +1,1 @@
-export { default } from './AvatarSelector';
+export * from './AvatarSelector';

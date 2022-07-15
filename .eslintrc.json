@@ -1,11 +1,11 @@
 {
-  "env": { 
+  "env": {
     "browser": true,
     "jest": true
   },
   "extends": [
-    "react-app", 
-    "airbnb", 
+    "react-app",
+    "airbnb",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
@@ -59,7 +59,10 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
     "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/camelcase": "off"
+    "@typescript-eslint/camelcase": "off",
+    "react/require-default-props": "off",
+    "react/function-component-definition": ["error", { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }],
+    "no-shadow": "off"
   },
   "overrides": [
     {

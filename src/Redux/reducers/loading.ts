@@ -1,6 +1,7 @@
-import { Action } from '@reduxjs/toolkit';
+import { Reducer } from '@reduxjs/toolkit';
 
-export default function loadingReducer(state = {}, action: Action): Record<string, boolean> {
+const loadingReducer: Reducer<Record<string, boolean>> = (stateProp, action) => {
+  const state = stateProp ?? {};
   const { type } = action;
   const matches = /(.*)_(REQUEST|SUCCESS|FAILURE)/.exec(type);
 
@@ -11,4 +12,6 @@ export default function loadingReducer(state = {}, action: Action): Record<strin
     ...state,
     [requestName]: requestState === 'REQUEST',
   };
-}
+};
+
+export default loadingReducer;

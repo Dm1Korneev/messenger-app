@@ -1,1 +1,1 @@
-export { default } from './MessengerScreen';
+export * from './MessengerScreen';

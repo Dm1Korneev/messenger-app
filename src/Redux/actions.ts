@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 
 import { Chat, Message, User } from 'Types';
-import ActionNames from 'Constants/actionNames';
+import { ActionNames } from 'Constants';
 import { getRequestAction } from 'Redux/shared';
 
 import { SessionState } from './reducers/session';
@@ -25,8 +25,7 @@ export const setModifyUserDialogIsOpen = createAction<boolean>(
 
 export const setSessionInfo = createAction<Partial<SessionState>>(ActionNames.SET_SESSION_INFO);
 
-export const closeChatDialog = (
-) => createAction<Pick<
+export const closeChatDialog = () => createAction<Pick<
   SessionState, 'modifyChatDialogIsOpen' | 'addChatDialogIsOpen' | 'modifiableChatId'>>(ActionNames.SET_SESSION_INFO)({
     modifyChatDialogIsOpen: false,
     addChatDialogIsOpen: false,

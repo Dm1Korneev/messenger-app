@@ -17,7 +17,7 @@ import {
   clearStore,
   setSessionInfo,
 } from 'Redux/actions';
-import ActionNames from 'Constants/actionNames';
+import { ActionNames } from 'Constants';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 
 function* initAfterLogin(token) {

@@ -13,5 +13,5 @@ export type ChatsState = {
 const defaultStore: ChatsState = { byId: {}, allIds: [] };
 
 export default createReducer(defaultStore, (builder) => builder
-  .addCase(actions.addChats, (state, action) => objectsAdd<ChatsState, Chat>(state, action.payload))
+  .addCase(actions.addChats, (state, action) => objectsAdd<Chat>(state, action.payload))
   .addCase(actions.clearStore, () => defaultStore));

@@ -1,1 +1,1 @@
-export { default } from './UserPasswordField';
+export * from './UserPasswordField';

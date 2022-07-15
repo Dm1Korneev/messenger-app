@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider as MUIThemeProvider } from '@material-ui/core/styles';
 
 import theme from './theme';
 
-const Provider: FC = ({ children }) => (
-  <ThemeProvider theme={theme}>{children}</ThemeProvider>
+export const ThemeProvider: FC = ({ children }) => (
+  <MUIThemeProvider theme={theme}>{children}</MUIThemeProvider>
 );
-
-export default Provider;

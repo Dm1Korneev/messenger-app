@@ -55,7 +55,7 @@ type Props = {
   dateTime: Date;
 }
 
-const MessageDateTime: FC<Props> = ({
+export const MessageDateTime: FC<Props> = ({
   isCurrentUserMessage, children, dateTime: dateTimeFromProps,
 }) => {
   const classes = useStyles();
@@ -85,5 +85,3 @@ const MessageDateTime: FC<Props> = ({
     </Box>
   );
 };
-
-export default MessageDateTime;

@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { chatsArraySelector } from 'Selectors/chats';
 import { activeChatIdSelector, drawerIsOpenSelector } from 'Selectors/session';
 import { DRAWER_WIDTH, RELOAD_PERIOD } from 'Constants';
-import Chat from 'Components/Chat';
+import { Chat } from 'Components/Chat';
 import * as Actions from 'Redux/actions';
 
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SideBar = () => {
+export const SideBar = () => {
   const dispatch = useDispatch();
 
   const chats = useSelector(chatsArraySelector);
@@ -80,12 +80,10 @@ const SideBar = () => {
     <Drawer
       variant="permanent"
       classes={{
-        paper: clsx(
-          classes.drawer, {
-            [classes.drawerOpen]: drawerIsOpen,
-            [classes.drawerClose]: !drawerIsOpen,
-          },
-        ),
+        paper: clsx(classes.drawer, {
+          [classes.drawerOpen]: drawerIsOpen,
+          [classes.drawerClose]: !drawerIsOpen,
+        }),
       }}
       open={drawerIsOpen}
     >
@@ -118,5 +116,3 @@ const SideBar = () => {
     </Drawer>
   );
 };
-
-export default SideBar;

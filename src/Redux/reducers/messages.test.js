@@ -1,4 +1,4 @@
-import ActionNames from 'Constants/actionNames';
+import { ActionNames } from 'Constants';
 
 import reducer from './messages';
 

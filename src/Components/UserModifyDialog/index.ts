@@ -1,1 +1,1 @@
-export { default } from './UserModifyDialog';
+export * from './UserModifyDialog';

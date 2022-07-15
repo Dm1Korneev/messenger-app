@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopBar = () => {
+export const TopBar = () => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(currentUserSelector);
@@ -86,6 +86,3 @@ const TopBar = () => {
     </AppBar>
   );
 };
-
-export default TopBar;
-

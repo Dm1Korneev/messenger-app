@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { sendMessage } from 'Redux/actions';
 
-const MessageInput = () => {
+export const MessageInput = () => {
   const dispatch = useDispatch();
 
   const [messageText, setMessageText] = useState('');
@@ -38,6 +38,3 @@ const MessageInput = () => {
     />
   );
 };
-
-export default MessageInput;
-

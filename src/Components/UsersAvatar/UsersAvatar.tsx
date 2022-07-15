@@ -8,7 +8,7 @@ type Props = {
   size?: number;
 }
 
-const UsersAvatar = ({ avatar, author, size }: Props) => {
+export const UsersAvatar = ({ avatar, author, size }: Props) => {
   const style = size ? { width: size, height: size } : {};
 
   return (
@@ -17,5 +17,3 @@ const UsersAvatar = ({ avatar, author, size }: Props) => {
     </Avatar>
   );
 };
-
-export default UsersAvatar;

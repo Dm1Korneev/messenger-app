@@ -7,7 +7,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import CreateIcon from '@material-ui/icons/Create';
 
 import { Chat as ChatType } from 'Types';
-import UsersAvatar from 'Components/UsersAvatar';
+import { UsersAvatar } from 'Components/UsersAvatar';
 
 const useStyles = makeStyles(() => ({
   listItem: {
@@ -30,7 +30,7 @@ type Props = {
   chat: ChatType;
 }
 
-const Chat = ({
+export const Chat = ({
   selected, chatOnClick, chatModifyOnClick, chat,
 }: Props) => {
   const classes = useStyles();
@@ -61,6 +61,3 @@ const Chat = ({
     </ListItem>
   );
 };
-
-export default Chat;
-

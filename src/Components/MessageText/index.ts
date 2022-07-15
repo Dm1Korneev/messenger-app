@@ -1,1 +1,1 @@
-export { default } from './MessageText';
+export * from './MessageText';

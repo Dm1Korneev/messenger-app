@@ -20,7 +20,7 @@ export default createReducer(defaultStore, (builder) => builder
       ? action.payload
       : [action.payload];
 
-    const newStore = objectsAdd<MessagesState, Message>(state, payload);
+    const newStore = objectsAdd<Message>(state, payload);
 
     const messagesByChats: Record<Chat['_id'], Message['_id'][]> = {};
     payload.forEach((value) => {

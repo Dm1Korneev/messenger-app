@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import UsersAvatar from 'Components/UsersAvatar';
+import { UsersAvatar } from 'Components/UsersAvatar';
 
 const useStyles = makeStyles((theme) => ({
   avatar: { marginRight: theme.spacing(2) },
@@ -37,7 +37,7 @@ type Props = {
   disabled?: boolean;
 }
 
-const AvatarSelector = ({
+export const AvatarSelector = ({
   avatar: avatarProp, onChange = () => {}, avatarFileInput, disabled = false,
 }: Props) => {
   const classes = useStyles();
@@ -108,5 +108,3 @@ const AvatarSelector = ({
     </div>
   );
 };
-
-export default AvatarSelector;

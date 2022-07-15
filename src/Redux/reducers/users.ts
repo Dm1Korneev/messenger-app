@@ -13,6 +13,5 @@ type UsersState = {
 const defaultStore: UsersState = { byId: {}, allIds: [] };
 
 export default createReducer(defaultStore, (builder) => builder
-  .addCase(actions.addUsers, (state, action) => objectsAdd<UsersState, User>(state, action.payload))
+  .addCase(actions.addUsers, (state, action) => objectsAdd<User>(state, action.payload))
   .addCase(actions.clearStore, () => defaultStore));
-

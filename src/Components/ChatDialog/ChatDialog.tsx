@@ -19,8 +19,8 @@ import * as Actions from 'Redux/actions';
 import { modifyChatDialogIsOpenSelector } from 'Selectors/session';
 import { notCurrentUsersSelector } from 'Selectors/users';
 import { modifiableChatSelector } from 'Selectors/chats';
-import AvatarSelector from 'Components/AvatarSelector';
-import UsersAvatar from 'Components/UsersAvatar';
+import { AvatarSelector } from 'Components/AvatarSelector';
+import { UsersAvatar } from 'Components/UsersAvatar';
 import {
   name as nameValidation,
 } from 'Common/validation';
@@ -35,7 +35,7 @@ type FromValues = {
   title: string;
 }
 
-const ChatDialog = () => {
+export const ChatDialog = () => {
   const dispatch = useDispatch();
 
   const users = useSelector(notCurrentUsersSelector);
@@ -189,9 +189,3 @@ const ChatDialog = () => {
     </Dialog>
   );
 };
-
-ChatDialog.defaultProps = {
-  chat: undefined,
-};
-
-export default ChatDialog;
