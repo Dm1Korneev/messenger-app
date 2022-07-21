@@ -1,4 +1,3 @@
-import React, { useRef, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,23 +6,24 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Field, Form, Formik } from 'formik';
-import * as Yup from 'yup';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
 
-import { ActionNames } from 'Constants';
-import { RootState } from 'Redux/reducers';
-import * as Actions from 'Redux/actions';
-import { currentUserSelector } from 'Selectors/session';
-import { errorSelector } from 'Selectors/errors';
-import { UserEmailField } from 'Components/UserEmailField';
-import { AvatarSelector } from 'Components/AvatarSelector';
-import { UserNameField } from 'Components/UserNameField';
-import { UserPasswordField } from 'Components/UserPasswordField';
 import {
   email as emailValidation,
   name as nameValidation,
   password as passwordValidation,
 } from 'Common/validation';
+import { AvatarSelector } from 'Components/AvatarSelector';
+import { UserEmailField } from 'Components/UserEmailField';
+import { UserNameField } from 'Components/UserNameField';
+import { UserPasswordField } from 'Components/UserPasswordField';
+import { ActionNames } from 'Constants';
+import * as Actions from 'Redux/actions';
+import { RootState } from 'Redux/reducers';
+import { errorSelector } from 'Selectors/errors';
+import { currentUserSelector } from 'Selectors/session';
 
 const validationSchema = Yup.object().shape({
   email: emailValidation,

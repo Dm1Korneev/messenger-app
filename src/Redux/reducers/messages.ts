@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { Chat, Message } from 'Types';
 import { distinct } from 'Common/utils';
 import { objectsAdd } from 'Redux/reducers/operations';
+import { Chat, Message } from 'Types';
 
 import * as actions from '../actions';
 

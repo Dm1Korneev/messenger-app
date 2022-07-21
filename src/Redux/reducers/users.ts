@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { User } from 'Types';
 import { objectsAdd } from 'Redux/reducers/operations';
+import { User } from 'Types';
 
 import * as actions from '../actions';
 

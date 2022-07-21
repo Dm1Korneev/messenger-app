@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { sendMessage } from 'Redux/actions';

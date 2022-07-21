@@ -1,8 +1,8 @@
 
 import { createSelector } from '@reduxjs/toolkit';
 
-import { activeChatIdSelector } from 'Selectors/session';
 import { RootState } from 'Redux/reducers';
+import { activeChatIdSelector } from 'Selectors/session';
 import { Message } from 'Types';
 
 const messagesSelector = (state: RootState) => state.messages;

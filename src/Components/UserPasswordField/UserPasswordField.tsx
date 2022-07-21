@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { TextField } from 'formik-material-ui';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { TextField } from 'formik-material-ui';
+import { useState } from 'react';
 
 const ENTER_KEY_CODE = 13;
 

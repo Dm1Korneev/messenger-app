@@ -1,7 +1,6 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { MessageInput } from 'Components/MessageInput';
 import { MessagesList } from 'Components/MessagesList';

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import InputLabel from '@material-ui/core/InputLabel';
+import { makeStyles } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { useEffect, useState } from 'react';
 
 import { UsersAvatar } from 'Components/UsersAvatar';
 

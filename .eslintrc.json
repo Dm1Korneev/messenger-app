@@ -48,10 +48,10 @@
           "sibling",
           "index"
         ],
-        "newlines-between": "always"
+        "newlines-between": "always",
+        "alphabetize": {"order": "asc", "caseInsensitive": true}
       }
     ],
-    "sort-imports": ["error", {"ignoreDeclarationSort": true}],
     "import/prefer-default-export": "off",
     "import/no-cycle": "error",
     "no-underscore-dangle": ["error", { "allow": ["_id"]}],
@@ -61,6 +61,7 @@
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/camelcase": "off",
     "react/require-default-props": "off",
+    "react/react-in-jsx-scope": "off",
     "react/function-component-definition": ["error", { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }],
     "no-shadow": "off"
   },

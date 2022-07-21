@@ -1,36 +1,36 @@
-import React, { useRef, useState } from 'react';
+import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Paper from '@material-ui/core/Paper';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
+import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
 import {
   Field, Form, Formik, FormikHelpers,
 } from 'formik';
 import { CheckboxWithLabel } from 'formik-material-ui';
-import * as Yup from 'yup';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
 
-import { register, signIn } from 'Redux/actions';
-import { RootState } from 'Redux/reducers';
-import { errorSelector } from 'Selectors/errors';
-import { loadingSelector } from 'Selectors/loading';
-import { ActionNames } from 'Constants';
-import { AvatarSelector } from 'Components/AvatarSelector';
-import { UserEmailField } from 'Components/UserEmailField';
-import { UserNameField } from 'Components/UserNameField';
-import { UserPasswordField } from 'Components/UserPasswordField';
 import {
   email as emailValidation,
   name as nameValidation,
   password as passwordValidation,
 } from 'Common/validation';
+import { AvatarSelector } from 'Components/AvatarSelector';
+import { UserEmailField } from 'Components/UserEmailField';
+import { UserNameField } from 'Components/UserNameField';
+import { UserPasswordField } from 'Components/UserPasswordField';
+import { ActionNames } from 'Constants';
+import { register, signIn } from 'Redux/actions';
+import { RootState } from 'Redux/reducers';
+import { errorSelector } from 'Selectors/errors';
+import { loadingSelector } from 'Selectors/loading';
 
 enum DialogTabs {
   SIGN_IN = 'SIGN_IN',

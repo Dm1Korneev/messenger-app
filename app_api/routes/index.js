@@ -1,10 +1,10 @@
 const express = require('express');
 const { expressjwt: jwt } = require('express-jwt');
 
-const ctrlMessages = require('../controllers/messages');
-const ctrlChats = require('../controllers/chats');
-const ctrlUsers = require('../controllers/users');
 const fileLoader = require('../common/fileLoader');
+const ctrlChats = require('../controllers/chats');
+const ctrlMessages = require('../controllers/messages');
+const ctrlUsers = require('../controllers/users');
 
 const router = express.Router();
 

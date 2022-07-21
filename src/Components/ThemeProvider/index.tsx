@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
 import { ThemeProvider as MUIThemeProvider } from '@material-ui/core/styles';
+import { FC } from 'react';
 
 import theme from './theme';
 
