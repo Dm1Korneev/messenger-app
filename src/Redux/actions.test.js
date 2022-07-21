@@ -37,14 +37,6 @@ describe('actions', () => {
     expect(actions.setSessionInfo({ test: 'test' })).toStrictEqual(expectedAction);
   });
 
-  test('should create an action to add chats', () => {
-    const expectedAction = {
-      type: ActionNames.ADD_CHATS,
-      payload: [{ test: 'test' }],
-    };
-    expect(actions.addChats([{ test: 'test' }])).toStrictEqual(expectedAction);
-  });
-
   test('should create an action to add messages', () => {
     const expectedAction = {
       type: ActionNames.ADD_MESSAGES,
