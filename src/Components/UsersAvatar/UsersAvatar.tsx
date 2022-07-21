@@ -1,4 +1,3 @@
-import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import AccountIcon from '@material-ui/icons/AccountCircleOutlined';
 

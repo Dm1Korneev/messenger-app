@@ -1,28 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import TextField from '@material-ui/core/TextField';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
 import { Field, Form, Formik } from 'formik';
-import * as Yup from 'yup';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
 
-import { User } from 'Types';
-import * as Actions from 'Redux/actions';
-import { notCurrentUsersSelector } from 'Selectors/users';
-import { useChatById } from 'Hooks';
-import { AvatarSelector } from 'Components/AvatarSelector';
-import { UsersAvatar } from 'Components/UsersAvatar';
 import {
   name as nameValidation,
 } from 'Common/validation';
+import { AvatarSelector } from 'Components/AvatarSelector';
+import { UsersAvatar } from 'Components/UsersAvatar';
+import { useChatById } from 'Hooks';
+import * as Actions from 'Redux/actions';
+import { notCurrentUsersSelector } from 'Selectors/users';
+import { User } from 'Types';
 
 import TitleField from './TitleField';
 

@@ -1,9 +1,9 @@
 import { all } from 'redux-saga/effects';
 
-import usersSaga from 'Redux/sagas/users';
+import authenticationSaga from 'Redux/sagas/authentication';
 import chatsSaga from 'Redux/sagas/chats';
 import messagesSaga from 'Redux/sagas/messages';
-import authenticationSaga from 'Redux/sagas/authentication';
+import usersSaga from 'Redux/sagas/users';
 
 export default function* rootSaga() {
   yield all([

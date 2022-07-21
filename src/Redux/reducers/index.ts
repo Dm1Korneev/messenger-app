@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-import messages from './messages';
-import users from './users';
-import session from './session';
-import loading from './loading';
 import errors from './errors';
+import loading from './loading';
+import messages from './messages';
+import session from './session';
+import users from './users';
 
 const rootReducer = combineReducers({
   messages,

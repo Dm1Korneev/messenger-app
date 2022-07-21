@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { currentUserIdSelector } from 'Selectors/session';
 import { RootState } from 'Redux/reducers';
+import { currentUserIdSelector } from 'Selectors/session';
 
 const usersSelector = (state: RootState) => state.users;
 

@@ -1,5 +1,5 @@
-import * as sessionSelectors from './session';
 import { messagesTreeSelector } from './messages';
+import * as sessionSelectors from './session';
 
 describe('messages selectors', () => {
   const store = {

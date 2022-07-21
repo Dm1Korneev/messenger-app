@@ -1,13 +1,12 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { userModifyDialogIsOpenSelector } from 'Selectors/session';
 import { ChatDialog } from 'Components/ChatDialog';
 import { MainContent } from 'Components/MainContent';
 import { SideBar } from 'Components/SideBar';
 import { TopBar } from 'Components/TopBar';
 import { UserModifyDialog } from 'Components/UserModifyDialog';
 import { useDialogState, useDisclosure } from 'Hooks';
+import { userModifyDialogIsOpenSelector } from 'Selectors/session';
 
 export const MessengerScreen = () => {
   const modifyChatDialogState = useDialogState<string>();

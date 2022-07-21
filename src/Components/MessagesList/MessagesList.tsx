@@ -1,20 +1,20 @@
-import React, {
+import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import { makeStyles } from '@material-ui/core/styles';
+import {
   Fragment, useEffect, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
 
-import { loadMessages } from 'Redux/actions';
-import { usersByIdSelector } from 'Selectors/users';
-import { currentUserSelector } from 'Selectors/session';
-import { messagesTreeSelector } from 'Selectors/messages';
 import { MessageDateTime } from 'Components/MessageDateTime';
 import { MessageText } from 'Components/MessageText';
 import { MessageUser } from 'Components/MessageUser';
 import { RELOAD_PERIOD } from 'Constants';
+import { loadMessages } from 'Redux/actions';
+import { messagesTreeSelector } from 'Selectors/messages';
+import { currentUserSelector } from 'Selectors/session';
+import { usersByIdSelector } from 'Selectors/users';
 
 const useStyles = makeStyles((theme) => ({
   list: {

@@ -3,18 +3,18 @@ import {
 } from 'redux-saga/effects';
 
 import {
-  getUsers as getUsersAPI,
-  modifyUser as modifyUserAPI,
-} from 'Common/messengerAPI';
-import {
   getUserInfo,
   saveTokenToStorage,
 } from 'Common/authentication';
 import {
+  getUsers as getUsersAPI,
+  modifyUser as modifyUserAPI,
+} from 'Common/messengerAPI';
+import { ActionNames } from 'Constants';
+import {
   addUsers,
   setSessionInfo,
 } from 'Redux/actions';
-import { ActionNames } from 'Constants';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 import { tokenSelector } from 'Selectors/session';
 

@@ -1,19 +1,18 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import MenuIcon from '@material-ui/icons/Menu';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import CreateIcon from '@material-ui/icons/Create';
+import MenuIcon from '@material-ui/icons/Menu';
+import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { DRAWER_WIDTH } from 'Constants';
 import * as Actions from 'Redux/actions';
 import { currentUserSelector, drawerIsOpenSelector } from 'Selectors/session';
-import { DRAWER_WIDTH } from 'Constants';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

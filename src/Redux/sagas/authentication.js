@@ -3,10 +3,6 @@ import {
 } from 'redux-saga/effects';
 
 import {
-  login as loginAPI,
-  register as registerAPI,
-} from 'Common/messengerAPI';
-import {
   getTokenFromStorage,
   getUserInfo,
   isLoggedIn,
@@ -14,10 +10,14 @@ import {
   saveTokenToStorage,
 } from 'Common/authentication';
 import {
+  login as loginAPI,
+  register as registerAPI,
+} from 'Common/messengerAPI';
+import { ActionNames } from 'Constants';
+import {
   clearStore,
   setSessionInfo,
 } from 'Redux/actions';
-import { ActionNames } from 'Constants';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 
 function* initAfterLogin(token) {

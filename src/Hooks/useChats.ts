@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { MESSAGES_API_URL, QUERY_KEYS } from 'Constants';
 import { apiCall } from 'Common/apiCall';
+import { MESSAGES_API_URL, QUERY_KEYS } from 'Constants';
 import { Chat } from 'Types';
 
 import { useToken } from './useToken';

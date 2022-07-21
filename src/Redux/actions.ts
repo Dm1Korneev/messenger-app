@@ -1,8 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { Message, User } from 'Types';
 import { ActionNames } from 'Constants';
 import { getRequestAction } from 'Redux/shared';
+import { Message, User } from 'Types';
 
 import { SessionState } from './reducers/session';
 

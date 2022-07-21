@@ -6,11 +6,11 @@ import {
   createChat as createChatAPI,
   modifyChat as modifyChatAPI,
 } from 'Common/messengerAPI';
+import { ActionNames } from 'Constants';
 import {
   loadMessages as loadMessagesAction,
   setActiveChat,
 } from 'Redux/actions';
-import { ActionNames } from 'Constants';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
 import { tokenSelector } from 'Selectors/session';
 

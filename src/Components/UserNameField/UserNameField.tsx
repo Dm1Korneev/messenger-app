@@ -1,4 +1,3 @@
-import React from 'react';
 import { TextField } from 'formik-material-ui';
 
 type Props = Omit<
