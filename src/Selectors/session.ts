@@ -9,16 +9,6 @@ export const isLoggedInSelector = (state: RootState) => createSelector(
   (session) => session.isLoggedIn,
 )(state);
 
-export const chatDialogIsOpenSelector = (state: RootState) => createSelector(
-  sessionSelector,
-  (session) => session.addChatDialogIsOpen || session.modifyChatDialogIsOpen,
-)(state);
-
-export const modifyChatDialogIsOpenSelector = (state: RootState) => createSelector(
-  sessionSelector,
-  (session) => session.modifyChatDialogIsOpen,
-)(state);
-
 export const userModifyDialogIsOpenSelector = (state: RootState) => createSelector(
   sessionSelector,
   (session) => session.userModifyDialogIsOpen,
@@ -32,11 +22,6 @@ export const currentUserSelector = (state: RootState) => createSelector(
 export const currentUserIdSelector = (state: RootState) => createSelector(
   currentUserSelector,
   (user) => user?._id,
-)(state);
-
-export const modifiableChatIdSelector = (state: RootState) => createSelector(
-  sessionSelector,
-  (session) => session.modifiableChatId,
 )(state);
 
 export const activeChatIdSelector = (state: RootState) => createSelector(

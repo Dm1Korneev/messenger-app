@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { QueryClientProvider } from 'Components/QueryClientProvider';
 import { ThemeProvider } from 'Components/ThemeProvider';
 import { StoreProvider } from 'Components/StoreProvider';
 import { App } from 'Components/App';
@@ -7,7 +8,9 @@ import { App } from 'Components/App';
 const Main = () => (
   <StoreProvider>
     <ThemeProvider>
-      <App />
+      <QueryClientProvider>
+        <App />
+      </QueryClientProvider>
     </ThemeProvider>
   </StoreProvider>
 );

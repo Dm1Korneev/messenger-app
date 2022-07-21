@@ -1,5 +1,5 @@
 const express = require('express');
-const jwt = require('express-jwt');
+const { expressjwt: jwt } = require('express-jwt');
 
 const ctrlMessages = require('../controllers/messages');
 const ctrlChats = require('../controllers/chats');
@@ -10,7 +10,7 @@ const router = express.Router();
 
 const auth = jwt({
   secret: process.env.JWT_SECRET,
-  userProperty: 'payload',
+  algorithms: ['HS256'],
 });
 
 // chats

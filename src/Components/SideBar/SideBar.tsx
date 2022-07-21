@@ -12,7 +12,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AddBox from '@material-ui/icons/AddBox';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { chatsArraySelector } from 'Selectors/chats';
+import { useChats } from 'Hooks';
 import { activeChatIdSelector, drawerIsOpenSelector } from 'Selectors/session';
 import { DRAWER_WIDTH, RELOAD_PERIOD } from 'Constants';
 import { Chat } from 'Components/Chat';
@@ -51,23 +51,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SideBar = () => {
+type SideBarProps = {
+  chatModifyOnClick: (id: string) => void
+  chatAddOnClick: () => void
+}
+
+export const SideBar = ({ chatModifyOnClick, chatAddOnClick }: SideBarProps) => {
   const dispatch = useDispatch();
 
-  const chats = useSelector(chatsArraySelector);
+  const { data: chats } = useChats();
   const activeChat = useSelector(activeChatIdSelector);
   const drawerIsOpen = useSelector(drawerIsOpenSelector);
 
   const onDrawerClose = () => dispatch(Actions.setDrawerIsOpen(false));
-  const openAddChatDialog = () => dispatch(Actions.setAddChatDialogIsOpen(true));
 
   useEffect(() => {
-    const getChats = () => dispatch(Actions.getChats());
     const getUsers = () => dispatch(Actions.getUsers());
-    const interval = setInterval(() => {
-      getChats();
-      getUsers();
-    }, RELOAD_PERIOD);
+    const interval = setInterval(() => getUsers(), RELOAD_PERIOD);
     return () => {
       if (interval) {
         clearInterval(interval);
@@ -94,7 +94,7 @@ export const SideBar = () => {
       </div>
       <Divider />
       <List>
-        <ListItem button key="add_chat" onClick={openAddChatDialog}>
+        <ListItem button key="add_chat" onClick={chatAddOnClick}>
           <ListItemIcon>
             <AddBox color="primary" className={classes.addChatIcon} />
           </ListItemIcon>
@@ -108,7 +108,7 @@ export const SideBar = () => {
               key={_id}
               selected={_id === activeChat}
               chatOnClick={() => dispatch(Actions.changeActiveChat({ activeChat: _id }))}
-              chatModifyOnClick={(id) => dispatch(Actions.openModifyChatDialog(id))}
+              chatModifyOnClick={chatModifyOnClick}
             />
           );
         })}

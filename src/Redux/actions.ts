@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { Chat, Message, User } from 'Types';
+import { Message, User } from 'Types';
 import { ActionNames } from 'Constants';
 import { getRequestAction } from 'Redux/shared';
 
@@ -11,37 +11,11 @@ export const setActiveChat = createAction<string>(ActionNames.SET_ACTIVE_CHAT);
 
 export const setDrawerIsOpen = createAction<boolean>(ActionNames.SET_DRAWER_IS_OPEN);
 
-export const setAddChatDialogIsOpen = createAction<boolean>(
-  ActionNames.SET_ADD_CHAT_DIALOG_IS_OPEN,
-);
-
-export const setModifyChatDialogIsOpen = createAction<boolean>(
-  ActionNames.SET_MODIFY_CHAT_DIALOG_IS_OPEN,
-);
-
 export const setModifyUserDialogIsOpen = createAction<boolean>(
   ActionNames.SET_MODIFY_USER_DIALOG_IS_OPEN,
 );
 
 export const setSessionInfo = createAction<Partial<SessionState>>(ActionNames.SET_SESSION_INFO);
-
-export const closeChatDialog = () => createAction<Pick<
-  SessionState, 'modifyChatDialogIsOpen' | 'addChatDialogIsOpen' | 'modifiableChatId'>>(ActionNames.SET_SESSION_INFO)({
-    modifyChatDialogIsOpen: false,
-    addChatDialogIsOpen: false,
-    modifiableChatId: undefined,
-  });
-
-export const openModifyChatDialog = (
-  modifiableChatId: SessionState['modifiableChatId'],
-) => createAction<Pick<
-SessionState, 'modifyChatDialogIsOpen' | 'modifiableChatId'>>(ActionNames.SET_SESSION_INFO)({
-  modifyChatDialogIsOpen: true,
-  modifiableChatId,
-});
-
-// chats
-export const addChats = createAction<Chat[]>(ActionNames.ADD_CHATS);
 
 // messages
 export const addMessages = createAction<Message[]>(ActionNames.ADD_MESSAGES);
@@ -86,8 +60,6 @@ export type ModifyUserPayload = {
   };
 }
 export const modifyUser = getRequestAction<ModifyUserPayload>(ActionNames.MODIFY_USER);
-
-export const getChats = getRequestAction(ActionNames.GET_CHATS);
 
 export type SignInPayload = {
   email: string;

@@ -1,23 +1,26 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { chatDialogIsOpenSelector, userModifyDialogIsOpenSelector } from 'Selectors/session';
+import { userModifyDialogIsOpenSelector } from 'Selectors/session';
 import { ChatDialog } from 'Components/ChatDialog';
 import { MainContent } from 'Components/MainContent';
 import { SideBar } from 'Components/SideBar';
 import { TopBar } from 'Components/TopBar';
 import { UserModifyDialog } from 'Components/UserModifyDialog';
+import { useDialogState, useDisclosure } from 'Hooks';
 
 export const MessengerScreen = () => {
-  const chatDialogIsOpen = useSelector(chatDialogIsOpenSelector);
+  const modifyChatDialogState = useDialogState<string>();
+  const addChatDialogState = useDisclosure();
   const userModifyDialogIsOpen = useSelector(userModifyDialogIsOpenSelector);
 
   return (
     <>
       <TopBar />
-      <SideBar />
+      <SideBar chatModifyOnClick={modifyChatDialogState.open} chatAddOnClick={addChatDialogState.open} />
       <MainContent />
-      {chatDialogIsOpen && <ChatDialog />}
+      {modifyChatDialogState.isOpen && <ChatDialog chatId={modifyChatDialogState.payload} onClose={modifyChatDialogState.close} isModify />}
+      {addChatDialogState.isOpen && <ChatDialog onClose={addChatDialogState.close} />}
       {userModifyDialogIsOpen && <UserModifyDialog />}
     </>
   );

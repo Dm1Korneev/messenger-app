@@ -21,22 +21,6 @@ describe('actions', () => {
     expect(actions.setDrawerIsOpen(true)).toStrictEqual(expectedAction);
   });
 
-  test('should create an action to set add chat dialog is open', () => {
-    const expectedAction = {
-      payload: true,
-      type: ActionNames.SET_ADD_CHAT_DIALOG_IS_OPEN,
-    };
-    expect(actions.setAddChatDialogIsOpen(true)).toStrictEqual(expectedAction);
-  });
-
-  test('should create an action to set modify chat dialog is open', () => {
-    const expectedAction = {
-      payload: true,
-      type: ActionNames.SET_MODIFY_CHAT_DIALOG_IS_OPEN,
-    };
-    expect(actions.setModifyChatDialogIsOpen(true)).toStrictEqual(expectedAction);
-  });
-
   test('should create an action to set modify user dialog is open', () => {
     const expectedAction = {
       payload: true,
@@ -51,30 +35,6 @@ describe('actions', () => {
       type: ActionNames.SET_SESSION_INFO,
     };
     expect(actions.setSessionInfo({ test: 'test' })).toStrictEqual(expectedAction);
-  });
-
-  test('should create an action to close chat dialog', () => {
-    const expectedAction = {
-      type: ActionNames.SET_SESSION_INFO,
-      payload: {
-        modifyChatDialogIsOpen: false,
-        addChatDialogIsOpen: false,
-        modifiableChatId: undefined,
-      },
-    };
-    expect(actions.closeChatDialog()).toStrictEqual(expectedAction);
-  });
-
-  test('should create an action to open modify chat dialog', () => {
-    const modifiableChatId = 'TEST';
-    const expectedAction = {
-      type: ActionNames.SET_SESSION_INFO,
-      payload: {
-        modifyChatDialogIsOpen: true,
-        modifiableChatId,
-      },
-    };
-    expect(actions.openModifyChatDialog(modifiableChatId)).toStrictEqual(expectedAction);
   });
 
   test('should create an action to add chats', () => {
@@ -177,14 +137,6 @@ describe('actions', () => {
       },
     };
     expect(actions.modifyUser({ userId, options })).toStrictEqual(expectedAction);
-  });
-
-  test('should create an action to get chats', () => {
-    const expectedAction = {
-      type: getRequestActionName(ActionNames.GET_CHATS),
-      payload: undefined,
-    };
-    expect(actions.getChats()).toStrictEqual(expectedAction);
   });
 
   test('should create an action to sign in', () => {
