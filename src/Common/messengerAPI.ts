@@ -1,22 +1,6 @@
 import { MESSAGES_API_URL } from 'Constants';
 
-const apiCall = async <T>(URI: string, optionsParams: RequestInit, token?: string): Promise<T> => {
-  const options = {
-    ...optionsParams,
-    headers: {
-      ...optionsParams.headers,
-      Accept: 'application/json',
-      Authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-
-  const response = await fetch(URI, options);
-  const result = await response.json();
-  if (!response.ok) {
-    throw result;
-  }
-  return result;
-};
+import { apiCall } from './apiCall';
 
 function addJsonBodyToRequest(options: RequestInit, bodyObject: Record<string, string[] | string>) {
   return {
@@ -75,15 +59,6 @@ export function modifyUser(token: string, userId: string, modifyData: ModifyUser
   const options = {
     method: 'PUT',
     body: formData,
-  };
-
-  return apiCall(uri, options, token);
-}
-
-export function getChats(token: string) {
-  const uri = `${MESSAGES_API_URL}/chats`;
-  const options = {
-    method: 'GET',
   };
 
   return apiCall(uri, options, token);

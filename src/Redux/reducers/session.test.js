@@ -7,9 +7,6 @@ const defaultStore = {
   token: undefined,
   isLoggedIn: false,
   drawerIsOpen: true,
-  addChatDialogIsOpen: false,
-  modifyChatDialogIsOpen: false,
-  modifiableChatId: undefined,
   userModifyDialogIsOpen: false,
   user: undefined,
 };
@@ -49,38 +46,6 @@ describe('session reducer', () => {
       {
         ...defaultStore,
         drawerIsOpen,
-      },
-    );
-  });
-
-  test('should handle SET_ADD_CHAT_DIALOG_IS_OPEN', () => {
-    const addChatDialogIsOpen = true;
-
-    expect(
-      reducer(defaultStore, {
-        type: ActionNames.SET_ADD_CHAT_DIALOG_IS_OPEN,
-        payload: addChatDialogIsOpen,
-      }),
-    ).toStrictEqual(
-      {
-        ...defaultStore,
-        addChatDialogIsOpen,
-      },
-    );
-  });
-
-  test('should handle SET_MODIFY_CHAT_DIALOG_IS_OPEN', () => {
-    const modifyChatDialogIsOpen = true;
-
-    expect(
-      reducer(defaultStore, {
-        type: ActionNames.SET_MODIFY_CHAT_DIALOG_IS_OPEN,
-        payload: modifyChatDialogIsOpen,
-      }),
-    ).toStrictEqual(
-      {
-        ...defaultStore,
-        modifyChatDialogIsOpen,
       },
     );
   });

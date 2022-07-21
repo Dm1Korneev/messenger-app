@@ -37,25 +37,21 @@ module.exports.getChatByID = (req, res) => {
   }
   const userInfo = parseToken(req.headers.authorization);
   const user = mongoose.Types.ObjectId(userInfo._id);
+  const chatId = mongoose.Types.ObjectId(req.params.chatId);
 
-  ChatModel.aggregate([
+  ChatModel.findOne(
     {
-      $match: {
-        _id: req.params.chatId,
-        $expr: { $in: [user, '$users'] },
-      },
+      _id: chatId,
+      $expr: { $in: [user, '$users'] },
     },
     {
-      $project: {
-        _id: 1,
-        title: 1,
-        users: 1,
-        admin: 1,
-        avatar: 1,
-      },
+      _id: 1,
+      title: 1,
+      users: 1,
+      admin: 1,
+      avatar: 1,
     },
-  ])
-    .exec()
+  )
     .then((chat) => {
       if (!chat) {
         sendJsResponse(res, 404, { message: "'chatId' not found" });

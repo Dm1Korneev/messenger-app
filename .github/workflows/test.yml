@@ -6,7 +6,7 @@ jobs:
   test:
     strategy:
       matrix:
-        node: [14.x]
+        node: [16.x]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     env:
@@ -25,6 +25,9 @@ jobs:
 
       - name: "ESLint"
         run: npm run lint
+
+      - name: "Type check"
+        run: npm run check-types
 
       - name: "Build production build"
         run: npm run build

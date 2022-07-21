@@ -9,9 +9,6 @@ export type SessionState = {
   token?: string;
   isLoggedIn: boolean;
   drawerIsOpen: boolean;
-  addChatDialogIsOpen: boolean;
-  modifyChatDialogIsOpen: boolean;
-  modifiableChatId?: string;
   userModifyDialogIsOpen: boolean;
   user?: User;
 }
@@ -21,9 +18,6 @@ const defaultStore: SessionState = {
   token: undefined,
   isLoggedIn: false,
   drawerIsOpen: true,
-  addChatDialogIsOpen: false,
-  modifyChatDialogIsOpen: false,
-  modifiableChatId: undefined,
   userModifyDialogIsOpen: false,
   user: undefined,
 };
@@ -37,14 +31,6 @@ export default createReducer(defaultStore, (builder) => builder
     ...state,
     drawerIsOpen: action.payload,
   }))
-  .addCase(actions.setAddChatDialogIsOpen, (state, action) => ({
-    ...state,
-    addChatDialogIsOpen: action.payload,
-  }))
-  .addCase(actions.setModifyChatDialogIsOpen, (state, action) => ({
-    ...state,
-    modifyChatDialogIsOpen: action.payload,
-  }))
   .addCase(actions.setModifyUserDialogIsOpen, (state, action) => ({
     ...state,
     userModifyDialogIsOpen: action.payload,
@@ -54,4 +40,3 @@ export default createReducer(defaultStore, (builder) => builder
     ...action.payload,
   }))
   .addCase(actions.clearStore, () => defaultStore));
-

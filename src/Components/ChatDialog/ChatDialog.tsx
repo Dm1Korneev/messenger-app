@@ -16,9 +16,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { User } from 'Types';
 import * as Actions from 'Redux/actions';
-import { modifyChatDialogIsOpenSelector } from 'Selectors/session';
 import { notCurrentUsersSelector } from 'Selectors/users';
-import { modifiableChatSelector } from 'Selectors/chats';
+import { useChatById } from 'Hooks';
 import { AvatarSelector } from 'Components/AvatarSelector';
 import { UsersAvatar } from 'Components/UsersAvatar';
 import {
@@ -35,12 +34,17 @@ type FromValues = {
   title: string;
 }
 
-export const ChatDialog = () => {
+type ChatDialogProps = {
+  chatId?: string
+  onClose: ()=>void
+  isModify?: boolean
+}
+
+export const ChatDialog = ({ chatId, onClose, isModify }: ChatDialogProps) => {
   const dispatch = useDispatch();
 
   const users = useSelector(notCurrentUsersSelector);
-  const isModify = useSelector(modifyChatDialogIsOpenSelector);
-  const chat = useSelector(modifiableChatSelector);
+  const { data: chat } = useChatById(chatId);
 
   const [searchText, setSearchText] = useState<string>('');
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
@@ -58,8 +62,6 @@ export const ChatDialog = () => {
       setSelectedUserIds(chat.users);
     }
   }, [chat, isModify]);
-
-  const closeChatDialog = () => dispatch(Actions.closeChatDialog());
 
   const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newSearchText = event.target.value;
@@ -97,7 +99,7 @@ export const ChatDialog = () => {
     } else if (!isModify) {
       dispatch(Actions.createChat({ title, avatar, selectedUserIds }));
     }
-    closeChatDialog();
+    onClose();
   };
 
   const userSelect = (userId: string) => {
@@ -122,8 +124,8 @@ export const ChatDialog = () => {
   const avatar = isModify ? chat?.avatar : undefined;
 
   const usersList = !searchText ? users : searchResult;
-  return (
-    <Dialog open onClose={closeChatDialog}>
+  return !isModify || chat ? (
+    <Dialog open onClose={onClose}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -179,7 +181,7 @@ export const ChatDialog = () => {
               >
                 {isModify ? 'Save' : 'Add'}
               </Button>
-              <Button onClick={closeChatDialog} color="primary">
+              <Button onClick={onClose} color="primary">
                 Close
               </Button>
             </DialogActions>
@@ -187,5 +189,5 @@ export const ChatDialog = () => {
         )}
       </Formik>
     </Dialog>
-  );
+  ) : null;
 };

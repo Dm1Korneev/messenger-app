@@ -1,6 +1,4 @@
 export enum ActionNames {
-    GET_CHATS = 'GET_CHATS',
-    ADD_CHATS = 'ADD_CHATS',
     CREATE_CHAT = 'CREATE_CHAT',
     MODIFY_CHAT = 'MODIFY_CHAT',
 
