@@ -9,7 +9,6 @@ import {
 import { ActionNames } from 'Constants';
 import {
   addMessages,
-  addUsers,
   loadMessages as loadMessagesAction,
 } from 'Redux/actions';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
@@ -36,9 +35,8 @@ function* loadMessages() {
       return;
     }
     const token = yield select(tokenSelector);
-    const { messages, users } = yield call(getMessagesAPI, token, activeChat);
-    yield put(getSuccessAction(ActionNames.GET_MESSAGES)({ messages, users }));
-    yield put(addUsers(users));
+    const { messages } = yield call(getMessagesAPI, token, activeChat);
+    yield put(getSuccessAction(ActionNames.GET_MESSAGES)({ messages }));
     yield put(addMessages(messages));
   } catch (error) {
     yield put(getFailureAction(ActionNames.GET_MESSAGES)({ error }));

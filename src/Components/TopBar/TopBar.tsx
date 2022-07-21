@@ -11,8 +11,9 @@ import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { DRAWER_WIDTH } from 'Constants';
+import { useCurrentUser } from 'Hooks';
 import * as Actions from 'Redux/actions';
-import { currentUserSelector, drawerIsOpenSelector } from 'Selectors/session';
+import { drawerIsOpenSelector } from 'Selectors/session';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -32,17 +33,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const TopBar = () => {
+type TopBarProps = {
+  modifyUserDialogOnClick: () => void
+}
+
+export const TopBar = ({ modifyUserDialogOnClick }: TopBarProps) => {
   const dispatch = useDispatch();
 
-  const currentUser = useSelector(currentUserSelector);
+  const { data: currentUser } = useCurrentUser();
   const drawerIsOpen = useSelector(drawerIsOpenSelector);
 
   const classes = useStyles();
 
   const onDrawerOpen = () => dispatch(Actions.setDrawerIsOpen(true));
   const onLogout = () => dispatch(Actions.logOut());
-  const openModifyUserDialog = () => dispatch(Actions.setModifyUserDialogIsOpen(true));
 
   const userName = currentUser?.name;
 
@@ -73,7 +77,7 @@ export const TopBar = () => {
             color="inherit"
           >
             {userName}
-            <IconButton color="inherit" onClick={openModifyUserDialog}>
+            <IconButton color="inherit" onClick={modifyUserDialogOnClick}>
               <CreateIcon />
             </IconButton>
           </Typography>

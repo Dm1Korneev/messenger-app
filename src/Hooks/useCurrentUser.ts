@@ -2,17 +2,16 @@ import { useQuery } from '@tanstack/react-query';
 
 import { api } from 'Common';
 import { MESSAGES_API_URL, QUERY_KEYS } from 'Constants';
-import { Chat } from 'Types';
+import { User } from 'Types';
 
 import { useToken } from './useToken';
 
-type Data = Chat
+type Data = User
 
-export const useChatById = (id?: string) => {
+export const useCurrentUser = () => {
   const token = useToken();
   return useQuery<Data>(
-    [QUERY_KEYS.CHATS, id],
-    () => api.get<Data>(`${MESSAGES_API_URL}/chats/${id}`, token),
-    { enabled: id != null },
+    [QUERY_KEYS.CURRENT_USER],
+    () => api.get<Data>(`${MESSAGES_API_URL}/current-user`, token),
   );
 };

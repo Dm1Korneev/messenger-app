@@ -37,6 +37,7 @@ router.put(
   fileLoader.single('avatar'),
   ctrlUsers.updateUserByID,
 );
+router.get('/current-user', auth, ctrlUsers.getCurrentUser);
 
 // auth
 router.post('/register', fileLoader.single('avatar'), ctrlUsers.register);

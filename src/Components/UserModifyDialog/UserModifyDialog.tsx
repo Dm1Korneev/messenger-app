@@ -7,7 +7,6 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Field, Form, Formik } from 'formik';
 import { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import {
@@ -19,11 +18,7 @@ import { AvatarSelector } from 'Components/AvatarSelector';
 import { UserEmailField } from 'Components/UserEmailField';
 import { UserNameField } from 'Components/UserNameField';
 import { UserPasswordField } from 'Components/UserPasswordField';
-import { ActionNames } from 'Constants';
-import * as Actions from 'Redux/actions';
-import { RootState } from 'Redux/reducers';
-import { errorSelector } from 'Selectors/errors';
-import { currentUserSelector } from 'Selectors/session';
+import { useUpdateUser, UseUpdateUserPayload, useCurrentUser } from 'Hooks';
 
 const validationSchema = Yup.object().shape({
   email: emailValidation,
@@ -39,11 +34,14 @@ type FromValues = {
 
 const DEFAULT_PASSWORD = '**********';
 
-export const UserModifyDialog = () => {
-  const dispatch = useDispatch();
+type UserModifyDialogProps = {
+  onClose: ()=>void
+}
 
-  const currentUser = useSelector(currentUserSelector);
-  const error = useSelector((rootState: RootState) => errorSelector(rootState, ActionNames.MODIFY_USER));
+export const UserModifyDialog = ({ onClose }: UserModifyDialogProps) => {
+  const { data: currentUser } = useCurrentUser();
+
+  const { mutate: updateUser, error } = useUpdateUser();
 
   const [avatarIsModified, setAvatarIsModified] = useState(false);
 
@@ -53,29 +51,27 @@ export const UserModifyDialog = () => {
     return null;
   }
 
-  const closeUserModifyDialog = () => dispatch(Actions.setModifyUserDialogIsOpen(false));
-
   const avatarOnChange = () => {
     setAvatarIsModified(true);
   };
 
-  const onSubmit = ({ name, email, password }: FromValues) => {
+  const onSubmit = async ({ name, email, password }: FromValues) => {
     const files = avatarFileInput?.current?.files;
     const avatar = files ? files[0] : undefined;
 
-    const options: Actions.ModifyUserPayload['options'] = {
+    const modifyData: UseUpdateUserPayload = {
       name,
       email,
     };
 
     if (avatarIsModified) {
-      options.avatar = avatar;
+      modifyData.avatar = avatar;
     }
     if (password !== DEFAULT_PASSWORD && password) {
-      options.password = password;
+      modifyData.password = password;
     }
 
-    dispatch(Actions.modifyUser({ userId: currentUser._id, options }));
+    updateUser({ userId: currentUser._id, modifyData }, { onSuccess: () => onClose() });
   };
 
   const initialValues: FromValues = {
@@ -85,7 +81,7 @@ export const UserModifyDialog = () => {
   };
 
   return (
-    <Dialog open onClose={closeUserModifyDialog}>
+    <Dialog open onClose={onClose}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -95,7 +91,7 @@ export const UserModifyDialog = () => {
           <Form>
             <DialogTitle>Modify user</DialogTitle>
             <DialogContent>
-              {error && <FormHelperText error>{error}</FormHelperText>}
+              {error && <FormHelperText error>{String(error)}</FormHelperText>}
               <AvatarSelector
                 onChange={avatarOnChange}
                 avatar={currentUser.avatar}
@@ -115,7 +111,7 @@ export const UserModifyDialog = () => {
               >
                 Save
               </Button>
-              <Button onClick={closeUserModifyDialog} color="primary">
+              <Button onClick={onClose} color="primary">
                 Close
               </Button>
             </DialogActions>

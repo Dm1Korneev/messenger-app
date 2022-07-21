@@ -9,11 +9,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddBox from '@material-ui/icons/AddBox';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import clsx from 'clsx';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Chat } from 'Components/Chat';
-import { DRAWER_WIDTH, RELOAD_PERIOD } from 'Constants';
+import { DRAWER_WIDTH } from 'Constants';
 import { useChats } from 'Hooks';
 import * as Actions from 'Redux/actions';
 import { activeChatIdSelector, drawerIsOpenSelector } from 'Selectors/session';
@@ -65,15 +64,6 @@ export const SideBar = ({ chatModifyOnClick, chatAddOnClick }: SideBarProps) => 
 
   const onDrawerClose = () => dispatch(Actions.setDrawerIsOpen(false));
 
-  useEffect(() => {
-    const getUsers = () => dispatch(Actions.getUsers());
-    const interval = setInterval(() => getUsers(), RELOAD_PERIOD);
-    return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
-    };
-  }, [dispatch]);
   const classes = useStyles();
 
   return (

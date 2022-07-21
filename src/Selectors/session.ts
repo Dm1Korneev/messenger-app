@@ -9,21 +9,6 @@ export const isLoggedInSelector = (state: RootState) => createSelector(
   (session) => session.isLoggedIn,
 )(state);
 
-export const userModifyDialogIsOpenSelector = (state: RootState) => createSelector(
-  sessionSelector,
-  (session) => session.userModifyDialogIsOpen,
-)(state);
-
-export const currentUserSelector = (state: RootState) => createSelector(
-  sessionSelector,
-  (session) => session.user,
-)(state);
-
-export const currentUserIdSelector = (state: RootState) => createSelector(
-  currentUserSelector,
-  (user) => user?._id,
-)(state);
-
 export const activeChatIdSelector = (state: RootState) => createSelector(
   sessionSelector,
   (session) => session.activeChat,

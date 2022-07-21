@@ -8,6 +8,7 @@ const {
   sendJsResponse,
   isUserNameIsAvailable,
   isEmailIsAvailable,
+  parseToken,
 } = require('./common');
 
 module.exports.getUsers = (req, res) => {
@@ -33,25 +34,43 @@ module.exports.getUserByID = (req, res) => {
   }
 
   const userId = mongoose.Types.ObjectId(req.params.userId);
-  UserModel.aggregate([
+  UserModel.findById(
+    userId,
     {
-      $match: {
-        _id: userId,
-      },
+      _id: 1,
+      name: 1,
+      email: 1,
+      avatar: 1,
     },
-    {
-      $project: {
-        _id: 1,
-        name: 1,
-        email: 1,
-        avatar: 1,
-      },
-    },
-  ])
+  )
     .exec()
     .then((user) => {
       if (!user) {
         sendJsResponse(res, 404, { message: "'userId' not found" });
+        return;
+      }
+      sendJsResponse(res, 200, user);
+    })
+    .catch((err) => sendJsResponse(res, 400, err));
+};
+
+module.exports.getCurrentUser = (req, res) => {
+  const userInfo = parseToken(req.headers.authorization);
+  const userId = mongoose.Types.ObjectId(userInfo._id);
+
+  UserModel.findById(
+    userId,
+    {
+      _id: 1,
+      name: 1,
+      email: 1,
+      avatar: 1,
+    },
+  )
+    .exec()
+    .then((user) => {
+      if (!user) {
+        sendJsResponse(res, 404, { message: 'Current user not found' });
         return;
       }
       sendJsResponse(res, 200, user);

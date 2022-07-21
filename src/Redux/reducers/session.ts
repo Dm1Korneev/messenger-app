@@ -1,7 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { User } from 'Types';
-
 import * as actions from '../actions';
 
 export type SessionState = {
@@ -9,8 +7,6 @@ export type SessionState = {
   token?: string;
   isLoggedIn: boolean;
   drawerIsOpen: boolean;
-  userModifyDialogIsOpen: boolean;
-  user?: User;
 }
 
 const defaultStore: SessionState = {
@@ -18,8 +14,6 @@ const defaultStore: SessionState = {
   token: undefined,
   isLoggedIn: false,
   drawerIsOpen: true,
-  userModifyDialogIsOpen: false,
-  user: undefined,
 };
 
 export default createReducer(defaultStore, (builder) => builder
@@ -30,10 +24,6 @@ export default createReducer(defaultStore, (builder) => builder
   .addCase(actions.setDrawerIsOpen, (state, action) => ({
     ...state,
     drawerIsOpen: action.payload,
-  }))
-  .addCase(actions.setModifyUserDialogIsOpen, (state, action) => ({
-    ...state,
-    userModifyDialogIsOpen: action.payload,
   }))
   .addCase(actions.setSessionInfo, (state, action) => ({
     ...state,

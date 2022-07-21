@@ -11,10 +11,9 @@ import { MessageDateTime } from 'Components/MessageDateTime';
 import { MessageText } from 'Components/MessageText';
 import { MessageUser } from 'Components/MessageUser';
 import { RELOAD_PERIOD } from 'Constants';
+import { useUsers, useCurrentUser } from 'Hooks';
 import { loadMessages } from 'Redux/actions';
 import { messagesTreeSelector } from 'Selectors/messages';
-import { currentUserSelector } from 'Selectors/session';
-import { usersByIdSelector } from 'Selectors/users';
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -28,8 +27,8 @@ export const MessagesList = () => {
   const dispatch = useDispatch();
 
   const messagesTree = useSelector(messagesTreeSelector);
-  const users = useSelector(usersByIdSelector);
-  const currentUser = useSelector(currentUserSelector);
+  const { data: users } = useUsers();
+  const { data: currentUser } = useCurrentUser();
 
   const classes = useStyles();
   const messagesEnd = useRef<HTMLDivElement>(null);
@@ -96,9 +95,7 @@ export const MessagesList = () => {
           },
         );
 
-        const messageAuthor = users[author];
-
-        const { name, avatar } = messageAuthor;
+        const messageAuthor = users.find(({ _id }) => author === _id);
 
         return (
           <Fragment key={`${author}-${firstDateTime}`}>
@@ -106,8 +103,8 @@ export const MessagesList = () => {
             <Divider variant="middle" />
             )}
             <MessageUser
-              author={name}
-              avatar={avatar}
+              author={messageAuthor?.name ?? ''}
+              avatar={messageAuthor?.avatar ?? ''}
               isCurrentUserMessage={isCurrentUserMessage}
             >
               <Box display="flex" flexDirection="column">{childrenComponentsAuthor}</Box>
