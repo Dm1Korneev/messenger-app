@@ -158,14 +158,6 @@ describe('actions', () => {
     })).toStrictEqual(expectedAction);
   });
 
-  test('should create an action to log out', () => {
-    const expectedAction = {
-      type: ActionNames.LOGOUT,
-      payload: undefined,
-    };
-    expect(actions.logOut()).toStrictEqual(expectedAction);
-  });
-
   test('should create an action to login from store', () => {
     const expectedAction = {
       type: getRequestActionName(ActionNames.LOGIN_FROM_STORE),
