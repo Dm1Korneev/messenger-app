@@ -9,7 +9,6 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -19,9 +18,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": []
   },
-  "include": [
-    "src"
-  ]
+  "exclude": ["src/Server"],
+  "include": ["src"]
 }
