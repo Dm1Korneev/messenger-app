@@ -1,7 +1,6 @@
-import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import { makeStyles } from '@material-ui/core/styles';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
 import {
   Fragment, useEffect, useRef, useState,
 } from 'react';
@@ -14,14 +13,6 @@ import { useUsers, useCurrentUser, useMessagesByChatId } from 'Hooks';
 
 import { getMesagesTree } from './getMesagesTree';
 
-const useStyles = makeStyles((theme) => ({
-  list: {
-    overflow: 'auto',
-    flexGrow: 1,
-    padding: theme.spacing(0),
-  },
-}));
-
 type MessagesListProps = {
   activeChatId?: string
 }
@@ -32,7 +23,6 @@ export const MessagesList = ({ activeChatId }: MessagesListProps) => {
   const { data: users } = useUsers();
   const { data: currentUser } = useCurrentUser();
 
-  const classes = useStyles();
   const messagesEnd = useRef<HTMLDivElement>(null);
 
   const [bottomPosition, setBottomPosition] = useState(true);
@@ -59,7 +49,7 @@ export const MessagesList = ({ activeChatId }: MessagesListProps) => {
   };
 
   return (
-    <List className={classes.list} onScroll={handlerOnScroll}>
+    <List onScroll={handlerOnScroll} sx={{ flexGrow: 1, p: 0, overflow: 'auto' }}>
       {messagesTree.map((valueAuthor, indexAuthor) => {
         const { author, children: childrenAuthor } = valueAuthor;
 
@@ -74,8 +64,8 @@ export const MessagesList = ({ activeChatId }: MessagesListProps) => {
               (value) => (
                 <MessageText
                   key={value._id}
-                  text={value.text}
                   isCurrentUserMessage={isCurrentUserMessage}
+                  text={value.text}
                 />
               ),
             );

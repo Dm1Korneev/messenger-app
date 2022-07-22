@@ -1,11 +1,11 @@
-import { FC, useEffect } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 
 import { getTokenFromStorage } from 'Common';
 
 import { SessionContext } from './SessionContext';
 import { useTokenState } from './useTokenState';
 
-export const SessionProvider: FC = ({ children }) => {
+export const SessionProvider = ({ children }: PropsWithChildren) => {
   const tokenState = useTokenState();
   const { saveToken } = tokenState;
   useEffect(() => {

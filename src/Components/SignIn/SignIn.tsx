@@ -1,14 +1,14 @@
-import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Paper from '@material-ui/core/Paper';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import Typography from '@material-ui/core/Typography';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PersonAddIcon from '@mui/icons-material/PersonAddOutlined';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import FormHelperText from '@mui/material/FormHelperText';
+import LinearProgress from '@mui/material/LinearProgress';
+import Paper from '@mui/material/Paper';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
 import {
   Field, Form, Formik, FormikHelpers,
 } from 'formik';
@@ -104,24 +104,25 @@ export const SignIn = () => {
   };
 
   return (
-    <Box pt={8} px={2} width="100%" alignItems="center" display="flex" flexDirection="column">
+    <Box alignItems="center" display="flex" flexDirection="column" pt={8} px={2} width="100%">
       <Paper elevation={2}>
         <Box maxWidth="30rem">
           <AppBar position="static">
             <Tabs
-              value={variant}
-              onChange={(event, value) => setVariant(value)}
-              variant="fullWidth"
               disabled={isLogging}
+              onChange={(event, value) => setVariant(value)}
+              textColor="inherit"
+              value={variant}
+              variant="fullWidth"
             >
-              <Tab disabled={isLogging} value={DialogTabs.SIGN_IN} label="Sign in" />
-              <Tab disabled={isLogging} value={DialogTabs.REGISTER} label="Register" />
+              <Tab disabled={isLogging} label="Sign in" value={DialogTabs.SIGN_IN} />
+              <Tab disabled={isLogging} label="Register" value={DialogTabs.REGISTER} />
             </Tabs>
           </AppBar>
           <Box
+            alignItems="center"
             display="flex"
             flexDirection="column"
-            alignItems="center"
             p={3}
           >
             <Box p={1}>
@@ -134,42 +135,42 @@ export const SignIn = () => {
             <Box mt={1}>
               <Formik
                 initialValues={initialValues}
-                validationSchema={validationSchema}
                 onSubmit={onSubmit}
+                validationSchema={validationSchema}
               >
                 {({ submitForm }) => (
                   <Form>
-                    {loginError && variant === DialogTabs.SIGN_IN && (
+                    {loginError && variant === DialogTabs.SIGN_IN ? (
                       <FormHelperText error>{String(loginError)}</FormHelperText>
-                    )}
-                    {registerError && variant === DialogTabs.REGISTER && (
+                    ) : null}
+                    {registerError && variant === DialogTabs.REGISTER ? (
                       <FormHelperText error>{String(registerError)}</FormHelperText>
-                    )}
+                    ) : null}
                     {variant === DialogTabs.REGISTER && (
                       <>
-                        <AvatarSelector disabled={isLogging} avatarFileInput={avatarFileInput} />
-                        <Field disabled={isLogging} component={UserNameField} name="name" />
+                        <AvatarSelector avatarFileInput={avatarFileInput} disabled={isLogging} />
+                        <Field component={UserNameField} disabled={isLogging} name="name" />
                       </>
                     )}
-                    <Field disabled={isLogging} component={UserEmailField} name="email" />
-                    <Field disabled={isLogging} component={UserPasswordField} name="password" />
+                    <Field component={UserEmailField} disabled={isLogging} name="email" />
+                    <Field component={UserPasswordField} disabled={isLogging} name="password" />
                     <Field
-                      disabled={isLogging}
-                      component={CheckboxWithLabel}
-                      name="remember"
-                      Label={{ label: 'Remember me' }}
                       color="primary"
+                      component={CheckboxWithLabel}
+                      disabled={isLogging}
+                      Label={{ label: 'Remember me' }}
+                      name="remember"
                       type="checkbox"
                     />
                     {isLogging && <LinearProgress />}
                     <Box mt={3}>
                       <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
                         color="primary"
                         disabled={isLogging}
+                        fullWidth
                         onClick={submitForm}
+                        type="submit"
+                        variant="contained"
                       >
                         {title}
                       </Button>

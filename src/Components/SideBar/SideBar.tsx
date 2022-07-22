@@ -1,51 +1,17 @@
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles } from '@material-ui/core/styles';
-import AddBox from '@material-ui/icons/AddBox';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import clsx from 'clsx';
+import AddBox from '@mui/icons-material/AddBox';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
 import { Chat } from 'Components/Chat';
 import { DRAWER_WIDTH } from 'Constants';
 import { useChats } from 'Hooks';
-
-const useStyles = makeStyles((theme) => ({
-  drawer: {
-    overflowX: 'hidden',
-    whiteSpace: 'nowrap',
-    position: 'relative',
-  },
-  drawerOpen: {
-    width: DRAWER_WIDTH,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerClose: {
-    width: theme.spacing(9),
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-  },
-  addChatIcon: {
-    fontSize: theme.spacing(6),
-    marginLeft: -theme.spacing(0.5),
-  },
-}));
 
 type SideBarProps = {
   chatModifyOnClick: (id: string) => void
@@ -61,29 +27,58 @@ export const SideBar = ({
 }: SideBarProps) => {
   const { data: chats } = useChats();
 
-  const classes = useStyles();
-
   return (
     <Drawer
-      variant="permanent"
-      classes={{
-        paper: clsx(classes.drawer, {
-          [classes.drawerOpen]: isDrawerOpen,
-          [classes.drawerClose]: !isDrawerOpen,
-        }),
-      }}
       open={isDrawerOpen}
+      sx={(theme) => {
+        const additionalStyles = isDrawerOpen ? {
+          width: DRAWER_WIDTH,
+          transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+        } : {
+          width: theme.spacing(9),
+          transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+        };
+
+        return {
+          '.MuiDrawer-paper': {
+            overflowX: 'hidden',
+            whiteSpace: 'nowrap',
+            position: 'relative',
+            ...additionalStyles,
+          },
+        };
+      }}
+      variant="permanent"
     >
-      <div className={classes.toolbarIcon}>
-        <IconButton onClick={onDrawerClose}>
+      <Box sx={(theme) => ({
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        p: theme.spacing(0, 1),
+        ...theme.mixins.toolbar,
+      })}
+      >
+        <IconButton onClick={onDrawerClose} size="large">
           <ChevronLeftIcon />
         </IconButton>
-      </div>
+      </Box>
       <Divider />
       <List>
-        <ListItem button key="add_chat" onClick={onChatAddClick}>
+        <ListItem key="add_chat" button onClick={onChatAddClick}>
           <ListItemIcon>
-            <AddBox color="primary" className={classes.addChatIcon} />
+            <AddBox
+              color="primary"
+              sx={(theme) => ({
+                fontSize: theme.spacing(6),
+                ml: -0.5,
+              })}
+            />
           </ListItemIcon>
           <ListItemText primary="Add chat" />
         </ListItem>
@@ -91,11 +86,11 @@ export const SideBar = ({
           const { _id } = chat;
           return (
             <Chat
-              chat={chat}
               key={_id}
-              selected={_id === activeChatId}
-              chatOnClick={() => onChatClick(_id)}
+              chat={chat}
               chatModifyOnClick={chatModifyOnClick}
+              chatOnClick={() => onChatClick(_id)}
+              selected={_id === activeChatId}
             />
           );
         })}

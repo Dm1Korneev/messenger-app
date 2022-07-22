@@ -1,8 +1,10 @@
-import { ThemeProvider as MUIThemeProvider } from '@material-ui/core/styles';
-import { FC } from 'react';
+import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import { PropsWithChildren } from 'react';
 
 import theme from './theme';
 
-export const ThemeProvider: FC = ({ children }) => (
-  <MUIThemeProvider theme={theme}>{children}</MUIThemeProvider>
+export const ThemeProvider = ({ children }: PropsWithChildren) => (
+  <StyledEngineProvider injectFirst>
+    <MUIThemeProvider theme={theme}>{children}</MUIThemeProvider>
+  </StyledEngineProvider>
 );

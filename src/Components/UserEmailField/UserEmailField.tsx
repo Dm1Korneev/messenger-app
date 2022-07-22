@@ -6,10 +6,10 @@ type Props = Omit<
 
 export const UserEmailField = (props: Props) => (
   <TextField
-    margin="normal"
-    label="Email Address *"
-    fullWidth
     autoComplete="email"
+    fullWidth
+    label="Email Address *"
+    margin="normal"
     {...props}
   />
 );

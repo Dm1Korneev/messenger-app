@@ -1,34 +1,11 @@
-import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
-import { makeStyles } from '@material-ui/core/styles';
-import ClearIcon from '@material-ui/icons/Clear';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import ClearIcon from '@mui/icons-material/Clear';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
 import { useEffect, useState } from 'react';
 
 import { UsersAvatar } from 'Components/UsersAvatar';
-
-const useStyles = makeStyles((theme) => ({
-  avatar: { marginRight: theme.spacing(2) },
-  avatarSelector: {
-    marginTop: theme.spacing(2),
-    display: 'flex',
-  },
-  avatarSelector__labalButtons: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-  avatarSelector__buttons: {
-    marginTop: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  button: {
-    marginRight: theme.spacing(1),
-  },
-}));
 
 type Props = {
   avatarFileInput: React.RefObject<HTMLInputElement>;
@@ -40,7 +17,6 @@ type Props = {
 export const AvatarSelector = ({
   avatar: avatarProp, onChange = () => {}, avatarFileInput, disabled = false,
 }: Props) => {
-  const classes = useStyles();
   const [avatar, setAvatar] = useState<string>();
 
   useEffect(() => {
@@ -66,45 +42,45 @@ export const AvatarSelector = ({
   };
 
   return (
-    <div className={classes.avatarSelector}>
-      <div className={classes.avatar}>
+    <Box display="flex" mt={2}>
+      <Box mr={2}>
         <UsersAvatar avatar={avatar} size={60} />
-      </div>
-      <div className={classes.avatarSelector__labalButtons}>
+      </Box>
+      <Box display="flex" flexDirection="column">
         <InputLabel disabled={disabled}>
           <span>Avatar</span>
           <input
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={avatarChange}
-            type="file"
             ref={avatarFileInput}
+            accept="image/*"
+            onChange={avatarChange}
+            style={{ display: 'none' }}
+            type="file"
           />
-          <div className={classes.avatarSelector__buttons}>
+          <Box display="flex" flexDirection="row" mt={1}>
             <Button
-              variant="outlined"
               component="span"
-              size="small"
-              className={classes.button}
               disabled={disabled}
+              size="small"
+              sx={{ mr: 1 }}
+              variant="outlined"
             >
-              <CloudUploadIcon className={classes.leftIcon} />
+              <CloudUploadIcon sx={{ mr: 1 }} />
               Upload
             </Button>
             <Button
-              variant="outlined"
               component="span"
-              size="small"
-              className={classes.button}
-              onClick={handlerRemoveButton}
               disabled={disabled}
+              onClick={handlerRemoveButton}
+              size="small"
+              sx={{ mr: 1 }}
+              variant="outlined"
             >
-              <ClearIcon className={classes.leftIcon} />
+              <ClearIcon sx={{ mr: 1 }} />
               Remove
             </Button>
-          </div>
+          </Box>
         </InputLabel>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
