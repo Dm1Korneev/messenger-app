@@ -105,12 +105,12 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm run test:lint && npm run test && npm run server:test:types && npm run client:test:types"
+      "pre-push": "npm run test:lint && npm run server:test:types && npm run client:test:types"
     }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --ext .jsx,.js,.ts,.tsx --color"
+      "npm run test:lint"
     ]
   },
   "jest": {
