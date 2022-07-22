@@ -6,3 +6,7 @@ export * from './useUsers';
 export * from './useCurrentUser';
 export * from './useUserById';
 export * from './useUpdateUser';
+export * from './useLogin';
+export * from './useRegister';
+export * from './useIsLoggedIn';
+export * from './useLogout';

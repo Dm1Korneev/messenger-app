@@ -45,18 +45,3 @@ export function isLoggedIn(token: string) {
   }
   return false;
 }
-
-export function getUserInfo(token: string) {
-  if (isLoggedIn(token)) {
-    const payload = JSON.parse(window.atob(token.split('.')[1]));
-
-    return {
-      name: payload.name,
-      email: payload.email,
-      _id: payload._id,
-      avatar: payload.avatar,
-    };
-  }
-
-  return undefined;
-}

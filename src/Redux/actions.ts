@@ -45,17 +45,6 @@ export type SignInPayload = {
 }
 export const signIn = getRequestAction<SignInPayload>(ActionNames.LOGIN);
 
-export type RegisterPayload = {
-  email: string;
-  password: string;
-  name: string;
-  avatar?: File;
-  remember: boolean;
-}
-export const register = getRequestAction<RegisterPayload>(ActionNames.REGISTER);
-
-export const logOut = createAction(ActionNames.LOGOUT);
-
 export const loginFromStore = getRequestAction(ActionNames.LOGIN_FROM_STORE);
 
 export const changeActiveChat = createAction<{ activeChat: string }>(ActionNames.CHANGE_ACTIVE_CHAT);

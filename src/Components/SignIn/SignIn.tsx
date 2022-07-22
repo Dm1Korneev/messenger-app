@@ -14,7 +14,7 @@ import {
 } from 'formik';
 import { CheckboxWithLabel } from 'formik-material-ui';
 import { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
 import {
@@ -26,11 +26,8 @@ import { AvatarSelector } from 'Components/AvatarSelector';
 import { UserEmailField } from 'Components/UserEmailField';
 import { UserNameField } from 'Components/UserNameField';
 import { UserPasswordField } from 'Components/UserPasswordField';
-import { ActionNames } from 'Constants';
-import { register, signIn } from 'Redux/actions';
-import { RootState } from 'Redux/reducers';
-import { errorSelector } from 'Selectors/errors';
-import { loadingSelector } from 'Selectors/loading';
+import { useLogin, useRegister } from 'Hooks';
+import { signIn } from 'Redux/actions';
 
 enum DialogTabs {
   SIGN_IN = 'SIGN_IN',
@@ -58,12 +55,10 @@ type FromValues = {
 export const SignIn = () => {
   const dispatch = useDispatch();
 
-  const loginError = useSelector((rootState: RootState) => errorSelector(rootState, ActionNames.LOGIN));
-  const registerError = useSelector((rootState: RootState) => errorSelector(rootState, ActionNames.REGISTER));
-  const loginLoading = useSelector((rootState: RootState) => loadingSelector(rootState, ActionNames.LOGIN));
-  const registerLoading = useSelector((rootState: RootState) => loadingSelector(rootState, ActionNames.REGISTER));
+  const { mutate: login, isLoading: isLogin, error: loginError } = useLogin();
+  const { mutate: register, isLoading: isRegister, error: registerError } = useRegister();
 
-  const isLogging = loginLoading || registerLoading;
+  const isLogging = isLogin || isRegister;
 
   const [variant, setVariant] = useState<DialogTabs>(DialogTabs.SIGN_IN);
 
@@ -72,6 +67,7 @@ export const SignIn = () => {
   const onSignIn = (values: FromValues) => {
     const { email, password, remember } = values;
     dispatch(signIn({ email, password, remember }));
+    login({ email, password, saveToStore: remember });
   };
 
   const onRegister = (values: FromValues) => {
@@ -81,9 +77,9 @@ export const SignIn = () => {
     const {
       email, password, name, remember,
     } = values;
-    dispatch(register({
-      email, password, name, avatar, remember,
-    }));
+    register({
+      email, password, name, avatar, saveToStore: remember,
+    });
   };
 
   const onSubmit = (values: FromValues, { setSubmitting }: FormikHelpers<FromValues>) => {
@@ -149,16 +145,16 @@ export const SignIn = () => {
                 {({ submitForm }) => (
                   <Form>
                     {loginError && variant === DialogTabs.SIGN_IN && (
-                    <FormHelperText error>{loginError}</FormHelperText>
+                      <FormHelperText error>{String(loginError)}</FormHelperText>
                     )}
                     {registerError && variant === DialogTabs.REGISTER && (
-                    <FormHelperText error>{registerError}</FormHelperText>
+                      <FormHelperText error>{String(registerError)}</FormHelperText>
                     )}
                     {variant === DialogTabs.REGISTER && (
-                    <>
-                      <AvatarSelector disabled={isLogging} avatarFileInput={avatarFileInput} />
-                      <Field disabled={isLogging} component={UserNameField} name="name" />
-                    </>
+                      <>
+                        <AvatarSelector disabled={isLogging} avatarFileInput={avatarFileInput} />
+                        <Field disabled={isLogging} component={UserNameField} name="name" />
+                      </>
                     )}
                     <Field disabled={isLogging} component={UserEmailField} name="email" />
                     <Field disabled={isLogging} component={UserPasswordField} name="password" />
