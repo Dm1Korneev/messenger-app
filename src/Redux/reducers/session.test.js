@@ -5,7 +5,6 @@ import reducer from './session';
 const defaultStore = {
   activeChat: undefined,
   token: undefined,
-  isLoggedIn: false,
 };
 
 describe('session reducer', () => {
@@ -28,37 +27,6 @@ describe('session reducer', () => {
         ...defaultStore,
         activeChat,
       },
-    );
-  });
-
-  test('should handle SET_SESSION_INFO', () => {
-    const payload = {
-      isLoggedIn: true,
-    };
-
-    expect(
-      reducer(defaultStore, {
-        type: ActionNames.SET_SESSION_INFO,
-        payload,
-      }),
-    ).toStrictEqual(
-      {
-        ...defaultStore,
-        ...payload,
-      },
-    );
-  });
-
-  test('should handle CLEAR_STORE', () => {
-    expect(
-      reducer({
-        ...defaultStore,
-        isLoggedIn: true,
-      }, {
-        type: ActionNames.CLEAR_STORE,
-      }),
-    ).toStrictEqual(
-      defaultStore,
     );
   });
 });

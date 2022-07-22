@@ -4,11 +4,6 @@ import { RootState } from 'Redux/reducers';
 
 const sessionSelector = (state: RootState) => state.session;
 
-export const isLoggedInSelector = (state: RootState) => createSelector(
-  sessionSelector,
-  (session) => session.isLoggedIn,
-)(state);
-
 export const activeChatIdSelector = (state: RootState) => createSelector(
   sessionSelector,
   (session) => session.activeChat,

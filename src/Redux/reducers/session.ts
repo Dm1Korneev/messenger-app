@@ -5,13 +5,11 @@ import * as actions from '../actions';
 export type SessionState = {
   activeChat?: string;
   token?: string;
-  isLoggedIn: boolean;
 }
 
 const defaultStore: SessionState = {
   activeChat: undefined,
   token: undefined,
-  isLoggedIn: false,
 };
 
 export default createReducer(defaultStore, (builder) => builder

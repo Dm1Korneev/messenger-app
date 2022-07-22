@@ -8,11 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import CreateIcon from '@material-ui/icons/Create';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
-import { useDispatch } from 'react-redux';
 
 import { DRAWER_WIDTH } from 'Constants';
-import { useCurrentUser } from 'Hooks';
-import * as Actions from 'Redux/actions';
+import { useCurrentUser, useLogout } from 'Hooks';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -39,13 +37,11 @@ type TopBarProps = {
 }
 
 export const TopBar = ({ modifyUserDialogOnClick, onDrawerOpen, isDrawerOpen }: TopBarProps) => {
-  const dispatch = useDispatch();
-
   const { data: currentUser } = useCurrentUser();
 
   const classes = useStyles();
 
-  const onLogout = () => dispatch(Actions.logOut());
+  const logout = useLogout();
 
   const userName = currentUser?.name;
 
@@ -81,7 +77,7 @@ export const TopBar = ({ modifyUserDialogOnClick, onDrawerOpen, isDrawerOpen }: 
             </IconButton>
           </Typography>
         </Box>
-        <Button color="inherit" onClick={onLogout}>
+        <Button color="inherit" onClick={logout}>
           logout
         </Button>
       </Toolbar>

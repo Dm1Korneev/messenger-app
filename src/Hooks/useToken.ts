@@ -1,5 +1,3 @@
-import { useSelector } from 'react-redux';
+import { useSessionContext } from 'Components/SessionProvider';
 
-import { tokenSelector } from 'Selectors/session';
-
-export const useToken = () => useSelector(tokenSelector);
+export const useToken = () => useSessionContext().token ?? undefined;

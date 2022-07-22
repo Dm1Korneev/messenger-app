@@ -4,8 +4,6 @@ import {
 
 import {
   getTokenFromStorage,
-  isLoggedIn,
-  removeTokenFromStorage,
   saveTokenToStorage,
 } from 'Common/authentication';
 import {
@@ -14,7 +12,6 @@ import {
 } from 'Common/messengerAPI';
 import { ActionNames } from 'Constants';
 import {
-  clearStore,
   setSessionInfo,
 } from 'Redux/actions';
 import { getFailureAction, getRequestAction, getSuccessAction } from 'Redux/shared';
@@ -23,9 +20,7 @@ function* initAfterLogin(token) {
   if (!token) {
     return;
   }
-  if (yield call(isLoggedIn, token)) {
-    yield put(setSessionInfo({ token, isLoggedIn: true }));
-  }
+  yield put(setSessionInfo({ token }));
 }
 
 function* signIn(action) {
@@ -68,11 +63,6 @@ function* loginFromStore() {
   }
 }
 
-function* logOut() {
-  yield put(clearStore());
-  yield call(removeTokenFromStorage);
-}
-
 export default function* rootSaga() {
   yield all([
     yield takeEvery(getRequestAction(ActionNames.LOGIN).type, signIn),
@@ -81,6 +71,5 @@ export default function* rootSaga() {
       getRequestAction(ActionNames.LOGIN_FROM_STORE).type,
       loginFromStore,
     ),
-    yield takeEvery(ActionNames.LOGOUT, logOut),
   ]);
 }

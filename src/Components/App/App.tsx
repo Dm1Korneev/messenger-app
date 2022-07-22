@@ -1,12 +1,12 @@
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { MessengerScreen } from 'Components/MessengerScreen';
 import { SignIn } from 'Components/SignIn';
+import { useIsLoggedIn } from 'Hooks';
 import { loginFromStore } from 'Redux/actions';
-import { isLoggedInSelector } from 'Selectors/session';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export const App = () => {
     dispatch(loginFromStore());
   }, [dispatch]);
 
-  const isLoggedIn = useSelector(isLoggedInSelector);
+  const isLoggedIn = useIsLoggedIn();
 
   return (
     <Box height="100vh" display="flex">
