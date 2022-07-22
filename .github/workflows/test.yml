@@ -24,13 +24,13 @@ jobs:
         run: npm ci
 
       - name: "ESLint"
-        run: npm run lint
+        run: npm run test:lint
 
       - name: "Type check"
-        run: npm run check-types
+        run: npm run test:types
 
-      - name: "Build production build"
+      - name: "Build client"
         run: npm run build
 
       - name: "Run tests"
-        run: npm test
+        run: npm run test-all

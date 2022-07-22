@@ -81,6 +81,7 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "client:build": "react-scripts build",
     "server:build": "tsc --build tsconfig.server.json",
+    "build": "npm run client:build && npm run server:build",
     "heroku-postbuild": "npm run build"
   },
   "proxy": "http://localhost:8080",
