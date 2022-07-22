@@ -14,7 +14,6 @@ import {
 } from 'formik';
 import { CheckboxWithLabel } from 'formik-material-ui';
 import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
 import {
@@ -27,7 +26,6 @@ import { UserEmailField } from 'Components/UserEmailField';
 import { UserNameField } from 'Components/UserNameField';
 import { UserPasswordField } from 'Components/UserPasswordField';
 import { useLogin, useRegister } from 'Hooks';
-import { signIn } from 'Redux/actions';
 
 enum DialogTabs {
   SIGN_IN = 'SIGN_IN',
@@ -53,8 +51,6 @@ type FromValues = {
 }
 
 export const SignIn = () => {
-  const dispatch = useDispatch();
-
   const { mutate: login, isLoading: isLogin, error: loginError } = useLogin();
   const { mutate: register, isLoading: isRegister, error: registerError } = useRegister();
 
@@ -66,7 +62,6 @@ export const SignIn = () => {
 
   const onSignIn = (values: FromValues) => {
     const { email, password, remember } = values;
-    dispatch(signIn({ email, password, remember }));
     login({ email, password, saveToStore: remember });
   };
 
