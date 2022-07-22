@@ -7,8 +7,6 @@ const defaultStore = {
   token: undefined,
   isLoggedIn: false,
   drawerIsOpen: true,
-  userModifyDialogIsOpen: false,
-  user: undefined,
 };
 
 describe('session reducer', () => {
@@ -50,26 +48,9 @@ describe('session reducer', () => {
     );
   });
 
-  test('should handle SET_MODIFY_USER_DIALOG_IS_OPEN', () => {
-    const userModifyDialogIsOpen = true;
-
-    expect(
-      reducer(defaultStore, {
-        type: ActionNames.SET_MODIFY_USER_DIALOG_IS_OPEN,
-        payload: userModifyDialogIsOpen,
-      }),
-    ).toStrictEqual(
-      {
-        ...defaultStore,
-        userModifyDialogIsOpen,
-      },
-    );
-  });
-
   test('should handle SET_SESSION_INFO', () => {
     const payload = {
       isLoggedIn: true,
-      userModifyDialogIsOpen: true,
     };
 
     expect(
@@ -90,7 +71,6 @@ describe('session reducer', () => {
       reducer({
         ...defaultStore,
         isLoggedIn: true,
-        userModifyDialogIsOpen: true,
       }, {
         type: ActionNames.CLEAR_STORE,
       }),

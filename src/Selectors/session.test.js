@@ -1,11 +1,8 @@
 import {
   activeChatIdSelector,
-  currentUserIdSelector,
-  currentUserSelector,
   drawerIsOpenSelector,
   isLoggedInSelector,
   tokenSelector,
-  userModifyDialogIsOpenSelector,
 } from './session';
 
 describe('session selectors', () => {
@@ -20,27 +17,6 @@ describe('session selectors', () => {
     const store = { session: { isLoggedIn: false } };
     expect(isLoggedInSelector(store)).toStrictEqual(
       false,
-    );
-  });
-
-  test('userModifyDialogIsOpenSelector should return true if "userModifyDialogIsOpen = true" in store', () => {
-    const store = { session: { userModifyDialogIsOpen: true } };
-    expect(userModifyDialogIsOpenSelector(store)).toStrictEqual(
-      true,
-    );
-  });
-
-  test('currentUserSelector should return session.user from store', () => {
-    const store = { session: { user: { _id: 'id1' } } };
-    expect(currentUserSelector(store)).toStrictEqual(
-      { _id: 'id1' },
-    );
-  });
-
-  test('currentUserIdSelector should return session.user._id from store', () => {
-    const store = { session: { user: { _id: 'id1' } } };
-    expect(currentUserIdSelector(store)).toStrictEqual(
-      'id1',
     );
   });
 

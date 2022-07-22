@@ -21,25 +21,4 @@ describe('error reducer', () => {
       {},
     );
   });
-
-  test('should handle GET_USERS_FAILURE', () => {
-    expect(
-      reducer({}, {
-        type: getFailureActionName(ActionNames.GET_USERS),
-        payload: { error: { message: 'TEST_MESSAGE' } },
-      }),
-    ).toStrictEqual(
-      { GET_USERS: 'TEST_MESSAGE' },
-    );
-  });
-
-  test('should handle GET_USERS_REQUEST', () => {
-    expect(
-      reducer({ GET_USERS: 'TEST_MESSAGE' }, {
-        type: getRequestActionName(ActionNames.GET_USERS),
-      }),
-    ).toStrictEqual(
-      { GET_USERS: '' },
-    );
-  });
 });

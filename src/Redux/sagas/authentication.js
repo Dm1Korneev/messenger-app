@@ -4,7 +4,6 @@ import {
 
 import {
   getTokenFromStorage,
-  getUserInfo,
   isLoggedIn,
   removeTokenFromStorage,
   saveTokenToStorage,
@@ -25,10 +24,7 @@ function* initAfterLogin(token) {
     return;
   }
   if (yield call(isLoggedIn, token)) {
-    const user = yield call(getUserInfo, token);
-    yield put(setSessionInfo({ token, isLoggedIn: true, user }));
-    yield put(getRequestAction(ActionNames.GET_CHATS)());
-    yield put(getRequestAction(ActionNames.GET_USERS)());
+    yield put(setSessionInfo({ token, isLoggedIn: true }));
   }
 }
 

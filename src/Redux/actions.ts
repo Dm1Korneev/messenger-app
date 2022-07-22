@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 
 import { ActionNames } from 'Constants';
 import { getRequestAction } from 'Redux/shared';
-import { Message, User } from 'Types';
+import { Message } from 'Types';
 
 import { SessionState } from './reducers/session';
 
@@ -11,23 +11,13 @@ export const setActiveChat = createAction<string>(ActionNames.SET_ACTIVE_CHAT);
 
 export const setDrawerIsOpen = createAction<boolean>(ActionNames.SET_DRAWER_IS_OPEN);
 
-export const setModifyUserDialogIsOpen = createAction<boolean>(
-  ActionNames.SET_MODIFY_USER_DIALOG_IS_OPEN,
-);
-
 export const setSessionInfo = createAction<Partial<SessionState>>(ActionNames.SET_SESSION_INFO);
 
 // messages
 export const addMessages = createAction<Message[]>(ActionNames.ADD_MESSAGES);
 
-// users
-export const addUsers = createAction<User[]>(ActionNames.ADD_USERS);
-
 // others
 export const clearStore = createAction(ActionNames.CLEAR_STORE);
-
-// async actions
-export const getUsers = getRequestAction(ActionNames.GET_USERS);
 
 export const sendMessage = getRequestAction<{messageText: string}>(ActionNames.SEND_MESSAGE);
 
@@ -49,17 +39,6 @@ export type ModifyChatPayload = {
   };
 }
 export const modifyChat = getRequestAction<ModifyChatPayload>(ActionNames.MODIFY_CHAT);
-
-export type ModifyUserPayload = {
-  userId: string;
-  options: {
-    name: string;
-    email: string;
-    password?: string;
-    avatar?: File;
-  };
-}
-export const modifyUser = getRequestAction<ModifyUserPayload>(ActionNames.MODIFY_USER);
 
 export type SignInPayload = {
   email: string;

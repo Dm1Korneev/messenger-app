@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import { Field, Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
 import {
@@ -19,9 +19,8 @@ import {
 } from 'Common/validation';
 import { AvatarSelector } from 'Components/AvatarSelector';
 import { UsersAvatar } from 'Components/UsersAvatar';
-import { useChatById } from 'Hooks';
+import { useChatById, useUsers } from 'Hooks';
 import * as Actions from 'Redux/actions';
-import { notCurrentUsersSelector } from 'Selectors/users';
 import { User } from 'Types';
 
 import TitleField from './TitleField';
@@ -43,7 +42,7 @@ type ChatDialogProps = {
 export const ChatDialog = ({ chatId, onClose, isModify }: ChatDialogProps) => {
   const dispatch = useDispatch();
 
-  const users = useSelector(notCurrentUsersSelector);
+  const { data: users } = useUsers();
   const { data: chat } = useChatById(chatId);
 
   const [searchText, setSearchText] = useState<string>('');
@@ -52,10 +51,6 @@ export const ChatDialog = ({ chatId, onClose, isModify }: ChatDialogProps) => {
   const [avatarIsModified, setAvatarIsModified] = useState<boolean>(false);
 
   const avatarFileInput = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    dispatch(Actions.getUsers());
-  }, [dispatch]);
 
   useEffect(() => {
     if (isModify && chat) {

@@ -21,14 +21,6 @@ describe('actions', () => {
     expect(actions.setDrawerIsOpen(true)).toStrictEqual(expectedAction);
   });
 
-  test('should create an action to set modify user dialog is open', () => {
-    const expectedAction = {
-      payload: true,
-      type: ActionNames.SET_MODIFY_USER_DIALOG_IS_OPEN,
-    };
-    expect(actions.setModifyUserDialogIsOpen(true)).toStrictEqual(expectedAction);
-  });
-
   test('should create an action to set session info', () => {
     const expectedAction = {
       payload: { test: 'test' },
@@ -45,28 +37,12 @@ describe('actions', () => {
     expect(actions.addMessages([{ test: 'test' }])).toStrictEqual(expectedAction);
   });
 
-  test('should create an action to add users', () => {
-    const expectedAction = {
-      type: ActionNames.ADD_USERS,
-      payload: [{ test: 'test' }],
-    };
-    expect(actions.addUsers([{ test: 'test' }])).toStrictEqual(expectedAction);
-  });
-
   test('should create an action to clear store', () => {
     const expectedAction = {
       type: ActionNames.CLEAR_STORE,
       payload: undefined,
     };
     expect(actions.clearStore()).toStrictEqual(expectedAction);
-  });
-
-  test('should create an action to get users', () => {
-    const expectedAction = {
-      type: getRequestActionName(ActionNames.GET_USERS),
-      payload: undefined,
-    };
-    expect(actions.getUsers()).toStrictEqual(expectedAction);
   });
 
   test('should create an action to send message', () => {
@@ -114,21 +90,6 @@ describe('actions', () => {
       },
     };
     expect(actions.modifyChat({ chatId, options })).toStrictEqual(expectedAction);
-  });
-
-  test('should create an action to modify user', () => {
-    const userId = 'userId_TEST';
-    const options = {
-      test: 'TEST',
-    };
-    const expectedAction = {
-      type: getRequestActionName(ActionNames.MODIFY_USER),
-      payload: {
-        userId,
-        options,
-      },
-    };
-    expect(actions.modifyUser({ userId, options })).toStrictEqual(expectedAction);
   });
 
   test('should create an action to sign in', () => {

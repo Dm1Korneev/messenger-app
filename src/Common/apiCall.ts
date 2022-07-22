@@ -1,8 +1,8 @@
-export const apiCall = async <T>(URI: string, optionsParams: RequestInit, token?: string): Promise<T> => {
+export const apiCall = async <T>(URI: string, { headers = {}, ...optionsParams }: RequestInit, token?: string): Promise<T> => {
   const options = {
     ...optionsParams,
     headers: {
-      ...optionsParams.headers,
+      ...headers,
       Accept: 'application/json',
       Authorization: token ? `Bearer ${token}` : '',
     },
