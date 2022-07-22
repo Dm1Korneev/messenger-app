@@ -6,7 +6,6 @@ const defaultStore = {
   activeChat: undefined,
   token: undefined,
   isLoggedIn: false,
-  drawerIsOpen: true,
 };
 
 describe('session reducer', () => {
@@ -28,22 +27,6 @@ describe('session reducer', () => {
       {
         ...defaultStore,
         activeChat,
-      },
-    );
-  });
-
-  test('should handle SET_DRAWER_IS_OPEN', () => {
-    const drawerIsOpen = true;
-
-    expect(
-      reducer(defaultStore, {
-        type: ActionNames.SET_DRAWER_IS_OPEN,
-        payload: drawerIsOpen,
-      }),
-    ).toStrictEqual(
-      {
-        ...defaultStore,
-        drawerIsOpen,
       },
     );
   });

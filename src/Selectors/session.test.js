@@ -1,6 +1,5 @@
 import {
   activeChatIdSelector,
-  drawerIsOpenSelector,
   isLoggedInSelector,
   tokenSelector,
 } from './session';
@@ -24,13 +23,6 @@ describe('session selectors', () => {
     const store = { session: { activeChat: 'id1' } };
     expect(activeChatIdSelector(store)).toStrictEqual(
       'id1',
-    );
-  });
-
-  test('drawerIsOpenSelector should return drawerIsOpen from store', () => {
-    const store = { session: { drawerIsOpen: true } };
-    expect(drawerIsOpenSelector(store)).toStrictEqual(
-      true,
     );
   });
 

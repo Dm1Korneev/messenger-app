@@ -8,12 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import CreateIcon from '@material-ui/icons/Create';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { DRAWER_WIDTH } from 'Constants';
 import { useCurrentUser } from 'Hooks';
 import * as Actions from 'Redux/actions';
-import { drawerIsOpenSelector } from 'Selectors/session';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -35,17 +34,17 @@ const useStyles = makeStyles((theme) => ({
 
 type TopBarProps = {
   modifyUserDialogOnClick: () => void
+  onDrawerOpen: () => void
+  isDrawerOpen: boolean
 }
 
-export const TopBar = ({ modifyUserDialogOnClick }: TopBarProps) => {
+export const TopBar = ({ modifyUserDialogOnClick, onDrawerOpen, isDrawerOpen }: TopBarProps) => {
   const dispatch = useDispatch();
 
   const { data: currentUser } = useCurrentUser();
-  const drawerIsOpen = useSelector(drawerIsOpenSelector);
 
   const classes = useStyles();
 
-  const onDrawerOpen = () => dispatch(Actions.setDrawerIsOpen(true));
   const onLogout = () => dispatch(Actions.logOut());
 
   const userName = currentUser?.name;
@@ -56,12 +55,12 @@ export const TopBar = ({ modifyUserDialogOnClick }: TopBarProps) => {
       className={clsx(
         classes.appBar,
         {
-          [classes.appBarShift]: drawerIsOpen,
+          [classes.appBarShift]: isDrawerOpen,
         },
       )}
     >
       <Toolbar>
-        <Box mr={2} hidden={drawerIsOpen}>
+        <Box mr={2} hidden={isDrawerOpen}>
           <IconButton
             color="inherit"
             edge="start"

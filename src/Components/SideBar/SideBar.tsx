@@ -15,7 +15,7 @@ import { Chat } from 'Components/Chat';
 import { DRAWER_WIDTH } from 'Constants';
 import { useChats } from 'Hooks';
 import * as Actions from 'Redux/actions';
-import { activeChatIdSelector, drawerIsOpenSelector } from 'Selectors/session';
+import { activeChatIdSelector } from 'Selectors/session';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -52,17 +52,18 @@ const useStyles = makeStyles((theme) => ({
 
 type SideBarProps = {
   chatModifyOnClick: (id: string) => void
-  chatAddOnClick: () => void
+  onChatAddClick: () => void
+  isDrawerOpen: boolean
+  onDrawerClose: () => void
 }
 
-export const SideBar = ({ chatModifyOnClick, chatAddOnClick }: SideBarProps) => {
+export const SideBar = ({
+  chatModifyOnClick, onChatAddClick, isDrawerOpen, onDrawerClose,
+}: SideBarProps) => {
   const dispatch = useDispatch();
 
   const { data: chats } = useChats();
   const activeChat = useSelector(activeChatIdSelector);
-  const drawerIsOpen = useSelector(drawerIsOpenSelector);
-
-  const onDrawerClose = () => dispatch(Actions.setDrawerIsOpen(false));
 
   const classes = useStyles();
 
@@ -71,11 +72,11 @@ export const SideBar = ({ chatModifyOnClick, chatAddOnClick }: SideBarProps) => 
       variant="permanent"
       classes={{
         paper: clsx(classes.drawer, {
-          [classes.drawerOpen]: drawerIsOpen,
-          [classes.drawerClose]: !drawerIsOpen,
+          [classes.drawerOpen]: isDrawerOpen,
+          [classes.drawerClose]: !isDrawerOpen,
         }),
       }}
-      open={drawerIsOpen}
+      open={isDrawerOpen}
     >
       <div className={classes.toolbarIcon}>
         <IconButton onClick={onDrawerClose}>
@@ -84,7 +85,7 @@ export const SideBar = ({ chatModifyOnClick, chatAddOnClick }: SideBarProps) => 
       </div>
       <Divider />
       <List>
-        <ListItem button key="add_chat" onClick={chatAddOnClick}>
+        <ListItem button key="add_chat" onClick={onChatAddClick}>
           <ListItemIcon>
             <AddBox color="primary" className={classes.addChatIcon} />
           </ListItemIcon>
