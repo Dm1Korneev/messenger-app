@@ -77,7 +77,9 @@
     "test": "react-scripts test",
     "test-all": "react-scripts test --watchAll=false",
     "test-coverage": "react-scripts test --coverage --watchAll=false",
-    "test:types": "tsc && tsc --project tsconfig.server.json",
+    "server:test:types": "tsc --project tsconfig.server.json",
+    "cient:test:types": "tsc",
+    "test:types": "cient:test:types && server:test:types",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "client:build": "react-scripts build",
     "server:build": "tsc --build tsconfig.server.json",
@@ -103,7 +105,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm run test:lint && npm run test && npm run test:types"
+      "pre-push": "npm run test:lint && npm run test && npm run server:test:types && npm run client:test:types"
     }
   },
   "lint-staged": {
