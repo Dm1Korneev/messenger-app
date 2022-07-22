@@ -21,13 +21,6 @@ export const sendMessage = getRequestAction<{ messageText: string }>(ActionNames
 
 export const loadMessages = getRequestAction(ActionNames.GET_MESSAGES);
 
-export type CreateChatPayload = {
-  title: string;
-  avatar?: File;
-  selectedUserIds: string[];
-}
-export const createChat = getRequestAction<CreateChatPayload>(ActionNames.CREATE_CHAT);
-
 export type ModifyChatPayload = {
   chatId: string;
   options: {
@@ -36,7 +29,6 @@ export type ModifyChatPayload = {
     avatar?: File;
   };
 }
-export const modifyChat = getRequestAction<ModifyChatPayload>(ActionNames.MODIFY_CHAT);
 
 export type SignInPayload = {
   email: string;

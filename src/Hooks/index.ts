@@ -10,3 +10,5 @@ export * from './useLogin';
 export * from './useRegister';
 export * from './useIsLoggedIn';
 export * from './useLogout';
+export * from './useUpdateChat';
+export * from './useCreateChat';

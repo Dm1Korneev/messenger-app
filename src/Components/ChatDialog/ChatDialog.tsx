@@ -11,7 +11,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import { Field, Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
 import {
@@ -19,8 +18,9 @@ import {
 } from 'Common/validation';
 import { AvatarSelector } from 'Components/AvatarSelector';
 import { UsersAvatar } from 'Components/UsersAvatar';
-import { useChatById, useUsers } from 'Hooks';
-import * as Actions from 'Redux/actions';
+import {
+  useChatById, useUsers, useUpdateChat, UseUpdateChatPayload, useCreateChat,
+} from 'Hooks';
 import { User } from 'Types';
 
 import TitleField from './TitleField';
@@ -40,10 +40,10 @@ type ChatDialogProps = {
 }
 
 export const ChatDialog = ({ chatId, onClose, isModify }: ChatDialogProps) => {
-  const dispatch = useDispatch();
-
   const { data: users } = useUsers();
   const { data: chat } = useChatById(chatId);
+  const { mutate: updateChat } = useUpdateChat();
+  const { mutate: createChat } = useCreateChat();
 
   const [searchText, setSearchText] = useState<string>('');
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
@@ -82,17 +82,17 @@ export const ChatDialog = ({ chatId, onClose, isModify }: ChatDialogProps) => {
     const avatar = files ? files[0] : undefined;
 
     if (isModify && chat) {
-      const options: Actions.ModifyChatPayload['options'] = {
+      const modifyData: UseUpdateChatPayload = {
         title,
         users: selectedUserIds,
       };
       if (avatarIsModified) {
-        options.avatar = avatar;
+        modifyData.avatar = avatar;
       }
 
-      dispatch(Actions.modifyChat({ chatId: chat._id, options }));
+      updateChat({ chatId: chat._id, modifyData });
     } else if (!isModify) {
-      dispatch(Actions.createChat({ title, avatar, selectedUserIds }));
+      createChat({ title, avatar, users: selectedUserIds });
     }
     onClose();
   };
