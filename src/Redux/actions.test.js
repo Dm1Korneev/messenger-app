@@ -54,36 +54,6 @@ describe('actions', () => {
     expect(actions.loadMessages()).toStrictEqual(expectedAction);
   });
 
-  test('should create an action to create chat', () => {
-    const title = 'title_TEST';
-    const avatar = 'avatar_TEST';
-    const selectedUserIds = ['123', '321'];
-    const expectedAction = {
-      type: getRequestActionName(ActionNames.CREATE_CHAT),
-      payload: {
-        title,
-        avatar,
-        selectedUserIds,
-      },
-    };
-    expect(actions.createChat({ title, avatar, selectedUserIds })).toStrictEqual(expectedAction);
-  });
-
-  test('should create an action to modify chat', () => {
-    const chatId = 'chatId_TEST';
-    const options = {
-      test: 'TEST',
-    };
-    const expectedAction = {
-      type: getRequestActionName(ActionNames.MODIFY_CHAT),
-      payload: {
-        chatId,
-        options,
-      },
-    };
-    expect(actions.modifyChat({ chatId, options })).toStrictEqual(expectedAction);
-  });
-
   test('should create an action to sign in', () => {
     const email = 'email_TEST';
     const password = 'password_TEST';
