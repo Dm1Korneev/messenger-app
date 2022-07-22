@@ -14,11 +14,6 @@ export const activeChatIdSelector = (state: RootState) => createSelector(
   (session) => session.activeChat,
 )(state);
 
-export const drawerIsOpenSelector = (state: RootState) => createSelector(
-  sessionSelector,
-  (session) => session.drawerIsOpen,
-)(state);
-
 export const tokenSelector = (state: RootState) => createSelector(
   sessionSelector,
   (session) => session.token,

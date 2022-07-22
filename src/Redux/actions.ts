@@ -9,8 +9,6 @@ import { SessionState } from './reducers/session';
 // session
 export const setActiveChat = createAction<string>(ActionNames.SET_ACTIVE_CHAT);
 
-export const setDrawerIsOpen = createAction<boolean>(ActionNames.SET_DRAWER_IS_OPEN);
-
 export const setSessionInfo = createAction<Partial<SessionState>>(ActionNames.SET_SESSION_INFO);
 
 // messages
@@ -19,7 +17,7 @@ export const addMessages = createAction<Message[]>(ActionNames.ADD_MESSAGES);
 // others
 export const clearStore = createAction(ActionNames.CLEAR_STORE);
 
-export const sendMessage = getRequestAction<{messageText: string}>(ActionNames.SEND_MESSAGE);
+export const sendMessage = getRequestAction<{ messageText: string }>(ActionNames.SEND_MESSAGE);
 
 export const loadMessages = getRequestAction(ActionNames.GET_MESSAGES);
 
@@ -60,4 +58,4 @@ export const logOut = createAction(ActionNames.LOGOUT);
 
 export const loginFromStore = getRequestAction(ActionNames.LOGIN_FROM_STORE);
 
-export const changeActiveChat = createAction<{activeChat: string}>(ActionNames.CHANGE_ACTIVE_CHAT);
+export const changeActiveChat = createAction<{ activeChat: string }>(ActionNames.CHANGE_ACTIVE_CHAT);

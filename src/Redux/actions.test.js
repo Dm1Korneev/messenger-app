@@ -13,14 +13,6 @@ describe('actions', () => {
     expect(actions.setActiveChat('1234')).toStrictEqual(expectedAction);
   });
 
-  test('should create an action to set drawer is open', () => {
-    const expectedAction = {
-      payload: true,
-      type: ActionNames.SET_DRAWER_IS_OPEN,
-    };
-    expect(actions.setDrawerIsOpen(true)).toStrictEqual(expectedAction);
-  });
-
   test('should create an action to set session info', () => {
     const expectedAction = {
       payload: { test: 'test' },
