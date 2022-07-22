@@ -114,50 +114,6 @@ describe('actions', () => {
     expect(actions.signIn({ email, password, remember })).toStrictEqual(expectedAction);
   });
 
-  test('should create an action to register', () => {
-    const email = 'email_TEST';
-    const password = 'password_TEST';
-    const name = 'name_TEST';
-
-    const avatar = 'avatar_TEST';
-    const remember = false;
-    const expectedAction = {
-      type: getRequestActionName(ActionNames.REGISTER),
-      payload: {
-        email,
-        password,
-        name,
-        avatar,
-        remember,
-      },
-    };
-    expect(actions.register({
-      email, password, name, avatar, remember,
-    })).toStrictEqual(expectedAction);
-  });
-
-  test('should create an action to register with default remember parameter', () => {
-    const email = 'email_TEST';
-    const password = 'password_TEST';
-    const name = 'name_TEST';
-
-    const avatar = 'avatar_TEST';
-    const remember = false;
-    const expectedAction = {
-      type: getRequestActionName(ActionNames.REGISTER),
-      payload: {
-        email,
-        password,
-        name,
-        avatar,
-        remember,
-      },
-    };
-    expect(actions.register({
-      email, password, name, avatar, remember,
-    })).toStrictEqual(expectedAction);
-  });
-
   test('should create an action to login from store', () => {
     const expectedAction = {
       type: getRequestActionName(ActionNames.LOGIN_FROM_STORE),
