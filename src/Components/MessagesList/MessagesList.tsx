@@ -5,15 +5,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Fragment, useEffect, useRef, useState,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { MessageDateTime } from 'Components/MessageDateTime';
 import { MessageText } from 'Components/MessageText';
 import { MessageUser } from 'Components/MessageUser';
 import { RELOAD_PERIOD } from 'Constants';
-import { useUsers, useCurrentUser } from 'Hooks';
-import { loadMessages } from 'Redux/actions';
-import { messagesTreeSelector } from 'Selectors/messages';
+import { useUsers, useCurrentUser, useMessagesByChatId } from 'Hooks';
+
+import { getMesagesTree } from './getMesagesTree';
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -23,10 +22,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const MessagesList = () => {
-  const dispatch = useDispatch();
+type MessagesListProps = {
+  activeChatId?: string
+}
 
-  const messagesTree = useSelector(messagesTreeSelector);
+export const MessagesList = ({ activeChatId }: MessagesListProps) => {
+  const { data: messages } = useMessagesByChatId(activeChatId, { refetchInterval: RELOAD_PERIOD });
+  const messagesTree = getMesagesTree(messages);
   const { data: users } = useUsers();
   const { data: currentUser } = useCurrentUser();
 
@@ -47,11 +49,6 @@ export const MessagesList = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messagesTree]);
-
-  useEffect(() => {
-    const interval = setInterval(() => dispatch(loadMessages()), RELOAD_PERIOD);
-    return () => clearInterval(interval);
-  }, [dispatch]);
 
   const handlerOnScroll = (event: React.UIEvent<HTMLUListElement>) => {
     const newBottomPosition = event.currentTarget.scrollHeight - event.currentTarget.offsetHeight

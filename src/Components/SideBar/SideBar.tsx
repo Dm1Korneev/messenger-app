@@ -9,13 +9,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddBox from '@material-ui/icons/AddBox';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import clsx from 'clsx';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { Chat } from 'Components/Chat';
 import { DRAWER_WIDTH } from 'Constants';
 import { useChats } from 'Hooks';
-import * as Actions from 'Redux/actions';
-import { activeChatIdSelector } from 'Selectors/session';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -55,15 +52,14 @@ type SideBarProps = {
   onChatAddClick: () => void
   isDrawerOpen: boolean
   onDrawerClose: () => void
+  activeChatId?: string
+  onChatClick: (chatId: string) => void
 }
 
 export const SideBar = ({
-  chatModifyOnClick, onChatAddClick, isDrawerOpen, onDrawerClose,
+  chatModifyOnClick, onChatAddClick, isDrawerOpen, onDrawerClose, activeChatId, onChatClick,
 }: SideBarProps) => {
-  const dispatch = useDispatch();
-
   const { data: chats } = useChats();
-  const activeChat = useSelector(activeChatIdSelector);
 
   const classes = useStyles();
 
@@ -97,8 +93,8 @@ export const SideBar = ({
             <Chat
               chat={chat}
               key={_id}
-              selected={_id === activeChat}
-              chatOnClick={() => dispatch(Actions.changeActiveChat({ activeChat: _id }))}
+              selected={_id === activeChatId}
+              chatOnClick={() => onChatClick(_id)}
               chatModifyOnClick={chatModifyOnClick}
             />
           );

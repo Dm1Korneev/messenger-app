@@ -16,7 +16,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const MainContent = () => {
+type MainContentProps = {
+  activeChatId?: string
+}
+
+export const MainContent = ({ activeChatId }: MainContentProps) => {
   const classes = useStyles();
 
   return (
@@ -24,8 +28,8 @@ export const MainContent = () => {
       <Grid item xs={12} sm={11} md={10} lg={9} className={classes.grid}>
         <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
           <Box className={classes.appBarSpacer} />
-          <MessagesList />
-          <MessageInput />
+          <MessagesList activeChatId={activeChatId} />
+          {activeChatId && <MessageInput activeChatId={activeChatId} />}
         </Box>
       </Grid>
     </Box>
