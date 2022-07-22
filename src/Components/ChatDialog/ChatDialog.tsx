@@ -1,14 +1,14 @@
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import TextField from '@material-ui/core/TextField';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import LinearProgress from '@mui/material/LinearProgress';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import TextField from '@mui/material/TextField';
 import { Field, Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
@@ -120,43 +120,43 @@ export const ChatDialog = ({ chatId, onClose, isModify }: ChatDialogProps) => {
 
   const usersList = !searchText ? users : searchResult;
   return !isModify || chat ? (
-    <Dialog open onClose={onClose}>
+    <Dialog onClose={onClose} open>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
         onSubmit={onSubmit}
+        validationSchema={validationSchema}
       >
         {({ isSubmitting, submitForm }) => (
           <Form>
             <DialogTitle>{isModify ? 'Modify chat' : 'Add chat'}</DialogTitle>
             <DialogContent>
               <AvatarSelector
-                onChange={avatarOnChange}
                 avatar={avatar}
                 avatarFileInput={avatarFileInput}
+                onChange={avatarOnChange}
               />
               <Field
                 component={TitleField}
                 name="title"
               />
               <TextField
-                margin="normal"
-                label="Search"
-                fullWidth
-                onChange={handleSearchTextChange}
-                name="searchText"
-                id="searchText"
                 color="primary"
+                fullWidth
+                id="searchText"
+                label="Search"
+                margin="normal"
+                name="searchText"
+                onChange={handleSearchTextChange}
                 value={searchText}
               />
 
               <List>
                 {usersList.map((value) => (
                   <ListItem
-                    button
                     key={value._id}
-                    selected={selectedUserIds.includes(value._id)}
+                    button
                     onClick={() => userSelect(value._id)}
+                    selected={selectedUserIds.includes(value._id)}
                   >
                     <ListItemAvatar>
                       <UsersAvatar author={value.name} avatar={value.avatar} />
@@ -169,14 +169,14 @@ export const ChatDialog = ({ chatId, onClose, isModify }: ChatDialogProps) => {
             </DialogContent>
             <DialogActions>
               <Button
-                type="submit"
                 color="primary"
                 disabled={isSubmitting}
                 onClick={submitForm}
+                type="submit"
               >
                 {isModify ? 'Save' : 'Add'}
               </Button>
-              <Button onClick={onClose} color="primary">
+              <Button color="primary" onClick={onClose}>
                 Close
               </Button>
             </DialogActions>

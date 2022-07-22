@@ -63,7 +63,8 @@
     "react/require-default-props": "off",
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": ["error", { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }],
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "react/jsx-sort-props": "error"
   },
   "overrides": [
     {

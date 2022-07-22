@@ -1,10 +1,10 @@
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import FormHelperText from '@mui/material/FormHelperText';
+import LinearProgress from '@mui/material/LinearProgress';
 import { Field, Form, Formik } from 'formik';
 import { useRef, useState } from 'react';
 import * as Yup from 'yup';
@@ -81,21 +81,21 @@ export const UserModifyDialog = ({ onClose }: UserModifyDialogProps) => {
   };
 
   return (
-    <Dialog open onClose={onClose}>
+    <Dialog onClose={onClose} open>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
         onSubmit={onSubmit}
+        validationSchema={validationSchema}
       >
         {({ isSubmitting, submitForm }) => (
           <Form>
             <DialogTitle>Modify user</DialogTitle>
             <DialogContent>
-              {error && <FormHelperText error>{String(error)}</FormHelperText>}
+              {error ? <FormHelperText error>{String(error)}</FormHelperText> : null}
               <AvatarSelector
-                onChange={avatarOnChange}
                 avatar={currentUser.avatar}
                 avatarFileInput={avatarFileInput}
+                onChange={avatarOnChange}
               />
               <Field component={UserNameField} name="name" />
               <Field component={UserEmailField} name="email" />
@@ -104,14 +104,14 @@ export const UserModifyDialog = ({ onClose }: UserModifyDialogProps) => {
             </DialogContent>
             <DialogActions>
               <Button
-                type="submit"
                 color="primary"
                 disabled={isSubmitting}
                 onClick={submitForm}
+                type="submit"
               >
                 Save
               </Button>
-              <Button onClick={onClose} color="primary">
+              <Button color="primary" onClick={onClose}>
                 Close
               </Button>
             </DialogActions>

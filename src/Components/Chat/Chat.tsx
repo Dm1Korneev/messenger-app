@@ -1,26 +1,11 @@
-import IconButton from '@material-ui/core/IconButton';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles } from '@material-ui/core/styles';
-import CreateIcon from '@material-ui/icons/Create';
+import CreateIcon from '@mui/icons-material/Create';
+import IconButton from '@mui/material/IconButton';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
 
 import { UsersAvatar } from 'Components/UsersAvatar';
 import { Chat as ChatType } from 'Types';
-
-const useStyles = makeStyles(() => ({
-  listItem: {
-    '&:hover': {
-      '& button': {
-        visibility: 'visible',
-      },
-    },
-  },
-  modifyButton: {
-    visibility: 'hidden',
-    color: '#FFF',
-  },
-}));
 
 type Props = {
   selected: boolean;
@@ -32,16 +17,20 @@ type Props = {
 export const Chat = ({
   selected, chatOnClick, chatModifyOnClick, chat,
 }: Props) => {
-  const classes = useStyles();
-
   const { title, avatar, _id } = chat;
 
   return (
     <ListItem
       button
-      selected={selected}
       onClick={chatOnClick}
-      className={classes.listItem}
+      selected={selected}
+      sx={{
+        '&:hover': {
+          '& button': {
+            visibility: 'visible',
+          },
+        },
+      }}
     >
       <ListItemAvatar>
         <UsersAvatar author={title} avatar={avatar} />
@@ -51,9 +40,8 @@ export const Chat = ({
         onClick={() => {
           chatModifyOnClick(_id);
         }}
-        classes={{
-          root: classes.modifyButton,
-        }}
+        size="large"
+        sx={{ visibility: 'hidden', color: 'white' }}
       >
         <CreateIcon />
       </IconButton>

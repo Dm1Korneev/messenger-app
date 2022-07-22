@@ -6,9 +6,9 @@ type Props = Omit<
 
 const TitleField = (props: Props) => (
   <TextField
-    margin="normal"
-    label="Title *"
     fullWidth
+    label="Title *"
+    margin="normal"
     {...props}
   />
 );

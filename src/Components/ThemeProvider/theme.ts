@@ -1,7 +1,7 @@
-import { amber, blue } from '@material-ui/core/colors';
-import { createTheme } from '@material-ui/core/styles';
+import { amber, blue } from '@mui/material/colors';
+import { createTheme, adaptV4Theme } from '@mui/material/styles';
 
-const theme = createTheme({
+const theme = createTheme(adaptV4Theme({
   palette: {
     primary: blue,
     secondary: amber,
@@ -25,9 +25,6 @@ const theme = createTheme({
         '&$selected:focus': {
           backgroundColor: blue[100],
         },
-        '&:focus': {
-          backgroundColor: 'transparent',
-        },
         '&$selected:hover': {
           backgroundColor: blue[300],
         },
@@ -40,6 +37,6 @@ const theme = createTheme({
       },
     },
   },
-});
+}));
 
 export default theme;

@@ -1,4 +1,4 @@
-import TextField from '@material-ui/core/TextField';
+import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
 import { useCreateMessageByChatId } from 'Hooks';
@@ -27,15 +27,15 @@ export const MessageInput = ({ activeChatId }: MessageInputProps) => {
 
   return (
     <TextField
-      value={messageText}
+      fullWidth
+      label="Write a message"
+      margin="normal"
+      maxRows="5"
+      minRows="2"
+      multiline
       onChange={handleChange}
       onKeyPress={handleKeyPress}
-      multiline
-      minRows="2"
-      maxRows="5"
-      fullWidth
-      margin="normal"
-      label="Write a message"
+      value={messageText}
       variant="outlined"
     />
   );

@@ -1,5 +1,5 @@
-import Box from '@material-ui/core/Box';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import { MessengerScreen } from 'Components/MessengerScreen';
 import { SignIn } from 'Components/SignIn';
@@ -9,7 +9,7 @@ export const App = () => {
   const isLoggedIn = useIsLoggedIn();
 
   return (
-    <Box height="100vh" display="flex">
+    <Box display="flex" height="100vh">
       <CssBaseline />
       {isLoggedIn ? <MessengerScreen /> : <SignIn />}
     </Box>

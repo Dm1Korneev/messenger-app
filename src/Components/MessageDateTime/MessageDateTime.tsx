@@ -1,7 +1,6 @@
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import { FC } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { PropsWithChildren } from 'react';
 
 function getLang() {
   if (navigator.languages) {
@@ -43,36 +42,28 @@ const getDateTimeText = (value: Date) => {
   return undefined;
 };
 
-const useStyles = makeStyles((theme) => ({
-  ListItemText: {
-    backgroundColor: theme.palette.background.default,
-    zIndex: 1000,
-  },
-}));
-
-type Props = {
+type MessageDateTimeProps = {
   isCurrentUserMessage: boolean;
   dateTime: Date;
 }
 
-export const MessageDateTime: FC<Props> = ({
+export const MessageDateTime = ({
   isCurrentUserMessage, children, dateTime: dateTimeFromProps,
-}) => {
-  const classes = useStyles();
-
+}: PropsWithChildren<MessageDateTimeProps>) => {
   const flexDirection = isCurrentUserMessage ? 'row' : 'row-reverse';
   const alignSelf = isCurrentUserMessage ? 'flex-start' : 'flex-end';
 
   return (
     <Box display="flex" flexDirection="column">
       <Box
+        alignSelf={alignSelf}
+        bgcolor="white"
+        display="flex"
+        flexDirection={flexDirection}
         position="sticky"
         top={0}
-        display="flex"
         width="50%"
-        flexDirection={flexDirection}
-        alignSelf={alignSelf}
-        className={classes.ListItemText}
+        zIndex={1000}
       >
         <Typography
           color="textSecondary"

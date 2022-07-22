@@ -1,7 +1,7 @@
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
 import { TextField } from 'formik-material-ui';
 import { useState } from 'react';
 
@@ -34,28 +34,29 @@ export const UserPasswordField = (props: Props) => {
 
   return (
     <TextField
-      margin="normal"
-      label="Password *"
-      fullWidth
-      type={showPassword ? 'text' : 'password'}
       autoComplete="current-password"
+      fullWidth
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
             <IconButton
               aria-label="Toggle password visibility"
-              onMouseDown={handleOnMouseDownShowPassword}
-              onMouseUp={handleOnMouseUpShowPassword}
-              onKeyDown={handleOnKeyDownShowPassword}
-              onMouseOut={handleOnMouseOutShowPassword}
               onBlur={handleOnMouseOutShowPassword}
+              onKeyDown={handleOnKeyDownShowPassword}
               onKeyUp={handleOnMouseOutShowPassword}
+              onMouseDown={handleOnMouseDownShowPassword}
+              onMouseOut={handleOnMouseOutShowPassword}
+              onMouseUp={handleOnMouseUpShowPassword}
+              size="large"
             >
               {showPassword ? <Visibility /> : <VisibilityOff />}
             </IconButton>
           </InputAdornment>
         ),
       }}
+      label="Password *"
+      margin="normal"
+      type={showPassword ? 'text' : 'password'}
       {...props}
     />
   );

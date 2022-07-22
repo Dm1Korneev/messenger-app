@@ -17,20 +17,20 @@ export const MessengerScreen = () => {
   return (
     <>
       <TopBar
-        modifyUserDialogOnClick={userModifyDialogState.open}
         isDrawerOpen={SideBarDrawerState.isOpen}
+        modifyUserDialogOnClick={userModifyDialogState.open}
         onDrawerOpen={SideBarDrawerState.open}
       />
       <SideBar
-        chatModifyOnClick={modifyChatDialogState.open}
-        onChatAddClick={addChatDialogState.open}
-        isDrawerOpen={SideBarDrawerState.isOpen}
-        onDrawerClose={SideBarDrawerState.close}
         activeChatId={activeChatId ?? undefined}
+        chatModifyOnClick={modifyChatDialogState.open}
+        isDrawerOpen={SideBarDrawerState.isOpen}
+        onChatAddClick={addChatDialogState.open}
         onChatClick={setActiveChatId}
+        onDrawerClose={SideBarDrawerState.close}
       />
       <MainContent activeChatId={activeChatId ?? undefined} />
-      {modifyChatDialogState.isOpen && <ChatDialog chatId={modifyChatDialogState.payload} onClose={modifyChatDialogState.close} isModify />}
+      {modifyChatDialogState.isOpen && <ChatDialog chatId={modifyChatDialogState.payload} isModify onClose={modifyChatDialogState.close} />}
       {addChatDialogState.isOpen && <ChatDialog onClose={addChatDialogState.close} />}
       {userModifyDialogState.isOpen && <UserModifyDialog onClose={userModifyDialogState.close} />}
     </>

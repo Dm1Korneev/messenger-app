@@ -1,37 +1,27 @@
-import Box from '@material-ui/core/Box';
-import ListItem from '@material-ui/core/ListItem';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import { FC } from 'react';
+import Box from '@mui/material/Box';
+import ListItem from '@mui/material/ListItem';
+import Typography from '@mui/material/Typography';
+import { PropsWithChildren } from 'react';
 
 import { UsersAvatar } from 'Components/UsersAvatar';
 
-const useStyles = makeStyles((theme) => ({
-  ListItemText: {
-    backgroundColor: theme.palette.background.default,
-    zIndex: 999,
-  },
-}));
-
-type Props = {
+type MessageUserProps = {
   isCurrentUserMessage: boolean;
   author: string;
   avatar: string;
 }
 
-export const MessageUser: FC<Props> = ({
+export const MessageUser = ({
   isCurrentUserMessage, author, avatar, children,
-}) => {
-  const classes = useStyles();
-
+}: PropsWithChildren<MessageUserProps>) => {
   const flexDirection = isCurrentUserMessage ? 'row-reverse' : 'row';
 
   return (
     <ListItem>
       <Box
+        alignItems="start"
         display="flex"
         flex="1"
-        alignItems="start"
         flexDirection={flexDirection}
       >
         <Box position="sticky" top={0}>
@@ -39,11 +29,12 @@ export const MessageUser: FC<Props> = ({
         </Box>
         <Box display="flex" flex="1" flexDirection="column" px={2}>
           <Box
-            position="sticky"
-            top={0}
+            bgcolor="white"
             display="flex"
             flexDirection={flexDirection}
-            className={classes.ListItemText}
+            position="sticky"
+            top={0}
+            zIndex={999}
           >
             <Typography
               component="span"

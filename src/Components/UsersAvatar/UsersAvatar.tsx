@@ -1,5 +1,5 @@
-import Avatar from '@material-ui/core/Avatar';
-import AccountIcon from '@material-ui/icons/AccountCircleOutlined';
+import AccountIcon from '@mui/icons-material/AccountCircleOutlined';
+import Avatar from '@mui/material/Avatar';
 
 type Props = {
   avatar?: string;
@@ -7,12 +7,8 @@ type Props = {
   size?: number;
 }
 
-export const UsersAvatar = ({ avatar, author, size }: Props) => {
-  const style = size ? { width: size, height: size } : {};
-
-  return (
-    <Avatar variant="rounded" alt={author} src={avatar} style={style}>
-      {!avatar && <AccountIcon fontSize="large" />}
-    </Avatar>
-  );
-};
+export const UsersAvatar = ({ avatar, author, size }: Props) => (
+  <Avatar alt={author} src={avatar} sx={{ width: size, height: size }} variant="rounded">
+    {!avatar && <AccountIcon fontSize="large" />}
+  </Avatar>
+);
