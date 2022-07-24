@@ -68,7 +68,7 @@
     "ts-node": "^10.9.1"
   },
   "scripts": {
-    "start": "docker-compose up -d mongo && start nodemon ./src/Server/www.js && start react-scripts start",
+    "start": "npm run mongo:start && npm run server:start && npm run client:start",
     "client:start": "react-scripts start",
     "server:start": "nodemon --config nodemon.json",
     "mongo:start": "docker-compose up -d mongo",
@@ -79,7 +79,7 @@
     "test-coverage": "react-scripts test --coverage --watchAll=false",
     "server:test:types": "tsc --project tsconfig.server.json",
     "client:test:types": "tsc",
-    "test:types": "client:test:types && server:test:types",
+    "test:types": "npm run client:test:types && npm run server:test:types",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "client:build": "react-scripts build",
     "server:build": "tsc --build tsconfig.server.json",
