@@ -1,10 +1,13 @@
 {
+    "verbose": true,
     "watch": [
-        "src/Server"
+      "src/Server/**/*",
+      "bin/*"
     ],
-    "ext": "ts,js",
+    "delay": 2500,
     "ignore": [
-        "src/Server/**/*.test.ts"
+      "src/Server/**/*.test.ts"
     ],
+    "ext": "ts,js,json",
     "exec": "ts-node --project tsconfig.server.json src/Server/www.ts"
-}
+  }

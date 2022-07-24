@@ -3,8 +3,5 @@
     "node": true,
     "browser": false,
     "jest": false
-  },
-  "rules": {
-    "@typescript-eslint/no-var-requires": "off"
   }
 }
