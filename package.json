@@ -95,7 +95,8 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test:lint && npm run server:test:types && npm run client:test:types"
     }
   },
   "lint-staged": {
