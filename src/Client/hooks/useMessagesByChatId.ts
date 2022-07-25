@@ -2,13 +2,13 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { api } from 'Client/common';
 import { MESSAGES_API_URL, QUERY_KEYS } from 'Client/constants';
-import { User, Message } from 'Client/types';
+import { Message } from 'Client/types';
 
 import { useToken } from './useToken';
 
-type Data = { messages: Message[], users:User[] }
+type Data = Message[]
 
-const initialData: Data = { messages: [], users: [] };
+const initialData: Data = [];
 
 export const useMessagesByChatId = (chatId?: string, options: UseQueryOptions<Data> = {}) => {
   const token = useToken();

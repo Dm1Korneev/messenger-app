@@ -11,7 +11,7 @@ export const useLogin = () => {
   const { saveToken } = useSessionContext();
   return useMutation<
     { token: string },
-    unknown, UseLoginPayload>(({ saveToStore, ...payload }) => api.post(`${MESSAGES_API_URL}/login`, getJsonBody(payload)), {
+    { message: string }, UseLoginPayload>(({ saveToStore, ...payload }) => api.post(`${MESSAGES_API_URL}/login`, getJsonBody(payload)), {
       onSuccess: ({ token }, { saveToStore }) => {
         saveToken({ token, saveToStore });
       },

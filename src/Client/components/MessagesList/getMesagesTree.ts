@@ -1,5 +1,5 @@
 
-import { Message, User } from 'Client/types';
+import { Message } from 'Client/types';
 
 type DateTimeNode = {
   dateTime: Date;
@@ -13,7 +13,7 @@ type AuthorNode = {
 
 type MessagesTree = AuthorNode[]
 
-export const getMesagesTree = ({ messages }: { messages: Message[], users: User[] }) => {
+export const getMesagesTree = (messages: Message[]) => {
   const messagesTree: MessagesTree = [];
   let authorNode: AuthorNode;
   let dateTimeNode: DateTimeNode;

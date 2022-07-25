@@ -12,6 +12,6 @@ export const useCurrentUser = () => {
   const token = useToken();
   return useQuery<Data>(
     [QUERY_KEYS.CURRENT_USER],
-    () => api.get<Data>(`${MESSAGES_API_URL}/current-user`, token),
+    () => api.get<Data>(`${MESSAGES_API_URL}/users/current`, token),
   );
 };

@@ -14,7 +14,7 @@ export const useRegister = () => {
   const { saveToken } = useSessionContext();
   return useMutation<
     { token: string },
-    unknown, UseRegisterPayload>(({
+    { message: string }, UseRegisterPayload>(({
       email, password, name, avatar,
     }) => api.post(`${MESSAGES_API_URL}/register`, getFormDataBody({
       email, password, name, avatar,
