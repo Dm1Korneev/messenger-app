@@ -19,7 +19,6 @@
     "noFallthroughCasesInSwitch": false,
     "moduleResolution": "node",
   },
-  "include": [
-    "**/*"
-  ]
+  "include": ["src/Server"],
+  "exclude": ["**/*spec.ts"]
 }
