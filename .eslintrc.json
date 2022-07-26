@@ -11,13 +11,21 @@
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "react", "@typescript-eslint"
+    "react",
+    "@typescript-eslint"
   ],
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["src"],
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "paths": [
+          "src"
+        ],
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
       }
     }
   },
@@ -25,8 +33,16 @@
     "no-var": "error",
     "linebreak-style": "off",
     "no-extra-parens": "error",
-    "no-multiple-empty-lines": ["error", {"max": 1}],
-    "max-len": ["error", 140],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1
+      }
+    ],
+    "max-len": [
+      "error",
+      140
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -49,38 +65,75 @@
           "index"
         ],
         "newlines-between": "always",
-        "alphabetize": {"order": "asc", "caseInsensitive": true}
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
       }
     ],
     "import/prefer-default-export": "off",
     "import/no-cycle": "error",
-    "no-underscore-dangle": ["error", { "allow": ["_id"]}],
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_id"
+        ]
+      }
+    ],
     "react/jsx-props-no-spreading": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [
+          ".jsx",
+          ".tsx"
+        ]
+      }
+    ],
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/camelcase": "off",
     "react/require-default-props": "off",
     "react/react-in-jsx-scope": "off",
-    "react/function-component-definition": ["error", { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }],
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
     "no-shadow": "off",
     "react/jsx-sort-props": "error"
   },
   "overrides": [
     {
-        "files": ["**/*.test.js", "**/*.test.jsx"],
-        "extends": ["plugin:jest/recommended"],
-        "plugins": ["jest"],
-        "rules": {
-          "global-require": "off"
-        }
+      "files": [
+        "**/*.test.js",
+        "**/*.test.jsx"
+      ],
+      "extends": [
+        "plugin:jest/recommended"
+      ],
+      "plugins": [
+        "jest"
+      ],
+      "rules": {
+        "global-require": "off"
+      }
     },
     {
-      "files": ["**/*.ts", "**/*.tsx"],
+      "files": [
+        "**/*.ts",
+        "**/*.tsx"
+      ],
       "rules": {
         "react/prop-types": "off"
       }
     }
   ],
-  "ignorePatterns": ["dist/*", "build/*"]
+  "ignorePatterns": [
+    "dist/*",
+    "build/*"
+  ]
 }
