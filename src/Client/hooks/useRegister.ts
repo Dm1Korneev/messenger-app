@@ -3,6 +3,8 @@ import { useMutation } from '@tanstack/react-query';
 import { api, getFormDataBody } from 'Client/common';
 import { MESSAGES_API_URL } from 'Client/constants';
 
+import { ServerException } from '../types';
+
 import { useSessionContext } from './useSessionContext';
 
 export type UseRegisterPayload = {
@@ -14,7 +16,7 @@ export const useRegister = () => {
   const { saveToken } = useSessionContext();
   return useMutation<
     { token: string },
-    unknown, UseRegisterPayload>(({
+    ServerException, UseRegisterPayload>(({
       email, password, name, avatar,
     }) => api.post(`${MESSAGES_API_URL}/register`, getFormDataBody({
       email, password, name, avatar,

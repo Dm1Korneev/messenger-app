@@ -3,6 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api, getFormDataBody } from 'Client/common';
 import { MESSAGES_API_URL, QUERY_KEYS } from 'Client/constants';
 
+import { ServerException } from '../types';
+
 import { useToken } from './useToken';
 
 export type UseUpdateChatPayload = {
@@ -15,7 +17,7 @@ export const useUpdateChat = () => {
   const token = useToken();
   const queryClient = useQueryClient();
 
-  return useMutation<unknown, unknown, {chatId: string, modifyData: UseUpdateChatPayload}>(
+  return useMutation<unknown, ServerException, {chatId: string, modifyData: UseUpdateChatPayload}>(
     ({
       chatId,
       modifyData,

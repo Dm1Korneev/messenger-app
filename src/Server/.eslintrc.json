@@ -1,7 +1,14 @@
 {
-  "env": { 
+  "env": {
     "node": true,
-    "browser": false,
-    "jest": false
+    "jest": true
+  },
+  "parserOptions": {
+    "project": "tsconfig.server.json",
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-useless-constructor": "off",
+    "class-methods-use-this": "off"
   }
 }

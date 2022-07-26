@@ -20,3 +20,7 @@ export type Message = {
     text: string;
     _id: string;
 }
+
+export type ServerException = {
+    message: string;
+}

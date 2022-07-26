@@ -142,10 +142,10 @@ export const SignIn = () => {
                 {({ submitForm }) => (
                   <Form>
                     {loginError && variant === DialogTabs.SIGN_IN ? (
-                      <FormHelperText error>{String(loginError)}</FormHelperText>
+                      <FormHelperText error>{loginError.message}</FormHelperText>
                     ) : null}
                     {registerError && variant === DialogTabs.REGISTER ? (
-                      <FormHelperText error>{String(registerError)}</FormHelperText>
+                      <FormHelperText error>{registerError.message}</FormHelperText>
                     ) : null}
                     {variant === DialogTabs.REGISTER && (
                       <>
