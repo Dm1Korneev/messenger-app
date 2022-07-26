@@ -1,5 +1,8 @@
+import { join } from 'path';
+
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 import {
   ChatsModule, AuthModule, MessagesModule, DBModule,
@@ -7,6 +10,10 @@ import {
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'build'),
+      exclude: ['/api*'],
+    }),
     ConfigModule.forRoot(),
     DBModule,
     AuthModule,
@@ -16,4 +23,5 @@ import {
   controllers: [],
   providers: [],
 })
+
 export class AppModule {}
