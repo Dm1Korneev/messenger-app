@@ -92,7 +92,7 @@ export const UserModifyDialog = ({ onClose }: UserModifyDialogProps) => {
           <Form>
             <DialogTitle>Modify user</DialogTitle>
             <DialogContent>
-              {error ? <FormHelperText error>{String(error)}</FormHelperText> : null}
+              {error ? <FormHelperText error>{error.message}</FormHelperText> : null}
               <AvatarSelector
                 avatar={currentUser.avatar}
                 avatarFileInput={avatarFileInput}
