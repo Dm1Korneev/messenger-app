@@ -1,7 +1,5 @@
-export class CreateChatDto {
+export type CreateChatDto = {
   title: string;
-
   users: string[];
-
   avatar?: string;
 }

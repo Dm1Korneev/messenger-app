@@ -19,6 +19,6 @@ export class User {
     salt: string;
 }
 
-export type UserDocument = User & Document;
+export type UserDocument = User & Document<string>;
 
 export const UserSchema = SchemaFactory.createForClass(User);

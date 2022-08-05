@@ -19,7 +19,7 @@ import {
 import {
   useChatById, useUsers, useUpdateChat, UseUpdateChatPayload, useCreateChat,
 } from 'Client/hooks';
-import { User } from 'Client/types';
+import { UserDto } from 'Types';
 
 import { AvatarSelector } from '../AvatarSelector';
 import { UsersAvatar } from '../UsersAvatar';
@@ -48,7 +48,7 @@ export const ChatDialog = ({ chatId, onClose, isModify }: ChatDialogProps) => {
 
   const [searchText, setSearchText] = useState<string>('');
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
-  const [searchResult, setSearchResult] = useState<User[]>([]);
+  const [searchResult, setSearchResult] = useState<UserDto[]>([]);
   const [avatarIsModified, setAvatarIsModified] = useState<boolean>(false);
 
   const avatarFileInput = useRef<HTMLInputElement>(null);

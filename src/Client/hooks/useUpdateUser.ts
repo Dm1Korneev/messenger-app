@@ -2,17 +2,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api, getFormDataBody } from 'Client/common';
 import { MESSAGES_API_URL, QUERY_KEYS } from 'Client/constants';
+import { UpdateUserDto } from 'Types';
 
 import { ServerException } from '../types';
 
 import { useToken } from './useToken';
 
-export type UseUpdateUserPayload = {
-    name: string;
-    email: string;
-    password?: string;
-    avatar?: Blob;
-  }
+export type UseUpdateUserPayload = Omit<UpdateUserDto, 'avatar'> & {
+  avatar?: Blob;
+}
 
 export const useUpdateUser = () => {
   const token = useToken();

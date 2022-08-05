@@ -2,10 +2,11 @@ import {
   Controller, Get, Post, Body, Param,
 } from '@nestjs/common';
 
+import { CreateMessageDto } from 'Types';
+
 import { TokenPayload } from '../auth';
 import { AuthUser } from '../auth/auth-user.decorator';
 
-import { CreateMessageDto } from './dto';
 import { MessageDocument } from './message.schema';
 import { MessagesService } from './messages.service';
 

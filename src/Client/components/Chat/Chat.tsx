@@ -4,7 +4,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
-import { Chat as ChatType } from 'Client/types';
+import { ChatDto } from 'Types';
 
 import { UsersAvatar } from '../UsersAvatar';
 
@@ -12,7 +12,7 @@ type Props = {
   selected: boolean;
   chatOnClick: () => void;
   chatModifyOnClick: (id: string) => void;
-  chat: ChatType;
+  chat: ChatDto;
 }
 
 export const Chat = ({
@@ -37,9 +37,7 @@ export const Chat = ({
       </ListItemAvatar>
       <ListItemText primary={title} />
       <IconButton
-        onClick={() => {
-          chatModifyOnClick(_id);
-        }}
+        onClick={() => chatModifyOnClick(_id)}
         size="large"
         sx={{ visibility: 'hidden', color: 'white' }}
       >

@@ -9,10 +9,11 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
+import { UpdateUserDto, CreateUserDto } from 'Types';
+
 import { AuthService } from '../auth';
 import { FilesService } from '../files';
 
-import { UpdateUserDto, CreateUserDto } from './dto';
 import { User, UserDocument } from './user.schema';
 
 @Injectable()
