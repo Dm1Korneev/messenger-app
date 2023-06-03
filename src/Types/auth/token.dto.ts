@@ -1,3 +1,3 @@
-export type TokenDto = {
-  token: string;
+export class TokenDto {
+  token!: string;
 }

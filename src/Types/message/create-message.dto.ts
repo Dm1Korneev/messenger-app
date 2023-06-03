@@ -1,3 +1,3 @@
-export type CreateMessageDto = {
-  text: string;
+export class CreateMessageDto {
+  text!: string;
 }
