@@ -15,7 +15,7 @@ import { AuthUser } from '../auth/auth-user.decorator';
 
 import { ChatDocument } from './chat.schema';
 import { ChatsService } from './chats.service';
-import { CreateChatDto, UpdateChatDto } from './dto';
+import { CreateChatDto, UpdateChatDto, ChatDto } from './dto';
 
 @Controller('chats')
 export class ChatsController {
@@ -24,12 +24,12 @@ export class ChatsController {
   @Get()
   findAll(
     @AuthUser() user: TokenPayload,
-  ): Promise<ChatDocument[]> {
+  ): Promise<ChatDto[]> {
     return this.chatsService.findAll(user.id);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<ChatDocument> {
+  findOne(@Param('id') id: string): Promise<ChatDto> {
     return this.chatsService.findOne(id);
   }
 
@@ -39,7 +39,7 @@ export class ChatsController {
     @Body() createChatDto: CreateChatDto,
     @UploadedFile() avatarFile: Express.Multer.File,
     @AuthUser() user: TokenPayload,
-  ): Promise<ChatDocument> {
+  ): Promise<ChatDto> {
     return this.chatsService.create(createChatDto, user.id, avatarFile);
   }
 
@@ -49,7 +49,7 @@ export class ChatsController {
     @Param('id') id: string,
     @Body() updateChatDto: UpdateChatDto,
     @UploadedFile() avatarFile: Express.Multer.File,
-  ): Promise<ChatDocument> {
+  ): Promise<ChatDto> {
     return this.chatsService.update(id, updateChatDto, avatarFile);
   }
 }

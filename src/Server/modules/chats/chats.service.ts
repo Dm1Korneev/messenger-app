@@ -9,7 +9,7 @@ import { Model } from 'mongoose';
 import { FilesService } from '../files';
 
 import { Chat, ChatDocument } from './chat.schema';
-import { CreateChatDto, UpdateChatDto } from './dto';
+import { CreateChatDto, UpdateChatDto, ChatDto } from './dto';
 
 @Injectable()
 export class ChatsService {
@@ -18,25 +18,25 @@ export class ChatsService {
     private filesService: FilesService,
   ) {}
 
-  async findAll(userId: string): Promise<ChatDocument[]> {
+  async findAll(userId: string): Promise<ChatDto[]> {
     return this.ChatModel.find({ users: userId });
   }
 
-  async findOne(sid: string): Promise<ChatDocument> {
+  async findOne(sid: string): Promise<ChatDto> {
     const chat = await this.ChatModel.findById(sid);
 
     if (!chat) {
       throw new NotFoundException('Chat not found');
     }
 
-    return chat;
+    return chat.toObject();
   }
 
   async create(
     createChatDto: CreateChatDto,
     admin: string,
     avatarFile: Express.Multer.File = null,
-  ): Promise<ChatDocument> {
+  ): Promise<ChatDto> {
     const chat = new this.ChatModel({ ...createChatDto, admin });
     await this.setAvatar(chat, avatarFile, createChatDto.avatar);
 
@@ -45,7 +45,7 @@ export class ChatsService {
     }
 
     try {
-      return await chat.save();
+      return (await chat.save()).toObject();
     } catch (e) {
       throw new InternalServerErrorException('Failed to save chat');
     }
@@ -55,7 +55,7 @@ export class ChatsService {
     sid: string,
     updateChatDto: UpdateChatDto,
     avatarFile?: Express.Multer.File,
-  ): Promise<ChatDocument> {
+  ): Promise<ChatDto> {
     const chatToModify = await this.ChatModel.findByIdAndUpdate(sid, {
       title: updateChatDto.title,
       users: updateChatDto.users,
@@ -68,7 +68,7 @@ export class ChatsService {
     const chat = await this.setAvatar(chatToModify, avatarFile, updateChatDto.avatar);
 
     try {
-      return await chat.save();
+      return (await chat.save()).toObject();
     } catch (e) {
       throw new InternalServerErrorException('Failed to save chat');
     }
