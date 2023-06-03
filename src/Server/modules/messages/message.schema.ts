@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
+
+import { DbDocument } from 'Types';
 
 import { Chat } from '../chats';
 import { User } from '../users';
@@ -20,6 +21,6 @@ export class Message {
     dateTime: Date;
 }
 
-export type MessageDocument = Message & Document<string>;
+export type MessageDocument = DbDocument<Message>;
 
 export const MessageSchema = SchemaFactory.createForClass(Message);

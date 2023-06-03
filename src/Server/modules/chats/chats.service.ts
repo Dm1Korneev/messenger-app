@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -14,13 +15,15 @@ import { Chat, ChatDocument } from './chat.schema';
 
 @Injectable()
 export class ChatsService {
+  private readonly logger = new Logger(ChatsService.name);
+
   constructor(
     @InjectModel(Chat.name) private ChatModel: Model<ChatDocument>,
     private filesService: FilesService,
   ) {}
 
   async findAll(userId: string): Promise<ChatDto[]> {
-    return this.ChatModel.find({ users: userId }, 'admin avatar title users _id');
+    return this.ChatModel.find({ users: userId });
   }
 
   async findOne(sid: string): Promise<ChatDto> {
@@ -30,7 +33,8 @@ export class ChatsService {
       throw new NotFoundException('Chat not found');
     }
 
-    return chat.toObject();
+    const result = chat.toObject<ChatDto>();
+    return result;
   }
 
   async create(
@@ -46,7 +50,9 @@ export class ChatsService {
     }
 
     try {
-      return (await chat.save()).toObject();
+      const savedChat = await chat.save();
+      const result = savedChat.toObject();
+      return result;
     } catch (e) {
       throw new InternalServerErrorException('Failed to save chat');
     }

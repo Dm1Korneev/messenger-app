@@ -22,4 +22,6 @@ export class User {
 
 export type UserDocument = DbDocument<User>;
 
+export type UserDocumentExternal = DbDocument<Pick<User, 'name' | 'avatar' | 'email'>>;
+
 export const UserSchema = SchemaFactory.createForClass(User);

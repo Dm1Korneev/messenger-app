@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
+
+import { DbDocument } from 'Types';
 
 import { User } from '../users';
 
@@ -19,6 +20,6 @@ export class Chat {
     avatar: string;
 }
 
-export type ChatDocument = Chat & Document<string>;
+export type ChatDocument = DbDocument<Chat>;
 
 export const ChatSchema = SchemaFactory.createForClass(Chat);

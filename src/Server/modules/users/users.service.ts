@@ -9,12 +9,12 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { UpdateUserDto, CreateUserDto, UserDto } from 'Types';
+import { UpdateUserDto, CreateUserDto } from 'Types';
 
 import { AuthService } from '../auth';
 import { FilesService } from '../files';
 
-import { User, UserDocument } from './user.schema';
+import { User, UserDocument, UserDocumentExternal } from './user.schema';
 
 @Injectable()
 export class UsersService {
@@ -24,12 +24,14 @@ export class UsersService {
     @Inject(forwardRef(() => AuthService)) private authService: AuthService,
   ) {}
 
-  async findAll(): Promise<UserDto[]> {
-    return this.UserModel.find<UserDto>({}, 'name avatar email _id');
+  async findAll(): Promise<UserDocumentExternal[]> {
+    return this.UserModel.find<UserDocumentExternal>({}, 'name avatar email _id');
   }
 
   async findOne(sid: string) {
-    return (await this.findUserByIdExternal(sid)).toObject();
+    const user = await this.findUserByIdExternal(sid);
+    const result = user.toObject();
+    return result;
   }
 
   async create(
@@ -43,14 +45,16 @@ export class UsersService {
       throw new BadRequestException('Username is already use');
     }
 
-    let user = await this.setAvatar(new this.UserModel({
+    let user = new this.UserModel({
       email: createUserDto.email,
       name: createUserDto.name,
-    }), avatarFile, createUserDto.avatar);
+    });
+    user = await this.setAvatar(user, avatarFile, createUserDto.avatar);
     user = this.setAuthFields(user, createUserDto.password);
 
     try {
-      return await user.save();
+      const result = await user.save();
+      return result;
     } catch (e) {
       throw new InternalServerErrorException('Failed to save user');
     }
@@ -77,7 +81,8 @@ export class UsersService {
     this.setAuthFields(user, updateUserDto.password);
 
     try {
-      return (await user.save()).toObject();
+      const result = await user.save();
+      return result;
     } catch (e) {
       throw new InternalServerErrorException('Failed to save user');
     }
@@ -108,7 +113,7 @@ export class UsersService {
   }
 
   private async findUserByIdExternal(sid: string) {
-    const user = await this.UserModel.findById(sid, 'name avatar email _id');
+    const user = await this.UserModel.findById<UserDocumentExternal>(sid, 'name avatar email _id');
     if (!user) {
       throw new NotFoundException('User not found');
     }
