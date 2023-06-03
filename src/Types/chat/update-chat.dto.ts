@@ -1,3 +1,3 @@
 import { CreateChatDto } from './create-chat.dto';
 
-export class UpdateChatDto extends CreateChatDto {}
+export type UpdateChatDto = CreateChatDto

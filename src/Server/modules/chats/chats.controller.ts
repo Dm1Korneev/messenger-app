@@ -10,12 +10,12 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 
+import { CreateChatDto, UpdateChatDto, ChatDto } from 'Types';
+
 import { TokenPayload } from '../auth';
 import { AuthUser } from '../auth/auth-user.decorator';
 
-import { ChatDocument } from './chat.schema';
 import { ChatsService } from './chats.service';
-import { CreateChatDto, UpdateChatDto, ChatDto } from './dto';
 
 @Controller('chats')
 export class ChatsController {

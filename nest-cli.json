@@ -1,7 +1,8 @@
 {
     "$schema": "https://json.schemastore.org/nest-cli",
     "collection": "@nestjs/schematics",
-    "sourceRoot": "src/Server",
+    "sourceRoot": "src",
+    "entryFile": "Server/main",
     "compilerOptions": {
         "tsConfigPath": "tsconfig.server.json",
         "plugins": ["@nestjs/swagger"]

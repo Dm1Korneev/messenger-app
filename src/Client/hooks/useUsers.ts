@@ -2,13 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 
 import { api } from 'Client/common';
 import { MESSAGES_API_URL, QUERY_KEYS } from 'Client/constants';
-import { User } from 'Client/types';
-
-import { ServerException } from '../types';
+import { ServerException } from 'Client/types';
+import { UserDto } from 'Types';
 
 import { useToken } from './useToken';
 
-type Data = User[]
+type Data = UserDto[]
 
 const initialData: Data = [];
 
