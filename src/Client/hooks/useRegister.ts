@@ -2,14 +2,15 @@ import { useMutation } from '@tanstack/react-query';
 
 import { api, getFormDataBody } from 'Client/common';
 import { MESSAGES_API_URL } from 'Client/constants';
+import { CreateUserDto } from 'Types';
 
 import { ServerException } from '../types';
 
 import { useSessionContext } from './useSessionContext';
 
-export type UseRegisterPayload = {
-  email: string,
-  password: string, name: string, avatar?: Blob, saveToStore: boolean
+export type UseRegisterPayload = Omit<CreateUserDto, 'avatar'> & {
+  avatar?: Blob;
+  saveToStore: boolean;
 }
 
 export const useRegister = () => {

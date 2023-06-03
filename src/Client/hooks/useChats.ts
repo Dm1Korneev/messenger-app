@@ -2,13 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 
 import { api } from 'Client/common';
 import { MESSAGES_API_URL, QUERY_KEYS } from 'Client/constants';
-import { Chat } from 'Client/types';
+import { ChatDto } from 'Types';
 
-import { ServerException } from '../types';
+import type { ServerException } from '../types';
 
 import { useToken } from './useToken';
 
-type Data = Chat[]
+type Data = ChatDto[]
 
 const initialData: Data = [];
 

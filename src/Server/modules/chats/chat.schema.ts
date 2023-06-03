@@ -19,6 +19,6 @@ export class Chat {
     avatar: string;
 }
 
-export type ChatDocument = Chat & Document;
+export type ChatDocument = Chat & Document<string>;
 
 export const ChatSchema = SchemaFactory.createForClass(Chat);

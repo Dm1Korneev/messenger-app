@@ -9,10 +9,11 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 
+import { UpdateUserDto } from 'Types';
+
 import { TokenPayload } from '../auth';
 import { AuthUser } from '../auth/auth-user.decorator';
 
-import { UpdateUserDto } from './dto';
 import { UserDocument } from './user.schema';
 import { UsersService } from './users.service';
 

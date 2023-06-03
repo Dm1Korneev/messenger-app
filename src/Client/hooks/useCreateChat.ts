@@ -2,16 +2,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api, getFormDataBody } from 'Client/common';
 import { MESSAGES_API_URL, QUERY_KEYS } from 'Client/constants';
+import { CreateChatDto } from 'Types';
 
 import { ServerException } from '../types';
 
 import { useToken } from './useToken';
 
-export type UseCreateChatPayload = {
-    title: string;
-    users: string[];
-    avatar?: Blob;
-  }
+export type UseCreateChatPayload = Omit<CreateChatDto, 'avatar'> & {
+  avatar?: Blob;
+}
 
 export const useCreateChat = () => {
   const token = useToken();
