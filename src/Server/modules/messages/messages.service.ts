@@ -6,9 +6,10 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
+import { CreateMessageDto, MessageDto } from 'Types';
+
 import { Chat, ChatDocument } from '../chats';
 
-import { CreateMessageDto } from './dto';
 import { Message, MessageDocument } from './message.schema';
 
 @Injectable()
@@ -18,7 +19,7 @@ export class MessagesService {
     @InjectModel(Chat.name) private ChatModel: Model<ChatDocument>,
   ) {}
 
-  async findAll(chatId: string, userId: string): Promise<MessageDocument[]> {
+  async findAll(chatId: string, userId: string): Promise<MessageDto[]> {
     const chat = await this.ChatModel.findOne({ _id: chatId, users: userId });
 
     if (!chat) {
@@ -32,7 +33,7 @@ export class MessagesService {
     chatId: string,
     userId: string,
     createMessageDto: CreateMessageDto,
-  ): Promise<MessageDocument> {
+  ): Promise<MessageDto> {
     const chat = await this.ChatModel.findOne({ _id: chatId, users: userId });
 
     if (!chat) {
@@ -46,7 +47,7 @@ export class MessagesService {
     });
 
     try {
-      return await createdMessage.save();
+      return (await createdMessage.save()).toObject();
     } catch (e) {
       throw new InternalServerErrorException('Failed to save message');
     }

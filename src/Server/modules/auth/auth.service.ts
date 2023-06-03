@@ -3,10 +3,13 @@ import { pbkdf2Sync, randomBytes } from 'crypto';
 import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { UsersService, UserDocument } from '../users';
+import {
+  LoginDto, RegisterDto, TokenDto,
+} from 'Types';
+
+import { UserDocument, UsersService } from '../users';
 
 import { TokenPayload } from './constants';
-import { LoginDto, RegisterDto, TokenDto } from './dto';
 
 @Injectable()
 export class AuthService {

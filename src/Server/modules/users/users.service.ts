@@ -9,11 +9,12 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
+import { UpdateUserDto, CreateUserDto } from 'Types';
+
 import { AuthService } from '../auth';
 import { FilesService } from '../files';
 
-import { UpdateUserDto, CreateUserDto } from './dto';
-import { User, UserDocument } from './user.schema';
+import { User, UserDocument, UserDocumentExternal } from './user.schema';
 
 @Injectable()
 export class UsersService {
@@ -23,16 +24,14 @@ export class UsersService {
     @Inject(forwardRef(() => AuthService)) private authService: AuthService,
   ) {}
 
-  async findAll(): Promise<UserDocument[]> {
-    return this.UserModel.find();
+  async findAll(): Promise<UserDocumentExternal[]> {
+    return this.UserModel.find<UserDocumentExternal>({}, 'name avatar email _id');
   }
 
-  async findOne(sid: string): Promise<UserDocument> {
-    const user = await this.UserModel.findById(sid);
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-    return user;
+  async findOne(sid: string) {
+    const user = await this.findUserByIdExternal(sid);
+    const result = user.toObject();
+    return result;
   }
 
   async create(
@@ -46,14 +45,16 @@ export class UsersService {
       throw new BadRequestException('Username is already use');
     }
 
-    let user = await this.setAvatar(new this.UserModel({
+    let user = new this.UserModel({
       email: createUserDto.email,
       name: createUserDto.name,
-    }), avatarFile, createUserDto.avatar);
+    });
+    user = await this.setAvatar(user, avatarFile, createUserDto.avatar);
     user = this.setAuthFields(user, createUserDto.password);
 
     try {
-      return await user.save();
+      const result = await user.save();
+      return result;
     } catch (e) {
       throw new InternalServerErrorException('Failed to save user');
     }
@@ -63,8 +64,8 @@ export class UsersService {
     sid: string,
     updateUserDto: UpdateUserDto,
     avatarFile?: Express.Multer.File,
-  ): Promise<UserDocument> {
-    const user = await this.findOne(sid);
+  ) {
+    const user = await this.findUserById(sid);
 
     if (!await this.isEmailAvailable(updateUserDto.email, user._id)) {
       throw new BadRequestException('Email is already use');
@@ -80,13 +81,14 @@ export class UsersService {
     this.setAuthFields(user, updateUserDto.password);
 
     try {
-      return await user.save();
+      const result = await user.save();
+      return result;
     } catch (e) {
       throw new InternalServerErrorException('Failed to save user');
     }
   }
 
-  async findOneByEmail(email: string): Promise<UserDocument> {
+  async findOneByEmail(email: string) {
     const user = await this.UserModel.findOne({ email });
 
     if (!user) {
@@ -106,6 +108,22 @@ export class UsersService {
       user.avatar = await this.filesService.upload(avatarFile);
     } else if (avatar === 'undefined') {
       user.avatar = '';
+    }
+    return user;
+  }
+
+  private async findUserByIdExternal(sid: string) {
+    const user = await this.UserModel.findById<UserDocumentExternal>(sid, 'name avatar email _id');
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
+
+  private async findUserById(sid: string) {
+    const user = await this.UserModel.findById(sid);
+    if (!user) {
+      throw new NotFoundException('User not found');
     }
     return user;
   }
