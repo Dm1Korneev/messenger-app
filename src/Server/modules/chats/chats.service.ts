@@ -20,7 +20,7 @@ export class ChatsService {
   ) {}
 
   async findAll(userId: string): Promise<ChatDto[]> {
-    return this.ChatModel.find({ users: userId });
+    return this.ChatModel.find({ users: userId }, 'admin avatar title users _id');
   }
 
   async findOne(sid: string): Promise<ChatDto> {

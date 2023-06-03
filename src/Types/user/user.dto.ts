@@ -1,3 +1,5 @@
+import { ID } from '../base-types';
+
 export class UserDto {
   avatar!: string;
 
@@ -5,5 +7,5 @@ export class UserDto {
 
   name!: string;
 
-  _id!: string;
+  _id!: ID;
 }

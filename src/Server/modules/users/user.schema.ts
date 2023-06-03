@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+
+import { DbDocument } from 'Types';
 
 @Schema()
 export class User {
@@ -19,6 +20,6 @@ export class User {
     salt: string;
 }
 
-export type UserDocument = User & Document;
+export type UserDocument = DbDocument<User>;
 
 export const UserSchema = SchemaFactory.createForClass(User);

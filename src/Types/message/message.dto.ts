@@ -1,3 +1,4 @@
+import { ID } from '../base-types';
 import { ChatDto } from '../chat';
 import { UserDto } from '../user';
 
@@ -10,5 +11,5 @@ export class MessageDto {
 
   text!: string;
 
-  _id!: string;
+  _id!: ID;
 }

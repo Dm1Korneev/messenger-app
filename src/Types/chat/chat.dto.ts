@@ -1,3 +1,4 @@
+import { ID } from '../base-types';
 import { UserDto } from '../user';
 
 export class ChatDto {
@@ -9,5 +10,5 @@ export class ChatDto {
 
   users!: UserDto['_id'][];
 
-  _id!: string;
+  _id!: ID;
 }

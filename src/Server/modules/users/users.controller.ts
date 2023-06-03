@@ -26,7 +26,7 @@ export class UsersController {
   }
 
   @Get('current')
-  current(@AuthUser() user: TokenPayload): Promise<UserDto> {
+  async current(@AuthUser() user: TokenPayload): Promise<UserDto> {
     return this.usersService.findOne(user.id);
   }
 

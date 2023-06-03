@@ -25,11 +25,11 @@ export class UsersService {
   ) {}
 
   async findAll(): Promise<UserDto[]> {
-    return this.UserModel.find();
+    return this.UserModel.find<UserDto>({}, 'name avatar email _id');
   }
 
-  async findOne(sid: string): Promise<UserDto> {
-    return (await this.findUserById(sid)).toObject();
+  async findOne(sid: string) {
+    return (await this.findUserByIdExternal(sid)).toObject();
   }
 
   async create(
@@ -60,7 +60,7 @@ export class UsersService {
     sid: string,
     updateUserDto: UpdateUserDto,
     avatarFile?: Express.Multer.File,
-  ): Promise<UserDto> {
+  ) {
     const user = await this.findUserById(sid);
 
     if (!await this.isEmailAvailable(updateUserDto.email, user._id)) {
@@ -83,7 +83,7 @@ export class UsersService {
     }
   }
 
-  async findOneByEmail(email: string): Promise<UserDocument> {
+  async findOneByEmail(email: string) {
     const user = await this.UserModel.findOne({ email });
 
     if (!user) {
@@ -104,10 +104,18 @@ export class UsersService {
     } else if (avatar === 'undefined') {
       user.avatar = '';
     }
-    return user.toObject();
+    return user;
   }
 
-  private async findUserById(sid: string): Promise<UserDocument> {
+  private async findUserByIdExternal(sid: string) {
+    const user = await this.UserModel.findById(sid, 'name avatar email _id');
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
+
+  private async findUserById(sid: string) {
     const user = await this.UserModel.findById(sid);
     if (!user) {
       throw new NotFoundException('User not found');

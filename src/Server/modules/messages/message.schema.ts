@@ -20,6 +20,6 @@ export class Message {
     dateTime: Date;
 }
 
-export type MessageDocument = Message & Document;
+export type MessageDocument = Message & Document<string>;
 
 export const MessageSchema = SchemaFactory.createForClass(Message);
